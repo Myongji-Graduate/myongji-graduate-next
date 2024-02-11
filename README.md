@@ -1,5 +1,5 @@
 <div align="center">
-<image src = "https://github.com/Myongji-Graduate/MyongjiGraduate-BE/assets/64758861/8920532d-e089-4475-8c31-11b5a789692c"/>
+<img width="413" alt="스크린샷 2024-02-11 오전 10 55 51" src="https://github.com/Myongji-Graduate/MyongjiGraduate-Next/assets/75975946/1f96dc0f-aa21-4503-ad77-4d2e2798f27f">
 
 ### [졸부서비스 바로가기](https://mju-graduate.com)
 
@@ -7,12 +7,10 @@
 
 ## 💻 프로젝트 소개
 
-```
-졸업을 부탁해는 학우들이 자신의 졸업요건은 직접 계산해야하지만 수강과목, 졸업요건과 같은 정보들이 파편화되고 방대해 어려움을 겪는다는 문제점에서 시작된 프로젝트입니다.
-학교 홈페이지에서 제공하는 성적확인원 PDF 업로드하면 졸업 요건 충족도 및 미이수 과목 정보를 확인할 수 있고, 커스텀 기능을 통해 미리 자신의 졸업 요건 충족도를 예측할 수 있습니다.
-```
+- 졸업을 부탁해는 학우들이 자신의 졸업요건은 직접 계산해야하지만 수강과목, 졸업요건과 같은 정보들이 파편화되고 방대해 어려움을 겪는다는 문제점에서 시작된 프로젝트입니다.
+- 학교 홈페이지에서 제공하는 성적확인원 PDF 업로드를 통해 졸업 요건 충족도 및 미이수 과목 정보를 확인할 수 있고, 커스텀 기능을 통해 미리 자신의 졸업 요건 충족도를 예측할 수 있습니다.
 
-### 조회수 & 사용자 통계
+### 🎃 조회수 & 사용자 통계
 
 <img width="80%" height="80%" src="https://github.com/Myongji-Graduate/MyongjiGraduate-BE/assets/64758861/86857528-df46-4055-b7f8-bf5cdf0865a4">
 
