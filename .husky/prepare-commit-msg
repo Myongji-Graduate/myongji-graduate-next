@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+commit_msg_file=$1
+commit_msg=$(cat "$1")
+second_line=$(echo "$commit_msg" | sed -n '2p')
+
+commit_msg_title_regex='(feat|fix|refactor|chore|test|docs|style|rename): .{1,100}?$'
+
+
+# 제목
+if ! grep -qE "$commit_msg_title_regex" "$commit_msg_file"; then
+  echo "COMMIT REJECTED: { [api|web|infra] feat|fix|refactor|chore|test|docs|style|rename: commit 제목 } 제시된 형식에 맞게 작성해주세요."
+  exit 1
+fi
+
+# 2번째 줄
+if ! [ -z "$second_line" ]; then
+  echo "COMMIT REJECTED: 제목 아래 개행문자를 추가해주세요."
+  exit 1
+fi
