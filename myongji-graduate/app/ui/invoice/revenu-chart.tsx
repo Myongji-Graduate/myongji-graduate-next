@@ -5,7 +5,6 @@ import { fetchRevenue } from '@/app/business/invoice/revenu.query';
 export default async function RevenueChart() {
   const revenue = await fetchRevenue(); // Fetch data inside the component
   const chartHeight = 350;
-  // NOTE: comment in this code when you get to this point in the course
 
   const { yAxisLabels, topLabel } = generateYAxis(revenue);
 

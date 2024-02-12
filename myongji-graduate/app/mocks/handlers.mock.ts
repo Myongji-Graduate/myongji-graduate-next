@@ -1,5 +1,4 @@
 import { HttpResponse, http, delay } from 'msw';
-import { API_PATH } from '../business/api-path';
 import { revenue } from './data.mock';
 
 export const handlers = [
