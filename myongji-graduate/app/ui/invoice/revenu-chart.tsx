@@ -14,9 +14,7 @@ export default async function RevenueChart() {
 
   return (
     <div className="w-full md:col-span-4">
-      <h2 className={" mb-4 text-xl md:text-2xl"}>
-        Recent Revenue
-      </h2>
+      <h2 className={' mb-4 text-xl md:text-2xl'}>Recent Revenue</h2>
       {/* NOTE: comment in this code when you get to this point in the course */}
 
       <div className="rounded-xl bg-gray-50 p-4">
@@ -30,20 +28,22 @@ export default async function RevenueChart() {
             ))}
           </div>
 
-          {revenue.map((month) => (
-            <div key={month.month} className="flex flex-col items-center gap-2">
-              <div
-                className="w-full rounded-md bg-blue-300"
-                style={{
-                  height: `${(chartHeight / topLabel) * month.revenue}px`,
-                }}
-              ></div>
-              <p className="-rotate-90 text-sm text-gray-400 sm:rotate-0">
-                {month.month}
-                {month.revenue}
-              </p>
-            </div>
-          )).slice(0,11)}
+          {revenue
+            .map((month) => (
+              <div key={month.month} className="flex flex-col items-center gap-2">
+                <div
+                  className="w-full rounded-md bg-blue-300"
+                  style={{
+                    height: `${(chartHeight / topLabel) * month.revenue}px`,
+                  }}
+                ></div>
+                <p className="-rotate-90 text-sm text-gray-400 sm:rotate-0">
+                  {month.month}
+                  {month.revenue}
+                </p>
+              </div>
+            ))
+            .slice(0, 11)}
         </div>
         <div className="flex items-center pb-2 pt-6">
           <CalendarIcon className="h-5 w-5 text-gray-500" />

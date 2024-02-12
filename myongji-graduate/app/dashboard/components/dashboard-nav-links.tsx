@@ -1,12 +1,7 @@
 'use client';
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-} from '@heroicons/react/24/outline';
+import { UserGroupIcon, HomeIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import NavLink from '@/app/ui/view/atom/nav-link';
 import { usePathname } from 'next/navigation';
-
 
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
@@ -24,12 +19,7 @@ export default function DashboardNavLinks() {
     <>
       {links.map((link) => {
         return (
-          <NavLink
-            key={link.name}
-            href={link.href}
-            icon={link.icon}
-            selected={pathname === link.href}
-          >
+          <NavLink key={link.name} href={link.href} icon={link.icon} selected={pathname === link.href}>
             {link.name}
           </NavLink>
         );
