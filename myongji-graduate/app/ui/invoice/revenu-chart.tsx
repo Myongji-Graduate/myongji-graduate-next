@@ -1,6 +1,6 @@
 // RSC sample code
 // domain component sample code: invoice domain의 sample 코드
-import { generateYAxis } from '@/app/util/helper';
+import { generateYAxis } from '@/app/utils/chart.util';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { fetchRevenue } from '@/app/business/invoice/revenue.query';
 
