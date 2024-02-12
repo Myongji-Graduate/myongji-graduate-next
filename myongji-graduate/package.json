@@ -13,7 +13,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prettier": "prettier --write .",
-    "prepare": "cd .. && [ -d '.husky' ] && husky install || true"
+    "prepare": "cd .. && [ -d '.husky' ] && husky install || true",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
@@ -37,9 +38,9 @@
     "concurrently": "^8.2.2",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
-    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.2.2",
     "msw": "^2.1.7",
     "postcss": "^8",
     "prettier": "3.2.5",

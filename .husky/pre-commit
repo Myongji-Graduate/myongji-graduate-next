@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged
-cd myongji-graduate && npm run test
+cd myongji-graduate
+npm run lint-staged
+npm run test

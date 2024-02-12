@@ -1,6 +1,8 @@
-import { generateYAxis } from '@/app/utils/helper';
+// RSC sample code
+// domain component sample code: invoice domain의 sample 코드
+import { generateYAxis } from '@/app/util/helper';
 import { CalendarIcon } from '@heroicons/react/24/outline';
-import { fetchRevenue } from '@/app/business/invoice/revenu.query';
+import { fetchRevenue } from '@/app/business/invoice/revenue.query';
 
 export default async function RevenueChart() {
   const revenue = await fetchRevenue(); // Fetch data inside the component

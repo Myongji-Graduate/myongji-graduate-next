@@ -1,4 +1,6 @@
-import { Revenue } from '../business/invoice/revenu.query';
+// util layer sample code
+// helper.ts 말고도 style, test 등등 여러 util 함수들을 정의
+import { Revenue } from '../business/invoice/revenue.query';
 
 export const generateYAxis = (revenue: Revenue[]) => {
   // Calculate what labels we need to display on the y-axis

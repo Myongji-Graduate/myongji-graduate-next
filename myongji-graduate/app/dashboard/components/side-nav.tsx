@@ -1,3 +1,7 @@
+// page에 종속되는 component 작성
+// 일단 아래 방식대로 나눠봤는데 생각보다 헷갈리네, 일단 써보고 불편하면 변경할 예정
+// https://nextjs.org/docs/app/building-your-application/routing/colocation#split-project-files-by-feature-or-route
+
 import Link from 'next/link';
 import DashboardNavLinks from './dashboard-nav-links';
 import { PowerIcon } from '@heroicons/react/24/outline';
