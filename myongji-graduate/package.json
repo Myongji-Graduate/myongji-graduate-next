@@ -8,7 +8,9 @@
     "dev:mock": "concurrently --kill-others \"NEXT_PUBLIC_API_MOCKING=enable next dev\" \"npx tsx watch ./app/mocks/http.ts\"",
     "start": "next start",
     "lint": "next lint",
-    "mock": "npx tsx watch ./app/mocks/http.ts"
+    "mock": "npx tsx watch ./app/mocks/http.ts",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
@@ -32,11 +34,14 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "msw": "^2.1.7",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "ts-jest": "^29.1.2",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5",
+    "undici": "^5.28.3"
   },
   "msw": {
     "workerDirectory": [
