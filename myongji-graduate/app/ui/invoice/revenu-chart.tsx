@@ -40,9 +40,10 @@ export default async function RevenueChart() {
               ></div>
               <p className="-rotate-90 text-sm text-gray-400 sm:rotate-0">
                 {month.month}
+                {month.revenue}
               </p>
             </div>
-          ))}
+          )).slice(0,11)}
         </div>
         <div className="flex items-center pb-2 pt-6">
           <CalendarIcon className="h-5 w-5 text-gray-500" />
