@@ -4,7 +4,7 @@ import {
   HomeIcon,
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
-import NavLink from '@/app/component/view/atom/nav-link';
+import NavLink from '@/app/ui/view/atom/nav-link';
 import { usePathname } from 'next/navigation';
 
 

@@ -1,4 +1,4 @@
-import { Revenue } from "../business/[domain-name]/revenu.query";
+import { Revenue } from "../business/invoice/revenu.query";
 
 export const generateYAxis = (revenue: Revenue[]) => {
   // Calculate what labels we need to display on the y-axis

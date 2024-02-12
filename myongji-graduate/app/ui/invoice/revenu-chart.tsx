@@ -1,6 +1,6 @@
 import { generateYAxis } from '@/app/utils/helper';
 import { CalendarIcon } from '@heroicons/react/24/outline';
-import { fetchRevenue } from '@/app/business/[domain-name]/revenu.query';
+import { fetchRevenue } from '@/app/business/invoice/revenu.query';
 
 export default async function RevenueChart() {
   const revenue = await fetchRevenue(); // Fetch data inside the component
