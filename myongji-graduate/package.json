@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "dev": "next dev",
+    "dev:mock": "concurrently --kill-others \"NEXT_PUBLIC_API_MOCKING=enable next dev\" \"npx tsx watch ./app/mocks/http.ts\"",
     "start": "next start",
-    "start:dev": "next dev",
     "lint": "next lint",
-    "mock": "npx tsx ./app/mocks/http.ts"
+    "mock": "npx tsx watch ./app/mocks/http.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
