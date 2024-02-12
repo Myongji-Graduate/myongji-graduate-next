@@ -5,12 +5,12 @@ commit_msg_file=$1
 commit_msg=$(cat "$1")
 second_line=$(echo "$commit_msg" | sed -n '2p')
 
-commit_msg_title_regex='(feat|fix|refactor|chore|test|docs|style|rename): .{1,100}?$'
+commit_msg_title_regex='(feat|fix|refactor|chore|test|docs|style|rename|setting|remove|build): .{1,100}?$'
 
 
 # 제목
 if ! grep -qE "$commit_msg_title_regex" "$commit_msg_file"; then
-  echo "COMMIT REJECTED: { [api|web|infra] feat|fix|refactor|chore|test|docs|style|rename: commit 제목 } 제시된 형식에 맞게 작성해주세요."
+  echo "COMMIT REJECTED: { feat|fix|refactor|chore|test|docs|style|rename|setting|remove|build : commit 제목 } 제시된 형식에 맞게 작성해주세요."
   exit 1
 fi
 
