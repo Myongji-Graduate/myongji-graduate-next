@@ -1,5 +1,5 @@
-import RevenueChart from '@/app/components/[domain-name]/revenu-chart';
-import { RevenueChartSkeleton } from '@/app/components/skeletons';
+import RevenueChart from '@/app/component/[domain-name]/revenu-chart';
+import { RevenueChartSkeleton } from '@/app/component/skeletons';
 import { Suspense } from 'react'; 
 
 

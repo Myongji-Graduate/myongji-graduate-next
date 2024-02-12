@@ -6,7 +6,6 @@ export type Revenue = {
 };
 
 export const fetchRevenue = async () => {
-    console.log('Fetching revenue data...');
     const res = await fetch(API_PATH.revenue, { cache: 'no-store' })
 
     if (!res.ok) {
