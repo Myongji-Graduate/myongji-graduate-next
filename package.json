@@ -1,5 +1,5 @@
 {
-  "name": "myongji-graduate",
+  "name": "myongji-graduate-next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,7 +13,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prettier": "prettier --write .",
-    "prepare": "cd .. & if exist .husky ( husky install ) else ( exit 0 )",
+    "prepare": "husky install || true",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
