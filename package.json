@@ -1,11 +1,11 @@
 {
-  "name": "myongji-graduate",
+  "name": "myongji-graduate-next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "dev:mock": "concurrently --kill-others \"API_MOCKING=enable next dev\" \"API_MOCKING=enable npx tsx watch ./app/mocks/http.ts\"",
+    "dev:mock": "concurrently --kill-others \"cross-env API_MOCKING=enable next dev\" \"cross-env API_MOCKING=enable npx tsx watch ./app/mocks/http.ts\"",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -13,7 +13,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prettier": "prettier --write .",
-    "prepare": "cd .. && [ -d '.husky' ] && husky install || true",
+    "prepare": "husky install || true",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
@@ -36,6 +36,7 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "husky": "^8.0.3",
