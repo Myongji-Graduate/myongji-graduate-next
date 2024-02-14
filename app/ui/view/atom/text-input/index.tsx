@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getInputColors } from './text-input.style';
 
@@ -46,6 +46,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
       >
         {Icon ? <Icon className="shrink-0 h-5 w-5 ml-2.5 text-gray-400" /> : null}
         <input
+          {...props}
           ref={ref}
           defaultValue={defaultValue}
           value={value}
