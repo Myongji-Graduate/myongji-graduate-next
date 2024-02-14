@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
-import { getInputColors } from './text-input.style';
+import { getInputColors } from '@/app/utils/style/color.util';
 
 export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: 'text' | 'password';
