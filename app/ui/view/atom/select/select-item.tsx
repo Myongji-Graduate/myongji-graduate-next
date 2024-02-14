@@ -6,7 +6,7 @@ type SelectItemProps = {
   placeholder: string;
 };
 
-export default function SelectItem({ value, placeholder }: SelectItemProps) {
+export function SelectItem({ value, placeholder }: SelectItemProps) {
   return (
     <Listbox.Option
       className={twMerge(
