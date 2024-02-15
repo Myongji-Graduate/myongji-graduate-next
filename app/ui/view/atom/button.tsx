@@ -24,10 +24,6 @@ export function Button({ children, variant = 'primary', size = 'default', href, 
         lg: 'w-[396px] h-[80px] text-[30px] font-medium leading-9',
       },
     },
-    defaultVariants: {
-      variant: 'primary',
-      size: 'md',
-    },
   });
 
   if (href)
