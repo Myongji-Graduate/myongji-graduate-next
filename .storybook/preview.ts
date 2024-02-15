@@ -9,6 +9,10 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    layout: 'fullscreen',
+    nextjs: {
+      appDirectory: true,
+    },
   },
 };
 
