@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { ButtonHTMLAttributes } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  label: string;
   variant?: 'primary' | 'secondary' | 'text' | 'delete';
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'default';
   href?: string;
 }
-export function Button({ children, variant = 'primary', size = 'default', href, ...props }: ButtonProps) {
+export function Button({ label, variant = 'primary', size = 'default', href, ...props }: ButtonProps) {
   const ButtonVariants = cva(`flex justify-center items-center px-[6px] py-[1px]`, {
     variants: {
       variant: {
@@ -29,12 +30,12 @@ export function Button({ children, variant = 'primary', size = 'default', href, 
   if (href)
     return (
       <Link className={ButtonVariants({ variant, size })} href={href}>
-        {children}
+        {label}
       </Link>
     );
   return (
     <button className={ButtonVariants({ variant, size })} {...props}>
-      {children}
+      {label}
     </button>
   );
 }
