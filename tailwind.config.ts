@@ -15,9 +15,11 @@ const config: Config = {
       },
       colors: {
         primary: '#0B4093',
+        'primary-hover': '#093376',
         dark: '#002968',
         black: '#2f2f2f',
         gray: '#9f9f9f',
+        'white-hover': '#f3f4f6',
       },
     },
   },
