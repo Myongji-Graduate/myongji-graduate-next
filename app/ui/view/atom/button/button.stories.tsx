@@ -87,3 +87,12 @@ export const DeleteButton: StoryObj<typeof Button> = {
   },
   render: (args) => <Button {...args} />,
 };
+
+export const TextButton: StoryObj<typeof Button> = {
+  args: {
+    size: 'default',
+    variant: 'text',
+    label: '회원탈퇴하기',
+  },
+  render: (args) => <Button {...args} />,
+};
