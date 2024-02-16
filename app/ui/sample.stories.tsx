@@ -25,5 +25,5 @@ export const defaultButton: StoryObj = {
       },
     },
   },
-  render: (args) => <div>sample</div>,
+  render: (args) => <div>samplsss</div>,
 };
