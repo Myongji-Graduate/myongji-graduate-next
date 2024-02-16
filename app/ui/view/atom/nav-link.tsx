@@ -21,7 +21,7 @@ export default function NavLink({ children, icon, href, selected }: React.PropsW
         },
       )}
     >
-      <LinkIcon className="w-6" />
+      <LinkIcon className="w-8" />
       <p className="hidden md:block">{children}</p>
     </Link>
   );
