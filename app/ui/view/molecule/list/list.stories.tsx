@@ -1,8 +1,9 @@
 import type { StoryObj } from '@storybook/react';
-import List from '.';
+import { List } from '.';
 
 const meta = {
   title: 'ui/view/molecule/list',
+  component: List,
   parameters: {
     invalid: '해당 과목이 유효한지 나타내는 값으로 list row component text의 color를 변경할 수 있습니다',
   },

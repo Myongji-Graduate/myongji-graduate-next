@@ -11,7 +11,7 @@ const getChildren = (children: ReactNode, type: typeof ListHeader | typeof ListR
   return childrenArray.filter((child) => isValidElement(child) && child.type === type);
 };
 
-export default function List({ children }: ListProps) {
+export function List({ children }: ListProps) {
   return (
     <div className="flex flex-col gap-2.5 w-[900px]">
       {getChildren(children, ListHeader)}
