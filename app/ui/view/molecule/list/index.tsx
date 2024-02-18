@@ -6,16 +6,16 @@ type ListProps = {
   children: ReactNode;
 };
 
-export function List({ children }: ListProps) {
-  const getChildren = (type: typeof ListHeader | typeof ListRow) => {
-    const childrenArray = Children.toArray(children);
-    return childrenArray.filter((child) => isValidElement(child) && child.type === type);
-  };
+const getChildren = (children: ReactNode, type: typeof ListHeader | typeof ListRow) => {
+  const childrenArray = Children.toArray(children);
+  return childrenArray.filter((child) => isValidElement(child) && child.type === type);
+};
 
+export function List({ children }: ListProps) {
   return (
     <div className="flex flex-col gap-2.5 w-[900px]">
-      {getChildren(ListHeader)}
-      <div className="rounded-2xl border-[1px] border-[#0000004d] ">{getChildren(ListRow)}</div>
+      {getChildren(children, ListHeader)}
+      <div className="rounded-2xl border-[1px] border-[#0000004d] ">{getChildren(children, ListRow)}</div>
     </div>
   );
 }
