@@ -25,7 +25,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
   },
 });
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { label, variant = 'primary', size = 'default', ...props },
   ref,
 ) {
@@ -35,3 +35,5 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     </button>
   );
 });
+
+export default Button;

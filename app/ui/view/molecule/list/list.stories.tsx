@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { List } from '.';
+import List from '.';
 
 const meta = {
   title: 'ui/view/molecule/list',
