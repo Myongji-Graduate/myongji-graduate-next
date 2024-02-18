@@ -13,7 +13,6 @@ const meta = {
         component: `
 - variant값으로 "primary" | "secondary" |  "text" | "delete" 중 하나를 선택할 수 있습니다.\n
 - size값으로 "lg" | "md" |  "sm" | "xs" | "default"  중 하나를 선택할 수 있습니다.\n
-- href 값으로 url을 할당할 수 있고 Link Button 일 때 필수적으로 할당해야 합니다.\n
 - label 값으로 button 태그에 존재하는 text를 의미하고 필수적으로 할당해야 합니다
 `,
       },
@@ -40,13 +39,6 @@ const meta = {
       options: ['lg', 'md', 'sm', 'xs', 'default'],
       control: {
         type: 'radio',
-      },
-    },
-    href: {
-      description: 'Link Button일 때 url을 설정합니다.',
-      table: {
-        type: { summary: 'ButtonHref' },
-        defaultValue: { summary: '' },
       },
     },
     label: {
