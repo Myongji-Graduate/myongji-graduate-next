@@ -7,20 +7,20 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'default';
 }
 
-export const ButtonVariants = cva(`flex justify-center items-center px-[6px] py-[1px]`, {
+export const ButtonVariants = cva(`flex justify-center items-center`, {
   variants: {
     variant: {
       primary: 'bg-primary rounded-[100px] text-white border-0 hover:bg-primary-hover',
       secondary: 'bg-white rounded-[100px] border-solid border-[1px] border-gray hover:bg-white-hover',
       text: 'font-medium text-slate-400 text-sm hover:text-slate-600',
-      delete: 'py-[7px] px-[14px] bg-[#35353559] rounded-[7px] text-white leading-5 font-medium text-[18px]',
+      delete: 'py-2 px-3.5 bg-[#35353559] rounded-[7px] text-white leading-5 font-medium text-[18px]',
     },
     size: {
       default: '',
-      xs: 'w-[116px] h-[47px] text-lg font-medium leading-5',
-      sm: 'w-[144px] h-10 text-sm font-medium leading-3',
-      md: 'w-[198px] h-12 text-lg font-medium leading-3',
-      lg: 'w-[396px] h-20 text-3xl font-medium leading-9',
+      xs: 'px-5 py-3 text-lg font-medium leading-5',
+      sm: 'px-12 py-3.5 text-sm font-medium leading-3',
+      md: 'px-6 py-4 text-lg font-medium leading-3',
+      lg: 'px-32 py-6 text-3xl font-medium leading-9',
     },
   },
 });
