@@ -1,3 +1,5 @@
+// optimization: https://storybook.js.org/blog/optimize-storybook-7-6/
+
 import type { StorybookConfig } from '@storybook/nextjs';
 import path from 'path';
 
@@ -11,7 +13,7 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: '@storybook/nextjs',
-    options: {},
+    options: { builder: { useSWC: true } },
   },
   webpackFinal: async (config) => {
     if (config.resolve) {
@@ -21,6 +23,9 @@ const config: StorybookConfig = {
       };
     }
     return config;
+  },
+  typescript: {
+    reactDocgen: 'react-docgen', // or false if you don't need docgen at all
   },
   docs: {
     autodocs: 'tag',
