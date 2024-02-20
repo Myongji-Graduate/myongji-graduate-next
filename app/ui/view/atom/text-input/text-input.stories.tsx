@@ -17,14 +17,14 @@ type Story = StoryObj<typeof meta>;
 // fix: border 색깔 왜이럼?
 export const Default: Story = {
   args: {
-    defaultValue: '',
+    defaultValue: 'default',
   },
 };
 
 // fix: 색 안변함
 export const Disabled: Story = {
   args: {
-    defaultValue: '',
+    defaultValue: 'Disabled',
     disabled: true,
   },
 };
@@ -39,6 +39,14 @@ export const Password: Story = {
 export const WithIcon: Story = {
   args: {
     defaultValue: '',
+    icon: MagnifyingGlassIcon,
+  },
+};
+
+export const DisabledWithIcon: Story = {
+  args: {
+    defaultValue: 'Disabled with icon',
+    disabled: true,
     icon: MagnifyingGlassIcon,
   },
 };
