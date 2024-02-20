@@ -65,7 +65,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
           }}
         />
       </div>
-      {error && errorMessage ? <p className={twMerge('text-sm text-red mt-1')}>{errorMessage}</p> : null}
+      {error && errorMessage ? <p className={twMerge('text-sm text-etc-red mt-1')}>{errorMessage}</p> : null}
     </>
   );
 });
