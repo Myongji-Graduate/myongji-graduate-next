@@ -20,28 +20,10 @@ export const TakenLectureTable: StoryObj = {
       ['HEC01208', '데이터구조와알고리즘1', '3'],
       ['HEC01208', '데이터구조와알고리즘1', '3'],
     ];
+
     return (
       <main>
-        <Table>
-          <Table.Header>
-            <Grid cols={3}>
-              {headerInfo.map((info) => (
-                <Grid.Column key={info}>{info}</Grid.Column>
-              ))}
-            </Grid>
-          </Table.Header>
-          <List>
-            {lectures.map((lecture, index) => (
-              <List.Row key={index}>
-                <Grid cols={3}>
-                  {lecture.map((info) => (
-                    <Grid.Column key={info}>{info}</Grid.Column>
-                  ))}
-                </Grid>
-              </List.Row>
-            ))}
-          </List>
-        </Table>
+        <Table data={lectures} headerinfo={headerInfo} />
       </main>
     );
   },
@@ -55,31 +37,10 @@ export const ButtonLectureTable: StoryObj = {
       ['2022', '2학기', 'HEC01208', '데이터구조와알고리즘1', '3'],
       ['2022', '2학기', 'HEC01208', '데이터구조와알고리즘1', '3'],
     ];
+    const actionButton = <Button variant="delete" label="삭제" />;
     return (
       <main>
-        <Table>
-          <Table.Header>
-            <Grid cols={6}>
-              {headerInfo.map((info) => (
-                <Grid.Column key={info}>{info}</Grid.Column>
-              ))}
-            </Grid>
-          </Table.Header>
-          <List>
-            {lectures.map((lecture, index) => (
-              <List.Row key={index}>
-                <Grid cols={6}>
-                  {lecture.map((info) => (
-                    <Grid.Column key={info}>{info}</Grid.Column>
-                  ))}
-                  <GridColumn>
-                    <Button variant="delete" label="삭제" />
-                  </GridColumn>
-                </Grid>
-              </List.Row>
-            ))}
-          </List>
-        </Table>
+        <Table headerinfo={headerInfo} data={lectures} actionButton={actionButton} />
       </main>
     );
   },

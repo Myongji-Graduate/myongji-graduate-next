@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 
-type ListRootProps = {
-  children: ReactNode;
+type ListRootProps<T> = {
+  data: T[];
+  render: (item: T) => ReactNode;
 };
 
-export function ListRoot({ children }: ListRootProps) {
-  return <div className="rounded-2xl border-[1px] border-black-2 w-full">{children}</div>;
+export function ListRoot<T>({ data, render }: ListRootProps<T>) {
+  return <div className="rounded-2xl border-[1px] border-black-2 w-full">{data.map((item) => render(item))}</div>;
 }

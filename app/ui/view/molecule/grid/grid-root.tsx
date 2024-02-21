@@ -1,10 +1,13 @@
 import { cva } from 'class-variance-authority';
 import { ReactNode } from 'react';
 
+export type ColType = 3 | 4 | 5 | 6;
+
 type GridRootProps = {
   children: ReactNode;
-  cols: 3 | 4 | 5 | 6;
+  cols: ColType;
 };
+
 export const GridVariants = cva('grid', {
   variants: {
     cols: {
