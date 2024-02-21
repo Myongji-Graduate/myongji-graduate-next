@@ -6,9 +6,6 @@ import Select from '.';
 const meta = {
   title: 'ui/view/molecule/Select',
   component: Select,
-  parameters: {
-    layout: 'centered',
-  },
   decorators: [
     (Story) => (
       <div className="w-52">

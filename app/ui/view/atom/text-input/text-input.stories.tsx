@@ -6,9 +6,6 @@ import TextInput from './text-input';
 const meta = {
   title: 'ui/view/atom/TextInput',
   component: TextInput,
-  parameters: {
-    layout: 'centered',
-  },
 } satisfies Meta<typeof TextInput>;
 
 export default meta;
