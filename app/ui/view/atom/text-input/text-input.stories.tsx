@@ -11,14 +11,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// fix: border 색깔 왜이럼?
 export const Default: Story = {
   args: {
     defaultValue: 'default',
   },
 };
 
-// fix: 색 안변함
 export const Disabled: Story = {
   args: {
     defaultValue: 'Disabled',
