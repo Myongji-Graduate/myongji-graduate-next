@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import Layout from './ui/view/template/layout';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,14 +13,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <link
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Layout>{children}</Layout>
+      </body>
     </html>
   );
 }
