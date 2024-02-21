@@ -5,5 +5,5 @@ type ListRootProps = {
 };
 
 export function ListRoot({ children }: ListRootProps) {
-  return <div className="rounded-2xl border-[1px] border-black-2 w-[800px]">{children}</div>;
+  return <div className="rounded-2xl border-[1px] border-black-2 w-full">{children}</div>;
 }
