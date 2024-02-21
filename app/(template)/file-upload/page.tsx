@@ -1,4 +1,4 @@
-import Template from '../ui/view/atom/template';
+import Template from '../../ui/view/atom/template';
 
 export default function Page() {
   return (

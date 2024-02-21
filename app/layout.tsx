@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Layout from './ui/view/template/layout';
+import NavigationBar from './ui/view/molecule/navigation-bar';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,7 +21,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Layout>{children}</Layout>
+        <div className="bg-white w-[100vw] h-[100vh]">
+          <NavigationBar />
+          {children}
+        </div>
       </body>
     </html>
   );

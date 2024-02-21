@@ -1,21 +1,12 @@
-'use client';
-import { usePathname } from 'next/navigation';
-import NavigationBar from '../molecule/navigation-bar';
 import Image from 'next/image';
-
+import NavigationBar from '../ui/view/molecule/navigation-bar';
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 function Layout({ children }: LayoutProps) {
-  const pathname = usePathname();
-  const isMainPage = pathname === '/';
-
-  return isMainPage ? (
-    children
-  ) : (
-    <div className="bg-white w-[100vw] h-[100vh]">
-      <NavigationBar />
+  return (
+    <>
       <Image
         src="/assets/background.png"
         width={800}
@@ -24,7 +15,7 @@ function Layout({ children }: LayoutProps) {
         alt="background"
       />
       <div className="flex justify-center">{children}</div>
-    </div>
+    </>
   );
 }
 
