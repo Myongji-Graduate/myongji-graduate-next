@@ -71,10 +71,10 @@ export const SecondaryButton: StoryObj<typeof Button> = {
   render: (args) => <Button {...args} />,
 };
 
-export const DeleteButton: StoryObj<typeof Button> = {
+export const ListActionButton: StoryObj<typeof Button> = {
   args: {
     size: 'default',
-    variant: 'delete',
+    variant: 'list',
     label: '삭제',
   },
   render: (args) => <Button {...args} />,

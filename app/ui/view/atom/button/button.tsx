@@ -3,7 +3,7 @@ import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
-  variant?: 'primary' | 'secondary' | 'text' | 'delete';
+  variant?: 'primary' | 'secondary' | 'text' | 'list';
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'default';
 }
 
@@ -13,7 +13,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
       primary: 'bg-primary rounded-[100px] text-white border-0 hover:bg-primary-hover',
       secondary: 'bg-white rounded-[100px] border-solid border-[1px] border-gray-6 hover:bg-white-hover',
       text: 'font-medium text-slate-400 text-sm hover:text-slate-600',
-      delete: 'py-2 px-3.5 bg-gray-5 rounded-[7px] text-white leading-5 font-medium text-[18px]',
+      list: 'py-2 px-3.5 bg-gray-5 rounded-[7px] text-white leading-5 font-medium text-[18px]',
     },
     size: {
       default: '',
