@@ -43,6 +43,11 @@ const config: Config = {
         red: '#FF6D6D',
         'white-hover': '#f3f4f6',
       },
+      zIndex: {
+        1: '100', // upper layout
+        2: '200', // upper content
+        3: '300', // upper all
+      },
     },
   },
   plugins: [headlessui],
