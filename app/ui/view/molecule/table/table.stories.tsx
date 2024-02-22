@@ -1,8 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Table from '.';
-import Grid from '../grid';
-import List from '../list';
-import { GridColumn } from '../grid/grid-column';
 import Button from '../../atom/button/button';
 
 const meta = {
@@ -23,7 +20,7 @@ export const TakenLectureTable: StoryObj = {
 
     return (
       <main>
-        <Table data={lectures} headerinfo={headerInfo} />
+        <Table data={lectures} headerInfo={headerInfo} />
       </main>
     );
   },
@@ -37,10 +34,10 @@ export const ButtonLectureTable: StoryObj = {
       ['2022', '2학기', 'HEC01208', '데이터구조와알고리즘1', '3'],
       ['2022', '2학기', 'HEC01208', '데이터구조와알고리즘1', '3'],
     ];
-    const actionButton = <Button variant="delete" label="삭제" />;
+    const actionButton = <Button variant="list" label="삭제" />;
     return (
       <main>
-        <Table headerinfo={headerInfo} data={lectures} actionButton={actionButton} />
+        <Table headerInfo={headerInfo} data={lectures} actionButton={actionButton} />
       </main>
     );
   },

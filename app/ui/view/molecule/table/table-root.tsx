@@ -4,8 +4,7 @@ import List from '../list';
 import Grid from '../grid';
 
 type TableRootProps = {
-  headerinfo: string[];
-  // cols: ColType;
+  headerInfo: string[];
   data: string[][];
   actionButton?: JSX.Element;
 };
@@ -17,8 +16,8 @@ function isCol(cols: number): cols is ColType {
   return false;
 }
 
-export function TableRoot({ data, headerinfo, actionButton }: TableRootProps) {
-  const cols = actionButton ? headerinfo.length + 1 : headerinfo.length;
+export function TableRoot({ data, headerInfo, actionButton }: TableRootProps) {
+  const cols = actionButton ? headerInfo.length + 1 : headerInfo.length;
 
   const render = (item: string[]) => {
     return (
@@ -35,7 +34,7 @@ export function TableRoot({ data, headerinfo, actionButton }: TableRootProps) {
 
   return (
     <div className="flex flex-col gap-2.5 w-[800px]">
-      <TableHeader headerinfo={headerinfo} cols={isCol(cols) ? cols : 6} />
+      <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
       <List data={data} render={render}></List>
     </div>
   );
