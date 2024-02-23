@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import NavigationBar from './ui/view/molecule/navigation-bar';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,14 +13,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <link
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <div className="bg-white w-[100vw] h-[100vh]">
+          <NavigationBar />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
