@@ -50,6 +50,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [headlessui],
+  plugins: [headlessui, require('tailwindcss-animate')],
 };
 export default config;
