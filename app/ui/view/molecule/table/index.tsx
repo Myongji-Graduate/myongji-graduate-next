@@ -5,7 +5,7 @@ import Grid from '../grid';
 
 type TableProps = {
   headerInfo: string[];
-  data: string[][];
+  data: (string | number)[][];
   actionButton?: JSX.Element;
 };
 
@@ -19,7 +19,7 @@ function isCol(cols: number): cols is ColType {
 export function Table({ data, headerInfo, actionButton }: TableProps) {
   const cols = actionButton ? headerInfo.length + 1 : headerInfo.length;
 
-  const render = (item: string[], index: number) => {
+  const render = (item: (string | number)[], index: number) => {
     return (
       <List.Row key={index}>
         <Grid cols={isCol(cols) ? cols : 6}>
@@ -35,7 +35,7 @@ export function Table({ data, headerInfo, actionButton }: TableProps) {
   return (
     <div className="flex flex-col gap-2.5 w-[800px]">
       <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
-      <List data={data} render={render}></List>
+      <List data={data} render={render} />
     </div>
   );
 }
