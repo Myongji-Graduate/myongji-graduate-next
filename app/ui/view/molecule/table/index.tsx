@@ -19,9 +19,9 @@ function isCol(cols: number): cols is ColType {
 export function Table({ data, headerInfo, actionButton }: TableProps) {
   const cols = actionButton ? headerInfo.length + 1 : headerInfo.length;
 
-  const render = (item: string[]) => {
+  const render = (item: string[], index: number) => {
     return (
-      <List.Row>
+      <List.Row key={index}>
         <Grid cols={isCol(cols) ? cols : 6}>
           {item.map((info) => (
             <Grid.Column key={info}>{info}</Grid.Column>
