@@ -44,7 +44,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
           className,
         )}
       >
-        {Icon ? <Icon className="shrink-0 h-5 w-5 ml-2.5 text-gray-400" /> : null}
+        {Icon ? <Icon className="shrink-0 h-5 w-5 ml-2.5 text-gray-6" /> : null}
         <input
           {...props}
           ref={ref}
@@ -53,10 +53,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
           type={type}
           className={twMerge(
             'w-full focus:outline-none focus:ring-0 border-none bg-transparent text-sm rounded-lg transition duration-100 py-2',
-            'text-color-gray-700',
+            'text-black-1',
             Icon ? 'pl-2' : 'pl-3',
             error ? 'pr-3' : 'pr-4',
-            disabled ? 'placeholder:text-gray-400' : 'placeholder:text-gray-500',
+            disabled ? 'text-gray-6 placeholder:text-gray-6' : 'placeholder:text-gray-6',
           )}
           placeholder={placeholder}
           disabled={disabled}
@@ -65,7 +65,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
           }}
         />
       </div>
-      {error && errorMessage ? <p className={twMerge('text-sm text-red-500 mt-1')}>{errorMessage}</p> : null}
+      {error && errorMessage ? <p className={twMerge('text-sm text-etc-red mt-1')}>{errorMessage}</p> : null}
     </>
   );
 });

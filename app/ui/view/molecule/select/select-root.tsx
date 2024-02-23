@@ -60,7 +60,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
               <Icon className={twMerge('flex-none h-5 w-5', 'text-gray-600')} />
             </span>
           )}
-          <span className="block truncate p-0">{selectedPlaceholder}</span>
+          <span className={twMerge('block truncate p-0', disabled && 'text-gray-6')}>{selectedPlaceholder}</span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center mr-3">
             <ChevronUpDownIcon className={twMerge('flex-none h-5 w-5', 'text-gray-400')} />
           </span>

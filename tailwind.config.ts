@@ -38,13 +38,20 @@ const config: Config = {
         'black-2': '#2F2F2F',
         'black-3': '#262626',
         'black-4': '#090909',
-        yellow: '#FFF38B',
-        pink: '#FFC8C8',
-        red: '#FF6D6D',
+        etc: {
+          yellow: '#FFF38B',
+          pink: '#FFC8C8',
+          red: '#FF6D6D',
+        },
         'white-hover': '#f3f4f6',
+      },
+      zIndex: {
+        1: '100', // upper layout
+        2: '200', // upper content
+        3: '300', // upper all
       },
     },
   },
-  plugins: [headlessui],
+  plugins: [headlessui, require('tailwindcss-animate')],
 };
 export default config;
