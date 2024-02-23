@@ -38,9 +38,11 @@ const config: Config = {
         'black-2': '#2F2F2F',
         'black-3': '#262626',
         'black-4': '#090909',
-        yellow: '#FFF38B',
-        pink: '#FFC8C8',
-        red: '#FF6D6D',
+        etc: {
+          yellow: '#FFF38B',
+          pink: '#FFC8C8',
+          red: '#FF6D6D',
+        },
         'white-hover': '#f3f4f6',
       },
       zIndex: {
