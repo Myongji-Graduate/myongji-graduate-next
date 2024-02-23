@@ -33,7 +33,7 @@ export function Table({ data, headerInfo, actionButton }: TableProps) {
   };
 
   return (
-    <div className="flex flex-col gap-2.5 w-[800px]">
+    <div className="flex flex-col gap-2.5 w-full">
       <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
       <List data={data} render={render} />
     </div>
