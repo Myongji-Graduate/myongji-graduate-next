@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
-interface ListRootProps {
+type ListRootProps = {
   data: (string | number)[][];
   render: (item: (string | number)[], index: number) => ReactNode;
-}
+};
 
 export function ListRoot({ data, render }: ListRootProps) {
   return (
