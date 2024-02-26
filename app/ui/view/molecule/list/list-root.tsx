@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 
+export type ListRow = { [key: string]: string | number; id: number };
 type ListRootProps = {
-  data: (string | number)[][];
-  render: (item: (string | number)[], index: number) => ReactNode;
+  data: ListRow[];
+  render: (item: ListRow, index: number) => ReactNode;
 };
 
 export function ListRoot({ data, render }: ListRootProps) {

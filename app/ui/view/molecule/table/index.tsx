@@ -2,11 +2,12 @@ import { TableHeader } from './table-header';
 import { ColType } from '../grid/grid-root';
 import List from '../list';
 import Grid from '../grid';
+import { ListRow } from '../list/list-root';
 
 type TableProps = {
   headerInfo: string[];
-  data: (string | number)[][];
-  actionButton?: JSX.Element;
+  data: ListRow[];
+  renderActionButton?: (id: number) => JSX.Element;
 };
 
 function isCol(cols: number): cols is ColType {
@@ -16,17 +17,18 @@ function isCol(cols: number): cols is ColType {
   return false;
 }
 
-export function Table({ data, headerInfo, actionButton }: TableProps) {
-  const cols = actionButton ? headerInfo.length + 1 : headerInfo.length;
+export function Table({ data, headerInfo, renderActionButton }: TableProps) {
+  const cols = renderActionButton ? headerInfo.length + 1 : headerInfo.length;
 
-  const render = (item: (string | number)[], index: number) => {
+  const render = (item: ListRow, index: number) => {
     return (
       <List.Row key={index}>
         <Grid cols={isCol(cols) ? cols : 6}>
-          {item.map((info) => (
-            <Grid.Column key={info}>{info}</Grid.Column>
-          ))}
-          {actionButton ? <Grid.Column>{actionButton}</Grid.Column> : null}
+          {Object.keys(item).map((key, index) => {
+            if (key === 'id') return null;
+            return <Grid.Column key={index}>{item[key]}</Grid.Column>;
+          })}
+          {renderActionButton ? <Grid.Column>{renderActionButton(item.id)}</Grid.Column> : null}
         </Grid>
       </List.Row>
     );
