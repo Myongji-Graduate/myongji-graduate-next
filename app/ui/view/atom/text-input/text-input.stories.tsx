@@ -38,6 +38,14 @@ export const Number: Story = {
   },
 };
 
+export const NumberWithPlaceholder: Story = {
+  args: {
+    type: 'number',
+    defaultValue: '',
+    placeholder: 'number',
+  },
+};
+
 export const WithIcon: Story = {
   args: {
     defaultValue: '',
