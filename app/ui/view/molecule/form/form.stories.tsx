@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 const FormTemplate: Story = {
   render: () => {
     return (
-      <Form>
+      <Form id="회원가입">
         <Form.TextInput label="이름" id="name" placeholder="text input" />
         <Form.NumberInput label="나이" id="age" placeholder="number input" />
         <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호" />
@@ -34,6 +34,7 @@ const FormTemplate: Story = {
             { value: '3', placeholder: 'three' },
           ]}
         />
+        <Form.SubmitButton label="회원가입" position="center" variant="secondary" />
       </Form>
     );
   },
