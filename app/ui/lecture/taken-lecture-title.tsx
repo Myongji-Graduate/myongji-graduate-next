@@ -1,15 +1,19 @@
-import { ReactNode } from 'react';
+import { Link } from 'lucide-react';
+import Button from '../view/atom/button/button';
+import LabelContainer from '../view/atom/label-container/label-container';
 
-type TakenLectureTitle = {
-  titleLabel: string;
-  rightElement: ReactNode;
-};
-
-export default function TakenLectureTitle({ titleLabel, rightElement }: TakenLectureTitle) {
+export default function TakenLectureLabel() {
   return (
-    <div className="flex justify-between items-center w-full">
-      <div className="rounded-[100px] bg-light-blue-6 p-2.5 text-white text-lg font-bold">{titleLabel}</div>
-      {rightElement}
-    </div>
+    <LabelContainer
+      label="내 기이수 과목"
+      rightElement={
+        <div className="flex gap-2">
+          <Button label="커스텀하기" variant="secondary" size="md" />
+          <Link href="/file-upload">
+            <Button label="업데이트" variant="secondary" size="md" />
+          </Link>
+        </div>
+      }
+    />
   );
 }
