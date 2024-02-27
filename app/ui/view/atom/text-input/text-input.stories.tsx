@@ -31,6 +31,13 @@ export const Password: Story = {
   },
 };
 
+export const Number: Story = {
+  args: {
+    type: 'number',
+    defaultValue: 123,
+  },
+};
+
 export const WithIcon: Story = {
   args: {
     defaultValue: '',

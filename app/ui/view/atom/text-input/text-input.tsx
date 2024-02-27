@@ -4,14 +4,14 @@ import { twMerge } from 'tailwind-merge';
 import { getInputColors } from '@/app/utils/style/color.util';
 
 export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type?: 'text' | 'password';
-  defaultValue?: string;
-  value?: string;
+  type?: 'text' | 'password' | 'number';
+  defaultValue?: string | number;
+  value?: string | number;
   icon?: React.ElementType;
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
-  onValueChange?: (value: unknown) => void;
+  onValueChange?: (value: string | number) => void;
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
@@ -54,6 +54,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
           className={twMerge(
             'w-full focus:outline-none focus:ring-0 border-none bg-transparent text-sm rounded-lg transition duration-100 py-2',
             'text-black-1',
+            '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
             Icon ? 'pl-2' : 'pl-3',
             error ? 'pr-3' : 'pr-4',
             disabled ? 'text-gray-6 placeholder:text-gray-6' : 'placeholder:text-gray-6',
