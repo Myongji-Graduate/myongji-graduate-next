@@ -9,7 +9,9 @@ type FormTextInputProps = {
 export function FormTextInput({ label, id, placeholder }: FormTextInputProps) {
   return (
     <>
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id} className="mb-2 block text-sm font-medium">
+        {label}
+      </label>
       <TextInput type={'text'} id={id} name={id} placeholder={placeholder} />
     </>
   );
