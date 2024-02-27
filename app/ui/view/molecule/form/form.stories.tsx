@@ -22,7 +22,8 @@ const FormTemplate: Story = {
     return (
       <Form>
         <Form.TextInput label="이름" id="name" placeholder="text input" />
-        <Form.TextInput label="이름2" id="name1" placeholder="text input" />
+        <Form.NumberInput label="나이" id="age" placeholder="number input" />
+        <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호" />
         <Form.Select
           label="영어"
           id="english"
