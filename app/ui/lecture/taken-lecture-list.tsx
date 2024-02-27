@@ -1,4 +1,4 @@
-import { fetchTakenLectures } from '@/app/business/taken-lectures/taken-lecture-list.query';
+import { fetchTakenLectures } from '@/app/business/lecture/taken-lecture-list.query';
 import { Table } from '../view/molecule/table';
 import TakenLectureTitle from './taken-lecture-title';
 import Button from '../view/atom/button/button';
