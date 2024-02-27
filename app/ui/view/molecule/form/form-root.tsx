@@ -1,8 +1,9 @@
 import React from 'react';
 import { useFormState } from 'react-dom';
 import { FormSubmitButton } from './form-submit-button';
+import { FormContext } from './form.context';
 
-type State = {
+export type State = {
   message: string | null;
   errors: Record<string, string>;
 };
@@ -40,9 +41,11 @@ export function FormRoot({ id, action, children }: React.PropsWithChildren<FormR
   };
 
   return (
-    <form id={id} action={dispatch}>
-      {renderWithoutSubmitButton()}
-      <div className="mt-8">{formSubmitButton}</div>
-    </form>
+    <FormContext.Provider value={{ ...state, formId: id }}>
+      <form id={id} action={dispatch}>
+        {renderWithoutSubmitButton()}
+        <div className="mt-8">{formSubmitButton}</div>
+      </form>
+    </FormContext.Provider>
   );
 }

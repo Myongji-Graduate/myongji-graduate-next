@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import Button from '../../atom/button/button';
+import { useContext } from 'react';
+import { FormContext } from './form.context';
 
 type FormSubmitButtonProps = {
   label: string;
@@ -14,6 +16,7 @@ export function FormSubmitButton({
   variant = 'primary',
   size = 'md',
 }: FormSubmitButtonProps) {
+  const { formId } = useContext(FormContext);
   return (
     <div
       className={clsx('flex', {
@@ -22,7 +25,7 @@ export function FormSubmitButton({
         'justify-end': position === 'right',
       })}
     >
-      <Button size={size} variant={variant} type="submit" label={label} />
+      <Button form={formId} size={size} variant={variant} type="submit" label={label} />
     </div>
   );
 }
