@@ -1,6 +1,6 @@
 import { API_PATH } from '../api-path';
 
-type lectureInfo = {
+type LectureInfo = {
   id: number;
   year: string;
   semester: string;
@@ -8,9 +8,9 @@ type lectureInfo = {
   lectureName: string;
   credit: number;
 };
-export type TakenLectures = {
+type TakenLectures = {
   totalCredit: number;
-  takenLectures: lectureInfo[];
+  takenLectures: LectureInfo[];
 };
 
 export const fetchTakenLectures = async (): Promise<TakenLectures> => {
