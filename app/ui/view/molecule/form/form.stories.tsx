@@ -24,7 +24,8 @@ const FormTemplate: Story = {
       <Form action={createUser} id="회원가입">
         <Form.NumberInput label="학번" id="studentNumber" placeholder="number input" />
         <Form.TextInput label="이름" id="name" placeholder="text input" />
-        {/* <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호" /> */}
+        <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호" />
+        <Form.PasswordInput label="비밀번호 확인" id="confirmPassword" placeholder="비밀번호" />
         {/* <Form.Select
           label="영어"
           id="english"

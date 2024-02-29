@@ -12,7 +12,7 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   error?: boolean;
   errorMessages?: string[];
   disabled?: boolean;
-  onValueChange?: (value: string | number) => void;
+  onValueChange?: (value: string) => void;
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
