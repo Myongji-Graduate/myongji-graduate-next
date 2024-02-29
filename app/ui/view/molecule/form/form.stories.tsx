@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Form from '.';
+import { createUser } from '@/app/business/auth/user.command';
 
 const meta = {
   title: 'ui/view/molecule/Form',
@@ -20,11 +21,11 @@ type Story = StoryObj<typeof meta>;
 const FormTemplate: Story = {
   render: () => {
     return (
-      <Form id="회원가입">
+      <Form action={createUser} id="회원가입">
+        <Form.NumberInput label="학번" id="studentNumber" placeholder="number input" />
         <Form.TextInput label="이름" id="name" placeholder="text input" />
-        <Form.NumberInput label="나이" id="age" placeholder="number input" />
-        <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호" />
-        <Form.Select
+        {/* <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호" /> */}
+        {/* <Form.Select
           label="영어"
           id="english"
           placeholder="선택하세요"
@@ -33,7 +34,7 @@ const FormTemplate: Story = {
             { value: '2', placeholder: 'two' },
             { value: '3', placeholder: 'three' },
           ]}
-        />
+        /> */}
         <Form.SubmitButton label="회원가입" position="center" variant="secondary" />
       </Form>
     );

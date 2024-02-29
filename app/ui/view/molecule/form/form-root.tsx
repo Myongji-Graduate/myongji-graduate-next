@@ -5,7 +5,7 @@ import { FormContext } from './form.context';
 
 export type State = {
   message: string | null;
-  errors: Record<string, string>;
+  errors: Record<string, string[] | undefined>;
 };
 
 export const filterChildrenByType = (children: React.ReactNode, elementType: React.ElementType) => {
@@ -19,7 +19,7 @@ const getFormSubmitButton = (children: React.ReactNode) => {
 
 type FormRootProps = {
   id: string;
-  action: (prevState: State, formData: FormData) => State;
+  action: (prevState: State, formData: FormData) => Promise<State> | State;
 };
 
 export function FormRoot({ id, action, children }: React.PropsWithChildren<FormRootProps>) {
