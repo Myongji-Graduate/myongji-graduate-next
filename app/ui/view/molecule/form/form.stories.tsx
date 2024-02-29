@@ -22,20 +22,21 @@ const FormTemplate: Story = {
   render: () => {
     return (
       <Form action={createUser} id="회원가입">
-        <Form.NumberInput label="학번" id="studentNumber" placeholder="number input" />
-        <Form.TextInput label="이름" id="name" placeholder="text input" />
-        <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호" />
-        <Form.PasswordInput label="비밀번호 확인" id="confirmPassword" placeholder="비밀번호" />
-        {/* <Form.Select
+        <Form.TextInput label="아이디" id="userId" placeholder="6자 이상 20자 이하" />
+        <Form.PasswordInput label="비밀번호" id="password" placeholder="기호(!@#$%^&*)를 포함한 8자 이상 20자 이하" />
+        <Form.PasswordInput label="비밀번호 확인" id="confirmPassword" placeholder="" />
+        <Form.NumberInput label="학번" id="studentNumber" placeholder="ex)60xxxxxx" />
+        <Form.Select
           label="영어"
           id="english"
           placeholder="선택하세요"
           options={[
-            { value: '1', placeholder: 'one' },
-            { value: '2', placeholder: 'two' },
-            { value: '3', placeholder: 'three' },
+            { value: 'basic', placeholder: '기초영어' },
+            { value: 'level12', placeholder: 'Level12' },
+            { value: 'level34', placeholder: 'Level34' },
+            { value: 'bypass', placeholder: '면제' },
           ]}
-        /> */}
+        />
         <Form.SubmitButton label="회원가입" position="center" variant="secondary" />
       </Form>
     );
