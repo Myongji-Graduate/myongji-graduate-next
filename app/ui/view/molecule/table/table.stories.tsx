@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Table from '.';
 import Button from '../../atom/button/button';
+import { Table } from '.';
 
 const meta = {
   title: 'ui/view/molecule/Table',
