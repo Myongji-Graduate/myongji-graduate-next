@@ -65,7 +65,32 @@ export const WithError: Story = {
   args: {
     defaultValue: '',
     error: true,
-    errorMessage: 'error message',
+    errorMessages: ['error message'],
+  },
+};
+
+export const FullTextWithError: Story = {
+  args: {
+    defaultValue: 'Full text with errorrrrrrrrrrrrrrrrrrrrrrr',
+    error: true,
+    errorMessages: ['error message'],
+  },
+};
+
+export const WithErrors: Story = {
+  args: {
+    defaultValue: '',
+    error: true,
+    errorMessages: ['error message', 'error message'],
+  },
+};
+
+export const WithIconAndError: Story = {
+  args: {
+    defaultValue: '',
+    error: true,
+    errorMessages: ['error message'],
+    icon: MagnifyingGlassIcon,
   },
 };
 
