@@ -36,12 +36,12 @@ const SimpleSignUpFormSchema = z
 type User = z.infer<typeof SimpleSignUpFormSchema>;
 
 export async function createUser(prevState: State, formData: FormData): Promise<State> {
-  // Validate form fields using Zod
   const validatedFields = SimpleSignUpFormSchema.safeParse({
-    studentNumber: formData.get('studentNumber'),
-    name: formData.get('name'),
+    userId: formData.get('userId'),
     password: formData.get('password'),
     confirmPassword: formData.get('confirmPassword'),
+    studentNumber: formData.get('studentNumber'),
+    english: formData.get('english'),
   });
 
   console.log(validatedFields);
@@ -51,6 +51,14 @@ export async function createUser(prevState: State, formData: FormData): Promise<
       message: 'error',
     };
   }
+
+  // Call the API to create a user
+  // but now mock the response
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('');
+    }, 2000);
+  });
 
   return {
     errors: {},

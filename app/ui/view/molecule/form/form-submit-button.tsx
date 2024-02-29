@@ -25,7 +25,7 @@ export function FormSubmitButton({
         'justify-end': position === 'right',
       })}
     >
-      <Button form={formId} size={size} variant={variant} type="submit" label={label} />
+      <Button aria-label="submit-button" form={formId} size={size} variant={variant} type="submit" label={label} />
     </div>
   );
 }
