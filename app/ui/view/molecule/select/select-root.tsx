@@ -10,14 +10,14 @@ export interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
   name?: string;
   icon?: React.ElementType;
   error?: boolean;
-  errorMessage?: string;
+  errorMessages?: string[];
   disabled?: boolean;
   children?: React.ReactNode;
   onValueChange?: (value: unknown) => void;
 }
 
 export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(function Select(
-  { defaultValue, icon, error = false, errorMessage, disabled = false, name, children, placeholder, onValueChange },
+  { defaultValue, icon, error = false, errorMessages, disabled = false, name, children, placeholder, onValueChange },
   ref,
 ) {
   const [selectedValue, setSelectedValue] = useState<string | undefined>(defaultValue);
@@ -85,7 +85,13 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
           </Listbox.Options>
         </Transition>
       </Listbox>
-      {error && errorMessage ? <p className={'text-sm text-rose-500 mt-1'}>{errorMessage}</p> : null}
+      {error && errorMessages
+        ? errorMessages.map((message, index) => (
+            <p key={index} className={twMerge('text-sm text-etc-red mt-1')}>
+              {message}
+            </p>
+          ))
+        : null}
     </div>
   );
 });
