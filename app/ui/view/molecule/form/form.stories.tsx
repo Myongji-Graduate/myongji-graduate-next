@@ -19,7 +19,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const SignUpForm: Story = {
+const SingUpFormTemplate: Story = {
   render: () => {
     return (
       <Form action={createUser} id="회원가입">
@@ -42,7 +42,14 @@ export const SignUpForm: Story = {
       </Form>
     );
   },
+};
 
+export const SignUpForm: Story = {
+  ...SingUpFormTemplate,
+};
+
+export const SignUpFormWithInteraction: Story = {
+  ...SingUpFormTemplate,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 

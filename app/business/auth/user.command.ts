@@ -57,7 +57,7 @@ export async function createUser(prevState: State, formData: FormData): Promise<
   await new Promise((resolve) => {
     setTimeout(() => {
       resolve('');
-    }, 2000);
+    }, 3000);
   });
 
   return {

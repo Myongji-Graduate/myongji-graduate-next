@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import Button from '../../atom/button/button';
 import { useContext } from 'react';
 import { FormContext } from './form.context';
+import { useFormStatus } from 'react-dom';
 
 type FormSubmitButtonProps = {
   label: string;
@@ -17,6 +18,8 @@ export function FormSubmitButton({
   size = 'md',
 }: FormSubmitButtonProps) {
   const { formId } = useContext(FormContext);
+  const { pending } = useFormStatus();
+
   return (
     <div
       className={clsx('flex', {
@@ -25,7 +28,15 @@ export function FormSubmitButton({
         'justify-end': position === 'right',
       })}
     >
-      <Button aria-label="submit-button" form={formId} size={size} variant={variant} type="submit" label={label} />
+      <Button
+        disabled={pending}
+        aria-label="submit-button"
+        form={formId}
+        size={size}
+        variant={variant}
+        type="submit"
+        label={label}
+      />
     </div>
   );
 }
