@@ -1,10 +1,14 @@
+import { cn } from '@/app/utils/shadcn/utils';
 import { cva } from 'class-variance-authority';
 import React from 'react';
+import LoadingSpinner from '../loading-spinner';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   variant?: 'primary' | 'secondary' | 'text' | 'list';
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'default';
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 export const ButtonVariants = cva(`flex justify-center items-center`, {
@@ -25,12 +29,33 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
   },
 });
 
+export const LoadingIconVariants = cva('animate-spin shrink-0', {
+  variants: {
+    size: {
+      default: 'h-6 w-6 mr-1.5 -ml-1',
+      xs: 'h-6 w-6 mr-1.5 -ml-1',
+      sm: 'h-5 w-5 mr-1.5 -ml-1',
+      md: 'h-6 w-6 mr-1.5 -ml-1',
+      lg: 'h-12 w-12 mr-1.5 -ml-1',
+    },
+  },
+});
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { label, variant = 'primary', size = 'default', ...props },
+  { label, variant = 'primary', size = 'default', loading, disabled, ...props },
   ref,
 ) {
+  const isDisabled = loading || disabled;
+
   return (
-    <button className={ButtonVariants({ variant, size })} {...props} ref={ref}>
+    <button
+      className={cn(isDisabled && 'opacity-50 cursor-not-allowed', ButtonVariants({ variant, size }))}
+      {...props}
+      ref={ref}
+    >
+      {loading ? (
+        <LoadingSpinner className={cn(LoadingIconVariants({ size }))} style={{ transition: `width 150ms` }} />
+      ) : null}
       {label}
     </button>
   );
