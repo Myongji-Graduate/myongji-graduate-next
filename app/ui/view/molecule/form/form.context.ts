@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import type { State } from './form-root';
+import type { FormState } from './form-root';
 
-type FormContext = State & { formId: string };
+type FormContext = FormState & { formId: string };
 
 export const FormContext = createContext<FormContext>({
   formId: '',

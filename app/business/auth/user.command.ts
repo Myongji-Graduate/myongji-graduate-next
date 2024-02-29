@@ -3,7 +3,8 @@
 import { State } from '@/app/ui/view/molecule/form/form-root';
 import { z } from 'zod';
 
-const SimpleSignUpFormSchema = z
+// message name은 logic 구현할 때 통일할 예정
+const SignUpFormSchema = z
   .object({
     userId: z
       .string()
@@ -33,10 +34,10 @@ const SimpleSignUpFormSchema = z
     }
   });
 
-type User = z.infer<typeof SimpleSignUpFormSchema>;
+type User = z.infer<typeof SignUpFormSchema>;
 
 export async function createUser(prevState: State, formData: FormData): Promise<State> {
-  const validatedFields = SimpleSignUpFormSchema.safeParse({
+  const validatedFields = SignUpFormSchema.safeParse({
     userId: formData.get('userId'),
     password: formData.get('password'),
     confirmPassword: formData.get('confirmPassword'),
@@ -44,7 +45,6 @@ export async function createUser(prevState: State, formData: FormData): Promise<
     english: formData.get('english'),
   });
 
-  console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
