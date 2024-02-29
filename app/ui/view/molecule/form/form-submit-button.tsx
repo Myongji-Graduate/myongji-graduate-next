@@ -15,7 +15,7 @@ export function FormSubmitButton({
   label,
   position = 'right',
   variant = 'primary',
-  size = 'md',
+  size = 'sm',
 }: FormSubmitButtonProps) {
   const { formId } = useContext(FormContext);
   const { pending } = useFormStatus();
@@ -29,7 +29,7 @@ export function FormSubmitButton({
       })}
     >
       <Button
-        disabled={pending}
+        loading={pending}
         aria-label="submit-button"
         form={formId}
         size={size}
