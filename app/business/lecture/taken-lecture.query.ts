@@ -1,6 +1,6 @@
 import { API_PATH } from '../api-path';
 
-type LectureInfo = {
+export type LectureInfo = {
   id: number;
   year: string;
   semester: string;
