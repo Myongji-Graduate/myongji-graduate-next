@@ -48,7 +48,54 @@ export const SignUpForm: Story = {
   ...SingUpFormTemplate,
 };
 
-export const SignUpFormWithInteraction: Story = {
+export const SignUpFormActionWithFailure: Story = {
+  ...SingUpFormTemplate,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const userIdInput = canvas.getByLabelText('아이디', {
+      selector: 'input',
+    });
+
+    await userEvent.type(userIdInput, 'mju', {
+      delay: 100,
+    });
+
+    const passwordInput = canvas.getByLabelText('비밀번호', {
+      selector: 'input',
+    });
+
+    await userEvent.type(passwordInput, 'qw102761', {
+      delay: 100,
+    });
+
+    const confirmPasswordInput = canvas.getByLabelText('비밀번호 확인', {
+      selector: 'input',
+    });
+
+    await userEvent.type(confirmPasswordInput, 'qw!102761', {
+      delay: 100,
+    });
+
+    const studentNumberInput = canvas.getByLabelText('학번', {
+      selector: 'input',
+    });
+
+    await userEvent.type(studentNumberInput, '6123456', {
+      delay: 100,
+    });
+
+    await userEvent.selectOptions(canvas.getByLabelText('영어', { selector: 'select' }), 'level12', {
+      delay: 100,
+    });
+
+    const submitButton = canvas.getByRole('button', { name: 'submit-button' });
+
+    await userEvent.click(submitButton);
+  },
+};
+
+export const SignUpFormActionWithSuccessPath: Story = {
   ...SingUpFormTemplate,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
