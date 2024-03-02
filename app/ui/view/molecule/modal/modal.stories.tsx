@@ -11,7 +11,6 @@ export default meta;
 interface ModalProps extends React.PropsWithChildren {
   open: boolean;
   onOpenChange: () => void;
-  className?: string;
 }
 
 export const Default: StoryObj<typeof meta> = {
