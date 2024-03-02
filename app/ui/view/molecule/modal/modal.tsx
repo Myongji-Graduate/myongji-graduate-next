@@ -2,7 +2,7 @@
 
 import { Portal, Overlay, Content, Root } from '@radix-ui/react-dialog';
 
-import { cn } from '@/app/utils/shadcn/utils';
+import { cn } from '../../../../utils/shadcn/utils';
 
 interface ModalProps extends React.PropsWithChildren {
   open: boolean;

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Modal from './modal';
 
 const meta = {
-  title: 'ui/view/atom/Modal',
+  title: 'ui/view/molecule/Modal',
   component: Modal,
 } satisfies Meta<typeof Modal>;
 
