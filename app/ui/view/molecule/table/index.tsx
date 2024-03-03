@@ -4,11 +4,11 @@ import List from '../list';
 import Grid from '../grid';
 import { ListRow } from '../list/list-root';
 
-type TableProps = {
+interface TableProps {
   headerInfo: string[];
   data: ListRow[];
   renderActionButton?: (id: number) => JSX.Element;
-};
+}
 
 function isCol(cols: number): cols is ColType {
   if (cols === 3 || cols === 4 || cols === 5 || cols === 6) {

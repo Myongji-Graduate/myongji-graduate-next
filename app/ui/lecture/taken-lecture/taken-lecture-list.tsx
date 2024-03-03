@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import { LectureInfo } from '@/app/business/lecture/taken-lecture.query';
 import TakenLectureLabel from './taken-lecture-label';
 import { Table } from '../../view/molecule/table';
 import { useEffect, useState } from 'react';
 import Button from '../../view/atom/button/button';
+import { LectureInfo } from '@/app/type/lecture';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
 
-type TakenLectureListProps = {
+interface TakenLectureListProps {
   data: LectureInfo[];
-};
+}
 
 export default function TakenLectureList({ data }: TakenLectureListProps) {
   const [isCustomizing, setIsCustomizing] = useState<boolean>(false);
@@ -28,6 +28,7 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
 
   return (
     <div className="w-[800px] flex flex-col gap-2">
+      {/* w-[800px]은 w-full로 변경 예정  */}
       <TakenLectureLabel isCustomizing={isCustomizing} setIsCustomizing={setIsCustomizing} />
       {isCustomizing ? (
         <Table

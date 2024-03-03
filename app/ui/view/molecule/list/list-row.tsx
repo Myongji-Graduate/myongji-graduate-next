@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-type ListRowProps = {
+interface ListRowProps {
   children: ReactNode;
   textColor?: 'red' | 'black';
-};
+}
 export function ListRow({ children, textColor = 'black' }: ListRowProps) {
   return (
     <div

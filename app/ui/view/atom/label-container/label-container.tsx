@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
-type LabelContainerProps = {
+interface LabelContainerProps {
   label: string;
   rightElement: ReactNode;
-};
+}
 
 export default function LabelContainer({ label, rightElement }: LabelContainerProps) {
   return (
