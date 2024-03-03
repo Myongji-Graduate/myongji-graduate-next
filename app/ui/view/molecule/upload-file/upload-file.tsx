@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import uploadBox from '@/public/upload.svg';
+import uploadBox from '@/public/assets/upload-box.svg';
+import checkedBox from '@/public/assets/checked-box.svg';
 import { FileType } from '@/app/hooks/useFile';
 
 interface UploadFileProps {
@@ -35,10 +36,19 @@ function UploadFile({ file, changeFile }: UploadFileProps) {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         role="button"
-        className="p-2 m-auto w-96 flex flex-col justify-center items-center gap-2 border-dashed border-2 rounded-sm rounded-bl-xl border-light-blue-6 bg-light-blue-1 text-light-blue-6"
+        className="p-2 m-auto w-96 flex flex-col justify-center items-center gap-2 border-dashed border-2 rounded-sm rounded-bl-xl border-light-blue-6 bg-light-blue-1 text-light-blue-6 max-lg:w-80 "
       >
-        <Image src={uploadBox} width={40} height={28} className="mx-auto" alt="upload-button" />
-        <span className="text-center">{file ? file.name : `마우스로 드래그 하거나 아이콘을 눌러 추가해주세요.`}</span>
+        <Image src={file ? checkedBox : uploadBox} width={40} height={28} className="mx-auto" alt="upload-button" />
+        <span className="text-center">
+          {file ? (
+            file.name
+          ) : (
+            <>
+              마우스로 드래그 하거나 <br />
+              아이콘을 눌러 추가해주세요.
+            </>
+          )}
+        </span>
       </div>
     </div>
   );

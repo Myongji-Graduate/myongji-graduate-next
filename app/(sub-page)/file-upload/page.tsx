@@ -1,12 +1,12 @@
 'use client';
 
-import UploadFile from '@/app/ui/view/molecule/upload-file';
 import ContentContainer from '../../ui/view/atom/content-container';
 import Manual from './components/manual';
 import Button from '@/app/ui/view/atom/button/button';
 import useFile from '@/app/hooks/useFile';
+import UploadFile from '@/app/ui/view/molecule/upload-file/upload-file';
 
-export default function Page() {
+export default function FileUploadPage() {
   const { file, changeFile } = useFile();
 
   const handleClickSubmit = () => {
