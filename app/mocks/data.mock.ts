@@ -57,14 +57,6 @@ export const takenLectures = JSON.parse(`{
       "credit": 3
     },
     {
-      "id": 125,
-      "year": "2023",
-      "semester": "1학기",
-      "lectureCode": "HED01407",
-      "lectureName": "딥러닝",
-      "credit": 3
-    },
-    {
       "id": 124,
       "year": "2023",
       "semester": "1학기",
