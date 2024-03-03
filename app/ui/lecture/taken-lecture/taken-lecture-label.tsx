@@ -3,10 +3,10 @@ import Button from '../../view/atom/button/button';
 import LabelContainer from '../../view/atom/label-container/label-container';
 import { Dispatch, SetStateAction } from 'react';
 
-type TakenLectureLabelProps = {
+interface TakenLectureLabelProps {
   isCustomizing: boolean;
   setIsCustomizing: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 export default function TakenLectureLabel({ isCustomizing, setIsCustomizing }: TakenLectureLabelProps) {
   const handleCustom = () => {
