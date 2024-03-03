@@ -15,7 +15,7 @@ interface UploadFileProps {
 
 export const WithFileForm: StoryObj<typeof meta> = {
   args: {
-    file: new File(['foo'], 'foo.txt', {
+    file: new File(['grade'], 'grade.pdf', {
       type: 'text/plain',
     }),
   },
