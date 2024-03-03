@@ -11,7 +11,7 @@ describe('Taken lecture list', () => {
     render(await TakenLecture());
 
     const customButton = await screen.findByTestId('custom-button');
-    userEvent.click(customButton);
+    await userEvent.click(customButton);
 
     const deleteButton = await screen.findAllByTestId('taken-lecture-delete-button');
     expect(deleteButton[0]).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe('Taken lecture list', () => {
     render(await TakenLecture());
 
     const customButton = await screen.findByTestId('custom-button');
-    userEvent.click(customButton);
+    await userEvent.click(customButton);
 
     const deleteButton = await screen.findAllByTestId('taken-lecture-delete-button');
     await userEvent.click(deleteButton[0]);
