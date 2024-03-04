@@ -20,6 +20,10 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
     setCustomLecture(customLecture.filter((lecture) => lecture.id !== id));
   };
 
+  const changeCustomizingState = () => {
+    setIsCustomizing(!isCustomizing);
+  };
+
   useEffect(() => {
     if (!isCustomizing) {
       setCustomLecture(data);
@@ -29,7 +33,7 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
   return (
     <div className="w-[800px] flex flex-col gap-2">
       {/* w-[800px]은 w-full로 변경 예정  */}
-      <TakenLectureLabel isCustomizing={isCustomizing} setIsCustomizing={setIsCustomizing} />
+      <TakenLectureLabel isCustomizing={isCustomizing} changeCustomizingState={changeCustomizingState} />
       {isCustomizing ? (
         <Table
           headerInfo={headerInfo}
