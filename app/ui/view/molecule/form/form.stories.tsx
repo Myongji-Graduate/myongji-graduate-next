@@ -23,11 +23,17 @@ const SingUpFormTemplate: Story = {
   render: () => {
     return (
       <Form action={createUser} id="회원가입">
-        <Form.TextInput label="아이디" id="userId" placeholder="6자 이상 20자 이하" />
-        <Form.PasswordInput label="비밀번호" id="password" placeholder="기호(!@#$%^&*)를 포함한 8자 이상 20자 이하" />
-        <Form.PasswordInput label="비밀번호 확인" id="confirmPassword" placeholder="" />
-        <Form.NumberInput label="학번" id="studentNumber" placeholder="ex)60xxxxxx" />
+        <Form.TextInput required={true} label="아이디" id="userId" placeholder="6자 이상 20자 이하" />
+        <Form.PasswordInput
+          required={true}
+          label="비밀번호"
+          id="password"
+          placeholder="기호(!@#$%^&*)를 포함한 8자 이상 20자 이하"
+        />
+        <Form.PasswordInput required={true} label="비밀번호 확인" id="confirmPassword" placeholder="" />
+        <Form.NumberInput required={true} label="학번" id="studentNumber" placeholder="ex)60xxxxxx" />
         <Form.Select
+          required={true}
           label="영어"
           id="english"
           placeholder="선택하세요"

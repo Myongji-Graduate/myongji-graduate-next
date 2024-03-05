@@ -8,18 +8,23 @@ type FormSelectProps = {
   id: string;
   options: { value: string; placeholder: string }[];
   placeholder: string;
+  required?: boolean;
 };
 
-export const FormSelect = ({ label, id, options, placeholder }: FormSelectProps) => {
+export const FormSelect = ({ label, id, options, placeholder, required = true }: FormSelectProps) => {
   const { errors } = useContext(FormContext);
   const { pending } = useFormStatus();
 
   return (
-    <>
-      <label htmlFor={id} className="mb-2 block text-sm font-medium">
+    <div className="group">
+      <label
+        htmlFor={id}
+        className="mb-2 block text-sm font-medium group-has-[:required]:after:pl-1 group-has-[:required]:after:content-['*'] group-has-[:required]:after:text-red-400"
+      >
         {label}
       </label>
       <Select
+        required={required}
         disabled={pending}
         error={errors[id] ? true : false}
         errorMessages={errors[id]}
@@ -31,6 +36,6 @@ export const FormSelect = ({ label, id, options, placeholder }: FormSelectProps)
           <Select.Item key={option.value} value={option.value} placeholder={option.placeholder} />
         ))}
       </Select>
-    </>
+    </div>
   );
 };

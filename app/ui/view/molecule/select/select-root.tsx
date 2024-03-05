@@ -13,6 +13,7 @@ export interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
   errorMessages?: string[];
   disabled?: boolean;
   children?: React.ReactNode;
+  required?: boolean;
   onValueChange?: (value: unknown) => void;
 }
 
@@ -27,6 +28,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
     children,
     placeholder,
     id,
+    required,
     onValueChange,
   },
   ref,
@@ -48,6 +50,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
   return (
     <div className="w-full min-w-[10rem] relative text-base">
       <select
+        required={required}
         title="select-hidden"
         className={twMerge('h-full w-full absolute left-0 top-0 z-0 opacity-0')}
         value={selectedValue}
