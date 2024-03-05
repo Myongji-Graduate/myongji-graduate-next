@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Button from '../../atom/button/button';
+import Button, { ButtonSize } from '../../atom/button/button';
 import { useContext } from 'react';
 import { FormContext } from './form.context';
 import { useFormStatus } from 'react-dom';
@@ -8,7 +8,7 @@ type FormSubmitButtonProps = {
   label: string;
   position?: 'left' | 'right' | 'center';
   variant?: 'primary' | 'secondary';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'default';
+  size?: ButtonSize;
 };
 
 export function FormSubmitButton({

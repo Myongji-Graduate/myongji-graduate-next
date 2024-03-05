@@ -3,10 +3,12 @@ import { cva } from 'class-variance-authority';
 import React from 'react';
 import LoadingSpinner from '../loading-spinner';
 
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   variant?: 'primary' | 'secondary' | 'text' | 'list';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'default';
+  size?: ButtonSize;
   loading?: boolean;
   disabled?: boolean;
 }
