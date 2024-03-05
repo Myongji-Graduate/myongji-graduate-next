@@ -16,7 +16,8 @@
     "prepare": "husky install || true",
     "lint-staged": "lint-staged",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "type": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",

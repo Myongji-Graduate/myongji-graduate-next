@@ -4,19 +4,19 @@ import { FormSubmitButton } from './form-submit-button';
 import { FormContext } from './form.context';
 import { filterChildrenByType } from '@/app/utils/component.util';
 
-export type FormState = {
+export interface FormState {
   message: string | null;
   errors: Record<string, string[] | undefined>;
-};
+}
 
 const getFormSubmitButton = (children: React.ReactNode) => {
   return filterChildrenByType(children, FormSubmitButton);
 };
 
-type FormRootProps = {
+interface FormRootProps {
   id: string;
   action: (prevState: FormState, formData: FormData) => Promise<FormState> | FormState;
-};
+}
 
 export function FormRoot({ id, action, children }: React.PropsWithChildren<FormRootProps>) {
   const initialState: FormState = { message: null, errors: {} };

@@ -1,7 +1,9 @@
 import { createContext } from 'react';
 import type { FormState } from './form-root';
 
-type FormContext = FormState & { formId: string };
+interface FormContext extends FormState {
+  formId: string;
+}
 
 export const FormContext = createContext<FormContext>({
   formId: '',

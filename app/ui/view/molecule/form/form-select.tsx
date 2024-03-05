@@ -3,13 +3,13 @@ import { FormContext } from './form.context';
 import { useContext } from 'react';
 import { useFormStatus } from 'react-dom';
 
-type FormSelectProps = {
+interface FormSelectProps {
   label: string;
   id: string;
   options: { value: string; placeholder: string }[];
   placeholder: string;
   required?: boolean;
-};
+}
 
 export const FormSelect = ({ label, id, options, placeholder, required = true }: FormSelectProps) => {
   const { errors } = useContext(FormContext);

@@ -3,12 +3,12 @@ import { FormContext } from './form.context';
 import { useContext } from 'react';
 import { useFormStatus } from 'react-dom';
 
-type FormTextInputProps = {
+interface FormTextInputProps {
   label: string;
   id: string;
   placeholder: string;
   required?: boolean;
-};
+}
 
 export function FormTextInput({ label, id, placeholder, required = false }: FormTextInputProps) {
   const { errors } = useContext(FormContext);

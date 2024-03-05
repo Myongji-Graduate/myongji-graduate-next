@@ -3,12 +3,12 @@ import { FormContext } from './form.context';
 import { useContext } from 'react';
 import { useFormStatus } from 'react-dom';
 
-type FormNumberInputProps = {
+interface FormNumberInputProps {
   label: string;
   id: string;
   placeholder: string;
   required?: boolean;
-};
+}
 
 export function FormNumberInput({ label, id, placeholder, required = false }: FormNumberInputProps) {
   const { errors } = useContext(FormContext);

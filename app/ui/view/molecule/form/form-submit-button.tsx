@@ -4,12 +4,12 @@ import { useContext } from 'react';
 import { FormContext } from './form.context';
 import { useFormStatus } from 'react-dom';
 
-type FormSubmitButtonProps = {
+interface FormSubmitButtonProps {
   label: string;
   position?: 'left' | 'right' | 'center';
   variant?: 'primary' | 'secondary';
   size?: ButtonSize;
-};
+}
 
 export function FormSubmitButton({
   label,
