@@ -1,6 +1,6 @@
 'use server';
 
-import { State } from '@/app/ui/view/molecule/form/form-root';
+import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { z } from 'zod';
 
 // message name은 logic 구현할 때 통일할 예정
@@ -36,7 +36,7 @@ const SignUpFormSchema = z
 
 type User = z.infer<typeof SignUpFormSchema>;
 
-export async function createUser(prevState: State, formData: FormData): Promise<State> {
+export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignUpFormSchema.safeParse({
     userId: formData.get('userId'),
     password: formData.get('password'),
