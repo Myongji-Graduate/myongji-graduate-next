@@ -2,16 +2,11 @@ import React from 'react';
 import { useFormState } from 'react-dom';
 import { FormSubmitButton } from './form-submit-button';
 import { FormContext } from './form.context';
+import { filterChildrenByType } from '@/app/utils/component.util';
 
 export type FormState = {
   message: string | null;
   errors: Record<string, string[] | undefined>;
-};
-
-// Refactor: 애를 따로 빼고싶은데 utils 폴더에 어떤 파일명이 좋을까?
-export const filterChildrenByType = (children: React.ReactNode, elementType: React.ElementType) => {
-  const childArray = React.Children.toArray(children);
-  return childArray.filter((child) => React.isValidElement(child) && child.type === elementType);
 };
 
 const getFormSubmitButton = (children: React.ReactNode) => {
