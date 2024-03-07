@@ -4,9 +4,9 @@ import List from '../list';
 import Grid from '../grid';
 import { ListRow } from '../list/list-root';
 
-interface TableProps {
+interface TableProps<T extends ListRow> {
   headerInfo: string[];
-  data: ListRow[];
+  data: T[];
   renderActionButton?: (id: number) => JSX.Element;
 }
 
@@ -17,10 +17,10 @@ function isCol(cols: number): cols is ColType {
   return false;
 }
 
-export function Table({ data, headerInfo, renderActionButton }: TableProps) {
+export function Table<T extends ListRow>({ data, headerInfo, renderActionButton }: TableProps<T>) {
   const cols = renderActionButton ? headerInfo.length + 1 : headerInfo.length;
 
-  const render = (item: ListRow, index: number) => {
+  const render = (item: T, index: number) => {
     return (
       <List.Row key={index}>
         <Grid cols={isCol(cols) ? cols : 6}>
