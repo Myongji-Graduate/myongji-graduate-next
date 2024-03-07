@@ -1,28 +1,23 @@
+'use client';
+
 import Image from 'next/image';
 import uploadBox from '@/public/assets/upload-box.svg';
 import checkedBox from '@/public/assets/checked-box.svg';
-import { FileType } from '@/app/hooks/useFile';
+import useFile from '@/app/hooks/useFile';
+import { ChangeEvent } from 'react';
 
-interface UploadFileProps {
-  file: FileType;
-  changeFile: (file: File) => void;
-}
+function UploadFile() {
+  const { file, changeFile } = useFile();
 
-function UploadFile({ file, changeFile }: UploadFileProps) {
-  const handleClickInputBox = () => {
-    const $input = document.createElement('input');
-    $input.type = 'file';
-    $input.onchange = (event) => {
-      const { files } = event.target as HTMLInputElement;
-      if (files) changeFile(files[0]);
-    };
-    $input.click();
+  const handleClickInputBox = (event: ChangeEvent) => {
+    const { files } = event.target as HTMLInputElement;
+    if (files) changeFile(files[0]);
   };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    changeFile(file);
+    const targetFile = event.dataTransfer.files[0];
+    changeFile(targetFile);
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -30,9 +25,16 @@ function UploadFile({ file, changeFile }: UploadFileProps) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="relative flex flex-col items-center gap-8">
+      <input
+        type="file"
+        className="absolute opacity-0 h-full bg-black w-full"
+        name="file"
+        accept=".pdf"
+        onChange={handleClickInputBox}
+        required
+      />
       <div
-        onClick={handleClickInputBox}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         role="button"
