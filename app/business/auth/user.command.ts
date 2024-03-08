@@ -47,7 +47,8 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
 
   if (!validatedFields.success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      isFailure: true,
+      validationError: validatedFields.error.flatten().fieldErrors,
       message: 'error',
     };
   }
@@ -61,7 +62,8 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
   });
 
   return {
-    errors: {},
+    isFailure: false,
+    validationError: {},
     message: 'blacnk',
   };
 }

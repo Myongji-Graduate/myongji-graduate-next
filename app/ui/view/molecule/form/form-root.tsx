@@ -5,8 +5,9 @@ import { FormContext } from './form.context';
 import { filterChildrenByType } from '@/app/utils/component.util';
 
 export interface FormState {
+  isFailure: boolean;
   message: string | null;
-  errors: Record<string, string[] | undefined>;
+  validationError: Record<string, string[] | undefined>;
 }
 
 const getFormSubmitButton = (children: React.ReactNode) => {
@@ -19,7 +20,7 @@ interface FormRootProps {
 }
 
 export function FormRoot({ id, action, children }: React.PropsWithChildren<FormRootProps>) {
-  const initialState: FormState = { message: null, errors: {} };
+  const initialState: FormState = { isFailure: false, message: null, validationError: {} };
   const [formState, dispatch] = useFormState(action, initialState);
 
   const formSubmitButton = getFormSubmitButton(children);
@@ -37,7 +38,7 @@ export function FormRoot({ id, action, children }: React.PropsWithChildren<FormR
   };
 
   return (
-    <FormContext.Provider value={{ ...formState, formId: id }}>
+    <FormContext.Provider value={{ errors: formState.validationError, formId: id }}>
       <form id={id} action={dispatch}>
         {renderWithoutSubmitButton()}
         <div className="mt-8">{formSubmitButton}</div>
