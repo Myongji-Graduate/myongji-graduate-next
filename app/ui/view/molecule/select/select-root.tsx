@@ -34,7 +34,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
   }, [selectedValue, children]);
 
   return (
-    <div className="w-full min-w-[10rem] relative text-base">
+    <div className="w-full  relative text-base">
       <Listbox
         as="div"
         ref={ref}
@@ -49,7 +49,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
       >
         <Listbox.Button
           className={twMerge(
-            'w-full min-w-[10rem] outline-none text-left whitespace-nowrap truncate rounded-xl focus:ring-2 transition duration-100 border pr-8 py-2',
+            'w-full  outline-none text-left whitespace-nowrap truncate rounded-xl focus:ring-2 transition duration-100 border pr-8 py-2',
             'border-gray-800 shadow-sm focus:border-blue-400 focus:ring-blue-200 text-gray-700',
             Icon ? 'pl-10' : 'pl-3',
             getInputColors(disabled, error),
