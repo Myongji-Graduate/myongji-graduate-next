@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Form from '.';
-import { SignUpFormSchema, createUser } from '@/app/business/auth/user.command';
+import { SignUpFormSchema, createUser } from '@/app/business/user/user.command';
 import { userEvent, within } from '@storybook/testing-library';
 import { FormState } from './form-root';
 
