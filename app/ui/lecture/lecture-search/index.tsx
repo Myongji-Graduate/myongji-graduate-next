@@ -7,7 +7,7 @@ interface LectureSearchProps {
 }
 export default function LectureSearch({ handleAddButtonClick }: LectureSearchProps) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" data-testid="lecture-search-component">
       <LectureSearchBar />
       <LectureSearchResultContainer handleAddButtonClick={handleAddButtonClick} />
     </div>

@@ -7,24 +7,35 @@ describe('Taken lecture list', () => {
     render(await TakenLecture());
     expect(await screen.findByTestId('table-data'));
   });
-  it('커스텀하기 클릭 시 기이수 과목 리스트가 변경된다.', async () => {
+
+  it('커스텀하기 버튼을 클릭하면 기이수 과목 리스트가 변경되며 과목 검색 컴포넌트가 렌더링된다.', async () => {
+    //given
     render(await TakenLecture());
 
+    //when
     const customButton = await screen.findByTestId('custom-button');
     await userEvent.click(customButton);
 
+    //then
     const deleteButton = await screen.findAllByTestId('taken-lecture-delete-button');
     expect(deleteButton[0]).toBeInTheDocument();
+
+    const lectureSearchComponent = await screen.findByTestId('lecture-search-component');
+    expect(lectureSearchComponent).toBeInTheDocument();
   });
-  it('삭제 버튼 클릭 시 해당하는 lecture가 사라진다', async () => {
+
+  it('커스텀 시 삭제 버튼을 클릭하면 해당하는 lecture가 사라진다', async () => {
+    //given
     render(await TakenLecture());
 
     const customButton = await screen.findByTestId('custom-button');
     await userEvent.click(customButton);
 
+    //when
     const deleteButton = await screen.findAllByTestId('taken-lecture-delete-button');
     await userEvent.click(deleteButton[0]);
 
+    //then
     expect(screen.queryByText('딥러닝')).not.toBeInTheDocument();
   });
 });
