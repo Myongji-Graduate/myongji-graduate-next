@@ -1,6 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/16/solid';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getInputColors } from '@/app/utils/style/color.util';
 
@@ -10,19 +10,33 @@ export interface SelectProps extends React.HTMLAttributes<HTMLInputElement> {
   name?: string;
   icon?: React.ElementType;
   error?: boolean;
-  errorMessage?: string;
+  errorMessages?: string[];
   disabled?: boolean;
   children?: React.ReactNode;
+  required?: boolean;
   onValueChange?: (value: unknown) => void;
 }
 
 export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(function Select(
-  { defaultValue, icon, error = false, errorMessage, disabled = false, name, children, placeholder, onValueChange },
+  {
+    defaultValue,
+    icon,
+    error = false,
+    errorMessages,
+    disabled = false,
+    name,
+    children,
+    placeholder,
+    id,
+    required,
+    onValueChange,
+  },
   ref,
 ) {
   const [selectedValue, setSelectedValue] = useState<string | undefined>(defaultValue);
+  const listboxButtonRef = useRef<HTMLButtonElement | null>(null);
+  const childrenArray = React.Children.toArray(children);
   const Icon = icon;
-  console.log(selectedValue);
 
   const selectedPlaceholder = useMemo(() => {
     const reactElementChildren = React.Children.toArray(children).filter(
@@ -35,10 +49,41 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
 
   return (
     <div className="w-full min-w-[10rem] relative text-base">
+      <select
+        required={required}
+        title="select-hidden"
+        className={twMerge('h-full w-full absolute left-0 top-0 z-0 opacity-0')}
+        value={selectedValue}
+        onChange={(e) => {
+          e.preventDefault();
+          onValueChange?.(e.target.value);
+          setSelectedValue(e.target.value);
+        }}
+        name={name}
+        disabled={disabled}
+        id={id}
+        onFocus={() => {
+          const listboxButton = listboxButtonRef.current;
+          if (listboxButton) listboxButton.focus();
+        }}
+      >
+        <option className="hidden" value="" disabled hidden>
+          {placeholder}
+        </option>
+        {childrenArray.map((child: any) => {
+          const value = child.props.value;
+          const placeholder = child.props.placeholder;
+          return (
+            <option className="hidden" key={value} value={value}>
+              {placeholder}
+            </option>
+          );
+        })}
+      </select>
       <Listbox
         as="div"
         ref={ref}
-        value={selectedValue}
+        value={selectedValue ?? ''}
         onChange={(value: string) => {
           onValueChange?.(value);
           setSelectedValue(value);
@@ -48,6 +93,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
         className="relative"
       >
         <Listbox.Button
+          ref={listboxButtonRef}
           className={twMerge(
             'w-full min-w-[10rem] outline-none text-left whitespace-nowrap truncate rounded-xl focus:ring-2 transition duration-100 border pr-8 py-2',
             'border-gray-800 shadow-sm focus:border-blue-400 focus:ring-blue-200 text-gray-700',
@@ -85,7 +131,13 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
           </Listbox.Options>
         </Transition>
       </Listbox>
-      {error && errorMessage ? <p className={'text-sm text-rose-500 mt-1'}>{errorMessage}</p> : null}
+      {error && errorMessages
+        ? errorMessages.map((message, index) => (
+            <p key={index} className={twMerge('text-sm text-etc-red mt-1')}>
+              {message}
+            </p>
+          ))
+        : null}
     </div>
   );
 });

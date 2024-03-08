@@ -23,7 +23,7 @@ type SelectTemplateProps = {
   defaultValue?: string;
   icon?: React.ElementType;
   error?: boolean;
-  errorMessage?: string;
+  errorMessages?: string[];
   disabled?: boolean;
 };
 
@@ -75,6 +75,15 @@ export const WithError = {
   args: {
     placeholder: 'Select..',
     error: true,
-    errorMessage: 'error message',
+    errorMessages: ['error message'],
+  },
+};
+
+export const WithErrors = {
+  ...SelectTemplate,
+  args: {
+    placeholder: 'Select..',
+    error: true,
+    errorMessages: ['error message', 'error message'],
   },
 };

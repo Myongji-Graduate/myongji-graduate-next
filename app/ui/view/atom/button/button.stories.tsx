@@ -52,39 +52,54 @@ const meta = {
 } satisfies Meta<typeof Button>;
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const PrimaryButton: StoryObj<typeof Button> = {
+export const PrimaryButton: Story = {
   args: {
     size: 'md',
     variant: 'primary',
     label: '수강현황 자세히보기',
   },
-  render: (args) => <Button {...args} />,
 };
 
-export const SecondaryButton: StoryObj<typeof Button> = {
+export const SecondaryButton: Story = {
   args: {
     size: 'xs',
     variant: 'secondary',
     label: '커스텀하기',
   },
-  render: (args) => <Button {...args} />,
 };
 
-export const ListActionButton: StoryObj<typeof Button> = {
+export const ListActionButton: Story = {
   args: {
     size: 'default',
     variant: 'list',
     label: '삭제',
   },
-  render: (args) => <Button {...args} />,
 };
 
-export const TextButton: StoryObj<typeof Button> = {
+export const TextButton: Story = {
   args: {
     size: 'default',
     variant: 'text',
     label: '회원탈퇴하기',
   },
-  render: (args) => <Button {...args} />,
+};
+
+export const DisabledButton: Story = {
+  args: {
+    size: 'md',
+    variant: 'primary',
+    label: '수강현황 자세히보기',
+    disabled: true,
+  },
+};
+
+export const LoadingButton: Story = {
+  args: {
+    size: 'md',
+    variant: 'primary',
+    label: '수강현황 자세히보기',
+    loading: true,
+  },
 };

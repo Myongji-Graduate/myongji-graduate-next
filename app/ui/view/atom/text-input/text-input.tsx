@@ -2,16 +2,17 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getInputColors } from '@/app/utils/style/color.util';
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
 
 export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type?: 'text' | 'password';
-  defaultValue?: string;
-  value?: string;
+  type?: 'text' | 'password' | 'number';
+  defaultValue?: string | number;
+  value?: string | number;
   icon?: React.ElementType;
   error?: boolean;
-  errorMessage?: string;
+  errorMessages?: string[];
   disabled?: boolean;
-  onValueChange?: (value: unknown) => void;
+  onValueChange?: (value: string) => void;
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
@@ -21,7 +22,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
     value,
     icon,
     error = false,
-    errorMessage,
+    errorMessages,
     disabled = false,
     placeholder,
     className,
@@ -54,8 +55,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
           className={twMerge(
             'w-full focus:outline-none focus:ring-0 border-none bg-transparent text-sm rounded-lg transition duration-100 py-2',
             'text-black-1',
+            '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
             Icon ? 'pl-2' : 'pl-3',
-            error ? 'pr-3' : 'pr-4',
+            error ? 'pr-9' : 'pr-3',
             disabled ? 'text-gray-6 placeholder:text-gray-6' : 'placeholder:text-gray-6',
           )}
           placeholder={placeholder}
@@ -64,8 +66,19 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
             onValueChange?.(e.target.value);
           }}
         />
+        {error ? (
+          <ExclamationCircleIcon
+            className={twMerge('text-etc-red shrink-0 h-5 w-5 absolute right-0 flex items-center', 'mr-3')}
+          />
+        ) : null}
       </div>
-      {error && errorMessage ? <p className={twMerge('text-sm text-etc-red mt-1')}>{errorMessage}</p> : null}
+      {error && errorMessages
+        ? errorMessages.map((message, index) => (
+            <p key={index} className={twMerge('text-sm text-etc-red mt-1')}>
+              {message}
+            </p>
+          ))
+        : null}
     </>
   );
 });
