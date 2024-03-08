@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Form from '.';
-import { createUser } from '@/app/business/auth/user.command';
+import { SignUpFormSchema, createUser } from '@/app/business/auth/user.command';
 import { userEvent, within } from '@storybook/testing-library';
+import { FormState } from './form-root';
 
 const meta = {
   title: 'ui/view/molecule/Form',
@@ -19,10 +20,42 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+async function mockFormAction(prevState: FormState, formData: FormData): Promise<FormState> {
+  const validatedFields = SignUpFormSchema.safeParse({
+    userId: formData.get('userId'),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword'),
+    studentNumber: formData.get('studentNumber'),
+    english: formData.get('english'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      isFailure: true,
+      validationError: validatedFields.error.flatten().fieldErrors,
+      message: 'error',
+    };
+  }
+
+  // Call the API to create a user
+  // but now mock the response
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('');
+    }, 3000);
+  });
+
+  return {
+    isFailure: true,
+    validationError: {},
+    message: '이미 존재하는 계정입니다.',
+  };
+}
+
 const SingUpFormTemplate: Story = {
   render: () => {
     return (
-      <Form action={createUser} id="회원가입">
+      <Form action={mockFormAction} id="회원가입">
         <Form.TextInput required={true} label="아이디" id="userId" placeholder="6자 이상 20자 이하" />
         <Form.PasswordInput
           required={true}
@@ -54,7 +87,7 @@ export const SignUpForm: Story = {
   ...SingUpFormTemplate,
 };
 
-export const SignUpFormActionWithFailure: Story = {
+export const SignUpFormActionWithValidationError: Story = {
   ...SingUpFormTemplate,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -101,7 +134,7 @@ export const SignUpFormActionWithFailure: Story = {
   },
 };
 
-export const SignUpFormActionWithSuccessPath: Story = {
+export const SignUpFormActionWithServerFailure: Story = {
   ...SingUpFormTemplate,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

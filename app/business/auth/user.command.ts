@@ -4,7 +4,7 @@ import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { z } from 'zod';
 
 // message name은 logic 구현할 때 통일할 예정
-const SignUpFormSchema = z
+export const SignUpFormSchema = z
   .object({
     userId: z
       .string()
