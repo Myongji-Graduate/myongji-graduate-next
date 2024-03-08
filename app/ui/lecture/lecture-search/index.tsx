@@ -1,8 +1,9 @@
+import { SearchedLectureInfo } from '@/app/type/lecture';
 import LectureSearchBar from './lecture-search-bar';
-import LectureSearchResultContainer, { SearchLectureInfo } from './lecture-search-result-container';
+import LectureSearchResultContainer from './lecture-search-result-container';
 
 interface LectureSearchProps {
-  handleAddButtonClick: (item: SearchLectureInfo) => void;
+  handleAddButtonClick: (item: SearchedLectureInfo) => void;
 }
 export default function LectureSearch({ handleAddButtonClick }: LectureSearchProps) {
   return (

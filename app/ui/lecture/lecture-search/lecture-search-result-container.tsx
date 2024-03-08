@@ -3,17 +3,10 @@ import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';
 import Button from '../../view/atom/button/button';
 import Grid from '../../view/molecule/grid';
-
-export interface SearchLectureInfo {
-  [index: string]: string | number;
-  id: number;
-  lectureCode: string;
-  name: string;
-  credit: number;
-}
+import { SearchedLectureInfo } from '@/app/type/lecture';
 
 interface LectureSearchResultContainerProps {
-  handleAddButtonClick: (item: SearchLectureInfo) => void;
+  handleAddButtonClick: (item: SearchedLectureInfo) => void;
 }
 
 const emptyDataRender = () => {
@@ -26,7 +19,7 @@ const emptyDataRender = () => {
 };
 
 export default function LectureSearchResultContainer({ handleAddButtonClick }: LectureSearchResultContainerProps) {
-  const renderAddActionButton = (item: SearchLectureInfo) => {
+  const renderAddActionButton = (item: SearchedLectureInfo) => {
     return (
       <Button
         variant="list"
@@ -37,7 +30,7 @@ export default function LectureSearchResultContainer({ handleAddButtonClick }: L
       />
     );
   };
-  const render = (item: SearchLectureInfo, index: number) => {
+  const render = (item: SearchedLectureInfo, index: number) => {
     const searchLectureItem = item;
     return (
       <List.Row key={index}>
