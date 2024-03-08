@@ -62,8 +62,8 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
   });
 
   return {
-    isFailure: false,
+    isFailure: true,
     validationError: {},
-    message: 'blacnk',
+    message: '이미 존재하는 계정입니다.',
   };
 }

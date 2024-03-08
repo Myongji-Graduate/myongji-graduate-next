@@ -3,6 +3,7 @@ import { useFormState } from 'react-dom';
 import { FormSubmitButton } from './form-submit-button';
 import { FormContext } from './form.context';
 import { filterChildrenByType } from '@/app/utils/component.util';
+import AlertDestructive from '../alert-destructive/alert-destructive';
 
 export interface FormState {
   isFailure: boolean;
@@ -39,6 +40,11 @@ export function FormRoot({ id, action, children }: React.PropsWithChildren<FormR
 
   return (
     <FormContext.Provider value={{ errors: formState.validationError, formId: id }}>
+      {formState.isFailure ? (
+        <div className="mb-4">
+          <AlertDestructive description={formState.message!} />
+        </div>
+      ) : null}
       <form id={id} action={dispatch}>
         {renderWithoutSubmitButton()}
         <div className="mt-8">{formSubmitButton}</div>
