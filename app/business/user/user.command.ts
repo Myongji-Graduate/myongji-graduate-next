@@ -6,7 +6,7 @@ import { z } from 'zod';
 // message name은 logic 구현할 때 통일할 예정
 export const SignUpFormSchema = z
   .object({
-    userId: z
+    authId: z
       .string()
       .min(6, {
         message: 'User ID must be at least 6 characters',
@@ -21,7 +21,7 @@ export const SignUpFormSchema = z
     studentNumber: z.string().length(8, { message: '학번은 8자리 입니다' }).startsWith('60', {
       message: '학번은 60으로 시작합니다',
     }),
-    english: z.enum(['basic', 'level12', 'level34', 'bypass']),
+    engLv: z.enum(['basic', 'level12', 'level34', 'bypass']),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     console.log('refind', confirmPassword, password);
@@ -38,11 +38,11 @@ type User = z.infer<typeof SignUpFormSchema>;
 
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignUpFormSchema.safeParse({
-    userId: formData.get('userId'),
+    authId: formData.get('authId'),
     password: formData.get('password'),
     confirmPassword: formData.get('confirmPassword'),
     studentNumber: formData.get('studentNumber'),
-    english: formData.get('english'),
+    engLv: formData.get('engLv'),
   });
 
   if (!validatedFields.success) {
