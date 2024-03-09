@@ -1,10 +1,10 @@
 import { Listbox } from '@headlessui/react';
 import { twMerge } from 'tailwind-merge';
 
-type SelectItemProps = {
+interface SelectItemProps {
   value: string;
   placeholder: string;
-};
+}
 
 export function SelectItem({ value, placeholder }: SelectItemProps) {
   return (

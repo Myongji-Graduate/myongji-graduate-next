@@ -1,5 +1,5 @@
 import { HttpResponse, http, delay } from 'msw';
-import { revenue, parsePDF } from './data.mock';
+import { revenue, parsePDF, takenLectures } from './data.mock';
 import { API_PATH } from '../business/api-path';
 
 export const handlers = [
@@ -18,5 +18,9 @@ export const handlers = [
   http.post(API_PATH.uploadFile, async () => {
     await delay(1000);
     throw new HttpResponse(null, { status: 200 });
+  }),
+
+  http.get(API_PATH.takenLectures, () => {
+    return HttpResponse.json(takenLectures);
   }),
 ];

@@ -4,4 +4,5 @@ export const API_PATH = {
   revenue: `${BASE_URL}/revenue`,
   uploadFile: `${BASE_URL}/uploadFile`,
   parsePDF: `${BASE_URL}/parsePDF`,
+  takenLectures: `${BASE_URL}/taken-lectures`,
 };

@@ -1,10 +1,18 @@
 import { ReactNode } from 'react';
 
-type ListRootProps<T> = {
-  data: T[];
-  render: (item: T) => ReactNode;
-};
+export interface ListRow {
+  id: number;
+  [key: string]: string | number;
+}
+interface ListRootProps {
+  data: ListRow[];
+  render: (item: ListRow, index: number) => ReactNode;
+}
 
-export function ListRoot<T>({ data, render }: ListRootProps<T>) {
-  return <div className="rounded-2xl border-[1px] border-black-2 w-full">{data.map((item) => render(item))}</div>;
+export function ListRoot({ data, render }: ListRootProps) {
+  return (
+    <div className="rounded-2xl border-[1px] border-black-2 w-full">
+      {data.map((item, index) => render(item, index))}
+    </div>
+  );
 }

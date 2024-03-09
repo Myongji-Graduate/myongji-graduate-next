@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Table from '.';
 import Button from '../../atom/button/button';
+import { Table } from '.';
 
 const meta = {
   title: 'ui/view/molecule/Table',
@@ -13,9 +13,18 @@ export const TakenLectureTable: StoryObj = {
   render: () => {
     const headerInfo = ['과목코드', '과목명', '학점'];
     const lectures = [
-      ['HEC01208', '데이터구조와알고리즘1', '3'],
-      ['HEC01208', '데이터구조와알고리즘1', '3'],
-      ['HEC01208', '데이터구조와알고리즘1', '3'],
+      {
+        id: 140,
+        lectureCode: 'HED01407',
+        lectureName: '딥러닝',
+        credit: 3,
+      },
+      {
+        id: 143,
+        lectureCode: 'HED01407',
+        lectureName: '인공지능',
+        credit: 3,
+      },
     ];
 
     return (
@@ -30,14 +39,27 @@ export const ButtonLectureTable: StoryObj = {
   render: () => {
     const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
     const lectures = [
-      ['2022', '2학기', 'HEC01208', '데이터구조와알고리즘1', '3'],
-      ['2022', '2학기', 'HEC01208', '데이터구조와알고리즘1', '3'],
-      ['2022', '2학기', 'HEC01208', '데이터구조와알고리즘1', '3'],
+      {
+        id: 140,
+        year: '2024',
+        semester: '1학기',
+        lectureCode: 'HED01407',
+        lectureName: '딥러닝',
+        credit: 3,
+      },
+      {
+        id: 143,
+        year: '2024',
+        semester: '1학기',
+        lectureCode: 'HED01407',
+        lectureName: '인공지능',
+        credit: 3,
+      },
     ];
-    const actionButton = <Button variant="list" label="삭제" />;
+    const actionButton = () => <Button variant="list" label="삭제" />;
     return (
       <main>
-        <Table headerInfo={headerInfo} data={lectures} actionButton={actionButton} />
+        <Table headerInfo={headerInfo} data={lectures} renderActionButton={actionButton} />
       </main>
     );
   },

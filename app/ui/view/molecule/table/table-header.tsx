@@ -1,10 +1,10 @@
 import Grid from '../grid';
 import { ColType } from '../grid/grid-root';
 
-type TableHeaderProps = {
+interface TableHeaderProps {
   headerInfo: string[];
   cols: ColType;
-};
+}
 
 export function TableHeader({ cols, headerInfo }: TableHeaderProps) {
   return (
