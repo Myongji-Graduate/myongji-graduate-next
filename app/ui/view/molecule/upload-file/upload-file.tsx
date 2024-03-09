@@ -25,7 +25,7 @@ function UploadFile() {
   };
 
   return (
-    <div className="relative flex flex-col items-center gap-8">
+    <div className="relative flex flex-col items-center gap-4">
       <input
         type="file"
         className="absolute opacity-0 h-full bg-black w-full"
