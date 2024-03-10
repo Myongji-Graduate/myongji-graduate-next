@@ -16,7 +16,7 @@ type LectureState = {
 
 type LectureAction = {
   setTakenLectures: (takenLectures: LectureInfo[]) => void;
-  deleteLecture: (id: number) => void;
+  deleteTakenLecture: (id: number) => void;
   addTakenLecutre: (takenLecture: LectureInfo) => void;
 };
 
@@ -40,7 +40,7 @@ export const useLectureStore = create<LectureStore>()((set) => {
       setTakenLectures: (takenLectures) => {
         set({ takenLectures });
       },
-      deleteLecture: (id) => {
+      deleteTakenLecture: (id) => {
         set((state) => ({
           takenLectures: state.takenLectures.filter((lecture) => lecture.id !== id),
         }));

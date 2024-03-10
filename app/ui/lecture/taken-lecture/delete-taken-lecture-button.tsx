@@ -6,20 +6,13 @@ interface DeleteTakenLectureButtonProps {
 }
 
 export default function DeleteTakenLecutreButton({ lectureId }: DeleteTakenLectureButtonProps) {
-  const deleteLecture = useLectureStore((state) => state.actions.deleteLecture);
+  const deleteTakenLecture = useLectureStore((state) => state.actions.deleteTakenLecture);
 
-  const handleDeleteButtonClick = (id: number) => {
-    deleteLecture(id);
+  const handleDeleteButtonClick = () => {
+    deleteTakenLecture(lectureId);
   };
 
   return (
-    <Button
-      label="삭제"
-      variant="list"
-      data-testid="taken-lecture-delete-button"
-      onClick={() => {
-        handleDeleteButtonClick(lectureId);
-      }}
-    />
+    <Button label="삭제" variant="list" data-testid="taken-lecture-delete-button" onClick={handleDeleteButtonClick} />
   );
 }
