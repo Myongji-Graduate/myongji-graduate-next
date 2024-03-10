@@ -4,6 +4,7 @@ import searchResultIcon from '@/public/assets/searchResultIcon.svg';
 import Button from '../../view/atom/button/button';
 import Grid from '../../view/molecule/grid';
 import { SearchedLectureInfo } from '@/app/type/lecture';
+import { useLectureStore } from '@/app/stores/lecture.store';
 
 interface LectureSearchResultContainerProps {
   handleAddButtonClick: (item: SearchedLectureInfo) => void;
@@ -19,6 +20,8 @@ const emptyDataRender = () => {
 };
 
 export default function LectureSearchResultContainer({ handleAddButtonClick }: LectureSearchResultContainerProps) {
+  const searchedLectures = useLectureStore((state) => state.searchedLectures);
+
   const renderAddActionButton = (item: SearchedLectureInfo) => {
     return (
       <Button
@@ -45,15 +48,5 @@ export default function LectureSearchResultContainer({ handleAddButtonClick }: L
     );
   };
 
-  return (
-    <List
-      data={[
-        { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3 },
-        { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
-      ]}
-      render={render}
-      isScrollList={true}
-      emptyDataRender={emptyDataRender}
-    />
-  );
+  return <List data={searchedLectures} render={render} isScrollList={true} emptyDataRender={emptyDataRender} />;
 }

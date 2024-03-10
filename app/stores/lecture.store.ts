@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { LectureInfo } from '../type/lecture';
+import { LectureInfo, SearchedLectureInfo } from '../type/lecture';
 
 export const storeResetFns = new Set<() => void>();
 
@@ -11,11 +11,13 @@ export const resetAllStore = () => {
 
 type LectureState = {
   takenLectures: LectureInfo[];
+  searchedLectures: SearchedLectureInfo[];
 };
 
 type LectureAction = {
   setTakenLectures: (takenLectures: LectureInfo[]) => void;
   deleteLecture: (id: number) => void;
+  addTakenLecutre: (takenLecture: LectureInfo) => void;
 };
 
 type LectureStore = LectureState & {
@@ -24,6 +26,10 @@ type LectureStore = LectureState & {
 
 const initialLectureState: LectureState = {
   takenLectures: [],
+  searchedLectures: [
+    { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3 },
+    { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
+  ],
 };
 
 export const useLectureStore = create<LectureStore>()((set) => {
@@ -37,6 +43,11 @@ export const useLectureStore = create<LectureStore>()((set) => {
       deleteLecture: (id) => {
         set((state) => ({
           takenLectures: state.takenLectures.filter((lecture) => lecture.id !== id),
+        }));
+      },
+      addTakenLecutre: (takenLecture) => {
+        set((state) => ({
+          takenLectures: [...state.takenLectures, takenLecture],
         }));
       },
     },
