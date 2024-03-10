@@ -3,10 +3,10 @@
 import TakenLectureLabel from './taken-lecture-label';
 import { Table } from '../../view/molecule/table';
 import { useEffect, useState } from 'react';
-import Button from '../../view/atom/button/button';
 import { LectureInfo, SearchedLectureInfo } from '@/app/type/lecture';
 import LectureSearch from '../lecture-search';
 import { useTakenLectureStore } from '@/app/stores/lecture.store';
+import DeleteTakenLecutreButton from './delete-taken-lecture-button';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
 
@@ -18,10 +18,6 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
   const [isCustomizing, setIsCustomizing] = useState<boolean>(false);
   const takenLectures = useTakenLectureStore((state) => state.takenLectures);
   const setTakenLectures = useTakenLectureStore((state) => state.actions.setTakenLectures);
-
-  const deleteLecture = (id: number) => {
-    setTakenLectures(takenLectures.filter((lecture) => lecture.id !== id));
-  };
 
   const addLecture = (item: SearchedLectureInfo) => {
     setTakenLectures([
@@ -57,16 +53,7 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
           <Table
             headerInfo={headerInfo}
             data={takenLectures}
-            renderActionButton={(id: number) => (
-              <Button
-                label="삭제"
-                variant="list"
-                data-testid="taken-lecture-delete-button"
-                onClick={() => {
-                  deleteLecture(id);
-                }}
-              />
-            )}
+            renderActionButton={(id: number) => <DeleteTakenLecutreButton lectureId={id} />}
           />
         ) : (
           <Table headerInfo={headerInfo} data={data} />

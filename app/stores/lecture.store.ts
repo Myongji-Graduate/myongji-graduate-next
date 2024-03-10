@@ -15,6 +15,7 @@ type TakenLectureState = {
 
 type TakenLectureAction = {
   setTakenLectures: (takenLectures: LectureInfo[]) => void;
+  deleteLecture: (id: number) => void;
 };
 
 type TakenLectureStore = TakenLectureState & {
@@ -32,6 +33,11 @@ export const useTakenLectureStore = create<TakenLectureStore>()((set) => {
     actions: {
       setTakenLectures: (takenLectures) => {
         set({ takenLectures });
+      },
+      deleteLecture: (id) => {
+        set((state) => ({
+          takenLectures: state.takenLectures.filter((lecture) => lecture.id !== id),
+        }));
       },
     },
   };
