@@ -2,7 +2,7 @@
 'use client';
 import TakenLectureLabel from './taken-lecture-label';
 import { Table } from '../../view/molecule/table';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { LectureInfo } from '@/app/type/lecture';
 import LectureSearch from '../lecture-search';
 import { useLectureStore } from '@/app/stores/lecture.store';

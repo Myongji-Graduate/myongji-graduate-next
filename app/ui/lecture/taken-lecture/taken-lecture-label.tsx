@@ -9,7 +9,7 @@ export default function TakenLectureLabel() {
   const isCustomizing = useLectureStore((state) => state.isCustomizing);
   const changeCustomizingState = useLectureStore((state) => state.actions.changeCustomizingState);
 
-  const handleCustomButtonClick = () => {
+  const handleCustomizingStateChange = () => {
     changeCustomizingState();
   };
 
@@ -29,7 +29,7 @@ export default function TakenLectureLabel() {
                 label="커스텀하기"
                 variant="secondary"
                 size="md"
-                onClick={handleCustomButtonClick}
+                onClick={handleCustomizingStateChange}
                 data-testid="custom-button"
               />
               <Link href="/file-upload">

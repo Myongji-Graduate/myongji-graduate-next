@@ -9,7 +9,7 @@ interface AddTakenLectureButtonProps {
 export default function AddTakenLecutreButton({ lectureItem }: AddTakenLectureButtonProps) {
   const addTakenLecutre = useLectureStore((state) => state.actions.addTakenLecutre);
 
-  const handleButtonClick = () => {
+  const handleTakenLectureAdd = () => {
     // 중복 제거 등의 로직이 여기 붙이면 된다.
 
     addTakenLecutre({
@@ -23,5 +23,5 @@ export default function AddTakenLecutreButton({ lectureItem }: AddTakenLectureBu
   };
 
   // error: prettier 세미콜론 에러
-  return <Button label="추가" variant="list" onClick={handleButtonClick} />;
+  return <Button label="추가" variant="list" onClick={handleTakenLectureAdd} />;
 }
