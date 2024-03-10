@@ -1,8 +1,13 @@
 import TakenLecture from '@/app/ui/lecture/taken-lecture';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { resetAllStore } from '@/app/stores/lecture.store';
 
 describe('Taken lecture list', () => {
+  beforeEach(() => {
+    resetAllStore();
+  });
+
   it('기이수 과목 리스트를 보여준다.', async () => {
     render(await TakenLecture());
     expect(await screen.findByTestId('table-data'));

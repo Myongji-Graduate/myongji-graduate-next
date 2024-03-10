@@ -1,13 +1,18 @@
 import Link from 'next/link';
 import Button from '../../view/atom/button/button';
 import LabelContainer from '../../view/atom/label-container/label-container';
+import { useLectureStore } from '@/app/stores/lecture.store';
 
-interface TakenLectureLabelProps {
-  isCustomizing: boolean;
-  changeCustomizingState: VoidFunction;
-}
+interface TakenLectureLabelProps {}
 
-export default function TakenLectureLabel({ isCustomizing, changeCustomizingState }: TakenLectureLabelProps) {
+export default function TakenLectureLabel() {
+  const isCustomizing = useLectureStore((state) => state.isCustomizing);
+  const changeCustomizingState = useLectureStore((state) => state.actions.changeCustomizingState);
+
+  const handleCustomButtonClick = () => {
+    changeCustomizingState();
+  };
+
   return (
     <LabelContainer
       label="내 기이수 과목"
@@ -24,7 +29,7 @@ export default function TakenLectureLabel({ isCustomizing, changeCustomizingStat
                 label="커스텀하기"
                 variant="secondary"
                 size="md"
-                onClick={changeCustomizingState}
+                onClick={handleCustomButtonClick}
                 data-testid="custom-button"
               />
               <Link href="/file-upload">

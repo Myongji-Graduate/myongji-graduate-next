@@ -15,13 +15,9 @@ interface TakenLectureListProps {
 }
 
 export default function TakenLectureList({ data }: TakenLectureListProps) {
-  const [isCustomizing, setIsCustomizing] = useState<boolean>(false);
+  const isCustomizing = useLectureStore((state) => state.isCustomizing);
   const takenLectures = useLectureStore((state) => state.takenLectures);
   const setTakenLectures = useLectureStore((state) => state.actions.setTakenLectures);
-
-  const changeCustomizingState = () => {
-    setIsCustomizing(!isCustomizing);
-  };
 
   useEffect(() => {
     if (!isCustomizing) {
@@ -34,7 +30,7 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
       {isCustomizing ? <LectureSearch /> : null}
       <div className="w-[800px] flex flex-col gap-2">
         {/* w-[800px]은 w-full로 변경 예정  */}
-        <TakenLectureLabel isCustomizing={isCustomizing} changeCustomizingState={changeCustomizingState} />
+        <TakenLectureLabel />
         {isCustomizing ? (
           <Table
             headerInfo={headerInfo}
