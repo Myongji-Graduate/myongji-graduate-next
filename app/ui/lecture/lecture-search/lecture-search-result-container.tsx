@@ -20,9 +20,6 @@ const emptyDataRender = () => {
 export default function LectureSearchResultContainer() {
   const searchedLectures = useLectureStore((state) => state.searchedLectures);
 
-  const renderAddActionButton = (item: SearchedLectureInfo) => {
-    return <AddTakenLecutreButton lectureItem={item} />;
-  };
   const render = (item: SearchedLectureInfo, index: number) => {
     const searchLectureItem = item;
     return (
@@ -32,7 +29,9 @@ export default function LectureSearchResultContainer() {
             if (key === 'id') return null;
             return <Grid.Column key={index}>{searchLectureItem[key]}</Grid.Column>;
           })}
-          {renderAddActionButton ? <Grid.Column>{renderAddActionButton(searchLectureItem)}</Grid.Column> : null}
+          <Grid.Column>
+            <AddTakenLecutreButton lectureItem={item} />;
+          </Grid.Column>
         </Grid>
       </List.Row>
     );

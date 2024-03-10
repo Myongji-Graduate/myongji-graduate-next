@@ -22,5 +22,6 @@ export default function AddTakenLecutreButton({ lectureItem }: AddTakenLectureBu
     });
   };
 
+  // error: prettier 세미콜론 에러
   return <Button label="추가" variant="list" onClick={handleButtonClick} />;
 }
