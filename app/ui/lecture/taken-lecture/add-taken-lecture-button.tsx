@@ -10,6 +10,8 @@ export default function AddTakenLecutreButton({ lectureItem }: AddTakenLectureBu
   const addTakenLecutre = useLectureStore((state) => state.actions.addTakenLecutre);
 
   const handleButtonClick = () => {
+    // 중복 제거 등의 로직이 여기 붙이면 된다.
+
     addTakenLecutre({
       id: lectureItem.id,
       year: 'CUSTOM',
@@ -20,5 +22,5 @@ export default function AddTakenLecutreButton({ lectureItem }: AddTakenLectureBu
     });
   };
 
-  return <Button label="삭제" variant="list" data-testid="taken-lecture-delete-button" onClick={handleButtonClick} />;
+  return <Button label="추가" variant="list" onClick={handleButtonClick} />;
 }

@@ -1,14 +1,12 @@
 import List from '../../view/molecule/list';
 import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';
-import Button from '../../view/atom/button/button';
 import Grid from '../../view/molecule/grid';
 import { SearchedLectureInfo } from '@/app/type/lecture';
 import { useLectureStore } from '@/app/stores/lecture.store';
+import AddTakenLecutreButton from '../taken-lecture/add-taken-lecture-button';
 
-interface LectureSearchResultContainerProps {
-  handleAddButtonClick: (item: SearchedLectureInfo) => void;
-}
+interface LectureSearchResultContainerProps {}
 
 const emptyDataRender = () => {
   return (
@@ -19,19 +17,11 @@ const emptyDataRender = () => {
   );
 };
 
-export default function LectureSearchResultContainer({ handleAddButtonClick }: LectureSearchResultContainerProps) {
+export default function LectureSearchResultContainer() {
   const searchedLectures = useLectureStore((state) => state.searchedLectures);
 
   const renderAddActionButton = (item: SearchedLectureInfo) => {
-    return (
-      <Button
-        variant="list"
-        label="추가"
-        onClick={() => {
-          handleAddButtonClick(item);
-        }}
-      />
-    );
+    return <AddTakenLecutreButton lectureItem={item} />;
   };
   const render = (item: SearchedLectureInfo, index: number) => {
     const searchLectureItem = item;

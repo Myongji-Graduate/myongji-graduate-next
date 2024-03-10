@@ -3,7 +3,7 @@
 import TakenLectureLabel from './taken-lecture-label';
 import { Table } from '../../view/molecule/table';
 import { useEffect, useState } from 'react';
-import { LectureInfo, SearchedLectureInfo } from '@/app/type/lecture';
+import { LectureInfo } from '@/app/type/lecture';
 import LectureSearch from '../lecture-search';
 import { useLectureStore } from '@/app/stores/lecture.store';
 import DeleteTakenLecutreButton from './delete-taken-lecture-button';
@@ -19,20 +19,6 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
   const takenLectures = useLectureStore((state) => state.takenLectures);
   const setTakenLectures = useLectureStore((state) => state.actions.setTakenLectures);
 
-  const addLecture = (item: SearchedLectureInfo) => {
-    setTakenLectures([
-      ...takenLectures,
-      {
-        id: item.id,
-        year: 'CUSTOM',
-        semester: 'CUSTOM',
-        lectureCode: item.lectureCode,
-        lectureName: item.name,
-        credit: item.credit,
-      },
-    ]);
-  };
-
   const changeCustomizingState = () => {
     setIsCustomizing(!isCustomizing);
   };
@@ -45,7 +31,7 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
 
   return (
     <div className="w-[800px] flex flex-col gap-10">
-      {isCustomizing ? <LectureSearch handleAddButtonClick={addLecture} /> : null}
+      {isCustomizing ? <LectureSearch /> : null}
       <div className="w-[800px] flex flex-col gap-2">
         {/* w-[800px]은 w-full로 변경 예정  */}
         <TakenLectureLabel isCustomizing={isCustomizing} changeCustomizingState={changeCustomizingState} />
