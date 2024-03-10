@@ -9,27 +9,27 @@ export const resetAllStore = () => {
   });
 };
 
-type TakenLectureState = {
+type LectureState = {
   takenLectures: LectureInfo[];
 };
 
-type TakenLectureAction = {
+type LectureAction = {
   setTakenLectures: (takenLectures: LectureInfo[]) => void;
   deleteLecture: (id: number) => void;
 };
 
-type TakenLectureStore = TakenLectureState & {
-  actions: TakenLectureAction;
+type LectureStore = LectureState & {
+  actions: LectureAction;
 };
 
-const initialTakenLectureState: TakenLectureState = {
+const initialLectureState: LectureState = {
   takenLectures: [],
 };
 
-export const useTakenLectureStore = create<TakenLectureStore>()((set) => {
-  storeResetFns.add(() => set(initialTakenLectureState));
+export const useLectureStore = create<LectureStore>()((set) => {
+  storeResetFns.add(() => set(initialLectureState));
   return {
-    ...initialTakenLectureState,
+    ...initialLectureState,
     actions: {
       setTakenLectures: (takenLectures) => {
         set({ takenLectures });

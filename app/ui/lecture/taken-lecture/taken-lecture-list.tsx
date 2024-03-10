@@ -5,7 +5,7 @@ import { Table } from '../../view/molecule/table';
 import { useEffect, useState } from 'react';
 import { LectureInfo, SearchedLectureInfo } from '@/app/type/lecture';
 import LectureSearch from '../lecture-search';
-import { useTakenLectureStore } from '@/app/stores/lecture.store';
+import { useLectureStore } from '@/app/stores/lecture.store';
 import DeleteTakenLecutreButton from './delete-taken-lecture-button';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
@@ -16,8 +16,8 @@ interface TakenLectureListProps {
 
 export default function TakenLectureList({ data }: TakenLectureListProps) {
   const [isCustomizing, setIsCustomizing] = useState<boolean>(false);
-  const takenLectures = useTakenLectureStore((state) => state.takenLectures);
-  const setTakenLectures = useTakenLectureStore((state) => state.actions.setTakenLectures);
+  const takenLectures = useLectureStore((state) => state.takenLectures);
+  const setTakenLectures = useLectureStore((state) => state.actions.setTakenLectures);
 
   const addLecture = (item: SearchedLectureInfo) => {
     setTakenLectures([

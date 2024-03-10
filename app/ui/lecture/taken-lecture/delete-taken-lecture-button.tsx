@@ -1,4 +1,4 @@
-import { useTakenLectureStore } from '@/app/stores/lecture.store';
+import { useLectureStore } from '@/app/stores/lecture.store';
 import Button from '../../view/atom/button/button';
 
 interface DeleteTakenLectureButtonProps {
@@ -6,7 +6,7 @@ interface DeleteTakenLectureButtonProps {
 }
 
 export default function DeleteTakenLecutreButton({ lectureId }: DeleteTakenLectureButtonProps) {
-  const deleteLecture = useTakenLectureStore((state) => state.actions.deleteLecture);
+  const deleteLecture = useLectureStore((state) => state.actions.deleteLecture);
 
   const handleDeleteButtonClick = (id: number) => {
     deleteLecture(id);
