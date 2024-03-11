@@ -60,9 +60,6 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     engLv,
   };
 
-  console.log('body', body);
-  // Call the API to create a user
-  // but now mock the response
   await fetch(`${API_PATH.user}/sign-up`, {
     method: 'POST',
     headers: {

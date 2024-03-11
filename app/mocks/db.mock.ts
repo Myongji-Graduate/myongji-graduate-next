@@ -18,14 +18,18 @@ interface MockDatabaseState {
 type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures[];
   getUser: (authId: string) => MockUser | undefined;
-  createUser: (user: MockUser) => void;
+  createUser: (user: MockUser) => boolean;
 };
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
   getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
   createUser: (user: SignUpRequestBody) => {
+    if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
+      return false;
+    }
     mockDatabaseStore.users.push(user);
+    return true;
   },
 };
 
