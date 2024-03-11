@@ -1,9 +1,13 @@
 import { HttpResponse, http, delay } from 'msw';
-import { revenue, takenLectures } from './data.mock';
 import { API_PATH } from '../business/api-path';
+import { mockDatabase } from './db.mock';
+import { SignUpRequestBody } from '../business/user/user.command';
 
 const userHandlers = [
-  http.get(`${API_PATH.user}/sign-up`, async () => {
+  http.post<never, SignUpRequestBody, never>(`${API_PATH.user}/sign-up`, async ({ request }) => {
+    const userData = await request.json();
+
+    mockDatabase.createUser(userData);
     await delay(2000);
 
     return HttpResponse.json({ status: 200 });
@@ -12,12 +16,9 @@ const userHandlers = [
 
 export const handlers = [
   ...userHandlers,
-  http.get(API_PATH.revenue, async () => {
-    await delay(1000);
-    console.log(revenue);
-    return HttpResponse.json(revenue);
-  }),
   http.get(API_PATH.takenLectures, () => {
-    return HttpResponse.json(takenLectures);
+    const takenLectures = mockDatabase.getTakenLectures();
+
+    return HttpResponse.json(takenLectures[0]);
   }),
 ];

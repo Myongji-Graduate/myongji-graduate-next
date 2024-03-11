@@ -34,7 +34,12 @@ export const SignUpFormSchema = z
     }
   });
 
-type User = z.infer<typeof SignUpFormSchema>;
+export interface SignUpRequestBody {
+  authId: string;
+  password: string;
+  studentNumber: string;
+  engLv: string;
+}
 
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignUpFormSchema.safeParse({
