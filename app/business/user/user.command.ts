@@ -2,9 +2,11 @@
 
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { z } from 'zod';
+import { API_PATH } from '../api-path';
+import { SignUpRequestBody } from './user.type';
 
 // message name은 logic 구현할 때 통일할 예정
-export const SignUpFormSchema = z
+const SignUpFormSchema = z
   .object({
     authId: z
       .string()
@@ -24,7 +26,6 @@ export const SignUpFormSchema = z
     engLv: z.enum(['basic', 'level12', 'level34', 'bypass']),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
-    console.log('refind', confirmPassword, password);
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: 'custom',
@@ -33,13 +34,6 @@ export const SignUpFormSchema = z
       });
     }
   });
-
-export interface SignUpRequestBody {
-  authId: string;
-  password: string;
-  studentNumber: string;
-  engLv: string;
-}
 
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignUpFormSchema.safeParse({
@@ -58,12 +52,19 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     };
   }
 
+  const { authId, password, studentNumber, engLv } = validatedFields.data;
+  const body: SignUpRequestBody = {
+    authId,
+    password,
+    studentNumber,
+    engLv,
+  };
+
   // Call the API to create a user
   // but now mock the response
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('');
-    }, 3000);
+  await fetch(`${API_PATH.user}/sign-up`, {
+    method: 'POST',
+    body: JSON.stringify(body),
   });
 
   return {

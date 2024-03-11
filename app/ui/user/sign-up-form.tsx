@@ -1,7 +1,8 @@
+'use client';
 import { createUser } from '@/app/business/user/user.command';
 import Form from '../view/molecule/form';
 
-export default function SignupForm() {
+export default function SignUpForm() {
   return (
     <Form action={createUser} id="회원가입">
       <Form.TextInput required={true} label="아이디" id="authId" placeholder="6자 이상 20자 이하" />

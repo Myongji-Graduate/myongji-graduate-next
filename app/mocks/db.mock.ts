@@ -1,4 +1,5 @@
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
+import { SignUpRequestBody } from '../business/user/user.type';
 import { takenLectures } from './data.mock';
 
 interface MockUser {
@@ -23,7 +24,7 @@ type MockDatabaseAction = {
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
   getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
-  createUser: (user: MockUser) => {
+  createUser: (user: SignUpRequestBody) => {
     mockDatabaseStore.users.push(user);
   },
 };
