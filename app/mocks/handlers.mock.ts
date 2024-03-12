@@ -9,13 +9,13 @@ export const handlers = [
     return HttpResponse.json(revenue);
   }),
 
-  http.post(API_PATH.parsePDF, async () => {
+  http.post(API_PATH.parsePDFtoText, async () => {
     await delay(1000);
     console.log(parsePDF);
     return HttpResponse.json(parsePDF);
   }),
 
-  http.post(API_PATH.uploadFile, async () => {
+  http.post(API_PATH.registUserGrade, async () => {
     await delay(1000);
     throw new HttpResponse(null, { status: 200 });
   }),
