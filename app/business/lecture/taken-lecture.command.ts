@@ -1,23 +1,35 @@
 'use server';
+import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../api-path';
 
-export const registUserGrade = async (formData: FormData) => {
+export const registUserGrade = async (prevState: FormState, formData: FormData) => {
   const parsingText = await parsePDFtoText(formData);
 
   const res = await fetch(API_PATH.registUserGrade, {
     method: 'POST',
     body: JSON.stringify({ parsingText }),
   });
+
   if (!res.ok) {
-    throw new Error('Failed to fetch registUserGrade data.');
+    return {
+      errors: {},
+      message: 'fail upload grade',
+    };
   }
-  return await res.status;
+
+  return {
+    errors: {},
+    message: '',
+  };
 };
 
-export const parsePDFtoText = async (formData: FormData): Promise<string> => {
+export const parsePDFtoText = async (formData: FormData) => {
   const res = await fetch(API_PATH.parsePDFtoText, { method: 'POST', body: formData });
   if (!res.ok) {
-    throw new Error('Failed to post parsePDF');
+    return {
+      errors: {},
+      message: 'fail parsing to text',
+    };
   }
   return await res.json();
 };
