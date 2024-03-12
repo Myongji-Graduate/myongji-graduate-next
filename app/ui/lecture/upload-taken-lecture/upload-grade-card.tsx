@@ -2,7 +2,7 @@
 
 import { registUserGrade } from '@/app/business/lecture/taken-lecture.command';
 import UploadPdf from '@/app/ui/view/molecule/upload-pdf/upload-pdf';
-import Form from '../view/molecule/form';
+import Form from '../../view/molecule/form';
 
 function UploadGradeCard() {
   return (

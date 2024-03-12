@@ -31,6 +31,7 @@ function UploadPdf() {
         className="absolute opacity-0 h-full w-full"
         name="file"
         accept=".pdf"
+        data-testid="upload-box"
         required
       />
       <div

@@ -1,6 +1,6 @@
 import ContentContainer from '../../ui/view/atom/content-container';
 import Manual from './components/manual';
-import UploadGradeCard from '../../ui/grade-upload/upload-grade-card';
+import UploadGradeCard from '../../ui/lecture/upload-taken-lecture/upload-grade-card';
 
 export default function GradeUploadPage() {
   return (
