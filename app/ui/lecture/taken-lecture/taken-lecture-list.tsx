@@ -3,7 +3,7 @@
 import { Table } from '../../view/molecule/table';
 import { useEffect } from 'react';
 import { LectureInfo } from '@/app/type/lecture';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom } from 'jotai';
 import { customLectureAtom, isCustomizingAtom } from '@/app/store/custom-taken-lecture';
 import DeleteTakenLectureButton from './delete-taken-lecture-button';
 
