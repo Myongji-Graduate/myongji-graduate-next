@@ -1,3 +1,4 @@
+import LectureSearch from '@/app/ui/lecture/lecture-search';
 import TakenLecture from '@/app/ui/lecture/taken-lecture';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -11,6 +12,7 @@ describe('Taken lecture list', () => {
   it('커스텀하기 버튼을 클릭하면 기이수 과목 리스트가 변경되며 과목 검색 컴포넌트가 렌더링된다.', async () => {
     //given
     render(await TakenLecture());
+    render(<LectureSearch />);
 
     //when
     const customButton = await screen.findByTestId('custom-button');
