@@ -4,7 +4,7 @@ import { registUserGrade } from '@/app/business/lecture/taken-lecture.command';
 import UploadPdf from '@/app/ui/view/molecule/upload-pdf/upload-pdf';
 import Form from '../../view/molecule/form';
 
-function UploadGradeCard() {
+function UploadTakenLecture() {
   return (
     <Form action={registUserGrade} id="성적업로드">
       <UploadPdf />
@@ -13,4 +13,4 @@ function UploadGradeCard() {
   );
 }
 
-export default UploadGradeCard;
+export default UploadTakenLecture;

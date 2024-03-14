@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export type FileType = File | null;
 
-export default function useFile() {
+export default function usePdfFile() {
   const [file, setFile] = useState<FileType>(null);
 
   const changeFile = (file: File) => {
