@@ -3,7 +3,7 @@ import Image from 'next/image';
 import uploadBox from '@/public/assets/upload-box.svg';
 import checkedBox from '@/public/assets/checked-box.svg';
 import usePdfFile from '@/app/hooks/usePdfFile';
-import { ChangeEvent, DragEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 function UploadPdf() {
   const { file, changeFile } = usePdfFile();
