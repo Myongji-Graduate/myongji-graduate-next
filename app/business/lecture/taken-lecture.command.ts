@@ -2,10 +2,10 @@
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../api-path';
 
-export const registUserGrade = async (prevState: FormState, formData: FormData) => {
+export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   const parsingText = await parsePDFtoText(formData);
 
-  const res = await fetch(API_PATH.registUserGrade, {
+  const res = await fetch(API_PATH.registerUserGrade, {
     method: 'POST',
     body: JSON.stringify({ parsingText }),
   });

@@ -15,7 +15,7 @@ export const handlers = [
     return HttpResponse.json(parsePDF);
   }),
 
-  http.post(API_PATH.registUserGrade, async () => {
+  http.post(API_PATH.registerUserGrade, async () => {
     await delay(1000);
     throw new HttpResponse(null, { status: 200 });
   }),
