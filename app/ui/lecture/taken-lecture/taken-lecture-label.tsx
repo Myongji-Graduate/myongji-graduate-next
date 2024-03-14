@@ -1,13 +1,27 @@
+'use client';
 import Link from 'next/link';
 import Button from '../../view/atom/button/button';
 import LabelContainer from '../../view/atom/label-container/label-container';
+import { useAtom, useSetAtom } from 'jotai';
+import { customLectureAtom, isCustomizingAtom } from '@/app/store/custom-taken-lecture';
+import { LectureInfo } from '@/app/type/lecture';
 
 interface TakenLectureLabelProps {
-  isCustomizing: boolean;
-  changeCustomizingState: VoidFunction;
+  data: LectureInfo[];
 }
+export default function TakenLectureLabel({ data }: TakenLectureLabelProps) {
+  const [isCustomizing, setIsCustomizing] = useAtom(isCustomizingAtom);
+  const setCustomLecture = useSetAtom(customLectureAtom);
 
-export default function TakenLectureLabel({ isCustomizing, changeCustomizingState }: TakenLectureLabelProps) {
+  const startCustomizing = () => {
+    setIsCustomizing(true);
+  };
+
+  const cancelCustomizing = () => {
+    setIsCustomizing(false);
+    setCustomLecture(data);
+  };
+
   return (
     <LabelContainer
       label="내 기이수 과목"
@@ -16,7 +30,7 @@ export default function TakenLectureLabel({ isCustomizing, changeCustomizingStat
           {isCustomizing ? (
             <>
               <Button label="저장하기" variant="primary" size="md" />
-              <Button label="취소하기" variant="secondary" size="md" onClick={changeCustomizingState} />
+              <Button label="취소하기" variant="secondary" size="md" onClick={cancelCustomizing} />
             </>
           ) : (
             <>
@@ -24,7 +38,7 @@ export default function TakenLectureLabel({ isCustomizing, changeCustomizingStat
                 label="커스텀하기"
                 variant="secondary"
                 size="md"
-                onClick={changeCustomizingState}
+                onClick={startCustomizing}
                 data-testid="custom-button"
               />
               <Link href="/file-upload">

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import TakenLectureLabel from './taken-lecture-label';
 import { Table } from '../../view/molecule/table';
-import { useEffect, useState } from 'react';
-import Button from '../../view/atom/button/button';
+import { useEffect } from 'react';
 import { LectureInfo } from '@/app/type/lecture';
+import { useAtom } from 'jotai';
+import { customLectureAtom, isCustomizingAtom } from '@/app/store/custom-taken-lecture';
+import DeleteTakenLectureButton from './delete-taken-lecture-button';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
 
@@ -13,45 +14,27 @@ interface TakenLectureListProps {
 }
 
 export default function TakenLectureList({ data }: TakenLectureListProps) {
-  const [isCustomizing, setIsCustomizing] = useState<boolean>(false);
-  const [customLecture, setCustomLecture] = useState<LectureInfo[]>(data);
-
-  const deleteLecture = (id: number) => {
-    setCustomLecture(customLecture.filter((lecture) => lecture.id !== id));
-  };
-
-  const changeCustomizingState = () => {
-    setIsCustomizing(!isCustomizing);
-  };
+  const [isCustomizing, setIsCustomizing] = useAtom(isCustomizingAtom);
+  const [customLecture, setCustomLecture] = useAtom(customLectureAtom);
 
   useEffect(() => {
-    if (!isCustomizing) {
+    return () => {
       setCustomLecture(data);
-    }
-  }, [isCustomizing]);
+      setIsCustomizing(false);
+    };
+  }, []);
 
   return (
-    <div className="w-[800px] flex flex-col gap-2">
-      {/* w-[800px]은 w-full로 변경 예정  */}
-      <TakenLectureLabel isCustomizing={isCustomizing} changeCustomizingState={changeCustomizingState} />
+    <>
       {isCustomizing ? (
         <Table
           headerInfo={headerInfo}
           data={customLecture}
-          renderActionButton={(id: number) => (
-            <Button
-              label="삭제"
-              variant="list"
-              data-testid="taken-lecture-delete-button"
-              onClick={() => {
-                deleteLecture(id);
-              }}
-            />
-          )}
+          renderActionButton={(id: number) => <DeleteTakenLectureButton lectureId={id} />}
         />
       ) : (
         <Table headerInfo={headerInfo} data={data} />
       )}
-    </div>
+    </>
   );
 }
