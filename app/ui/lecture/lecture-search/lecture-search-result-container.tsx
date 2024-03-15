@@ -14,25 +14,23 @@ const emptyDataRender = () => {
   );
 };
 
+const render = (item: SearchedLectureInfo, index: number) => {
+  const searchLectureItem = item;
+  return (
+    <List.Row key={index}>
+      <Grid cols={4}>
+        {Object.keys(searchLectureItem).map((key, index) => {
+          if (key === 'id') return null;
+          return <Grid.Column key={index}>{searchLectureItem[key]}</Grid.Column>;
+        })}
+        <Grid.Column>
+          <AddTakenLectureButton lectureItem={item} />
+        </Grid.Column>
+      </Grid>
+    </List.Row>
+  );
+};
 export default function LectureSearchResultContainer() {
-  const renderAddActionButton = (item: SearchedLectureInfo) => {
-    return <AddTakenLectureButton lectureItem={item} />;
-  };
-  const render = (item: SearchedLectureInfo, index: number) => {
-    const searchLectureItem = item;
-    return (
-      <List.Row key={index}>
-        <Grid cols={4}>
-          {Object.keys(searchLectureItem).map((key, index) => {
-            if (key === 'id') return null;
-            return <Grid.Column key={index}>{searchLectureItem[key]}</Grid.Column>;
-          })}
-          {renderAddActionButton ? <Grid.Column>{renderAddActionButton(searchLectureItem)}</Grid.Column> : null}
-        </Grid>
-      </List.Row>
-    );
-  };
-
   return (
     <List
       data={[
