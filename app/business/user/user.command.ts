@@ -60,13 +60,17 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     engLv,
   };
 
-  await fetch(`${API_PATH.user}/sign-up`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
+  try {
+    const response = await fetch(`${API_PATH.user}/sign-up`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    const result = await response.json();
+  } catch {}
 
   return {
     isFailure: true,

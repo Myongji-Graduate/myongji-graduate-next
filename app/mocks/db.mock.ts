@@ -28,7 +28,7 @@ export const mockDatabase: MockDatabaseAction = {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
       return false;
     }
-    mockDatabaseStore.users.push(user);
+    mockDatabaseStore.users = [...mockDatabaseStore.users, user];
     return true;
   },
 };
