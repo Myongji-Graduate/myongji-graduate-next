@@ -1,7 +1,12 @@
 import type { Preview } from '@storybook/react';
 import '../app/globals.css';
 
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
+initialize();
+
 const preview: Preview = {
+  decorators: [mswDecorator],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
