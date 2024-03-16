@@ -38,6 +38,8 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
   const childrenArray = React.Children.toArray(children);
   const Icon = icon;
 
+  console.log(selectedValue);
+
   const selectedPlaceholder = useMemo(() => {
     const reactElementChildren = React.Children.toArray(children).filter(
       (child) => React.isValidElement(child) && child.props.value === selectedValue,
@@ -67,7 +69,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
           if (listboxButton) listboxButton.focus();
         }}
       >
-        <option className="hidden" value="" disabled hidden>
+        <option className="hidden" value="" hidden>
           {placeholder}
         </option>
         {childrenArray.map((child: any) => {
@@ -89,7 +91,6 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
           setSelectedValue(value);
         }}
         disabled={disabled}
-        name={name}
         className="relative"
       >
         <Listbox.Button
