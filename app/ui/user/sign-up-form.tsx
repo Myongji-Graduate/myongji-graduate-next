@@ -21,8 +21,8 @@ export default function SignUpForm() {
         placeholder="선택하세요"
         options={[
           { value: 'basic', placeholder: '기초영어' },
-          { value: 'level12', placeholder: 'Level12' },
-          { value: 'level34', placeholder: 'Level34' },
+          { value: 'ENG12', placeholder: 'Level12' },
+          { value: 'ENG34', placeholder: 'Level34' },
           { value: 'bypass', placeholder: '면제' },
         ]}
       />

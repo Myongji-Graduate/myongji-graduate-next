@@ -29,7 +29,7 @@ const SignUpFormSchema = z
     studentNumber: z.string().length(8, { message: '학번은 8자리여야 합니다.' }).startsWith('60', {
       message: '학번은 60으로 시작해야 합니다.',
     }),
-    engLv: z.enum(['basic', 'level12', 'level34', 'bypass'], {
+    engLv: z.enum(['basic', 'ENG12', 'ENG34', 'bypass'], {
       invalid_type_error: '올바른 영어 레벨을 선택해주세요.',
     }),
   })
@@ -95,5 +95,5 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
   }
 
   // 회원가입 성공 시 로그인 페이지로 이동(로그인 페이지 경로로 변경 필요)
-  redirect('.');
+  redirect('/login');
 }
