@@ -10,7 +10,7 @@ export default function SignUpForm() {
         required={true}
         label="비밀번호"
         id="password"
-        placeholder="기호(!@#$%^&*)를 포함한 8자 이상 20자 이하"
+        placeholder="특수문자(!@#$%^&*), 문자, 숫자를 포함한 8자 이상 20자 이하"
       />
       <Form.PasswordInput required={true} label="비밀번호 확인" id="confirmPassword" placeholder="" />
       <Form.NumberInput required={true} label="학번" id="studentNumber" placeholder="ex)60xxxxxx" />

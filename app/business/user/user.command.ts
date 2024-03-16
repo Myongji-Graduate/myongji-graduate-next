@@ -6,38 +6,45 @@ import { API_PATH } from '../api-path';
 import { SignUpRequestBody } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
+import { redirect } from 'next/navigation';
 
-// message name은 logic 구현할 때 통일할 예정
 const SignUpFormSchema = z
   .object({
     authId: z
       .string()
       .min(6, {
-        message: 'User ID must be at least 6 characters',
+        message: '아이디는 6자 이상 20자 이하여야 합니다.',
       })
       .max(20, {
         message: 'User ID must be at most 20 characters',
       }),
-    password: z.string().regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!^%*#?&])[A-Za-z\d@$!^%*#?&]{8,}$/, {
-      message: 'Password must contain at least 8 characters, one letter, one number and one special character',
-    }),
+    password: z
+      .string()
+      .min(8, { message: '비밀번호는 8자 이상이어야 합니다.' })
+      .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, {
+        message: '비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.',
+      })
+      .max(20, { message: '비밀번호는 20자 이하여야 합니다.' }),
     confirmPassword: z.string(),
-    studentNumber: z.string().length(8, { message: '학번은 8자리 입니다' }).startsWith('60', {
-      message: '학번은 60으로 시작합니다',
+    studentNumber: z.string().length(8, { message: '학번은 8자리여야 합니다.' }).startsWith('60', {
+      message: '학번은 60으로 시작해야 합니다.',
     }),
-    engLv: z.enum(['basic', 'level12', 'level34', 'bypass']),
+    engLv: z.enum(['basic', 'level12', 'level34', 'bypass'], {
+      invalid_type_error: '올바른 영어 레벨을 선택해주세요.',
+    }),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: 'custom',
-        message: 'The passwords did not match',
+        message: '비밀번호가 일치하지 않습니다.',
         path: ['confirmPassword'],
       });
     }
   });
 
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
+  console.log(formData.get('engLv'));
   const validatedFields = SignUpFormSchema.safeParse({
     authId: formData.get('authId'),
     password: formData.get('password'),
@@ -88,9 +95,6 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     }
   }
 
-  return {
-    isFailure: false,
-    validationError: {},
-    message: '',
-  };
+  // 회원가입 성공 시 로그인 페이지로 이동(로그인 페이지 경로로 변경 필요)
+  redirect('.');
 }
