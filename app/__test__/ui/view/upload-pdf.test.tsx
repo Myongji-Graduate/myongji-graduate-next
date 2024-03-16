@@ -1,9 +1,9 @@
 import UploadPdf from '@/app/ui/view/molecule/upload-pdf/upload-pdf';
 import { render, screen } from '@testing-library/react';
-import fireEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 describe('성적 업로드', () => {
-  it('pdf가 아닌 파일을 업로드할 수 없다', async () => {
+  it('파일이 업로드 될 때, pdf file을 업로드 하면 file명이 노출된다.', async () => {
     render(<UploadPdf />);
 
     const targetFile = new File(['grade'], 'grade.pdf', {
@@ -11,8 +11,20 @@ describe('성적 업로드', () => {
     });
 
     const uploadBox = await screen.findByTestId('upload-box');
-    fireEvent.upload(uploadBox, targetFile);
+    await userEvent.upload(uploadBox, targetFile);
 
-    expect(screen.queryByText('추가')).not.toBeInTheDocument();
+    expect(screen.getByText(targetFile.name)).toBeInTheDocument();
+  });
+
+  it('파일이 업로드 될 때, pdf가 아닌 file을 업로드 하면 변화가 발생하지않는다.', async () => {
+    render(<UploadPdf />);
+
+    const targetFile = new File(['grade'], 'grade.png', {
+      type: 'text/plain',
+    });
+
+    const uploadBox = await screen.findByTestId('upload-box');
+    await userEvent.upload(uploadBox, targetFile);
+    expect(screen.queryByText('마우스로 드래그 하거나 아이콘을 눌러 추가해주세요.')).toBeInTheDocument();
   });
 });
