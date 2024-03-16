@@ -4,6 +4,8 @@ import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { z } from 'zod';
 import { API_PATH } from '../api-path';
 import { SignUpRequestBody } from './user.type';
+import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
+import { BadRequestError } from '@/app/utils/http/http-error';
 
 // message name은 logic 구현할 때 통일할 예정
 const SignUpFormSchema = z
@@ -70,11 +72,25 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     });
 
     const result = await response.json();
-  } catch {}
+
+    httpErrorHandler(response, result);
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      // 잘못된 요청 처리 로직
+      return {
+        isFailure: true,
+        validationError: {},
+        message: error.message,
+      };
+    } else {
+      // 나머지 에러는 더 상위 수준에서 처리
+      throw error;
+    }
+  }
 
   return {
-    isFailure: true,
+    isFailure: false,
     validationError: {},
-    message: '이미 존재하는 계정입니다.',
+    message: '',
   };
 }
