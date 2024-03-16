@@ -20,6 +20,7 @@ const config: StorybookConfig = {
       config.resolve.alias = {
         ...config.resolve.alias,
         '@': path.resolve(__dirname, '../'),
+        'next/navigation': path.resolve(__dirname, '../app/utils/test/__mock__/next/navigation.ts'),
       };
     }
     return config;

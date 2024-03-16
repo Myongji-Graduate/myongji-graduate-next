@@ -96,4 +96,11 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
 
   // 회원가입 성공 시 로그인 페이지로 이동(로그인 페이지 경로로 변경 필요)
   redirect('/login');
+
+  // storybook test에서는 redirect가 동작하지 않으므로 임시로 성공 메시지 반환
+  return {
+    isFailure: false,
+    validationError: {},
+    message: '회원가입이 완료되었습니다.',
+  };
 }
