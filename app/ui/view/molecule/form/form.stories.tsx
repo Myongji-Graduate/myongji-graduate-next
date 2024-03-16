@@ -43,7 +43,7 @@ const SignUpFormSchema = z
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: 'custom',
-        message: 'The passwords did not match',
+        message: '비밀번호가 일치하지 않습니다.',
         path: ['confirmPassword'],
       });
     }
@@ -51,11 +51,11 @@ const SignUpFormSchema = z
 
 async function mockFormAction(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignUpFormSchema.safeParse({
-    userId: formData.get('userId'),
+    authId: formData.get('authId'),
     password: formData.get('password'),
     confirmPassword: formData.get('confirmPassword'),
     studentNumber: formData.get('studentNumber'),
-    english: formData.get('english'),
+    engLv: formData.get('engLv'),
   });
 
   if (!validatedFields.success) {
@@ -85,19 +85,19 @@ const SingUpFormTemplate: Story = {
   render: () => {
     return (
       <Form action={mockFormAction} id="회원가입">
-        <Form.TextInput required={true} label="아이디" id="userId" placeholder="6자 이상 20자 이하" />
+        <Form.TextInput required={true} label="아이디" id="authId" placeholder="6자 이상 20자 이하" />
         <Form.PasswordInput
           required={true}
           label="비밀번호"
           id="password"
-          placeholder="기호(!@#$%^&*)를 포함한 8자 이상 20자 이하"
+          placeholder="특수문자(!@#$%^&*), 문자, 숫자를 포함한 8자 이상 20자 이하"
         />
         <Form.PasswordInput required={true} label="비밀번호 확인" id="confirmPassword" placeholder="" />
         <Form.NumberInput required={true} label="학번" id="studentNumber" placeholder="ex)60xxxxxx" />
         <Form.Select
           required={true}
           label="영어"
-          id="english"
+          id="engLv"
           placeholder="선택하세요"
           options={[
             { value: 'basic', placeholder: '기초영어' },
