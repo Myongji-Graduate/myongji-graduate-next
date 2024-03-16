@@ -1,6 +1,6 @@
 'use client';
 import { createUser } from '@/app/business/user/user.command';
-import Form from '../view/molecule/form';
+import Form from '../../view/molecule/form';
 
 export default function SignUpForm() {
   return (
