@@ -44,7 +44,6 @@ const SignUpFormSchema = z
   });
 
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
-  console.log(formData.get('engLv'));
   const validatedFields = SignUpFormSchema.safeParse({
     authId: formData.get('authId'),
     password: formData.get('password'),
@@ -57,7 +56,7 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     return {
       isFailure: true,
       validationError: validatedFields.error.flatten().fieldErrors,
-      message: 'error',
+      message: '양식에 맞춰 다시 입력해주세요.',
     };
   }
 
