@@ -1,6 +1,7 @@
 import Button from '@/app/ui/view/atom/button/button';
 import Link from 'next/link';
 
+// 내용이랑 스타일은 mock인 상태입니다.
 export default function SignUpSuccess() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6">
