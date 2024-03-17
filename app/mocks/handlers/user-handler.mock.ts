@@ -8,7 +8,7 @@ export const userHandlers = [
     const userData = await request.json();
 
     const isSuccess = mockDatabase.createUser(userData);
-    await delay(2000);
+    await delay(500);
 
     if (!isSuccess) {
       return HttpResponse.json({ status: 400, message: '이미 가입된 학번입니다.' }, { status: 400 });
