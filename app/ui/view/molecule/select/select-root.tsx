@@ -38,8 +38,6 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
   const childrenArray = React.Children.toArray(children);
   const Icon = icon;
 
-  console.log(selectedValue);
-
   const selectedPlaceholder = useMemo(() => {
     const reactElementChildren = React.Children.toArray(children).filter(
       (child) => React.isValidElement(child) && child.props.value === selectedValue,
