@@ -54,6 +54,7 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
 
   if (!validatedFields.success) {
     return {
+      isSuccess: false,
       isFailure: true,
       validationError: validatedFields.error.flatten().fieldErrors,
       message: '양식에 맞춰 다시 입력해주세요.',
@@ -84,6 +85,7 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
       return {
+        isSuccess: false,
         isFailure: true,
         validationError: {},
         message: error.message,
@@ -94,11 +96,8 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     }
   }
 
-  // 회원가입 성공 시 로그인 페이지로 이동(로그인 페이지 경로로 변경 필요)
-  redirect('/login');
-
-  // storybook test에서는 redirect가 동작하지 않으므로 임시로 성공 메시지 반환
   return {
+    isSuccess: true,
     isFailure: false,
     validationError: {},
     message: '회원가입이 완료되었습니다.',

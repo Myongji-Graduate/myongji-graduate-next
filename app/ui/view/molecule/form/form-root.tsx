@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { FormSubmitButton } from './form-submit-button';
 import { FormContext } from './form.context';
@@ -6,6 +7,7 @@ import { filterChildrenByType } from '@/app/utils/component.util';
 import AlertDestructive from '../alert-destructive/alert-destructive';
 
 export interface FormState {
+  isSuccess: boolean;
   isFailure: boolean;
   message: string | null;
   validationError: Record<string, string[] | undefined>;
@@ -17,12 +19,19 @@ const getFormSubmitButton = (children: React.ReactNode) => {
 
 interface FormRootProps {
   id: string;
+  onSuccess?: () => void;
   action: (prevState: FormState, formData: FormData) => Promise<FormState> | FormState;
 }
 
-export function FormRoot({ id, action, children }: React.PropsWithChildren<FormRootProps>) {
-  const initialState: FormState = { isFailure: false, message: null, validationError: {} };
+export function FormRoot({ id, action, onSuccess, children }: React.PropsWithChildren<FormRootProps>) {
+  const initialState: FormState = { isSuccess: false, isFailure: false, message: null, validationError: {} };
   const [formState, dispatch] = useFormState(action, initialState);
+
+  useEffect(() => {
+    if (formState.isSuccess) {
+      onSuccess?.();
+    }
+  }, [formState]);
 
   const formSubmitButton = getFormSubmitButton(children);
 

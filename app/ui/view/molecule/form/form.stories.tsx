@@ -60,6 +60,7 @@ async function mockFormAction(prevState: FormState, formData: FormData): Promise
 
   if (!validatedFields.success) {
     return {
+      isSuccess: false,
       isFailure: true,
       validationError: validatedFields.error.flatten().fieldErrors,
       message: 'error',
@@ -75,6 +76,7 @@ async function mockFormAction(prevState: FormState, formData: FormData): Promise
   });
 
   return {
+    isSuccess: false,
     isFailure: true,
     validationError: {},
     message: '이미 존재하는 계정입니다.',
