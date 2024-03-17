@@ -20,7 +20,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const SignUpFormSchema = z
+const SignUpFormMockSchema = z
   .object({
     authId: z
       .string()
@@ -50,7 +50,7 @@ const SignUpFormSchema = z
   });
 
 async function mockFormAction(prevState: FormState, formData: FormData): Promise<FormState> {
-  const validatedFields = SignUpFormSchema.safeParse({
+  const validatedFields = SignUpFormMockSchema.safeParse({
     authId: formData.get('authId'),
     password: formData.get('password'),
     confirmPassword: formData.get('confirmPassword'),
