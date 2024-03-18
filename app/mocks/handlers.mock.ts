@@ -1,5 +1,5 @@
 import { HttpResponse, http, delay } from 'msw';
-import { revenue, takenLectures } from './data.mock';
+import { revenue, parsePDF, takenLectures } from './data.mock';
 import { API_PATH } from '../business/api-path';
 
 export const handlers = [
@@ -8,6 +8,18 @@ export const handlers = [
     console.log(revenue);
     return HttpResponse.json(revenue);
   }),
+
+  http.post(API_PATH.parsePDFtoText, async () => {
+    await delay(1000);
+    console.log(parsePDF);
+    return HttpResponse.json(parsePDF);
+  }),
+
+  http.post(API_PATH.registerUserGrade, async () => {
+    await delay(1000);
+    throw new HttpResponse(null, { status: 200 });
+  }),
+
   http.get(API_PATH.takenLectures, () => {
     return HttpResponse.json(takenLectures);
   }),
