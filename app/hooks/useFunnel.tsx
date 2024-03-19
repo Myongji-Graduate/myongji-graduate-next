@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 const DEFAULT_STEP_QUERY_KEY = 'funnel-step';
 
 export default function useFunnel<Steps extends string>(
-  defaultState: Steps,
+  defaultStep: Steps,
   options?: {
     stepQueryKey?: string;
   },
@@ -36,8 +36,8 @@ export default function useFunnel<Steps extends string>(
   );
 
   useEffect(() => {
-    setStep(step ?? defaultState);
-  }, [defaultState, step, setStep]);
+    setStep(step ?? defaultStep);
+  }, [defaultStep, step, setStep]);
 
   const Step = ({ name, children }: React.PropsWithChildren<{ name: Steps }>) => {
     return <>{children}</>;
