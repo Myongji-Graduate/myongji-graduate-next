@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 export default function useFunnel<Steps>(defaultState: Steps) {
-  const [step, setStep] = useState<Steps>(defaultStae);
+  const [step, setStep] = useState<Steps>(defaultState);
 
   const Step = ({ name, children }: React.PropsWithChildren<{ name: Steps }>) => {
     return <>{children}</>;
