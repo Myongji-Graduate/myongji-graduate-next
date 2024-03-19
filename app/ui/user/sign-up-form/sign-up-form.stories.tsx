@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SignUpForm from './sign-up-form';
 
 import { userEvent, within, expect, fn, waitFor } from '@storybook/test';
-import { userHandlers } from '@/app/mocks/handlers/user-handler.mock';
 import { resetMockDB } from '@/app/mocks/db.mock';
 
 const meta = {
@@ -19,9 +18,6 @@ const meta = {
       </div>
     ),
   ],
-  parameters: {
-    msw: [...userHandlers],
-  },
 } as Meta<typeof SignUpForm>;
 
 export default meta;

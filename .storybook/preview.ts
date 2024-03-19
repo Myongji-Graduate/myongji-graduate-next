@@ -1,9 +1,9 @@
 import type { Preview } from '@storybook/react';
 import '../app/globals.css';
-
+import { handlers } from '../app/mocks/handlers';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 
-initialize();
+initialize({}, [...handlers]);
 
 const preview: Preview = {
   decorators: [mswDecorator],
