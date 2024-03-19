@@ -1,8 +1,43 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-export default function useFunnel<Steps>(defaultState: Steps) {
-  const [step, setStep] = useState<Steps>(defaultState);
+const DEFAULT_STEP_QUERY_KEY = 'funnel-step';
+
+export default function useFunnel<Steps extends string>(
+  defaultState: Steps,
+  options?: {
+    stepQueryKey?: string;
+  },
+) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const stepQueryKey = options?.stepQueryKey ?? DEFAULT_STEP_QUERY_KEY;
+
+  const step = searchParams.get(stepQueryKey) as Steps | undefined;
+
+  const createUrl = useCallback(
+    (step: Steps) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete(stepQueryKey);
+      params.set(stepQueryKey, step);
+
+      return `${pathname}?${params.toString()}`;
+    },
+    [searchParams, stepQueryKey],
+  );
+
+  const setStep = useCallback(
+    (step: Steps) => {
+      router.push(createUrl(step));
+    },
+    [searchParams, createUrl],
+  );
+
+  useEffect(() => {
+    setStep(step ?? defaultState);
+  }, [defaultState, step, setStep]);
 
   const Step = ({ name, children }: React.PropsWithChildren<{ name: Steps }>) => {
     return <>{children}</>;
