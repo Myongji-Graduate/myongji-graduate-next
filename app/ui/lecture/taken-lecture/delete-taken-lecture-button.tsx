@@ -10,5 +10,9 @@ export default function DeleteTakenLectureButton({ lectureId }: DeleteTakenLectu
   const deleteLecture = () => {
     setCustomLecture(customLecture.filter((lecture) => lecture.id !== lectureId));
   };
-  return <Button label="삭제" variant="list" data-testid="taken-lecture-delete-button" onClick={deleteLecture} />;
+  return (
+    <div className="opacity-0 group-hover:opacity-100">
+      <Button label="삭제" variant="list" data-testid="taken-lecture-delete-button" onClick={deleteLecture} />
+    </div>
+  );
 }

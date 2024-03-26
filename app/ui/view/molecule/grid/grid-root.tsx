@@ -8,7 +8,7 @@ type GridRootProps = {
   cols: ColType;
 };
 
-export const GridVariants = cva('grid', {
+export const GridVariants = cva('grid group', {
   variants: {
     cols: {
       3: 'grid-cols-3',
