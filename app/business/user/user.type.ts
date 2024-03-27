@@ -1,6 +1,9 @@
 // https://stackoverflow.com/questions/76957592/error-only-async-functions-are-allowed-to-be-exported-in-a-use-server-file
 // server action 파일에서는 async function만 export 가능
 
+import { SignInResponseSchema } from './user.validation';
+import z from 'zod';
+
 export interface SignUpRequestBody {
   authId: string;
   password: string;
@@ -13,7 +16,4 @@ export interface SignInRequestBody {
   password: string;
 }
 
-export interface SignInResponse {
-  accessToken: string;
-  refreshToken: string;
-}
+export type SignInResponse = z.infer<typeof SignInResponseSchema>;

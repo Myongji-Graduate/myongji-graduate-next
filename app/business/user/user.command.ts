@@ -5,7 +5,18 @@ import { API_PATH } from '../api-path';
 import { SignUpRequestBody, SignInRequestBody } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
-import { SignUpFormSchema, SignInFormSchema } from './user.validation';
+import { SignUpFormSchema, SignInFormSchema, SignInResponseSchema } from './user.validation';
+import { cookies } from 'next/headers';
+import { z } from 'zod';
+
+function isValidation<T extends z.ZodObject<any>>(data: any, schema: T): data is z.infer<T> {
+  try {
+    schema.parse(data);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignInFormSchema.safeParse({
@@ -39,7 +50,18 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
 
     httpErrorHandler(response, result);
 
-    // cookie
+    if (isValidation(result, SignInResponseSchema)) {
+      cookies().set('accessToken', result.accessToken, {
+        httpOnly: true,
+        // secure: process.env.NODE_ENV === 'production',
+        path: '/',
+      });
+      cookies().set('refreshToken', result.refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+      });
+    }
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직

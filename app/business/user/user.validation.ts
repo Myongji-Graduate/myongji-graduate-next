@@ -5,6 +5,11 @@ export const SignInFormSchema = z.object({
   password: z.string(),
 });
 
+export const SignInResponseSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+});
+
 export const SignUpFormSchema = z
   .object({
     authId: z
