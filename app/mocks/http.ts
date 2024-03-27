@@ -4,7 +4,7 @@
 
 import express from 'express';
 import { createMiddleware } from '@mswjs/http-middleware';
-import { handlers } from './handlers.mock';
+import { handlers } from './handlers';
 
 const app = express();
 const port = 9090;

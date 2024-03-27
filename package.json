@@ -17,7 +17,8 @@
     "lint-staged": "lint-staged",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "type": "tsc --noEmit"
+    "type": "tsc --noEmit",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
@@ -48,6 +49,7 @@
     "@storybook/nextjs": "^7.6.15",
     "@storybook/react": "^7.6.15",
     "@storybook/test": "^7.6.15",
+    "@storybook/test-runner": "^0.17.0",
     "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
@@ -69,6 +71,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.2",
     "msw": "^2.1.7",
+    "msw-storybook-addon": "^2.0.0-beta.1",
     "postcss": "^8",
     "prettier": "3.2.5",
     "storybook": "^7.6.15",

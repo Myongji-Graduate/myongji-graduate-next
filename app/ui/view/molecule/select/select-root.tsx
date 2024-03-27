@@ -67,7 +67,7 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
           if (listboxButton) listboxButton.focus();
         }}
       >
-        <option className="hidden" value="" disabled hidden>
+        <option className="hidden" value="" hidden>
           {placeholder}
         </option>
         {childrenArray.map((child: any) => {
@@ -89,7 +89,6 @@ export const SelectRoot = React.forwardRef<HTMLInputElement, SelectProps>(functi
           setSelectedValue(value);
         }}
         disabled={disabled}
-        name={name}
         className="relative"
       >
         <Listbox.Button
