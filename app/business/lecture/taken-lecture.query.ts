@@ -1,7 +1,7 @@
 import { LectureInfo } from '@/app/type/lecture';
 import { API_PATH } from '../api-path';
 
-interface TakenLectures {
+export interface TakenLectures {
   totalCredit: number;
   takenLectures: LectureInfo[];
 }
