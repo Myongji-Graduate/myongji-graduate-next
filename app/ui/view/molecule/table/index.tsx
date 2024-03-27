@@ -10,15 +10,15 @@ interface TableProps<T extends ListRow> {
   renderActionButton?: (id: number) => JSX.Element;
 }
 
-function isCol(cols: number): cols is ColType {
-  if (cols === 3 || cols === 4 || cols === 5 || cols === 6) {
+function isCol(cols: number | string): cols is ColType {
+  if (cols === 3 || cols === 4 || cols === 5 || cols === 6 || cols === 'custom') {
     return true;
   }
   return false;
 }
 
 export function Table<T extends ListRow>({ data, headerInfo, renderActionButton }: TableProps<T>) {
-  const cols = renderActionButton ? headerInfo.length + 1 : headerInfo.length;
+  const cols = renderActionButton ? 'custom' : headerInfo.length;
 
   const render = (item: T, index: number) => {
     return (

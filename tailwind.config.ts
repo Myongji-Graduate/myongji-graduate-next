@@ -51,6 +51,9 @@ const config: Config = {
         3: '300', // upper all
       },
     },
+    gridTemplateColumns: {
+      custom: 'repeat(5, 1fr) 0.6fr',
+    },
   },
   plugins: [headlessui, require('tailwindcss-animate')],
 };
