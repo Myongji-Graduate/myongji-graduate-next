@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+export const SignInFormSchema = z.object({
+  authId: z.string(),
+  password: z.string(),
+});
+
 export const SignUpFormSchema = z
   .object({
     authId: z

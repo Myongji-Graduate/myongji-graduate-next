@@ -6,4 +6,5 @@ export const API_PATH = {
   parsePDFtoText: `${BASE_URL}/parsePDFtoText`,
   takenLectures: `${BASE_URL}/taken-lectures`,
   user: `${BASE_URL}/users`,
+  auth: `${BASE_URL}/auth`,
 };

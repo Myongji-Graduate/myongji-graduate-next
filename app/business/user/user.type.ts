@@ -7,3 +7,8 @@ export interface SignUpRequestBody {
   studentNumber: string;
   engLv: string;
 }
+
+export interface SignInRequestBody {
+  authId: string;
+  password: string;
+}
