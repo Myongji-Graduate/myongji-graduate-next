@@ -29,20 +29,20 @@ export default function TakenLectureLabel({ data }: TakenLectureLabelProps) {
         <div className="flex gap-2">
           {isCustomizing ? (
             <>
-              <Button label="저장하기" variant="primary" size="md" />
-              <Button label="취소하기" variant="secondary" size="md" onClick={cancelCustomizing} />
+              <Button label="저장하기" variant="primary" size="xs" />
+              <Button label="취소하기" variant="secondary" size="xs" onClick={cancelCustomizing} />
             </>
           ) : (
             <>
               <Button
                 label="커스텀하기"
                 variant="secondary"
-                size="md"
+                size="xs"
                 onClick={startCustomizing}
                 data-testid="custom-button"
               />
               <Link href="/file-upload">
-                <Button label="업데이트" variant="secondary" size="md" />
+                <Button label="업데이트" variant="secondary" size="xs" />
               </Link>
             </>
           )}
