@@ -6,7 +6,7 @@ export default async function TakenLecture() {
   const data = await fetchTakenLectures();
   return (
     <div className="flex flex-col gap-2">
-      <TakenLectureLabel data={data.takenLectures} />
+      <TakenLectureLabel />
       <TakenLectureList data={data.takenLectures} />
     </div>
   );

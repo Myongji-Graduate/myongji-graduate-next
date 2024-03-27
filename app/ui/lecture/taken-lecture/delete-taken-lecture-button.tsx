@@ -1,14 +1,12 @@
-import { useAtom } from 'jotai';
+'use client';
 import Button from '../../view/atom/button/button';
-import { customLectureAtom } from '@/app/store/custom-taken-lecture';
 
 interface DeleteTakenLectureButtonProps {
   lectureId: number;
 }
 export default function DeleteTakenLectureButton({ lectureId }: DeleteTakenLectureButtonProps) {
-  const [customLecture, setCustomLecture] = useAtom(customLectureAtom);
   const deleteLecture = () => {
-    setCustomLecture(customLecture.filter((lecture) => lecture.id !== lectureId));
+    // 삭제 api 연결 예정
   };
   return (
     <div className="opacity-0 group-hover:opacity-100">
