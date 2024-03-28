@@ -10,10 +10,19 @@ interface TakenLectureListProps {
 
 export default function TakenLectureList({ data }: TakenLectureListProps) {
   return (
-    <Table
-      headerInfo={headerInfo}
-      data={data}
-      renderActionButton={(id: number) => <DeleteTakenLectureButton lectureId={id} />}
-    />
+    <>
+      {/* pc  */}
+      <div className="hidden lg:block">
+        <Table
+          headerInfo={headerInfo}
+          data={data}
+          renderActionButton={(id: number) => <DeleteTakenLectureButton lectureId={id} />}
+        />
+      </div>
+      {/* mobile */}
+      <div className="block lg:hidden">
+        <Table headerInfo={headerInfo} data={data} />
+      </div>
+    </>
   );
 }

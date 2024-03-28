@@ -6,8 +6,8 @@ import React from 'react';
 export default function Page() {
   return (
     <ContentContainer className="flex">
-      <div className="w-[30%]">정보칸</div>
-      <div className="w-[70%] px-[20px]">
+      <div className="hidden lg:w-[30%] lg:block">정보칸</div>
+      <div className="w-full lg:w-[70%] lg:px-[20px]">
         <LectureSearch />
         <TakenLecture />
       </div>
