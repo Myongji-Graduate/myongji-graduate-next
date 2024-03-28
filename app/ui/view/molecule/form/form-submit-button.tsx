@@ -15,7 +15,7 @@ export function FormSubmitButton({
   label,
   position = 'right',
   variant = 'primary',
-  size = 'sm',
+  size = 'md',
 }: FormSubmitButtonProps) {
   const { formId } = useContext(FormContext);
   const { pending } = useFormStatus();
