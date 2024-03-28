@@ -10,7 +10,13 @@ export default function DeleteTakenLectureButton({ lectureId }: DeleteTakenLectu
   };
   return (
     <div className="opacity-0 group-hover:opacity-100">
-      <Button label="삭제" variant="text" size="xs" data-testid="taken-lecture-delete-button" onClick={deleteLecture} />
+      <Button
+        label="삭제"
+        variant="text"
+        size="default"
+        data-testid="taken-lecture-delete-button"
+        onClick={deleteLecture}
+      />
     </div>
   );
 }
