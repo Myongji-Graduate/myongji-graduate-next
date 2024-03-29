@@ -1,7 +1,7 @@
 'use client';
 import Button from '../../view/atom/button/button';
 
-interface DeleteTakenLectureButtonProps {
+export interface DeleteTakenLectureButtonProps {
   lectureId: number;
 }
 export default function DeleteTakenLectureButton({ lectureId }: DeleteTakenLectureButtonProps) {
