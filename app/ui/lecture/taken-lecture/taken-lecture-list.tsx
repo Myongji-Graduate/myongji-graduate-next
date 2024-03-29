@@ -2,7 +2,6 @@
 import { Table } from '../../view/molecule/table';
 import { LectureInfo } from '@/app/type/lecture';
 import DeleteTakenLectureButton from './delete-taken-lecture-button';
-import SwipeableDeleteTakenLectureButton from './swipeable-delete-taken-lecture-button';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
 
@@ -27,7 +26,7 @@ export default function TakenLectureList({ data }: TakenLectureListProps) {
           headerInfo={headerInfo}
           data={data}
           swipeable={true}
-          renderActionButton={(id: number) => <SwipeableDeleteTakenLectureButton lectureId={id} />}
+          renderActionButton={(id: number) => <DeleteTakenLectureButton lectureId={id} swipeable={true} />}
         />
       </div>
     </>
