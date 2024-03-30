@@ -23,10 +23,10 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
     },
     size: {
       default: '',
-      xs: 'px-5 py-3 text-lg font-medium leading-5',
-      sm: 'px-12 py-3.5 text-sm font-medium leading-3',
-      md: 'px-6 py-4 text-lg font-medium leading-3',
-      lg: 'px-32 py-6 text-3xl font-medium leading-9',
+      xs: 'px-5 py-2.5 text-sm font-medium leading-5',
+      sm: 'px-10 py-2.5 text-xs font-medium leading-3',
+      md: 'px-20 py-4 text-base font-medium leading-3',
+      lg: 'px-28 py-4 text-2xl font-medium leading-9',
     },
   },
 });
