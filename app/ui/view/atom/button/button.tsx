@@ -25,7 +25,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
       default: '',
       xs: 'px-5 py-2.5 text-sm font-medium leading-5',
       sm: 'px-10 py-2.5 text-xs font-medium leading-3',
-      md: 'px-20 py-4 text-md font-medium leading-3',
+      md: 'px-20 py-4 text-base font-medium leading-3',
       lg: 'px-28 py-4 text-2xl font-medium leading-9',
     },
   },
