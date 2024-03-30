@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@property --percentage {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -31,7 +37,24 @@ a:-webkit-any-link {
   text-decoration: none;
 }
 
+@keyframes pour {
+  from {
+    opacity: 0.8;
+    --percentage: 0;
+  }
+}
+
+@keyframes pour-visible {
+  0%,
+  75% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .piechart::before {
+  animation: pour 1s forwards;
   content: '';
   position: absolute;
   border-radius: 50%;
@@ -42,6 +65,7 @@ a:-webkit-any-link {
 }
 
 .piechart:after {
+  animation: pour-visible 1.15s forwards;
   content: '';
   position: absolute;
   border-radius: 50%;
