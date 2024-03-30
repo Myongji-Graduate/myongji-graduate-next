@@ -1,4 +1,6 @@
-interface PieChartProp {
+import '@/app/ui/view/molecule/pie-chart/pie-chart.css';
+
+export interface PieChartProp {
   percentage: number;
 }
 

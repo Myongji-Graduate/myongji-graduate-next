@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@property --percentage {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
-}
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -35,41 +29,4 @@ a {
 
 a:-webkit-any-link {
   text-decoration: none;
-}
-
-@keyframes pour {
-  from {
-    opacity: 0.8;
-    --percentage: 0;
-  }
-}
-
-@keyframes pour-visible {
-  0%,
-  75% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.piechart::before {
-  animation: pour 1s forwards;
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  inset: 0;
-  background:
-    radial-gradient(farthest-side, #7590ff 98%, #0000) top/1.1rem 1.5rem no-repeat,
-    conic-gradient(#7590ff calc(var(--percentage) * 1%), #0000 0);
-}
-
-.piechart:after {
-  animation: pour-visible 1.15s forwards;
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  inset: calc(50% - 0.74rem);
-  background: #7590ff;
-  transform: rotate(calc(var(--percentage) * 3.6deg)) translateY(calc(50% - 9rem / 2));
 }
