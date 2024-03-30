@@ -40,8 +40,8 @@ export function Table<T extends ListRow>({ data, headerInfo, renderActionButton,
 
   const swipealbeRender = (item: T, index: number) => {
     return (
-      <SwipeableListItem trailingActions={renderActionButton ? renderActionButton(item.id) : null}>
-        <List.Row key={index}>
+      <SwipeableListItem key={index} trailingActions={renderActionButton ? renderActionButton(item.id) : null}>
+        <List.Row>
           <Grid cols={isCol(cols) ? cols : 6}>
             {Object.keys(item).map((key, index) => {
               if (key === 'id') return null;
