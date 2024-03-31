@@ -44,7 +44,7 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     if (isValidation(result, SignInResponseSchema)) {
       cookies().set('accessToken', result.accessToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production',
         path: '/',
       });
       cookies().set('refreshToken', result.refreshToken, {
