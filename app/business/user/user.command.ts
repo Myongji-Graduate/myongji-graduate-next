@@ -7,16 +7,7 @@ import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
 import { SignUpFormSchema, SignInFormSchema, SignInResponseSchema } from './user.validation';
 import { cookies } from 'next/headers';
-import { z } from 'zod';
-
-function isValidation<T extends z.ZodObject<any>>(data: any, schema: T): data is z.infer<T> {
-  try {
-    schema.parse(data);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
+import { isValidation } from '@/app/utils/zod/validation.util';
 
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignInFormSchema.safeParse({
