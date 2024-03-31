@@ -9,11 +9,23 @@ const meta = {
   title: 'ui/user/SignInForm',
   component: SignInForm,
   decorators: [
-    (Story) => (
-      <div className="w-96">
-        <Story />
-      </div>
-    ),
+    (Story) => {
+      const beforeEach = () => {
+        resetMockDB();
+        mockDatabase.createUser({
+          authId: 'testtest',
+          password: 'test1234!',
+          studentNumber: '60000001',
+          engLv: 'ENG12',
+        });
+      };
+      beforeEach();
+      return (
+        <div className="w-96">
+          <Story />
+        </div>
+      );
+    },
   ],
   args: {
     onNext: fn(),
