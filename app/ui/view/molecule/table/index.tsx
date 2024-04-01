@@ -4,7 +4,7 @@ import List from '../list';
 import Grid from '../grid';
 import { ListRow } from '../list/list-root';
 import { SwipeableListItem } from 'react-swipeable-list';
-import '@/app/utils/style/reactswipeable-list.css';
+import '@/app/reactswipeable-list.css';
 import SwipeableCustomList from '../list/swipeable-custom-list';
 
 interface TableProps<T extends ListRow> {
