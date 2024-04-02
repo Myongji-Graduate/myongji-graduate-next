@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+export const ValidateTokenResponseSchema = z.object({
+  accessToken: z.string(),
+});
+
 export const SignInFormSchema = z.object({
   authId: z.string(),
   password: z.string(),
