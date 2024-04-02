@@ -1,10 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import { Table } from '../../view/molecule/table';
-import { useEffect } from 'react';
 import { LectureInfo } from '@/app/type/lecture';
-import { useAtom } from 'jotai';
-import { customLectureAtom, isCustomizingAtom } from '@/app/store/custom-taken-lecture';
 import DeleteTakenLectureButton from './delete-taken-lecture-button';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
@@ -14,27 +10,25 @@ interface TakenLectureListProps {
 }
 
 export default function TakenLectureList({ data }: TakenLectureListProps) {
-  const [isCustomizing, setIsCustomizing] = useAtom(isCustomizingAtom);
-  const [customLecture, setCustomLecture] = useAtom(customLectureAtom);
-
-  useEffect(() => {
-    return () => {
-      setCustomLecture(data);
-      setIsCustomizing(false);
-    };
-  }, []);
-
   return (
     <>
-      {isCustomizing ? (
+      {/* pc  */}
+      <div className="hidden lg:block">
         <Table
           headerInfo={headerInfo}
-          data={customLecture}
+          data={data}
           renderActionButton={(id: number) => <DeleteTakenLectureButton lectureId={id} />}
         />
-      ) : (
-        <Table headerInfo={headerInfo} data={data} />
-      )}
+      </div>
+      {/* mobile */}
+      <div className="block lg:hidden">
+        <Table
+          headerInfo={headerInfo}
+          data={data}
+          swipeable={true}
+          renderActionButton={(id: number) => <DeleteTakenLectureButton lectureId={id} swipeable={true} />}
+        />
+      </div>
     </>
   );
 }

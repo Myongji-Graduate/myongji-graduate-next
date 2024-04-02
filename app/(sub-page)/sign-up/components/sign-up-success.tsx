@@ -14,7 +14,7 @@ export default function SignUpSuccess() {
         </div>
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <Link className="inline-block w-full" href="/login">
+            <Link className="inline-block w-full" href="/sign-in">
               <Button className="w-full" label={'로그인 하기'} />
             </Link>
           </div>

@@ -1,5 +1,5 @@
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { SignUpRequestBody } from '../business/user/user.type';
+import { SignUpRequestBody, SignInRequestBody } from '../business/user/user.type';
 import { takenLectures } from './data.mock';
 
 interface MockUser {
@@ -19,6 +19,7 @@ type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures[];
   getUser: (authId: string) => MockUser | undefined;
   createUser: (user: MockUser) => boolean;
+  signIn: (userData: SignInRequestBody) => boolean;
 };
 
 export const mockDatabase: MockDatabaseAction = {
@@ -30,6 +31,10 @@ export const mockDatabase: MockDatabaseAction = {
     }
     mockDatabaseStore.users = [...mockDatabaseStore.users, user];
     return true;
+  },
+  signIn: (userData: SignInRequestBody) => {
+    const user = mockDatabaseStore.users.find((u) => u.authId === userData.authId && u.password === userData.password);
+    return !!user;
   },
 };
 

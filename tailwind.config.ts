@@ -50,6 +50,9 @@ const config: Config = {
         2: '200', // upper content
         3: '300', // upper all
       },
+      gridTemplateColumns: {
+        'render-button': 'repeat(5, 1fr) 0.6fr',
+      },
     },
   },
   plugins: [headlessui, require('tailwindcss-animate')],
