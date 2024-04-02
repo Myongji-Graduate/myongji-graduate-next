@@ -6,8 +6,20 @@ import {
   SignInRequestBody,
   SignInResponse,
   ValidateTokenResponse,
+  UserInfoResponse,
 } from '@/app/business/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
+
+function mockDecryptToken(token: string) {
+  if (token === 'fake-access-token') {
+    return {
+      authId: 'admin',
+    };
+  }
+  return {
+    authId: '',
+  };
+}
 
 export const userHandlers = [
   http.post<never, never, ValidateTokenResponse>(`${API_PATH.auth}/token`, async ({ request }) => {
@@ -15,21 +27,21 @@ export const userHandlers = [
       accessToken: 'fake-access-token',
     });
   }),
-  // http.get<never, never>(`${API_PATH.user}`, async ({ cookies  }) => {
-  //   const accessToken = headers.get('Authorization')?.replace('Bearer ', '');
-  //   if (!accessToken) {
-  //     return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-  //   }
+  http.get<never, never, UserInfoResponse | ErrorResponseData>(`${API_PATH.user}`, async ({ request }) => {
+    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
+    if (!accessToken) {
+      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+    }
 
-  //   const userInfo = mockDatabase.getUserInfo(accessToken);
-  //   await delay(500);
+    const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
+    await delay(500);
 
-  //   if (!userInfo) {
-  //     return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-  //   }
+    if (!userInfo) {
+      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+    }
 
-  //   return HttpResponse.json(userInfo);
-  // }
+    return HttpResponse.json(userInfo);
+  }),
   http.post<never, SignUpRequestBody, never>(`${API_PATH.user}/sign-up`, async ({ request }) => {
     const userData = await request.json();
 
