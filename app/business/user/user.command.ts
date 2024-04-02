@@ -13,6 +13,7 @@ import {
 } from './user.validation';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
+import { redirect } from 'next/navigation';
 
 export async function validateToken() {
   const accessToken = cookies().get('accessToken')?.value;
@@ -88,6 +89,8 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
         secure: process.env.NODE_ENV === 'production',
         path: '/',
       });
+
+      redirect('/my');
     }
   } catch (error) {
     if (error instanceof BadRequestError) {
