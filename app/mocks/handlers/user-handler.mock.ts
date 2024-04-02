@@ -1,10 +1,35 @@
 import { HttpResponse, http, delay } from 'msw';
 import { API_PATH } from '../../business/api-path';
 import { mockDatabase } from '../db.mock';
-import { SignUpRequestBody, SignInRequestBody, SignInResponse } from '@/app/business/user/user.type';
+import {
+  SignUpRequestBody,
+  SignInRequestBody,
+  SignInResponse,
+  ValidateTokenResponse,
+} from '@/app/business/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
 
 export const userHandlers = [
+  http.post<never, never, ValidateTokenResponse>(`${API_PATH.auth}/token`, async ({ request }) => {
+    return HttpResponse.json({
+      accessToken: 'fake-access-token',
+    });
+  }),
+  // http.get<never, never>(`${API_PATH.user}`, async ({ cookies  }) => {
+  //   const accessToken = headers.get('Authorization')?.replace('Bearer ', '');
+  //   if (!accessToken) {
+  //     return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+  //   }
+
+  //   const userInfo = mockDatabase.getUserInfo(accessToken);
+  //   await delay(500);
+
+  //   if (!userInfo) {
+  //     return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+  //   }
+
+  //   return HttpResponse.json(userInfo);
+  // }
   http.post<never, SignUpRequestBody, never>(`${API_PATH.user}/sign-up`, async ({ request }) => {
     const userData = await request.json();
 
@@ -17,7 +42,6 @@ export const userHandlers = [
 
     return HttpResponse.json({ status: 200 });
   }),
-
   http.post<never, SignInRequestBody, SignInResponse | ErrorResponseData>(
     `${API_PATH.auth}/sign-in`,
     async ({ request }) => {
