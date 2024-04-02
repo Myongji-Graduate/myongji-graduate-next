@@ -1,11 +1,8 @@
 import type { NextRequest } from 'next/server';
-import { API_PATH } from './app/business/api-path';
 import { validateToken } from './app/business/user/user.command';
 import { getUserInfo } from './app/business/user/user.query';
-import { UserInfoResponse } from './app/business/user/user.type';
 
 async function getAuth(request: NextRequest): Promise<{
-  user?: UserInfoResponse;
   role: 'guest' | 'user' | 'init';
 }> {
   const accessToken = request.cookies.get('accessToken')?.value;
@@ -30,9 +27,6 @@ async function getAuth(request: NextRequest): Promise<{
   // 유저 정보 요청
   const user = await getUserInfo();
   return {
-    user: {
-      ...user,
-    },
     role: user.isSumbitted ? 'user' : 'init',
   };
 }
