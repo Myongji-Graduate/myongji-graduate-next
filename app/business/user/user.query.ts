@@ -23,7 +23,6 @@ export async function getUserInfo(): Promise<UserInfoResponse> {
     } else {
       throw 'Invalid user info response schema.';
     }
-    return result;
   } catch (error) {
     throw error;
   }
