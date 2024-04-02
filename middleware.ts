@@ -46,12 +46,12 @@ function isAllowedGuestPath(path: string) {
 export async function middleware(request: NextRequest) {
   const auth = await getAuth(request);
 
-  if (auth.role === 'guest' && !isAllowedGuestPath(request.nextUrl.pathname)) {
-    return Response.redirect(new URL('/sign-in', request.url));
+  if (auth.role === 'init' && !request.nextUrl.pathname.startsWith('/grade-upload')) {
+    return Response.redirect(new URL('/grade-upload', request.url));
   }
 
-  if (auth.role === 'init') {
-    return Response.redirect(new URL('/grade-upload', request.url));
+  if (auth.role === 'guest' && !isAllowedGuestPath(request.nextUrl.pathname)) {
+    return Response.redirect(new URL('/sign-in', request.url));
   }
 }
 
