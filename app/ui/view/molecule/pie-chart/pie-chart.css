@@ -11,16 +11,6 @@
   }
 }
 
-@keyframes piechart-after {
-  0%,
-  75% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .piechart::before {
   animation: piechart 1s forwards;
   content: '';
@@ -33,11 +23,11 @@
 }
 
 .piechart:after {
-  animation: piechart-after 1.15s forwards;
   content: '';
-  position: absolute;
-  border-radius: 50%;
+  animation: piechart 1s forwards;
+  border-radius: 46%;
   inset: calc(50% - 0.74rem);
+  position: absolute;
   background: #7590ff;
   transform: rotate(calc(var(--percentage) * 3.6deg)) translateY(calc(50% - 9rem / 2));
 }
