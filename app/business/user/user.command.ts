@@ -2,7 +2,7 @@
 
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../api-path';
-import { SignUpRequestBody, SignInRequestBody } from './user.type';
+import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
 import {
@@ -15,7 +15,7 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 
-export async function validateToken() {
+export async function validateToken(): Promise<ValidateTokenResponse | boolean> {
   const accessToken = cookies().get('accessToken')?.value;
   const refreshToken = cookies().get('refreshToken')?.value;
   try {

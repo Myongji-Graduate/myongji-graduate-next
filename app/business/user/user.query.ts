@@ -6,7 +6,6 @@ import { isValidation } from '@/app/utils/zod/validation.util';
 import { UserInfoResponseSchema } from './user.validation';
 
 export async function getUserInfo(): Promise<UserInfoResponse> {
-  // 유저 정보 요청
   try {
     const response = await fetch(`${API_PATH.user}`, {
       headers: {
