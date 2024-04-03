@@ -1,10 +1,16 @@
+'use client';
 import { cn } from '@/app/utils/shadcn/utils';
 import Button from '../../atom/button/button';
 import PieChart from '../pie-chart/pie-chart';
 import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
+import ResultCategoryModal from '@/app/ui/result/result-category-modal/result-category-modal';
+import useModal from '@/app/hooks/useModal';
+import * as React from 'react';
 
 function CategoryCard() {
+  const { visible, toggle, close } = useModal();
+
   return (
     <div
       className={cn('flex flex-col gap-6 zIndex-1 rounded-xl shadow-lg bg-white p-[0.4rem]', 'md:w-80 md:p-[1.8rem]')}
@@ -27,8 +33,9 @@ function CategoryCard() {
             <span className="font-bold text-point-blue">18</span>
           </div>
         </div>
-        <Button size="sm" label="과목 확인" />
+        <Button size="sm" label="과목 확인" onClick={toggle} />
       </div>
+      <ResultCategoryModal visible={visible} toggle={toggle} close={close} />
     </div>
   );
 }
