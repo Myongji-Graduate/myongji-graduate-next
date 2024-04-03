@@ -7,5 +7,9 @@ export default function useModal() {
     setVisible((prev) => !prev);
   };
 
-  return { visible, toggle };
+  const close = () => {
+    setVisible(false);
+  };
+
+  return { visible, toggle, close };
 }
