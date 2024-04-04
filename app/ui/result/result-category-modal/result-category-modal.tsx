@@ -6,13 +6,13 @@ import { useMediaQuery } from 'usehooks-ts';
 import { Table } from '../../view/molecule/table';
 import CategoryFullfill from '@/app/(sub-page)/result/components/category-fullfill';
 
-interface CategoryResultPageProps {
+interface ResultCategoryModalProps {
   visible: boolean;
   toggle: () => void;
   close: () => void;
 }
 
-function ResultCategoryModal({ visible, toggle, close }: CategoryResultPageProps) {
+function ResultCategoryModal({ visible, toggle, close }: ResultCategoryModalProps) {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   return (
@@ -40,7 +40,7 @@ function ResultCategoryModalContent() {
   ];
 
   return (
-    <div className="w-[80vw] max-w-[1200px] p-2">
+    <div className="md:w-[80vw] max-w-[1200px] p-2">
       <div className="flex justify-between">
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
@@ -52,15 +52,9 @@ function ResultCategoryModalContent() {
           <span className="text-point-blue">18</span> / 18
         </div>
       </div>
-      <LabelContainer
-        label="전공필수"
-        rightElement={<div className="text-2xl text-gray-6">18 / 18</div>}
-      ></LabelContainer>
+      <LabelContainer label="전공필수" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
       <CategoryFullfill />
-      <LabelContainer
-        label="전공선택"
-        rightElement={<div className="text-2xl text-gray-6">18 / 18</div>}
-      ></LabelContainer>
+      <LabelContainer label="전공선택" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
       <Table headerInfo={headerInfo} data={DUMMYDATA} />
     </div>
   );
