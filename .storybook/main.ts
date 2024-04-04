@@ -21,6 +21,7 @@ const config: StorybookConfig = {
         ...config.resolve.alias,
         '@': path.resolve(__dirname, '../'),
         'next/headers': path.resolve(__dirname, '../app/utils/test/__mock__/next/headers.ts'),
+        'next/cache': path.resolve(__dirname, '../app/utils/test/__mock__/next/cache.ts'),
       };
     }
     return config;

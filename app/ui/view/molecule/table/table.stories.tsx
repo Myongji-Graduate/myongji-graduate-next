@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from '../../atom/button/button';
 import { Table } from '.';
-import { SwipeAction, TrailingActions } from 'react-swipeable-list';
+import DeleteTakenLectureButton from '@/app/ui/lecture/taken-lecture/delete-taken-lecture-button';
 
 const meta = {
   title: 'ui/view/molecule/Table',
@@ -87,13 +87,7 @@ export const SwipeableLectureTable: StoryObj = {
         credit: 3,
       },
     ];
-    const actionButton = () => (
-      <TrailingActions>
-        <SwipeAction data-testid="swipe-taken-lecture-delete-button" destructive={true} onClick={() => {}}>
-          <div className="bg-gray-400 text-white flex justify-center items-center w-14">삭제</div>
-        </SwipeAction>
-      </TrailingActions>
-    );
+    const actionButton = () => <DeleteTakenLectureButton lectureId={3} swipeable={true} />;
     return (
       <main>
         <Table headerInfo={headerInfo} data={lectures} renderActionButton={actionButton} swipeable={true} />
