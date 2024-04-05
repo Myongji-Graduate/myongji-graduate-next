@@ -4,7 +4,7 @@ import Button from '../../atom/button/button';
 import PieChart from '../pie-chart/pie-chart';
 import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
-import ResultCategoryModal from '@/app/ui/result/result-category-modal/result-category-modal';
+import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
 import useModal from '@/app/hooks/useModal';
 import * as React from 'react';
 
@@ -35,7 +35,7 @@ function CategoryCard() {
         </div>
         <Button size="sm" label="과목 확인" onClick={toggle} />
       </div>
-      <ResultCategoryModal visible={visible} toggle={toggle} close={close} />
+      <ResultCategoryDetail visible={visible} toggle={toggle} close={close} />
     </div>
   );
 }

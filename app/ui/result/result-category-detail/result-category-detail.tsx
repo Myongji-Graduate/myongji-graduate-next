@@ -4,36 +4,37 @@ import Modal from '../../view/molecule/modal/modal';
 import { cn } from '@/app/utils/shadcn/utils';
 import { useMediaQuery } from 'usehooks-ts';
 import { Table } from '../../view/molecule/table';
-import CategoryFullfill from '@/app/(sub-page)/result/components/category-fullfill';
+import CategoryFullfill from '@/app/(sub-page)/result/components/completed-category';
 
-interface ResultCategoryModalProps {
+interface ResultCategoryDetailProps {
   visible: boolean;
   toggle: () => void;
   close: () => void;
 }
 
-function ResultCategoryModal({ visible, toggle, close }: ResultCategoryModalProps) {
+function ResultCategoryDetail({ visible, toggle, close }: ResultCategoryDetailProps) {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   return (
     <>
       {isDesktop ? (
         <Modal open={visible} onOpenChange={toggle}>
-          <ResultCategoryModalContent />
+          <ResultCategoryDetailContent />
         </Modal>
       ) : (
         <Drawer open={visible} onClose={close}>
-          <ResultCategoryModalContent />
+          <ResultCategoryDetailContent />
         </Drawer>
       )}
     </>
   );
 }
 
-export default ResultCategoryModal;
+export default ResultCategoryDetail;
 
-function ResultCategoryModalContent() {
-  const headerInfo = ['과목코드', '과목명', '학점'];
+const headerInfo = ['과목코드', '과목명', '학점'];
+
+function ResultCategoryDetailContent() {
   const DUMMYDATA = [
     { id: 0, code: 'HEC01208', name: '데이터구조와알고리즘', credit: 3 },
     { id: 0, code: 'HEC01208', name: '데이터구조와알고리즘', credit: 3 },
