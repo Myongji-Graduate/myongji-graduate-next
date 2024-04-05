@@ -1,5 +1,17 @@
 import { z } from 'zod';
 
+// api 변경 예정
+export const UserInfoResponseSchema = z.object({
+  studentNumber: z.string(),
+  studentName: z.string(),
+  major: z.string(),
+  isSumbitted: z.boolean(),
+});
+
+export const ValidateTokenResponseSchema = z.object({
+  accessToken: z.string(),
+});
+
 export const SignInFormSchema = z.object({
   authId: z.string(),
   password: z.string(),
