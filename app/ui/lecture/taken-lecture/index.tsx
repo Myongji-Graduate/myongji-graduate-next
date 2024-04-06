@@ -6,7 +6,6 @@ import { Provider } from 'jotai';
 
 export default async function TakenLecture() {
   const data = await fetchTakenLectures();
-
   return (
     <div className="flex flex-col gap-2">
       <Provider>
