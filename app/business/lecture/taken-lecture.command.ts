@@ -53,9 +53,9 @@ export const fetchDeleteLecture = async (lectureId: number) => {
     });
     const result = await response.json();
     httpErrorHandler(response, result);
+    revalidateTag(TAG.GET_TAKEN_LECTURES);
   } catch (error) {
     if (error instanceof BadRequestError) {
-      revalidateTag(TAG.GET_TAKEN_LECTURES);
       return {
         isSuccess: false,
       };
