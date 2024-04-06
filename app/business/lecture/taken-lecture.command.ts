@@ -16,13 +16,17 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
 
   if (!res.ok) {
     return {
-      errors: {},
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
       message: 'fail upload grade',
     };
   }
 
   return {
-    errors: {},
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
     message: '',
   };
 };

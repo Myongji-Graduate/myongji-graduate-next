@@ -2,12 +2,49 @@
 
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../api-path';
-import { SignUpRequestBody, SignInRequestBody } from './user.type';
+import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
-import { SignUpFormSchema, SignInFormSchema, SignInResponseSchema } from './user.validation';
+import {
+  SignUpFormSchema,
+  SignInFormSchema,
+  SignInResponseSchema,
+  ValidateTokenResponseSchema,
+} from './user.validation';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
+import { redirect } from 'next/navigation';
+
+export async function validateToken(): Promise<ValidateTokenResponse | boolean> {
+  const accessToken = cookies().get('accessToken')?.value;
+  const refreshToken = cookies().get('refreshToken')?.value;
+  try {
+    const response = await fetch(`${API_PATH.auth}/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ refreshToken }),
+    });
+
+    const result = await response.json();
+
+    httpErrorHandler(response, result);
+
+    if (isValidation(result, ValidateTokenResponseSchema)) {
+      return result;
+    } else {
+      throw 'Invalid token response schema.';
+    }
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return false;
+    } else {
+      throw error;
+    }
+  }
+}
 
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignInFormSchema.safeParse({
@@ -52,6 +89,8 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
         secure: process.env.NODE_ENV === 'production',
         path: '/',
       });
+
+      redirect('/my');
     }
   } catch (error) {
     if (error instanceof BadRequestError) {
