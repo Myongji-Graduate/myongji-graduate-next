@@ -53,7 +53,6 @@ export const fetchDeleteLecture = async (lectureId: number) => {
     });
     const result = await response.json();
     httpErrorHandler(response, result);
-    revalidateTag(TAG.GET_TAKEN_LECTURES);
   } catch (error) {
     if (error instanceof BadRequestError) {
       return {
@@ -63,6 +62,7 @@ export const fetchDeleteLecture = async (lectureId: number) => {
       throw error;
     }
   }
+  revalidateTag(TAG.GET_TAKEN_LECTURES);
   return {
     isSuccess: true,
   };
