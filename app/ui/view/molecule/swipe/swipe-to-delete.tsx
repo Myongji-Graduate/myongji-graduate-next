@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import './styles.css';
+import './swipe-to-delete.css';
 
 export interface Props {
   onDelete?: any;
   onDeleteConfirm?: Function;
-  deleteComponent?: React.ReactNode;
   disabled?: boolean;
   height?: number;
   transitionDuration?: number;
@@ -30,7 +29,6 @@ const cursorPosition = (event: any) => {
 const SwipeToDelete = ({
   onDelete,
   onDeleteConfirm,
-  deleteComponent,
   disabled = false,
   height = 50,
   transitionDuration = 250,
@@ -127,7 +125,7 @@ const SwipeToDelete = ({
     } else {
       onDeleteConfirmed();
     }
-  }, [onDeleteConfirm, onDeleteConfirmed]);
+  }, [, onDeleteConfirmed]);
 
   const onMouseUp = useCallback(
     function () {
@@ -172,13 +170,19 @@ const SwipeToDelete = ({
   return (
     <form
       action={() => {
-        setTranslate(0);
         action();
       }}
     >
       <div id={id} className={`rstdi${deleting ? ' deleting' : ''} ${className}`} ref={container}>
         <div className={`delete${deleting ? ' deleting' : ''}`}>
-          <button type="submit">삭제</button>
+          <button
+            type="submit"
+            onClick={() => {
+              setTranslate(0);
+            }}
+          >
+            삭제
+          </button>
         </div>
         <div
           className={`content${deleting ? ' deleting' : ''}${!touching ? ' transition' : ''}`}
