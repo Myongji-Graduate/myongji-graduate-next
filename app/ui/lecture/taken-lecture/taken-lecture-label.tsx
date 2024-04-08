@@ -1,4 +1,3 @@
-'use client';
 import Link from 'next/link';
 import Button from '../../view/atom/button/button';
 import LabelContainer from '../../view/atom/label-container/label-container';

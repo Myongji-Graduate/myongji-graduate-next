@@ -1,3 +1,4 @@
+'use client';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './swipe-to-delete.css';
 
@@ -176,7 +177,6 @@ const SwipeToDelete = ({
       <div id={id} className={`rstdi${deleting ? ' deleting' : ''} ${className}`} ref={container}>
         <div className={`delete${deleting ? ' deleting' : ''}`}>
           <button
-            type="submit"
             onClick={() => {
               setTranslate(0);
             }}
