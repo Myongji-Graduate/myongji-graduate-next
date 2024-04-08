@@ -2,11 +2,11 @@
 
 import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
 
-interface LayoutProps {
+interface ResultLayoutProps {
   children: React.ReactNode;
 }
 
-function Layout({ children }: LayoutProps) {
+function ResultLayout({ children }: ResultLayoutProps) {
   return (
     <>
       <ResultCategoryDetail />
@@ -15,4 +15,4 @@ function Layout({ children }: LayoutProps) {
   );
 }
 
-export default Layout;
+export default ResultLayout;
