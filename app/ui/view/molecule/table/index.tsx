@@ -10,7 +10,16 @@ interface TableProps<T extends ListRow> {
   data: T[];
   renderActionButton?: (id: number) => JSX.Element;
   swipeable?: boolean;
-  onSwipeAction?: (lectureId: number) => void;
+}
+
+interface SwipeableTableProps<T extends ListRow> extends TableProps<T> {
+  swipeable: true;
+  onSwipeAction: (lectureId: number) => void;
+}
+
+interface BasicTableProps<T extends ListRow> extends TableProps<T> {
+  swipeable?: false;
+  onSwipeAction?: never;
 }
 
 function isCol(cols: number | string): cols is ColType {
@@ -26,7 +35,7 @@ export function Table<T extends ListRow>({
   renderActionButton,
   swipeable = false,
   onSwipeAction,
-}: TableProps<T>) {
+}: SwipeableTableProps<T> | BasicTableProps<T>) {
   const cols = renderActionButton && !swipeable ? 'render-button' : headerInfo.length;
 
   const render = (item: T, index: number) => {
@@ -44,12 +53,11 @@ export function Table<T extends ListRow>({
   };
 
   const swipeableRender = (item: T, index: number) => {
-    if (!onSwipeAction) return;
     return (
       <div className="border-solid border-gray-300 border-b-[1px] last:border-b-0" key={index}>
         <SwipeToDelete
           action={() => {
-            onSwipeAction(item.id);
+            onSwipeAction && onSwipeAction(item.id);
           }}
         >
           <List.Row>
