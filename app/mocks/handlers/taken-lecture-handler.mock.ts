@@ -12,6 +12,7 @@ export const takenLectureHandlers = [
   http.delete<never, { lectureId: number }>(API_PATH.takenLectures, async ({ request }) => {
     const body = await request.json();
     const isDeleted = mockDatabase.deleteTakenLecture(body.lectureId);
+    await delay(3000);
     if (isDeleted) {
       return HttpResponse.json({ message: '삭제되었습니다' }, { status: 200 });
     }

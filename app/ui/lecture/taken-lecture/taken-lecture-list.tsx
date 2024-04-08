@@ -19,9 +19,8 @@ export default function TakenLectureList() {
       return currentTakenLectures.filter((lecture) => lecture.id !== lectureId);
     },
   );
-
-  const onDelete = async (lectureId: number) => {
-    if (deleteOptimisticLecture) deleteOptimisticLecture(lectureId);
+  const handleLectureDelete = async (lectureId: number) => {
+    deleteOptimisticLecture(lectureId);
     const result = await fetchDeleteLecture(lectureId);
     if (!result.isSuccess) {
       return toast({
@@ -40,13 +39,13 @@ export default function TakenLectureList() {
           headerInfo={headerInfo}
           data={optimisticLecture}
           renderActionButton={(id: number) => (
-            <DeleteTakenLectureButton lectureId={id} deleteOptimisticLecture={deleteOptimisticLecture} />
+            <DeleteTakenLectureButton lectureId={id} handleDelete={handleLectureDelete} />
           )}
         />
       </div>
       {/* mobile */}
       <div className="block lg:hidden">
-        <Table headerInfo={headerInfo} data={optimisticLecture} onSwipeAction={onDelete} swipeable={true} />
+        <Table headerInfo={headerInfo} data={optimisticLecture} onSwipeAction={handleLectureDelete} swipeable={true} />
       </div>
     </>
   );
