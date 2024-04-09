@@ -6,7 +6,7 @@ import { cn } from '@/app/utils/shadcn/utils';
 function ResultPage() {
   return (
     <div className="flex justify-center items-end">
-      <ContentContainer className="md:w-[700px]">
+      <ContentContainer className="md:w-[700px] p-8">
         <UserInfoCard />
       </ContentContainer>
       <div
