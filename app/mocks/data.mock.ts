@@ -23,7 +23,7 @@ export const takenLectures = JSON.parse(`{
       "year": "CUSTOM",
       "semester": "CUSTOM",
       "lectureCode": "HED01407",
-      "lectureName": "딥러닝",
+      "lectureName": "인공지능",
       "credit": 3
     },
     {

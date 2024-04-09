@@ -1,5 +1,5 @@
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { SignUpRequestBody, SignInRequestBody } from '../business/user/user.type';
+import { SignUpRequestBody, SignInRequestBody, UserInfoResponse } from '../business/user/user.type';
 import { takenLectures } from './data.mock';
 
 interface MockUser {
@@ -7,45 +7,86 @@ interface MockUser {
   password: string;
   studentNumber: string;
   engLv: string;
-  major?: string;
+  major: string;
+  isSumbitted: boolean;
+  name: string;
 }
 
 interface MockDatabaseState {
-  takenLectures: TakenLectures[];
+  takenLectures: TakenLectures;
   users: MockUser[];
 }
 
 type MockDatabaseAction = {
-  getTakenLectures: () => TakenLectures[];
+  getTakenLectures: () => TakenLectures;
+  deleteTakenLecture: (lectureId: number) => boolean;
   getUser: (authId: string) => MockUser | undefined;
-  createUser: (user: MockUser) => boolean;
+  createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
+  getUserInfo: (authId: string) => UserInfoResponse;
 };
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
+  deleteTakenLecture: (lectureId: number) => {
+    if (mockDatabaseStore.takenLectures.takenLectures.find((lecture) => lecture.id === lectureId)) {
+      mockDatabaseStore.takenLectures.takenLectures = mockDatabaseStore.takenLectures.takenLectures.filter(
+        (lecture) => lecture.id !== lectureId,
+      );
+      return true;
+    }
+    return false;
+  },
   getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
       return false;
     }
-    mockDatabaseStore.users = [...mockDatabaseStore.users, user];
+    mockDatabaseStore.users = [
+      ...mockDatabaseStore.users,
+      {
+        ...user,
+        isSumbitted: false,
+        major: '융소입니다',
+        name: '모킹이2',
+      },
+    ];
     return true;
   },
   signIn: (userData: SignInRequestBody) => {
     const user = mockDatabaseStore.users.find((u) => u.authId === userData.authId && u.password === userData.password);
     return !!user;
   },
+  getUserInfo: (authId: string) => {
+    const user = mockDatabaseStore.users.find((u) => u.authId === authId);
+    if (!user) {
+      return {
+        studentNumber: '',
+        studentName: '',
+        major: '',
+        isSumbitted: false,
+      };
+    }
+    return {
+      studentNumber: user.studentNumber,
+      studentName: user.name,
+      major: user.major,
+      isSumbitted: user.isSumbitted,
+    };
+  },
 };
 
 const initialState: MockDatabaseState = {
-  takenLectures: [takenLectures],
+  takenLectures: takenLectures,
   users: [
     {
       authId: 'admin',
       password: 'admin',
       studentNumber: '60000000',
       engLv: 'ENG12',
+      isSumbitted: false,
+      major: '융소입니다',
+      name: '모킹이',
     },
   ],
 };

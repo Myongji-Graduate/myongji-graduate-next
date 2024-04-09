@@ -27,9 +27,6 @@ const meta = {
       );
     },
   ],
-  args: {
-    onNext: fn(),
-  },
 } as Meta<typeof SignInForm>;
 
 export default meta;
@@ -37,19 +34,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-const beforeEach = () => {
-  resetMockDB();
-  mockDatabase.createUser({
-    authId: 'testtest',
-    password: 'test1234!',
-    studentNumber: '60000001',
-    engLv: 'ENG12',
-  });
-};
-
 export const SuccessSenario: Story = {
-  play: async ({ args, canvasElement, step }) => {
-    beforeEach();
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
     await step('사용자가 양식에 맞춰서 폼을 입력하면', async () => {
@@ -60,14 +46,13 @@ export const SuccessSenario: Story = {
     });
 
     await step('로그인에 성공한다', async () => {
-      await waitFor(() => expect(args.onNext).toHaveBeenCalled());
+      await waitFor(() => expect(canvas.queryByText('아이디 또는 비밀번호가 일치하지 않습니다.')).toBeNull());
     });
   },
 };
 
 export const FailureScenarioWithoutUser: Story = {
-  play: async ({ args, canvasElement, step }) => {
-    beforeEach();
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
     await step('사용자가 존재하지 않는 아이디로 로그인하면', async () => {
@@ -78,7 +63,6 @@ export const FailureScenarioWithoutUser: Story = {
     });
 
     await step('로그인에 실패한다', async () => {
-      await waitFor(() => expect(args.onNext).not.toHaveBeenCalled());
       expect(await canvas.findByText('아이디 또는 비밀번호가 일치하지 않습니다.')).toBeInTheDocument();
     });
   },

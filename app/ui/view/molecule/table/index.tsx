@@ -3,15 +3,23 @@ import { ColType } from '../grid/grid-root';
 import List from '../list';
 import Grid from '../grid';
 import { ListRow } from '../list/list-root';
-import { SwipeableListItem } from 'react-swipeable-list';
-import '@/app/reactswipeable-list.css';
-import SwipeableCustomList from '../list/swipeable-custom-list';
+import SwipeToDelete from '../swipe/swipe-to-delete';
 
 interface TableProps<T extends ListRow> {
   headerInfo: string[];
   data: T[];
   renderActionButton?: (id: number) => JSX.Element;
   swipeable?: boolean;
+}
+
+interface SwipeableTableProps<T extends ListRow> extends TableProps<T> {
+  swipeable: true;
+  onSwipeAction: (lectureId: number) => void;
+}
+
+interface BasicTableProps<T extends ListRow> extends TableProps<T> {
+  swipeable?: false;
+  onSwipeAction?: never;
 }
 
 function isCol(cols: number | string): cols is ColType {
@@ -21,7 +29,13 @@ function isCol(cols: number | string): cols is ColType {
   return false;
 }
 
-export function Table<T extends ListRow>({ data, headerInfo, renderActionButton, swipeable = false }: TableProps<T>) {
+export function Table<T extends ListRow>({
+  data,
+  headerInfo,
+  renderActionButton,
+  swipeable = false,
+  onSwipeAction,
+}: SwipeableTableProps<T> | BasicTableProps<T>) {
   const cols = renderActionButton && !swipeable ? 'render-button' : headerInfo.length;
 
   const render = (item: T, index: number) => {
@@ -38,24 +52,30 @@ export function Table<T extends ListRow>({ data, headerInfo, renderActionButton,
     );
   };
 
-  const swipealbeRender = (item: T, index: number) => {
+  const swipeableRender = (item: T, index: number) => {
     return (
-      <SwipeableListItem key={index} trailingActions={renderActionButton ? renderActionButton(item.id) : null}>
-        <List.Row>
-          <Grid cols={isCol(cols) ? cols : 6}>
-            {Object.keys(item).map((key, index) => {
-              if (key === 'id') return null;
-              return <Grid.Column key={index}>{item[key]}</Grid.Column>;
-            })}
-          </Grid>
-        </List.Row>
-      </SwipeableListItem>
+      <div className="border-solid border-gray-300 border-b-[1px] last:border-b-0" key={index}>
+        <SwipeToDelete
+          onSwipeAction={() => {
+            onSwipeAction && onSwipeAction(item.id);
+          }}
+        >
+          <List.Row>
+            <Grid cols={isCol(cols) ? cols : 6}>
+              {Object.keys(item).map((key, index) => {
+                if (key === 'id') return null;
+                return <Grid.Column key={index}>{item[key]}</Grid.Column>;
+              })}
+            </Grid>
+          </List.Row>
+        </SwipeToDelete>
+      </div>
     );
   };
   return (
     <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
       <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
-      {swipeable ? <SwipeableCustomList data={data} render={swipealbeRender} /> : <List data={data} render={render} />}
+      <List data={data} render={swipeable ? swipeableRender : render} />
     </div>
   );
 }

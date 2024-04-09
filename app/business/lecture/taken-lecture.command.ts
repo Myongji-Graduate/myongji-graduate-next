@@ -1,6 +1,10 @@
 'use server';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../api-path';
+import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
+import { BadRequestError } from '@/app/utils/http/http-error';
+import { revalidateTag } from 'next/cache';
+import { TAG } from '@/app/utils/http/tag';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   const parsingText = await parsePDFtoText(formData);
@@ -36,4 +40,30 @@ export const parsePDFtoText = async (formData: FormData) => {
     };
   }
   return await res.json();
+};
+
+export const fetchDeleteLecture = async (lectureId: number) => {
+  try {
+    const response = await fetch(API_PATH.takenLectures, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ lectureId }),
+    });
+    const result = await response.json();
+    httpErrorHandler(response, result);
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return {
+        isSuccess: false,
+      };
+    } else {
+      throw error;
+    }
+  }
+  revalidateTag(TAG.GET_TAKEN_LECTURES);
+  return {
+    isSuccess: true,
+  };
 };
