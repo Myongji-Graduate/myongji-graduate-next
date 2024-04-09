@@ -3,7 +3,7 @@ import { MODAL_KEY } from '../utils/key/modal.key';
 
 const initialState = {
   [MODAL_KEY.RESULT_CATEGORY]: false,
-  [MODAL_KEY.TEST]: true,
+  [MODAL_KEY.DIALOG_TEST]: true,
 };
 
 const modalAtom = atom(initialState);
