@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { ModalKey } from '../utils/key/modal.key';
+import { updateModalAtom } from '../store/modal';
+import { useAtom } from 'jotai';
 
-export default function useModal() {
-  const [visible, setVisible] = useState(false);
+export default function useModal(key: ModalKey) {
+  const [isOpenModalList, setOpenModalList] = useAtom(updateModalAtom);
 
-  const toggle = () => {
-    setVisible((prev) => !prev);
-  };
+  const isOpen = isOpenModalList[key];
 
   const close = () => {
-    setVisible(false);
+    setOpenModalList([key, false]);
   };
 
-  return { visible, toggle, close };
+  const toggle = () => {
+    const prevState = isOpenModalList[key];
+    setOpenModalList([key, !prevState]);
+  };
+
+  return { isOpen, close, toggle };
 }

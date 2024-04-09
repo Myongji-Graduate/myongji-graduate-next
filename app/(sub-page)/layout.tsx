@@ -5,7 +5,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-function Layout({ children }: LayoutProps) {
+function SubPageLayout({ children }: LayoutProps) {
   return (
     <>
       <Image src={background} width={800} height={288} className="w-full bg-white h-[18rem]" alt="background" />
@@ -14,4 +14,4 @@ function Layout({ children }: LayoutProps) {
   );
 }
 
-export default Layout;
+export default SubPageLayout;

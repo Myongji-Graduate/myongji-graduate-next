@@ -1,30 +1,24 @@
 import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
-import Drawer from '../../view/molecule/drawer/drawer';
 import Modal from '../../view/molecule/modal/modal';
 import { cn } from '@/app/utils/shadcn/utils';
 import { useMediaQuery } from 'usehooks-ts';
 import { Table } from '../../view/molecule/table';
-import CategoryFullfill from '@/app/(sub-page)/result/components/completed-category';
+// import CategoryFullfill from '@/app/(sub-page)/result/components/completed-category';
+import { MODAL_KEY } from '@/app/utils/key/modal.key';
 
-interface ResultCategoryDetailProps {
-  visible: boolean;
-  toggle: () => void;
-  close: () => void;
-}
-
-function ResultCategoryDetail({ visible, toggle, close }: ResultCategoryDetailProps) {
+function ResultCategoryDetail() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
-
   return (
     <>
       {isDesktop ? (
-        <Modal open={visible} onOpenChange={toggle}>
+        <Modal modalKey={MODAL_KEY.RESULT_CATEGORY}>
           <ResultCategoryDetailContent />
         </Modal>
       ) : (
-        <Drawer open={visible} onClose={close}>
-          <ResultCategoryDetailContent />
-        </Drawer>
+        // <Drawer>
+        //   <ResultCategoryDetailContent />
+        // </Drawer>
+        <></>
       )}
     </>
   );
@@ -54,7 +48,7 @@ function ResultCategoryDetailContent() {
         </div>
       </div>
       <LabelContainer label="전공필수" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
-      <CategoryFullfill />
+      {/* <CategoryFullfill /> */}
       <LabelContainer label="전공선택" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
       <Table headerInfo={headerInfo} data={DUMMYDATA} />
     </div>
