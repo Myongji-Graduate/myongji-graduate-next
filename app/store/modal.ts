@@ -1,7 +1,8 @@
 import { atom } from 'jotai';
+import { MODAL_KEY } from '../utils/key/modal.key';
 
 const initialState = {
-  RESULT_CATEGORY: false,
+  [MODAL_KEY.RESULT_CATEGORY]: false,
 };
 
 const modalAtom = atom(initialState);
