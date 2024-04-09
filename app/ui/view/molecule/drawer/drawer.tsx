@@ -11,10 +11,10 @@ interface DrawerProps extends React.PropsWithChildren {
 }
 
 const Drawer = ({ children, modalKey }: DrawerProps) => {
-  const { isOpen, toggle } = useModal(modalKey);
+  const { isOpen, close } = useModal(modalKey);
 
   return (
-    <DrawerPrimitive.Root open={isOpen} onClose={toggle}>
+    <DrawerPrimitive.Root open={isOpen} onClose={close}>
       <DrawerPrimitive.Portal>
         <DrawerPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80" />
         <DrawerPrimitive.Content
