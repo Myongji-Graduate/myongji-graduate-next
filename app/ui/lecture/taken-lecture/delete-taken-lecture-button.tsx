@@ -1,39 +1,51 @@
 'use client';
-import { SwipeAction, TrailingActions } from 'react-swipeable-list';
 import Button from '../../view/atom/button/button';
+import React, { useState } from 'react';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogCancel,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '../../view/molecule/alert-dialog/alert-dialog';
 
 interface DeleteTakenLectureButtonProps {
   lectureId: number;
-  swipeable?: boolean;
+  onDelete: (lectureId: number) => void;
 }
-export default function DeleteTakenLectureButton({ lectureId, swipeable = false }: DeleteTakenLectureButtonProps) {
-  const deleteLecture = () => {
-    // 삭제 api 연결 예정
-  };
+export default function DeleteTakenLectureButton({ lectureId, onDelete }: DeleteTakenLectureButtonProps) {
+  const [open, setOpen] = useState(false);
   return (
-    <>
-      {swipeable ? (
-        <TrailingActions>
-          <SwipeAction
-            destructive={true}
-            onClick={() => {
-              // 삭제 api
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild>
+        <div className="opacity-100 group-hover:opacity-100">
+          <Button label="삭제" variant="text" size="default" data-testid="taken-lecture-delete-button" />
+        </div>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>과목을 삭제하시겠습니까?</AlertDialogTitle>
+        </AlertDialogHeader>
+        <AlertDialogFooter className="flex gap-6">
+          <AlertDialogCancel className="font-bold">취소</AlertDialogCancel>
+          <form
+            action={() => {
+              onDelete(lectureId);
             }}
           >
-            <div className="bg-gray-400 text-white flex justify-center items-center w-14">삭제</div>
-          </SwipeAction>
-        </TrailingActions>
-      ) : (
-        <div className="opacity-0 group-hover:opacity-100">
-          <Button
-            label="삭제"
-            variant="text"
-            size="default"
-            data-testid="taken-lecture-delete-button"
-            onClick={deleteLecture}
-          />
-        </div>
-      )}
-    </>
+            <Button
+              label="확인"
+              className="text-primary font-bold"
+              data-testid="confirm-button"
+              onClick={() => {
+                setOpen(false);
+              }}
+            />
+          </form>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

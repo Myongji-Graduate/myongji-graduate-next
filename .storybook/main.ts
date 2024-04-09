@@ -4,6 +4,9 @@ import type { StorybookConfig } from '@storybook/nextjs';
 import path from 'path';
 
 const config: StorybookConfig = {
+  features: {
+    experimentalRSC: true,
+  },
   stories: ['../app/**/*.mdx', '../app/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
@@ -22,6 +25,7 @@ const config: StorybookConfig = {
         '@': path.resolve(__dirname, '../'),
         'next/headers': path.resolve(__dirname, '../app/utils/test/__mock__/next/headers.ts'),
         'next/navigation': path.resolve(__dirname, '../app/utils/test/__mock__/next/navigation.ts'),
+        'next/cache': path.resolve(__dirname, '../app/utils/test/__mock__/next/cache.ts'),
       };
     }
     return config;

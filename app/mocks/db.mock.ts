@@ -13,12 +13,13 @@ interface MockUser {
 }
 
 interface MockDatabaseState {
-  takenLectures: TakenLectures[];
+  takenLectures: TakenLectures;
   users: MockUser[];
 }
 
 type MockDatabaseAction = {
-  getTakenLectures: () => TakenLectures[];
+  getTakenLectures: () => TakenLectures;
+  deleteTakenLecture: (lectureId: number) => boolean;
   getUser: (authId: string) => MockUser | undefined;
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
@@ -27,6 +28,15 @@ type MockDatabaseAction = {
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
+  deleteTakenLecture: (lectureId: number) => {
+    if (mockDatabaseStore.takenLectures.takenLectures.find((lecture) => lecture.id === lectureId)) {
+      mockDatabaseStore.takenLectures.takenLectures = mockDatabaseStore.takenLectures.takenLectures.filter(
+        (lecture) => lecture.id !== lectureId,
+      );
+      return true;
+    }
+    return false;
+  },
   getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
@@ -67,7 +77,7 @@ export const mockDatabase: MockDatabaseAction = {
 };
 
 const initialState: MockDatabaseState = {
-  takenLectures: [takenLectures],
+  takenLectures: takenLectures,
   users: [
     {
       authId: 'admin',

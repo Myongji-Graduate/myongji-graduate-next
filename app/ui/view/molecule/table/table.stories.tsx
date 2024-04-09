@@ -87,10 +87,16 @@ export const SwipeableLectureTable: StoryObj = {
         credit: 3,
       },
     ];
-    const actionButton = () => <DeleteTakenLectureButton lectureId={3} swipeable={true} />;
+    const actionButton = () => <DeleteTakenLectureButton lectureId={3} handleDelete={() => {}} />;
     return (
       <main>
-        <Table headerInfo={headerInfo} data={lectures} renderActionButton={actionButton} swipeable={true} />
+        <Table
+          headerInfo={headerInfo}
+          data={lectures}
+          renderActionButton={actionButton}
+          swipeable={true}
+          onSwipeAction={() => {}}
+        />
       </main>
     );
   },
