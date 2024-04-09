@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Drawer from './drawer';
-import { MODAL_KEY, ModalKey } from '@/app/utils/key/modal.key';
+import { DIALOG_KEY, DialogKey } from '@/app/utils/key/dialog.key';
 
 const meta = {
   title: 'ui/view/molecule/Drawer',
@@ -10,13 +10,13 @@ const meta = {
 export default meta;
 
 interface DrawerProps extends React.PropsWithChildren {
-  modalKey: ModalKey;
+  drawerKey: DialogKey;
 }
 
 export const Default: StoryObj<typeof meta> = {
   args: {
     children: <div className="text-xl">Drawer</div>,
-    modalKey: MODAL_KEY.DIALOG_TEST,
+    drawerKey: DIALOG_KEY.DIALOG_TEST,
   },
   render: (args: DrawerProps) => <Drawer {...args} />,
 };

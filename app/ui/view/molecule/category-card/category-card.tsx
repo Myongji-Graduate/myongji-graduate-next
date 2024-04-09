@@ -4,12 +4,12 @@ import Button from '../../atom/button/button';
 import PieChart from '../pie-chart/pie-chart';
 import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
-import useModal from '@/app/hooks/useModal';
+import useDialog from '@/app/hooks/useDialog';
 import * as React from 'react';
-import { MODAL_KEY } from '@/app/utils/key/modal.key';
+import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 
 function CategoryCard() {
-  const { toggle } = useModal(MODAL_KEY.RESULT_CATEGORY);
+  const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
 
   return (
     <div

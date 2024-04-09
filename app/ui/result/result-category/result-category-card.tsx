@@ -3,14 +3,14 @@ import { cn } from '@/app/utils/shadcn/utils';
 
 import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
-import useModal from '@/app/hooks/useModal';
+import useDialog from '@/app/hooks/useDialog';
 import * as React from 'react';
-import { MODAL_KEY } from '@/app/utils/key/modal.key';
+import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
 
 function ResultCategoryCard() {
-  const { toggle } = useModal(MODAL_KEY.RESULT_CATEGORY);
+  const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
 
   return (
     <div

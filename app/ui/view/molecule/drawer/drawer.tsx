@@ -3,15 +3,15 @@
 import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { cn } from '@/app/utils/shadcn/utils';
-import { ModalKey } from '@/app/utils/key/modal.key';
-import useModal from '@/app/hooks/useModal';
+import { DialogKey } from '@/app/utils/key/dialog.key';
+import useDialog from '@/app/hooks/useDialog';
 
 interface DrawerProps extends React.PropsWithChildren {
-  modalKey: ModalKey;
+  drawerKey: DialogKey;
 }
 
-const Drawer = ({ children, modalKey }: DrawerProps) => {
-  const { isOpen, close } = useModal(modalKey);
+const Drawer = ({ children, drawerKey }: DrawerProps) => {
+  const { isOpen, close } = useDialog(drawerKey);
 
   return (
     <DrawerPrimitive.Root open={isOpen} onClose={close}>
