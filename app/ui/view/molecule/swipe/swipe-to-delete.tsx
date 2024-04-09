@@ -17,7 +17,7 @@ export interface Props {
   id?: string;
   rtl?: boolean;
   children?: React.ReactNode;
-  action: VoidFunction;
+  onSwipeAction: VoidFunction;
 }
 
 const cursorPosition = (event: any) => {
@@ -41,7 +41,7 @@ const SwipeToDelete = ({
   className = '',
   id = '',
   rtl = false,
-  action,
+  onSwipeAction,
   children,
 }: Props) => {
   const [touching, setTouching] = useState(false);
@@ -171,7 +171,7 @@ const SwipeToDelete = ({
   return (
     <form
       action={() => {
-        action();
+        onSwipeAction();
       }}
     >
       <div id={id} className={`rstdi${deleting ? ' deleting' : ''} ${className}`} ref={container}>

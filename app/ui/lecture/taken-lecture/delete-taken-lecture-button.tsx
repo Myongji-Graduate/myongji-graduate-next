@@ -13,9 +13,9 @@ import {
 
 interface DeleteTakenLectureButtonProps {
   lectureId: number;
-  handleDelete: (lectureId: number) => void;
+  onDelete: (lectureId: number) => void;
 }
-export default function DeleteTakenLectureButton({ lectureId, handleDelete }: DeleteTakenLectureButtonProps) {
+export default function DeleteTakenLectureButton({ lectureId, onDelete }: DeleteTakenLectureButtonProps) {
   const [open, setOpen] = useState(false);
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -32,7 +32,7 @@ export default function DeleteTakenLectureButton({ lectureId, handleDelete }: De
           <AlertDialogCancel className="font-bold">취소</AlertDialogCancel>
           <form
             action={() => {
-              handleDelete(lectureId);
+              onDelete(lectureId);
             }}
           >
             <Button

@@ -39,7 +39,7 @@ export default function TakenLectureList() {
           headerInfo={headerInfo}
           data={optimisticLecture}
           renderActionButton={(id: number) => (
-            <DeleteTakenLectureButton lectureId={id} handleDelete={handleLectureDelete} />
+            <DeleteTakenLectureButton lectureId={id} onDelete={handleLectureDelete} />
           )}
         />
       </div>

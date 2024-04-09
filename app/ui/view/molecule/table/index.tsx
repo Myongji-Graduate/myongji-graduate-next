@@ -56,7 +56,7 @@ export function Table<T extends ListRow>({
     return (
       <div className="border-solid border-gray-300 border-b-[1px] last:border-b-0" key={index}>
         <SwipeToDelete
-          action={() => {
+          onSwipeAction={() => {
             onSwipeAction && onSwipeAction(item.id);
           }}
         >
