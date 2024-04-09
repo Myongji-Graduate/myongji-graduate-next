@@ -1,30 +1,7 @@
 import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
-import Modal from '../../view/molecule/modal/modal';
 import { cn } from '@/app/utils/shadcn/utils';
-import { useMediaQuery } from 'usehooks-ts';
 import { Table } from '../../view/molecule/table';
-// import CategoryFullfill from '@/app/(sub-page)/result/components/completed-category';
-import { MODAL_KEY } from '@/app/utils/key/modal.key';
-
-function ResultCategoryDetail() {
-  const isDesktop = useMediaQuery('(min-width: 768px)');
-  return (
-    <>
-      {isDesktop ? (
-        <Modal modalKey={MODAL_KEY.RESULT_CATEGORY}>
-          <ResultCategoryDetailContent />
-        </Modal>
-      ) : (
-        // <Drawer>
-        //   <ResultCategoryDetailContent />
-        // </Drawer>
-        <></>
-      )}
-    </>
-  );
-}
-
-export default ResultCategoryDetail;
+import CategoryFullfill from '@/app/(sub-page)/result/components/completed-category';
 
 const headerInfo = ['과목코드', '과목명', '학점'];
 
@@ -48,9 +25,11 @@ function ResultCategoryDetailContent() {
         </div>
       </div>
       <LabelContainer label="전공필수" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
-      {/* <CategoryFullfill /> */}
+      <CategoryFullfill />
       <LabelContainer label="전공선택" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
       <Table headerInfo={headerInfo} data={DUMMYDATA} />
     </div>
   );
 }
+
+export default ResultCategoryDetailContent;
