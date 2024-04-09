@@ -1,14 +1,15 @@
 'use client';
 import { cn } from '@/app/utils/shadcn/utils';
-import Button from '../../atom/button/button';
-import PieChart from '../pie-chart/pie-chart';
+
 import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
 import useModal from '@/app/hooks/useModal';
 import * as React from 'react';
 import { MODAL_KEY } from '@/app/utils/key/modal.key';
+import PieChart from '../../view/molecule/pie-chart/pie-chart';
+import Button from '../../view/atom/button/button';
 
-function CategoryCard() {
+function ResultCategoryCard() {
   const { toggle } = useModal(MODAL_KEY.RESULT_CATEGORY);
 
   return (
@@ -39,4 +40,4 @@ function CategoryCard() {
   );
 }
 
-export default CategoryCard;
+export default ResultCategoryCard;

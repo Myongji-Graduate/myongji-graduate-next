@@ -1,6 +1,6 @@
+import ResultCategoryCard from '@/app/ui/result/result-category-card/result-category-card';
 import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
 import ContentContainer from '@/app/ui/view/atom/content-container';
-import CategoryCard from '@/app/ui/view/molecule/category-card/category-card';
 import { cn } from '@/app/utils/shadcn/utils';
 
 function ResultPage() {
@@ -16,7 +16,7 @@ function ResultPage() {
         )}
       >
         {Array.from({ length: 8 }).map((_, index) => (
-          <CategoryCard key={index} />
+          <ResultCategoryCard key={index} />
         ))}
       </div>
     </div>
