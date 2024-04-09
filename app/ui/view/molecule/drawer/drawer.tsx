@@ -3,15 +3,18 @@
 import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { cn } from '@/app/utils/shadcn/utils';
+import useModal from '@/app/hooks/useModal';
+import { ModalKey } from '@/app/utils/key/modal.key';
 
 interface DrawerProps extends React.PropsWithChildren {
-  open: boolean;
-  onClose: () => void;
+  modalKey: ModalKey;
 }
 
-const Drawer = ({ children, open, onClose }: DrawerProps) => {
+const Drawer = ({ modalKey, children }: DrawerProps) => {
+  const { isOpen, close } = useModal(modalKey);
+
   return (
-    <DrawerPrimitive.Root open={open} onClose={onClose}>
+    <DrawerPrimitive.Root open={isOpen} onClose={close}>
       <DrawerPrimitive.Portal>
         <DrawerPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80" />
         <DrawerPrimitive.Content
