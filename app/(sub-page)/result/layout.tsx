@@ -1,6 +1,6 @@
 'use client';
 
-import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
+import ResultCategoryDetailContainer from './components/result-category-detail-container';
 
 interface ResultLayoutProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface ResultLayoutProps {
 function ResultLayout({ children }: ResultLayoutProps) {
   return (
     <>
-      <ResultCategoryDetail />
+      <ResultCategoryDetailContainer />
       {children}
     </>
   );
