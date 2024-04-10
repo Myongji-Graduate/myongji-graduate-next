@@ -9,7 +9,7 @@ function CompletedCategory() {
       <Image src={CompletedImage} width={1200} height={270} alt="category-fullfill-image" />
       <div className="absolute ">
         <Image className="m-auto" src={CheckImage} width={50} height={36} alt="category-fullfill-image" />
-        <p className="z-10 ">해당 파트의 졸업요건을 충족하셨습니다!</p>
+        <p className="zIndex-1">해당 파트의 졸업요건을 충족하셨습니다!</p>
       </div>
     </div>
   );

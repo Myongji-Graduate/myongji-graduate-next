@@ -1,7 +1,7 @@
 import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
 import { cn } from '@/app/utils/shadcn/utils';
 import { Table } from '../../view/molecule/table';
-import CategoryFullfill from '@/app/(sub-page)/result/components/completed-category';
+import CompletedCategory from '@/app/(sub-page)/result/components/completed-category';
 
 const headerInfo = ['과목코드', '과목명', '학점'];
 
@@ -25,7 +25,7 @@ function ResultCategoryDetailContent() {
         </div>
       </div>
       <LabelContainer label="전공필수" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
-      <CategoryFullfill />
+      <CompletedCategory />
       <LabelContainer label="전공선택" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
       <Table headerInfo={headerInfo} data={DUMMYDATA} />
     </div>
