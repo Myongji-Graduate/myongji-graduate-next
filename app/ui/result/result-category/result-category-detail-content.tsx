@@ -1,15 +1,11 @@
-import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
 import { cn } from '@/app/utils/shadcn/utils';
-import { Table } from '../../view/molecule/table';
-import CompletedCategory from '@/app/(sub-page)/result/components/completed-category';
 
-const headerInfo = ['과목코드', '과목명', '학점'];
+import { useState } from 'react';
+import { ResultCategoryDetailToggle } from '../../view/shadcn/switch';
+import ResultCagegoryDetailLecture from './result-cagegory-detail-lecture';
 
 function ResultCategoryDetailContent() {
-  const DUMMYDATA = [
-    { id: 0, code: 'HEC01208', name: '데이터구조와알고리즘', credit: 3 },
-    { id: 0, code: 'HEC01208', name: '데이터구조와알고리즘', credit: 3 },
-  ];
+  const [isChecked, setChecked] = useState(false);
 
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2">
@@ -17,17 +13,20 @@ function ResultCategoryDetailContent() {
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
           <p className={cn('text-sm text-gray-6 font-medium my-6', 'md:text-lg')}>
-            전공필수 과목 중 미이수과목이 표시됩니다.
+            <span>전공필수 과목 중</span>
+            <ResultCategoryDetailToggle
+              checked={isChecked}
+              onCheckedChange={setChecked}
+              className="absolute zIndex-2"
+            />
+            <span>과목이 표시됩니다.</span>
           </p>
         </div>
         <div className={cn('text-2xl font-bold', 'md:text-4xl')}>
           <span className="text-point-blue">18</span> / 18
         </div>
       </div>
-      <LabelContainer label="전공필수" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
-      <CompletedCategory />
-      <LabelContainer label="전공선택" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
-      <Table headerInfo={headerInfo} data={DUMMYDATA} />
+      <ResultCagegoryDetailLecture />
     </div>
   );
 }
