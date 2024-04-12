@@ -27,6 +27,15 @@ a {
   font-family: 'Pretendard';
 }
 
-a:-webkit-any-link {
-  text-decoration: none;
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 5px;
 }
