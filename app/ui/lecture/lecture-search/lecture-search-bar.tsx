@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
 export default function LectureSearchBar() {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between mt-4 sm:mt-0">
       <div className="sm:w-[15%] w-[30%]">
         <Select defaultValue="lectureName" placeholder="과목명">
           <Select.Item value="lectureName" placeholder="과목명" />
