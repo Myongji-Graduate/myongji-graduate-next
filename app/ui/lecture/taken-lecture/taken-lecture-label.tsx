@@ -3,18 +3,11 @@
 import Link from 'next/link';
 import Button from '../../view/atom/button/button';
 import LabelContainer from '../../view/atom/label-container/label-container';
-import { useAtom, useSetAtom } from 'jotai';
-import { isAddedLectureAtom } from '@/app/store/custom-taken-lecture';
-import { useEffect } from 'react';
+import useDialog from '@/app/hooks/useDialog';
+import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 
 export default function TakenLectureLabel() {
-  const setIsAddedLecture = useSetAtom(isAddedLectureAtom);
-
-  useEffect(() => {
-    return () => {
-      setIsAddedLecture(false);
-    };
-  }, []);
+  const { toggle } = useDialog(DIALOG_KEY.LECTURE_SEARCH);
 
   return (
     <LabelContainer
@@ -27,7 +20,7 @@ export default function TakenLectureLabel() {
             size="xs"
             data-testid="lecture-add-button"
             onClick={() => {
-              setIsAddedLecture(true);
+              toggle();
             }}
           />
           <Link href="/file-upload">
