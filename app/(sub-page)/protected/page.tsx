@@ -2,7 +2,9 @@ import { API_PATH } from '@/app/business/api-path';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 
 async function trigger() {
-  const response = await fetch(`${API_PATH.auth}/failure`);
+  const response = await fetch(`${API_PATH.auth}/failure`, {
+    cache: 'no-store',
+  });
   const result = await response.json();
   httpErrorHandler(response, result);
 }
