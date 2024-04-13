@@ -2,6 +2,7 @@ import LectureSearch from '@/app/ui/lecture/lecture-search';
 import TakenLecture from '@/app/ui/lecture/taken-lecture';
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
+import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 
 export default function MyPage() {
   return (
@@ -12,7 +13,7 @@ export default function MyPage() {
           <TakenLecture />
         </div>
       </ContentContainer>
-      <Drawer drawerKey="LECTURE_SEARCH">
+      <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
         <LectureSearch />
       </Drawer>
     </>
