@@ -11,6 +11,7 @@ const meta = {
   component: TakenLectureList,
   decorators: [
     (Story) => {
+      resetMockDB();
       const data = mockDatabase.getTakenLectures();
       return (
         <TakenLectureAtomHydrator initialValue={data.takenLectures}>
@@ -26,8 +27,6 @@ type Story = StoryObj<typeof meta>;
 
 export const DeleteSenario: Story = {
   play: async ({ step }) => {
-    resetMockDB();
-
     await step('사용자가 삭제를 클릭하면 alert창이 보여진다', async () => {
       const deleteButton = await screen.findAllByTestId('taken-lecture-delete-button');
       await userEvent.click(deleteButton[0]);
