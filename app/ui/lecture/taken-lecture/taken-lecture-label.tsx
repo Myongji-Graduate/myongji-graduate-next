@@ -19,9 +19,7 @@ export default function TakenLectureLabel() {
             variant="secondary"
             size="xs"
             data-testid="lecture-add-button"
-            onClick={() => {
-              toggle();
-            }}
+            onClick={() => toggle}
           />
           <Link href="/file-upload">
             <Button label="성적표 재업로드" variant="secondary" size="xs" />
