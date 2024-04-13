@@ -4,7 +4,8 @@ import * as React from 'react';
 import * as SwitchPrimitives from '@radix-ui/react-switch';
 
 import { cn } from '@/app/utils/shadcn/utils';
-const ResultCategoryDetailToggle = React.forwardRef<
+
+const ResultCategoryDetailLectureToggle = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ className, ...props }, ref) => (
@@ -26,6 +27,7 @@ const ResultCategoryDetailToggle = React.forwardRef<
     />
   </SwitchPrimitives.Root>
 ));
-ResultCategoryDetailToggle.displayName = SwitchPrimitives.Root.displayName;
 
-export { ResultCategoryDetailToggle };
+ResultCategoryDetailLectureToggle.displayName = SwitchPrimitives.Root.displayName;
+
+export { ResultCategoryDetailLectureToggle };

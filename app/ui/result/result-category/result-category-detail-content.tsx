@@ -2,7 +2,7 @@
 import { cn } from '@/app/utils/shadcn/utils';
 
 import { useState } from 'react';
-import { ResultCategoryDetailToggle } from '../../view/shadcn/switch';
+import { ResultCategoryDetailLectureToggle } from './result-category-detail-lecture-toggle';
 import ResultCagegoryDetailLecture from './result-cagegory-detail-lecture';
 import { ResultCategoryDetailInfo } from '@/app/business/result/result.query';
 
@@ -20,13 +20,15 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
       <div className="flex justify-between">
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
-          <p className={cn('text-sm text-gray-6 font-medium my-6', 'md:text-lg')}>
+          <p className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
             <span>전공필수 과목 중</span>
-            <ResultCategoryDetailToggle
-              checked={isTakenLecture}
-              onCheckedChange={setIsTakenLectrue}
-              className="absolute zIndex-2"
-            />
+            <div className="w-20 h-10">
+              <ResultCategoryDetailLectureToggle
+                checked={isTakenLecture}
+                onCheckedChange={setIsTakenLectrue}
+                className="absolute zIndex-2"
+              />
+            </div>
             <span>과목이 표시됩니다.</span>
           </p>
         </div>

@@ -16,7 +16,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
   const showCompleted = !isTakenLecture && completed;
 
   return (
-    <>
+    <div className="my-4 flex flex-col gap-4">
       <LabelContainer
         label={categoryName}
         rightElement={
@@ -30,7 +30,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
       ) : (
         <Table headerInfo={headerInfo} data={isTakenLecture ? takenLectures : haveToLectures} />
       )}
-    </>
+    </div>
   );
 }
 
