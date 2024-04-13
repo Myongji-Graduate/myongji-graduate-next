@@ -1,5 +1,3 @@
-'use client';
-
 import ResultCategoryDetailContainer from './components/result-category-detail-container';
 
 interface ResultLayoutProps {
