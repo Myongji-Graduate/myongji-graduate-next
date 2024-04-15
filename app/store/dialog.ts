@@ -4,6 +4,7 @@ import { DIALOG_KEY } from '../utils/key/dialog.key';
 const initialState = {
   [DIALOG_KEY.RESULT_CATEGORY]: false,
   [DIALOG_KEY.DIALOG_TEST]: true,
+  [DIALOG_KEY.LECTURE_SEARCH]: false,
 };
 
 const dialogAtom = atom(initialState);

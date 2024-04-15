@@ -38,6 +38,10 @@ export default function LectureSearchResultContainer() {
       data={[
         { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3 },
         { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
+        { id: 5, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
+        { id: 6, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
+        { id: 7, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
+        { id: 8, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
       ]}
       render={render}
       isScrollList={true}

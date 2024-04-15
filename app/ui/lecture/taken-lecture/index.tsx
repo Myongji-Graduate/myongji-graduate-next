@@ -8,12 +8,10 @@ export default async function TakenLecture() {
   const data = await fetchTakenLectures();
   return (
     <div className="flex flex-col gap-2">
-      <Provider>
-        <TakenLectureAtomHydrator initialValue={data.takenLectures}>
-          <TakenLectureLabel />
-          <TakenLectureList />
-        </TakenLectureAtomHydrator>
-      </Provider>
+      <TakenLectureAtomHydrator initialValue={data.takenLectures}>
+        <TakenLectureLabel />
+        <TakenLectureList />
+      </TakenLectureAtomHydrator>
     </div>
   );
 }
