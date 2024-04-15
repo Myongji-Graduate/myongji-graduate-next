@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
-import { LectureInfo } from '../type/lecture';
+import { TakenLectrueInfo } from '../type/lecture';
 
-export const takenLectureAtom = atom<LectureInfo[]>([]);
+export const takenLectureAtom = atom<TakenLectrueInfo[]>([]);
 
-export const swipeTakenLectureAtom = atom<LectureInfo[]>([]);
+export const swipeTakenLectureAtom = atom<TakenLectrueInfo[]>([]);

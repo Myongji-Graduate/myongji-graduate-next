@@ -2,7 +2,7 @@ import List from '../../view/molecule/list';
 import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';
 import Grid from '../../view/molecule/grid';
-import { SearchedLectureInfo } from '@/app/type/lecture';
+import { LectureInfo } from '@/app/type/lecture';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
 
 const emptyDataRender = () => {
@@ -15,10 +15,10 @@ const emptyDataRender = () => {
 };
 
 export default function LectureSearchResultContainer() {
-  const renderAddActionButton = (item: SearchedLectureInfo) => {
+  const renderAddActionButton = (item: LectureInfo) => {
     return <AddTakenLectureButton lectureItem={item} />;
   };
-  const render = (item: SearchedLectureInfo, index: number) => {
+  const render = (item: LectureInfo, index: number) => {
     const searchLectureItem = item;
     return (
       <List.Row key={index}>

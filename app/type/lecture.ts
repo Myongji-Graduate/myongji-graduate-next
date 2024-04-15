@@ -1,4 +1,4 @@
-export interface LectureInfo {
+export interface TakenLectrueInfo {
   [index: string]: string | number;
   id: number;
   year: string;
@@ -8,7 +8,7 @@ export interface LectureInfo {
   credit: number;
 }
 
-export interface SearchedLectureInfo {
+export interface LectureInfo {
   [index: string]: string | number;
   id: number;
   lectureCode: string;

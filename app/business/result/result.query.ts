@@ -1,12 +1,12 @@
-import { SearchedLectureInfo } from '@/app/type/lecture';
+import { LectureInfo } from '@/app/type/lecture';
 import { API_PATH } from '../api-path';
 
 export interface ResultCategoryDetailLectures {
   categoryName: string;
   totalCredits: number;
   takenCredits: number;
-  takenLectures: SearchedLectureInfo[];
-  haveToLectures: SearchedLectureInfo[];
+  takenLectures: LectureInfo[];
+  haveToLectures: LectureInfo[];
   completed: boolean;
 }
 
