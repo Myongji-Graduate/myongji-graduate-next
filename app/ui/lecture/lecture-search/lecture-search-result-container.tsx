@@ -15,8 +15,8 @@ const emptyDataRender = () => {
 };
 
 export default function LectureSearchResultContainer() {
-  const renderAddActionButton = (item: SearchedLectureInfo) => {
-    return <AddTakenLectureButton lectureItem={item} />;
+  const renderAddActionButton = (item: SearchedLectureInfo, isTakenLecture: boolean) => {
+    return <AddTakenLectureButton lectureItem={item} isTakenLecture={isTakenLecture} />;
   };
   const render = (item: SearchedLectureInfo, index: number) => {
     const searchLectureItem = item;
@@ -24,10 +24,12 @@ export default function LectureSearchResultContainer() {
       <List.Row key={index}>
         <Grid cols={4}>
           {Object.keys(searchLectureItem).map((key, index) => {
-            if (key === 'id') return null;
+            if (key === 'id' || key === 'isTakenLecture') return null;
             return <Grid.Column key={index}>{searchLectureItem[key]}</Grid.Column>;
           })}
-          {renderAddActionButton ? <Grid.Column>{renderAddActionButton(searchLectureItem)}</Grid.Column> : null}
+          {renderAddActionButton ? (
+            <Grid.Column>{renderAddActionButton(searchLectureItem, item.isTakenLecture)}</Grid.Column>
+          ) : null}
         </Grid>
       </List.Row>
     );
@@ -36,12 +38,12 @@ export default function LectureSearchResultContainer() {
   return (
     <List
       data={[
-        { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3 },
-        { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
-        { id: 5, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
-        { id: 6, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
-        { id: 7, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
-        { id: 8, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3 },
+        { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3, isTakenLecture: false },
+        { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
+        { id: 5, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
+        { id: 6, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
+        { id: 7, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
+        { id: 8, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
       ]}
       render={render}
       isScrollList={true}

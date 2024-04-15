@@ -3,7 +3,8 @@ import Button from '../../view/atom/button/button';
 
 interface AddTakenLectureButtonProps {
   lectureItem: SearchedLectureInfo;
+  isTakenLecture: boolean;
 }
-export default function AddTakenLectureButton({ lectureItem }: AddTakenLectureButtonProps) {
-  return <Button variant="list" label="추가" onClick={() => {}} />;
+export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: AddTakenLectureButtonProps) {
+  return <Button variant="list" label="추가" disabled={isTakenLecture} onClick={() => {}} />;
 }
