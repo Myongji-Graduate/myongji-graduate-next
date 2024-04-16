@@ -22,6 +22,10 @@ function mockDecryptToken(token: string) {
 }
 
 export const userHandlers = [
+  http.get<never, never, never>(`${API_PATH.auth}/failure`, async ({ request }) => {
+    await delay(500);
+    return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+  }),
   http.post<never, never, ValidateTokenResponse>(`${API_PATH.auth}/token`, async ({ request }) => {
     return HttpResponse.json({
       accessToken: 'fake-access-token',
