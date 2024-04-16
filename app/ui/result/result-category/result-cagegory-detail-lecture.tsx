@@ -1,5 +1,5 @@
 import { Table } from '../../view/molecule/table';
-import AnnounceMessage from '@/app/ui/view/molecule/announce-message/announce-massage';
+import AnnounceMessageBox from '@/app/ui/view/molecule/announce-message-box/announce-massage-box';
 import { ResultCategoryDetailLectures } from '@/app/business/result/result.query';
 import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
 
@@ -26,7 +26,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
         }
       />
       {showCompleted ? (
-        <AnnounceMessage message="해당 파트의 졸업요건을 충족하셨습니다!" />
+        <AnnounceMessageBox message="해당 파트의 졸업요건을 충족하셨습니다!" />
       ) : (
         <Table headerInfo={headerInfo} data={isTakenLecture ? takenLectures : haveToLectures} />
       )}
