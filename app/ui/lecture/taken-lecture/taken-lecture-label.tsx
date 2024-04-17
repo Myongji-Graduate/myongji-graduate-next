@@ -15,7 +15,7 @@ export default function TakenLectureLabel() {
       rightElement={
         <div className="flex gap-2">
           <Button label="과목 추가" variant="secondary" size="xs" data-testid="lecture-add-button" onClick={toggle} />
-          <Link href="/file-upload">
+          <Link href="/grade-upload">
             <Button label="성적표 재업로드" variant="secondary" size="xs" />
           </Link>
         </div>
