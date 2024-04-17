@@ -9,6 +9,13 @@ export const takenLectureHandlers = [
     await delay(100);
     return HttpResponse.json(takenLectures);
   }),
+  http.post<never, { lectureId: number }>(API_PATH.takenLectures, async ({ request }) => {
+    const body = await request.json();
+    const isAdded = mockDatabase.addTakenLecture(body.lectureId);
+    await delay(1000);
+    if (isAdded) return HttpResponse.json({ message: '과목 추가에 성공했습니다' }, { status: 200 });
+    return HttpResponse.json({ errorCode: 400, message: '추가에 실패했습니다' }, { status: 400 });
+  }),
   http.delete<never, { lectureId: number }>(API_PATH.takenLectures, async ({ request }) => {
     const body = await request.json();
     const isDeleted = mockDatabase.deleteTakenLecture(body.lectureId);
