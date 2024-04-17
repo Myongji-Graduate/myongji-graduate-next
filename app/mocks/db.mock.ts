@@ -1,6 +1,7 @@
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
+import { ResultCategoryDetailInfo } from '../business/result/result.query';
 import { SignUpRequestBody, SignInRequestBody, UserInfoResponse } from '../business/user/user.type';
-import { takenLectures } from './data.mock';
+import { takenLectures, resultCategoryDetailInfo } from './data.mock';
 
 interface MockUser {
   authId: string;
@@ -14,11 +15,13 @@ interface MockUser {
 
 interface MockDatabaseState {
   takenLectures: TakenLectures;
+  resultCategoryDetailInfo: ResultCategoryDetailInfo;
   users: MockUser[];
 }
 
 type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures;
+  getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;
   deleteTakenLecture: (lectureId: number) => boolean;
   getUser: (authId: string) => MockUser | undefined;
   createUser: (user: SignUpRequestBody) => boolean;
@@ -37,6 +40,7 @@ export const mockDatabase: MockDatabaseAction = {
     }
     return false;
   },
+  getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
   getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
@@ -78,6 +82,7 @@ export const mockDatabase: MockDatabaseAction = {
 
 const initialState: MockDatabaseState = {
   takenLectures: takenLectures,
+  resultCategoryDetailInfo: resultCategoryDetailInfo,
   users: [
     {
       authId: 'admin',

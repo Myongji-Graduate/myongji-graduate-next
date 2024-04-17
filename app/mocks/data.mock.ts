@@ -68,3 +68,110 @@ export const takenLectures = JSON.parse(`{
     }
   ]
 }`);
+
+export const resultCategoryDetailInfo = JSON.parse(`{
+  "totalCredit": 15,
+  "takenCredit": 12,
+  "detailCategory": [
+      {
+          "categoryName": "공통교양(기독교)",
+          "totalCredits": 4,
+          "takenCredits": 4,
+          "takenLectures": [
+              {
+                  "id": 3,
+                  "lectureCode": "KMA00101",
+                  "name": "성서와인간이해",
+                  "credit": 2
+              }
+          ],
+          "haveToLectures": [
+              {
+                  "id": 6,
+                  "lectureCode": "KMA02103",
+                  "name": "종교와과학",
+                  "credit": 2
+              },
+              {
+                  "id": 7,
+                  "lectureCode": "KMA02122",
+                  "name": "기독교와문화",
+                  "credit": 2
+              }
+          ],
+          "completed": true
+      },
+      {
+          "categoryName": "공통교양(진로와 선택)",
+          "totalCredits": 2,
+          "takenCredits": 2,
+          "takenLectures": [
+              {
+                  "id": 18,
+                  "lectureCode": "KMA02137",
+                  "name": "4차산업혁명시대의진로선택",
+                  "credit": 2
+              }
+          ],
+          "haveToLectures": [],
+          "completed": true
+      },
+      {
+          "categoryName": "공통교양(사고와 표현)",
+          "totalCredits": 3,
+          "takenCredits": 3,
+          "takenLectures": [
+              {
+                  "id": 9,
+                  "lectureCode": "KMA02105",
+                  "name": "발표와토의",
+                  "credit": 3
+              }
+          ],
+          "haveToLectures": [
+              {
+                  "id": 8,
+                  "lectureCode": "KMA02104",
+                  "name": "글쓰기",
+                  "credit": 3
+              }
+          ],
+          "completed": true
+      },
+      {
+          "categoryName": "공통교양(영어)",
+          "totalCredits": 6,
+          "takenCredits": 3,
+          "takenLectures": [
+              {
+                  "id": 10,
+                  "lectureCode": "KMA02106",
+                  "name": "영어1",
+                  "credit": 2
+              },
+              {
+                  "id": 14,
+                  "lectureCode": "KMA02108",
+                  "name": "영어회화1",
+                  "credit": 1
+              }
+          ],
+          "haveToLectures": [
+              {
+                  "id": 11,
+                  "lectureCode": "KMA02107",
+                  "name": "영어2",
+                  "credit": 2
+              },
+              {
+                  "id": 15,
+                  "lectureCode": "KMA02109",
+                  "name": "영어회화2",
+                  "credit": 1
+              }
+          ],
+          "completed": false
+      }
+  ],
+  "completed": false
+}`);
