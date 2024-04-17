@@ -5,6 +5,7 @@ import { FormSubmitButton } from './form-submit-button';
 import { FormContext } from './form.context';
 import { filterChildrenByType } from '@/app/utils/component.util';
 import AlertDestructive from '../alert-destructive/alert-destructive';
+import { useToast } from '../toast/use-toast';
 
 export interface FormState {
   isSuccess: boolean;
@@ -21,15 +22,29 @@ interface FormRootProps {
   id: string;
   onSuccess?: () => void;
   action: (prevState: FormState, formData: FormData) => Promise<FormState> | FormState;
+  messageControl?: 'alert' | 'toast';
 }
 
-export function FormRoot({ id, action, onSuccess, children }: React.PropsWithChildren<FormRootProps>) {
+export function FormRoot({
+  id,
+  action,
+  onSuccess,
+  messageControl = 'alert',
+  children,
+}: React.PropsWithChildren<FormRootProps>) {
   const initialState: FormState = { isSuccess: false, isFailure: false, message: null, validationError: {} };
   const [formState, dispatch] = useFormState(action, initialState);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (formState.isSuccess) {
       onSuccess?.();
+    }
+    if (formState.isFailure && messageControl === 'toast') {
+      toast({
+        title: formState.message ? formState.message : '',
+        variant: 'destructive',
+      });
     }
   }, [formState]);
 
@@ -45,7 +60,7 @@ export function FormRoot({ id, action, onSuccess, children }: React.PropsWithChi
 
   return (
     <FormContext.Provider value={{ errors: formState.validationError, formId: id, isSuccess: formState.isSuccess }}>
-      {formState.isFailure ? (
+      {formState.isFailure && messageControl === 'alert' ? (
         <div className="mb-4">
           <AlertDestructive description={formState.message!} />
         </div>
