@@ -5,6 +5,7 @@ import Grid from '../../view/molecule/grid';
 import { LectureInfo } from '@/app/type/lecture';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
 
+type SearchedLectureInfo = LectureInfo & { isTakenLecture: boolean };
 const emptyDataRender = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -15,10 +16,10 @@ const emptyDataRender = () => {
 };
 
 export default function LectureSearchResultContainer() {
-  const renderAddActionButton = (item: LectureInfo, isTakenLecture: boolean) => {
+  const renderAddActionButton = (item: SearchedLectureInfo, isTakenLecture: boolean) => {
     return <AddTakenLectureButton lectureItem={item} isTakenLecture={isTakenLecture} />;
   };
-  const render = (item: LectureInfo, index: number) => {
+  const render = (item: SearchedLectureInfo, index: number) => {
     const searchLectureItem = item;
     return (
       <List.Row key={index}>
