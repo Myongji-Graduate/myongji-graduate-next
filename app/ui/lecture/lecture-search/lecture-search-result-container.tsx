@@ -6,6 +6,7 @@ import { LectureInfo } from '@/app/type/lecture';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
 
 type SearchedLectureInfo = LectureInfo & { isTakenLecture: boolean };
+
 const emptyDataRender = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-2">
