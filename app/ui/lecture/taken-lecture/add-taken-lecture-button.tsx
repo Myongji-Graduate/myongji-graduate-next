@@ -15,6 +15,7 @@ export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: A
       title: '과목 추가에 성공했습니다',
     });
   };
+
   return (
     <Form
       id={`과목추가-${lectureItem.id}`}
@@ -28,8 +29,9 @@ export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: A
         label="추가"
         position="center"
         variant="list"
-        disabled={{ value: isTakenLecture, control: true }}
+        disabledInfo={{ value: isTakenLecture, control: true }}
         size="default"
+        data-testid="add-taken-lecture-button"
       />
     </Form>
   );

@@ -52,6 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   return (
     <button
       className={cn(isDisabled && 'opacity-50 cursor-not-allowed', ButtonVariants({ variant, size }))}
+      disabled={disabled}
       {...props}
       ref={ref}
     >

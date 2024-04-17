@@ -14,7 +14,13 @@ export default function TakenLectureLabel() {
       label="내 기이수 과목"
       rightElement={
         <div className="flex gap-2">
-          <Button label="과목 추가" variant="secondary" size="xs" data-testid="lecture-add-button" onClick={toggle} />
+          <Button
+            label="과목 추가"
+            variant="secondary"
+            size="xs"
+            data-testid="toggle-lecture-search"
+            onClick={toggle}
+          />
           <Link href="/grade-upload">
             <Button label="성적표 재업로드" variant="secondary" size="xs" />
           </Link>

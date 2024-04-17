@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent } from '@storybook/test';
 import { mockDatabase, resetMockDB } from '@/app/mocks/db.mock';
 import TakenLectureList from './taken-lecture-list';
 import TakenLectureAtomHydrator from '@/app/store/taken-lecture-atom-hydrator';
@@ -7,7 +7,7 @@ import { screen } from '@storybook/testing-library';
 import { delay } from 'msw';
 
 const meta = {
-  title: 'ui/taken-lecture/TakenLecture',
+  title: 'ui/lecture/taken-lecture',
   component: TakenLectureList,
   decorators: [
     (Story) => {
