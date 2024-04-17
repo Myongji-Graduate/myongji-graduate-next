@@ -39,16 +39,12 @@ export function FormRoot({ id, action, onSuccess, children }: React.PropsWithChi
     return React.Children.map(children, (child, index) => {
       if (!React.isValidElement(child) || child.type === FormSubmitButton) return null;
       if (child.type === FormSubmitButton) return child;
-      return (
-        <div key={index} className="mb-4">
-          {child}
-        </div>
-      );
+      return <div key={index}>{child}</div>;
     });
   };
 
   return (
-    <FormContext.Provider value={{ errors: formState.validationError, formId: id }}>
+    <FormContext.Provider value={{ errors: formState.validationError, formId: id, isSuccess: formState.isSuccess }}>
       {formState.isFailure ? (
         <div className="mb-4">
           <AlertDestructive description={formState.message!} />
@@ -56,7 +52,7 @@ export function FormRoot({ id, action, onSuccess, children }: React.PropsWithChi
       ) : null}
       <form id={id} action={dispatch}>
         {renderWithoutSubmitButton()}
-        <div className="mt-8">{formSubmitButton}</div>
+        {formSubmitButton}
       </form>
     </FormContext.Provider>
   );
