@@ -1,33 +1,44 @@
-import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
+'use client';
 import { cn } from '@/app/utils/shadcn/utils';
-import { Table } from '../../view/molecule/table';
-import CompletedCategory from '@/app/(sub-page)/result/components/completed-category';
 
-const headerInfo = ['과목코드', '과목명', '학점'];
+import { useState } from 'react';
+import { ResultCategoryDetailLectureToggle } from './result-category-detail-lecture-toggle';
+import ResultCagegoryDetailLecture from './result-cagegory-detail-lecture';
+import { ResultCategoryDetailInfo } from '@/app/business/result/result.query';
 
-function ResultCategoryDetailContent() {
-  const DUMMYDATA = [
-    { id: 0, code: 'HEC01208', name: '데이터구조와알고리즘', credit: 3 },
-    { id: 0, code: 'HEC01208', name: '데이터구조와알고리즘', credit: 3 },
-  ];
+interface ResultCategoryDetailContentProps {
+  info: ResultCategoryDetailInfo;
+}
+
+function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps) {
+  const { takenCredit, totalCredit, detailCategory } = info;
+
+  const [isTakenLecture, setIsTakenLectrue] = useState(false);
 
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2">
       <div className="flex justify-between">
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
-          <p className={cn('text-sm text-gray-6 font-medium my-6', 'md:text-lg')}>
-            전공필수 과목 중 미이수과목이 표시됩니다.
+          <p className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
+            <span>전공필수 과목 중</span>
+            <div className="w-20 h-10">
+              <ResultCategoryDetailLectureToggle
+                checked={isTakenLecture}
+                onCheckedChange={setIsTakenLectrue}
+                className="absolute zIndex-2"
+              />
+            </div>
+            <span>과목이 표시됩니다.</span>
           </p>
         </div>
         <div className={cn('text-2xl font-bold', 'md:text-4xl')}>
-          <span className="text-point-blue">18</span> / 18
+          <span className="text-point-blue">{takenCredit}</span> / {totalCredit}
         </div>
       </div>
-      <LabelContainer label="전공필수" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
-      <CompletedCategory />
-      <LabelContainer label="전공선택" rightElement={<div className="text-2xl text-gray-6">18 / 18</div>} />
-      <Table headerInfo={headerInfo} data={DUMMYDATA} />
+      {detailCategory.map((category, index) => (
+        <ResultCagegoryDetailLecture isTakenLecture={isTakenLecture} detailCategory={category} key={index} />
+      ))}
     </div>
   );
 }

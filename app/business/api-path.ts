@@ -5,6 +5,7 @@ export const API_PATH = {
   registerUserGrade: `${BASE_URL}/registerUserGrade`,
   parsePDFtoText: `${BASE_URL}/parsePDFtoText`,
   takenLectures: `${BASE_URL}/taken-lectures`,
+  resultCategoryDetailInfo: `${BASE_URL}/result-category-detail-info`,
   user: `${BASE_URL}/users`,
   auth: `${BASE_URL}/auth`,
 };

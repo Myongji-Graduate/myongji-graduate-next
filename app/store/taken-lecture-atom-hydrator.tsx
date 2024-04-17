@@ -1,12 +1,12 @@
 'use client';
 import { takenLectureAtom } from '@/app/store/custom-taken-lecture';
-import { LectureInfo } from '@/app/type/lecture';
+import { TakenLectrueInfo } from '@/app/type/lecture';
 import { useHydrateAtoms } from 'jotai/utils';
 
 export default function TakenLectureAtomHydrator({
   initialValue,
   children,
-}: React.PropsWithChildren<{ initialValue: LectureInfo[] }>) {
+}: React.PropsWithChildren<{ initialValue: TakenLectrueInfo[] }>) {
   useHydrateAtoms(new Map([[takenLectureAtom, initialValue]]));
   return children;
 }

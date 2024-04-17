@@ -1,10 +1,10 @@
-import { LectureInfo } from '@/app/type/lecture';
+import { TakenLectrueInfo } from '@/app/type/lecture';
 import { API_PATH } from '../api-path';
 import { TAG } from '@/app/utils/http/tag';
 
 export interface TakenLectures {
   totalCredit: number;
-  takenLectures: LectureInfo[];
+  takenLectures: TakenLectrueInfo[];
 }
 
 export const fetchTakenLectures = async (): Promise<TakenLectures> => {

@@ -1,8 +1,8 @@
-import { SearchedLectureInfo } from '@/app/type/lecture';
+import { LectureInfo } from '@/app/type/lecture';
 import Button from '../../view/atom/button/button';
 
 interface AddTakenLectureButtonProps {
-  lectureItem: SearchedLectureInfo;
+  lectureItem: LectureInfo;
   isTakenLecture: boolean;
 }
 export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: AddTakenLectureButtonProps) {
