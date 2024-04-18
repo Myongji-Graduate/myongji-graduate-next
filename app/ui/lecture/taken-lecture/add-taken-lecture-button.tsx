@@ -22,7 +22,7 @@ export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: A
       action={() => {
         return fetchAddTakenLecture(lectureItem.id);
       }}
-      messageControl="toast"
+      failMessageControl="toast"
       onSuccess={announceSuccessOfAddTakenLecture}
     >
       <Form.SubmitButton

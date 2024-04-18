@@ -22,14 +22,14 @@ interface FormRootProps {
   id: string;
   onSuccess?: () => void;
   action: (prevState: FormState, formData: FormData) => Promise<FormState> | FormState;
-  messageControl?: 'alert' | 'toast';
+  failMessageControl?: 'alert' | 'toast';
 }
 
 export function FormRoot({
   id,
   action,
   onSuccess,
-  messageControl = 'alert',
+  failMessageControl = 'alert',
   children,
 }: React.PropsWithChildren<FormRootProps>) {
   const initialState: FormState = { isSuccess: false, isFailure: false, message: null, validationError: {} };
@@ -40,7 +40,7 @@ export function FormRoot({
     if (formState.isSuccess) {
       onSuccess?.();
     }
-    if (formState.isFailure && messageControl === 'toast') {
+    if (formState.isFailure && failMessageControl === 'toast') {
       toast({
         title: formState.message ? formState.message : '',
         variant: 'destructive',
@@ -60,7 +60,7 @@ export function FormRoot({
 
   return (
     <FormContext.Provider value={{ errors: formState.validationError, formId: id, isSuccess: formState.isSuccess }}>
-      {formState.isFailure && messageControl === 'alert' ? (
+      {formState.isFailure && failMessageControl === 'alert' ? (
         <div className="mb-4">
           <AlertDestructive description={formState.message!} />
         </div>
