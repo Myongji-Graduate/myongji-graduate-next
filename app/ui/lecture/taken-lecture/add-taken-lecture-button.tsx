@@ -1,6 +1,6 @@
 import { LectureInfo } from '@/app/type/lecture';
 import Form from '../../view/molecule/form';
-import { fetchAddTakenLecture } from '@/app/business/lecture/taken-lecture.command';
+import { addTakenLecture } from '@/app/business/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
 
 interface AddTakenLectureButtonProps {
@@ -20,7 +20,7 @@ export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: A
     <Form
       id={`과목추가-${lectureItem.id}`}
       action={() => {
-        return fetchAddTakenLecture(lectureItem.id);
+        return addTakenLecture(lectureItem.id);
       }}
       failMessageControl="toast"
       onSuccess={announceSuccessOfAddTakenLecture}

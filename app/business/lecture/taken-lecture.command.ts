@@ -42,7 +42,7 @@ export const parsePDFtoText = async (formData: FormData) => {
   return await res.json();
 };
 
-export const fetchDeleteLecture = async (lectureId: number) => {
+export const deleteTakenLecture = async (lectureId: number) => {
   try {
     const response = await fetch(API_PATH.takenLectures, {
       method: 'DELETE',
@@ -68,7 +68,7 @@ export const fetchDeleteLecture = async (lectureId: number) => {
   };
 };
 
-export const fetchAddTakenLecture = async (lectureId: number) => {
+export const addTakenLecture = async (lectureId: number) => {
   try {
     const response = await fetch(API_PATH.takenLectures, {
       method: 'POST',
