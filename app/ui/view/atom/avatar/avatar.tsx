@@ -5,7 +5,23 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar';
 
 import { cn } from '@/app/utils/shadcn/utils';
 
-const Avatar = React.forwardRef<
+interface AvatarProps {
+  src: string;
+  fallback?: React.ReactNode;
+  alt?: string;
+  className?: string;
+}
+
+export default function Avatar({ src, fallback, alt, className }: AvatarProps) {
+  return (
+    <AvatarRoot className={className}>
+      <AvatarImage src={src} alt={alt} />
+      <AvatarFallback>{fallback}</AvatarFallback>
+    </AvatarRoot>
+  );
+}
+
+const AvatarRoot = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
 >(({ className, ...props }, ref) => (
@@ -15,7 +31,7 @@ const Avatar = React.forwardRef<
     {...props}
   />
 ));
-Avatar.displayName = AvatarPrimitive.Root.displayName;
+AvatarRoot.displayName = AvatarPrimitive.Root.displayName;
 
 const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
@@ -39,5 +55,3 @@ const AvatarFallback = React.forwardRef<
   />
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
-
-export { Avatar, AvatarImage, AvatarFallback };
