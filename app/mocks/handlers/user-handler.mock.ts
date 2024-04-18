@@ -33,7 +33,7 @@ export const userHandlers = [
   }),
   http.get<never, never, UserInfoResponse | ErrorResponseData>(`${API_PATH.user}`, async ({ request }) => {
     const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
-    if (!accessToken) {
+    if (accessToken === 'undefined' || !accessToken) {
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
     }
 
