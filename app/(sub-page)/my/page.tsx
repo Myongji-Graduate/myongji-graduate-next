@@ -4,13 +4,16 @@ import UserInfoNavigator from '@/app/ui/user/user-info-navigator/user-info-navig
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
+import { Suspense } from 'react';
 
 export default function MyPage() {
   return (
     <>
       <ContentContainer className="flex">
         <div className="hidden lg:w-[30%] lg:block">
-          <UserInfoNavigator />
+          <Suspense>
+            <UserInfoNavigator />
+          </Suspense>
         </div>
         <div className="w-full lg:w-[70%] lg:px-[20px]">
           <TakenLecture />
