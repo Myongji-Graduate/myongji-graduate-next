@@ -16,7 +16,7 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
   const [isTakenLecture, setIsTakenLectrue] = useState(false);
 
   return (
-    <div className="md:w-[80vw] max-w-[1200px] p-2">
+    <div className="md:w-[80vw] max-w-[1200px] p-2 overflow-scroll">
       <div className="flex justify-between">
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
