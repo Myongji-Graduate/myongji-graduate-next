@@ -5,13 +5,14 @@ import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import { Suspense } from 'react';
+import UserInfoNavigatorSkeleton from '@/app/ui/user/user-info-navigator/user-info-navigator-skeleton';
 
 export default function MyPage() {
   return (
     <>
       <ContentContainer className="flex">
         <div className="hidden lg:w-[30%] lg:block">
-          <Suspense>
+          <Suspense fallback={<UserInfoNavigatorSkeleton />}>
             <UserInfoNavigator />
           </Suspense>
         </div>
