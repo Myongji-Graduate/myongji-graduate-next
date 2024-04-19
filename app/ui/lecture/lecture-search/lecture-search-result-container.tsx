@@ -28,8 +28,10 @@ const emptyDataRender = () => {
 
 export default function LectureSearchResultContainer({ searchParams }: LectureSearchResultContainerProps) {
   let data: SearchedLectureInfo[] = [];
+  const hasSearchParams = searchParams.type && searchParams.keyword;
+  const isSearchable = searchParams.keyword && searchParams.keyword.length > 1;
 
-  if (searchParams.type && searchParams.keyword && searchParams.keyword.length > 1) {
+  if (hasSearchParams && isSearchable) {
     data = [
       { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3, isTakenLecture: false },
       { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
