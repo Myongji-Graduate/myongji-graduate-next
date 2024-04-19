@@ -1,3 +1,4 @@
+'use client';
 import List from '../../view/molecule/list';
 import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';
@@ -7,16 +8,38 @@ import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
 
 type SearchedLectureInfo = LectureInfo & { isTakenLecture: boolean };
 
+interface LectureSearchResultContainerProps {
+  searchParams: {
+    keyword?: string;
+    type?: string;
+  };
+}
 const emptyDataRender = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
+    <div className="flex flex-col items-center justify-center gap-4">
       <Image src={searchResultIcon} alt="search-result-icon" width={40} height={40} />
-      <div className="text-md font-medium text-gray-400">검색 결과가 표시됩니다</div>
+      <div className="text-md font-medium text-gray-400 text-center whitespace-pre-wrap">
+        검색 결과가 표시됩니다
+        <br />한 글자 이상 검색해주세요
+      </div>
     </div>
   );
 };
 
-export default function LectureSearchResultContainer() {
+export default function LectureSearchResultContainer({ searchParams }: LectureSearchResultContainerProps) {
+  let data: SearchedLectureInfo[] = [];
+
+  if (searchParams.type && searchParams.keyword && searchParams.keyword.length > 1) {
+    data = [
+      { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3, isTakenLecture: false },
+      { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
+      { id: 5, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
+      { id: 6, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
+      { id: 7, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
+      { id: 8, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
+    ];
+  }
+
   const renderAddActionButton = (item: SearchedLectureInfo, isTakenLecture: boolean) => {
     return <AddTakenLectureButton lectureItem={item} isTakenLecture={isTakenLecture} />;
   };
@@ -37,19 +60,5 @@ export default function LectureSearchResultContainer() {
     );
   };
 
-  return (
-    <List
-      data={[
-        { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3, isTakenLecture: false },
-        { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
-        { id: 5, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
-        { id: 6, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
-        { id: 7, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
-        { id: 8, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
-      ]}
-      render={render}
-      isScrollList={true}
-      emptyDataRender={emptyDataRender}
-    />
-  );
+  return <List data={data} render={render} isScrollList={true} emptyDataRender={emptyDataRender} />;
 }

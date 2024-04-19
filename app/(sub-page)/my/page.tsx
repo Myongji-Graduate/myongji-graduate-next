@@ -4,7 +4,13 @@ import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 
-export default function MyPage() {
+interface MyPageProps {
+  searchParams: {
+    keyword?: string;
+    type?: string;
+  };
+}
+export default function MyPage({ searchParams }: MyPageProps) {
   return (
     <>
       <ContentContainer className="flex">
@@ -14,7 +20,7 @@ export default function MyPage() {
         </div>
       </ContentContainer>
       <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
-        <LectureSearch />
+        <LectureSearch searchParams={searchParams} />
       </Drawer>
     </>
   );
