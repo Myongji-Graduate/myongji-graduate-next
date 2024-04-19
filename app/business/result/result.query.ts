@@ -1,5 +1,6 @@
 import { LectureInfo } from '@/app/type/lecture';
 import { API_PATH } from '../api-path';
+import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 
 export interface ResultCategoryDetailLectures {
   categoryName: string;
@@ -27,7 +28,13 @@ export interface ResultUserInfo {
 }
 
 export const fetchResultCategoryDetailInfo = async (): Promise<ResultCategoryDetailInfo> => {
-  const response = await fetch(API_PATH.resultCategoryDetailInfo);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(API_PATH.resultCategoryDetailInfo);
+    const result = await response.json();
+
+    httpErrorHandler(response, result);
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };
