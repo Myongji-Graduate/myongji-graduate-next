@@ -11,27 +11,30 @@ export default function LectureSearchBar() {
   const { replace } = useRouter();
   const params = new URLSearchParams(searchParams);
 
-  useEffect(() => {
-    params.set('type', 'lectureName');
+  const deleteParams = () => {
+    params.delete('type');
+    params.delete('keyword');
     replace(`${pathname}?${params.toString()}`);
+  };
 
-    return () => {
-      params.delete('type');
-      params.delete('keyword');
-      replace(`${pathname}?${params.toString()}`);
-    };
+  const setParams = (name: string, value: string) => {
+    params.set(name, value);
+    replace(`${pathname}?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    setParams('type', 'lectureCode');
+    return deleteParams;
   }, []);
 
   const handleTypeSeaerch = (value: unknown) => {
     if (typeof value === 'string') {
-      params.set('type', value);
-      replace(`${pathname}?${params.toString()}`);
+      setParams('type', value);
     }
   };
 
   const handleKeywordSearch = (value: string) => {
-    params.set('keyword', value);
-    replace(`${pathname}?${params.toString()}`);
+    setParams('keyword', value);
   };
 
   return (
