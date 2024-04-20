@@ -9,6 +9,11 @@ export const takenLectureHandlers = [
     await delay(100);
     return HttpResponse.json(takenLectures);
   }),
+  http.get(API_PATH.lectures, async () => {
+    const takenLectures = mockDatabase.getSearchLectures();
+    await delay(1000);
+    return HttpResponse.json(takenLectures);
+  }),
   http.post<never, { lectureId: number }>(API_PATH.takenLectures, async ({ request }) => {
     const body = await request.json();
     const isAdded = mockDatabase.addTakenLecture(body.lectureId);

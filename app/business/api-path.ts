@@ -8,4 +8,5 @@ export const API_PATH = {
   resultCategoryDetailInfo: `${BASE_URL}/result-category-detail-info`,
   user: `${BASE_URL}/users`,
   auth: `${BASE_URL}/auth`,
+  lectures: `${BASE_URL}/lectures`,
 };

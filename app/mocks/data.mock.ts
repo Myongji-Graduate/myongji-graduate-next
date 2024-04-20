@@ -175,3 +175,42 @@ export const resultCategoryDetailInfo = JSON.parse(`{
   ],
   "completed": false
 }`);
+
+export const searchLectures = JSON.parse(`{
+	"lectures": [
+        {
+            "id": 1,
+            "lectureCode": "KMA02106",
+            "name": "영어1",
+            "credit": 2,
+            "isTaken" : false
+        },
+        {
+          "id": 2,
+          "lectureCode": "KMA02106",
+          "name": "영어2",
+          "credit": 2,
+          "isTaken" : true
+      },
+      {
+        "id": 3,
+        "lectureCode": "KMA02136",
+        "name": "영어무역이론",
+        "credit": 3,
+        "isTaken" : false
+    },
+    {
+      "id": 1,
+      "lectureCode": "KMA02106",
+      "name": "영어회화3",
+      "credit": 1,
+      "isTaken" : false
+  }, 
+  {
+    "id": 1,
+    "lectureCode": "KMA02106",
+    "name": "영어회화4",
+    "credit": 2,
+    "isTaken" : true
+}]
+}`);
