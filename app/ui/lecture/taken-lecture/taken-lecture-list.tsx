@@ -4,7 +4,7 @@ import DeleteTakenLectureButton from './delete-taken-lecture-button';
 import { takenLectureAtom } from '@/app/store/custom-taken-lecture';
 import { useOptimistic } from 'react';
 import { useAtom } from 'jotai';
-import { fetchDeleteLecture } from '@/app/business/lecture/taken-lecture.command';
+import { deleteTakenLecture } from '@/app/business/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
@@ -19,9 +19,9 @@ export default function TakenLectureList() {
       return currentTakenLectures.filter((lecture) => lecture.id !== lectureId);
     },
   );
-  const handleLectureDelete = async (lectureId: number) => {
+  const handleDeleteTakenLecture = async (lectureId: number) => {
     deleteOptimisticLecture(lectureId);
-    const result = await fetchDeleteLecture(lectureId);
+    const result = await deleteTakenLecture(lectureId);
     if (!result.isSuccess) {
       return toast({
         title: '과목 삭제에 실패했습니다',
@@ -39,13 +39,18 @@ export default function TakenLectureList() {
           headerInfo={headerInfo}
           data={optimisticLecture}
           renderActionButton={(id: number) => (
-            <DeleteTakenLectureButton lectureId={id} onDelete={handleLectureDelete} />
+            <DeleteTakenLectureButton lectureId={id} onDelete={handleDeleteTakenLecture} />
           )}
         />
       </div>
       {/* mobile */}
       <div className="block lg:hidden">
-        <Table headerInfo={headerInfo} data={optimisticLecture} onSwipeAction={handleLectureDelete} swipeable={true} />
+        <Table
+          headerInfo={headerInfo}
+          data={optimisticLecture}
+          onSwipeAction={handleDeleteTakenLecture}
+          swipeable={true}
+        />
       </div>
     </>
   );

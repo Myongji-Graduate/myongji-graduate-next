@@ -18,10 +18,10 @@ export default function TakenLectureLabel() {
             label="과목 추가"
             variant="secondary"
             size="xs"
-            data-testid="lecture-add-button"
-            onClick={() => toggle}
+            data-testid="toggle-lecture-search"
+            onClick={toggle}
           />
-          <Link href="/file-upload">
+          <Link href="/grade-upload">
             <Button label="성적표 재업로드" variant="secondary" size="xs" />
           </Link>
         </div>

@@ -42,7 +42,7 @@ export const parsePDFtoText = async (formData: FormData) => {
   return await res.json();
 };
 
-export const fetchDeleteLecture = async (lectureId: number) => {
+export const deleteTakenLecture = async (lectureId: number) => {
   try {
     const response = await fetch(API_PATH.takenLectures, {
       method: 'DELETE',
@@ -65,5 +65,37 @@ export const fetchDeleteLecture = async (lectureId: number) => {
   revalidateTag(TAG.GET_TAKEN_LECTURES);
   return {
     isSuccess: true,
+  };
+};
+
+export const addTakenLecture = async (lectureId: number) => {
+  try {
+    const response = await fetch(API_PATH.takenLectures, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ lectureId }),
+    });
+    const result = await response.json();
+    httpErrorHandler(response, result);
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '과목 추가에 실패했습니다',
+      };
+    } else {
+      throw error;
+    }
+  }
+  revalidateTag(TAG.GET_TAKEN_LECTURES);
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: '과목 추가에 성공했습니다',
   };
 };
