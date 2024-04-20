@@ -59,7 +59,7 @@ export function FormRoot({
   };
 
   return (
-    <FormContext.Provider value={{ errors: formState.validationError, formId: id, isSuccess: formState.isSuccess }}>
+    <FormContext.Provider value={{ errors: formState.validationError, formId: id }}>
       {formState.isFailure && failMessageControl === 'alert' ? (
         <div className="mb-4">
           <AlertDestructive description={formState.message!} />
