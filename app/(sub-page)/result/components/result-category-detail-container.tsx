@@ -6,8 +6,8 @@ import ResultCategoryDetailContent from '@/app/ui/result/result-category/result-
 import Responsive from '@/app/ui/responsive';
 import { fetchResultCategoryDetailInfo } from '@/app/business/result/result.query';
 
-async function ResultCategoryDetailContainer() {
-  const data = await fetchResultCategoryDetailInfo();
+async function ResultCategoryDetailContainer({ category }: { category: string }) {
+  const data = await fetchResultCategoryDetailInfo(category);
 
   return (
     <>
