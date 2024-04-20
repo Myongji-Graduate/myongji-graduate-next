@@ -10,6 +10,7 @@ export default function LectureSearchBar() {
   const pathname = usePathname();
   const { replace } = useRouter();
   const params = new URLSearchParams(searchParams);
+  let timeId: NodeJS.Timeout;
 
   const deleteParams = () => {
     params.delete('type');
@@ -23,7 +24,7 @@ export default function LectureSearchBar() {
   };
 
   useEffect(() => {
-    setParams('type', 'lectureCode');
+    setParams('type', 'lectureName');
     return deleteParams;
   }, []);
 
@@ -33,8 +34,11 @@ export default function LectureSearchBar() {
     }
   };
 
-  const handleKeywordSearch = (value: string) => {
-    setParams('keyword', value);
+  const handleDebounceKeywordSearch = (value: string) => {
+    if (timeId) clearTimeout(timeId);
+    timeId = setTimeout(() => {
+      setParams('keyword', value);
+    }, 500);
   };
 
   return (
@@ -46,7 +50,11 @@ export default function LectureSearchBar() {
         </Select>
       </div>
       <div className="w-[60%] sm:w-[40%] flex justify-between">
-        <TextInput placeholder="검색어를 입력해주세요" icon={MagnifyingGlassIcon} onValueChange={handleKeywordSearch} />
+        <TextInput
+          placeholder="검색어를 입력해주세요"
+          icon={MagnifyingGlassIcon}
+          onValueChange={handleDebounceKeywordSearch}
+        />
       </div>
     </div>
   );
