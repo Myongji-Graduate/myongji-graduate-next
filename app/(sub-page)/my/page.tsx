@@ -1,11 +1,10 @@
 import LectureSearch from '@/app/ui/lecture/lecture-search';
 import TakenLecture from '@/app/ui/lecture/taken-lecture';
-import UserInfoNavigator from '@/app/ui/user/user-info-navigator/user-info-navigator';
+import UserInfoNavigator, { UserInfoNavigatorSkeleton } from '@/app/ui/user/user-info-navigator/user-info-navigator';
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import { Suspense } from 'react';
-import UserInfoNavigatorSkeleton from '@/app/ui/user/user-info-navigator/user-info-navigator-skeleton';
 
 export default function MyPage() {
   return (
