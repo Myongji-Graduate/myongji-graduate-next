@@ -1,12 +1,10 @@
-'use client';
 import List from '../../view/molecule/list';
 import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';
 import Grid from '../../view/molecule/grid';
-import { LectureInfo } from '@/app/type/lecture';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
-
-type SearchedLectureInfo = LectureInfo & { isTakenLecture: boolean };
+import { SearchedLectureInfo } from '@/app/type/lecture';
+import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query';
 
 interface LectureSearchResultContainerProps {
   searchParams: {
@@ -26,41 +24,36 @@ const emptyDataRender = () => {
   );
 };
 
-export default function LectureSearchResultContainer({ searchParams }: LectureSearchResultContainerProps) {
-  let data: SearchedLectureInfo[] = [];
+export default async function LectureSearchResultContainer({ searchParams }: LectureSearchResultContainerProps) {
+  let searchLectures: SearchedLectureInfo[] = [];
   const hasSearchParams = searchParams.type && searchParams.keyword;
   const isSearchable = searchParams.keyword && searchParams.keyword.length > 1;
 
   if (hasSearchParams && isSearchable) {
-    data = [
-      { id: 3, lectureCode: 'HCB03490', name: '경영정보사례연구', credit: 3, isTakenLecture: false },
-      { id: 4, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
-      { id: 5, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
-      { id: 6, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: true },
-      { id: 7, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
-      { id: 8, lectureCode: 'HCB03490', name: '게임을통한경영의이해', credit: 3, isTakenLecture: false },
-    ];
+    const data = await fetchSearchLectures(searchParams.type as string, searchParams.keyword as string);
+    searchLectures = data.lectures;
   }
 
-  const renderAddActionButton = (item: SearchedLectureInfo, isTakenLecture: boolean) => {
-    return <AddTakenLectureButton lectureItem={item} isTakenLecture={isTakenLecture} />;
+  const renderAddActionButton = (item: SearchedLectureInfo, isTaken: boolean) => {
+    return <AddTakenLectureButton lectureItem={item} isTaken={isTaken} />;
   };
+
   const render = (item: SearchedLectureInfo, index: number) => {
     const searchLectureItem = item;
     return (
       <List.Row key={index}>
         <Grid cols={4}>
           {Object.keys(searchLectureItem).map((key, index) => {
-            if (key === 'id' || key === 'isTakenLecture') return null;
+            if (key === 'id' || key === 'isTaken') return null;
             return <Grid.Column key={index}>{searchLectureItem[key]}</Grid.Column>;
           })}
           {renderAddActionButton ? (
-            <Grid.Column>{renderAddActionButton(searchLectureItem, item.isTakenLecture)}</Grid.Column>
+            <Grid.Column>{renderAddActionButton(searchLectureItem, item.isTaken)}</Grid.Column>
           ) : null}
         </Grid>
       </List.Row>
     );
   };
 
-  return <List data={data} render={render} isScrollList={true} emptyDataRender={emptyDataRender} />;
+  return <List data={searchLectures} render={render} isScrollList={true} emptyDataRender={emptyDataRender} />;
 }

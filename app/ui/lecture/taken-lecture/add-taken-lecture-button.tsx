@@ -1,3 +1,4 @@
+'use client';
 import { LectureInfo } from '@/app/type/lecture';
 import Form from '../../view/molecule/form';
 import { addTakenLecture } from '@/app/business/lecture/taken-lecture.command';
@@ -5,9 +6,9 @@ import { useToast } from '../../view/molecule/toast/use-toast';
 
 interface AddTakenLectureButtonProps {
   lectureItem: LectureInfo;
-  isTakenLecture: boolean;
+  isTaken: boolean;
 }
-export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: AddTakenLectureButtonProps) {
+export default function AddTakenLectureButton({ lectureItem, isTaken }: AddTakenLectureButtonProps) {
   const { toast } = useToast();
 
   const announceSuccessOfAddTakenLecture = () => {
@@ -29,7 +30,7 @@ export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: A
         label="추가"
         position="center"
         variant="list"
-        disabledInfo={{ value: isTakenLecture, control: true }}
+        disabledInfo={{ value: isTaken, control: true }}
         size="default"
         data-testid="add-taken-lecture-button"
       />

@@ -15,3 +15,5 @@ export interface LectureInfo {
   name: string;
   credit: number;
 }
+
+export type SearchedLectureInfo = LectureInfo & { isTaken: boolean };
