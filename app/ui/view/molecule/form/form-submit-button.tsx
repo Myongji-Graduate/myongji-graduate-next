@@ -9,10 +9,6 @@ interface FormSubmitButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEle
   position?: 'left' | 'right' | 'center';
   variant?: 'primary' | 'secondary' | 'list';
   size?: ButtonSize;
-  disabledInfo?: {
-    value: boolean;
-    control: boolean;
-  };
 }
 
 export function FormSubmitButton({
@@ -20,15 +16,10 @@ export function FormSubmitButton({
   position = 'right',
   variant = 'primary',
   size = 'md',
-  disabledInfo = {
-    value: false, // disabled의 값
-    control: false, // disabled 를 control 하는지 (현재 form에서는 과목 추가에서만 disabled를 control)
-  },
   ...props
 }: FormSubmitButtonProps) {
-  const { formId, isSuccess } = useContext(FormContext);
+  const { formId } = useContext(FormContext);
   const { pending } = useFormStatus();
-  const disabledValue = disabledInfo.value ? true : disabledInfo.control && isSuccess ? true : false;
 
   return (
     <div
@@ -46,7 +37,6 @@ export function FormSubmitButton({
         variant={variant}
         type="submit"
         label={label}
-        disabled={disabledValue}
         {...props}
       />
     </div>

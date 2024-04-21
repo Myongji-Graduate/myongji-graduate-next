@@ -3,6 +3,7 @@ import { LectureInfo } from '@/app/type/lecture';
 import Form from '../../view/molecule/form';
 import { addTakenLecture } from '@/app/business/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
+import { useState } from 'react';
 
 interface AddTakenLectureButtonProps {
   lectureItem: LectureInfo;
@@ -10,8 +11,10 @@ interface AddTakenLectureButtonProps {
 }
 export default function AddTakenLectureButton({ lectureItem, isTaken }: AddTakenLectureButtonProps) {
   const { toast } = useToast();
+  const [disabled, setDisabled] = useState(isTaken);
 
-  const announceSuccessOfAddTakenLecture = () => {
+  const handleSuccessOfAdditionTakenLecture = () => {
+    setDisabled(true);
     return toast({
       title: '과목 추가에 성공했습니다',
     });
@@ -24,13 +27,13 @@ export default function AddTakenLectureButton({ lectureItem, isTaken }: AddTaken
         return addTakenLecture(lectureItem.id);
       }}
       failMessageControl="toast"
-      onSuccess={announceSuccessOfAddTakenLecture}
+      onSuccess={handleSuccessOfAdditionTakenLecture}
     >
       <Form.SubmitButton
         label="추가"
         position="center"
         variant="list"
-        disabledInfo={{ value: isTaken, control: true }}
+        disabled={disabled}
         size="default"
         data-testid="add-taken-lecture-button"
       />

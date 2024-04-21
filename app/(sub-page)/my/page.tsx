@@ -1,8 +1,10 @@
 import LectureSearch from '@/app/ui/lecture/lecture-search';
 import TakenLecture from '@/app/ui/lecture/taken-lecture';
+import UserInfoNavigator, { UserInfoNavigatorSkeleton } from '@/app/ui/user/user-info-navigator/user-info-navigator';
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
+import { Suspense } from 'react';
 
 interface MyPageProps {
   searchParams: {
@@ -14,7 +16,11 @@ export default function MyPage({ searchParams }: MyPageProps) {
   return (
     <>
       <ContentContainer className="flex">
-        <div className="hidden lg:w-[30%] lg:block">정보칸</div>
+        <div className="hidden lg:w-[30%] lg:block">
+          <Suspense fallback={<UserInfoNavigatorSkeleton />}>
+            <UserInfoNavigator />
+          </Suspense>
+        </div>
         <div className="w-full lg:w-[70%] lg:px-[20px]">
           <TakenLecture />
         </div>
