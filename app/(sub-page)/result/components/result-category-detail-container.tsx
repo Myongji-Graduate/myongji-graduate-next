@@ -1,9 +1,10 @@
-import Modal from '../../../../ui/view/molecule/modal/modal';
+import Modal from '../../../ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
-import Drawer from '../../../../ui/view/molecule/drawer/drawer';
-import ResultCategoryDetailContent from '@/app/ui/result/result-category/result-category-detail-content';
+import Drawer from '../../../ui/view/molecule/drawer/drawer';
+import ResultCategoryDetailContent from '@/app/ui/result/result-category/result-category-detail-content/result-category-detail-content';
 import Responsive from '@/app/ui/responsive';
 import { fetchResultCategoryDetailInfo } from '@/app/business/result/result.query';
+import ResultCategoryDetailContentSkeleton from '@/app/ui/result/result-category/result-category-detail-content/result-category-detail-content.skeleton';
 
 function responsiveDialog(children: React.ReactNode) {
   return (
@@ -23,6 +24,6 @@ export default async function ResultCategoryDetailContainer({ category }: { cate
   return responsiveDialog(<ResultCategoryDetailContent info={data} />);
 }
 
-export function ResultCategoryDetailContainerSkeleton() {
-  return responsiveDialog(<ResultCategoryDetailContainerSkeleton />);
+export function ResultCategoryDetailSkeleton() {
+  return responsiveDialog(<ResultCategoryDetailContentSkeleton />);
 }

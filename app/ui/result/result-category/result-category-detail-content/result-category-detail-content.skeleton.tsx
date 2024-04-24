@@ -1,7 +1,7 @@
 import LabelContainerSkeleton from '@/app/ui/view/atom/label-container/label-container.skeleton';
 import Skeleton from '@/app/ui/view/atom/skeleton';
 
-export default function ResultCategoryDetailContainerSkeleton() {
+export default function ResultCategoryDetailContentSkeleton() {
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2">
       <div className="flex justify-between mb-14">
