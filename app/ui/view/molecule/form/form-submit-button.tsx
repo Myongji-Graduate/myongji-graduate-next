@@ -4,10 +4,10 @@ import { useContext } from 'react';
 import { FormContext } from './form.context';
 import { useFormStatus } from 'react-dom';
 
-interface FormSubmitButtonProps {
+interface FormSubmitButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   position?: 'left' | 'right' | 'center';
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'list';
   size?: ButtonSize;
 }
 
@@ -16,6 +16,7 @@ export function FormSubmitButton({
   position = 'right',
   variant = 'primary',
   size = 'md',
+  ...props
 }: FormSubmitButtonProps) {
   const { formId } = useContext(FormContext);
   const { pending } = useFormStatus();
@@ -36,6 +37,7 @@ export function FormSubmitButton({
         variant={variant}
         type="submit"
         label={label}
+        {...props}
       />
     </div>
   );

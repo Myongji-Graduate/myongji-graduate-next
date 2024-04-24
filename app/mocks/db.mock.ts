@@ -22,6 +22,7 @@ interface MockDatabaseState {
 type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures;
   getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;
+  addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
   getUser: (authId: string) => MockUser | undefined;
   createUser: (user: SignUpRequestBody) => boolean;
@@ -31,7 +32,7 @@ type MockDatabaseAction = {
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
-  deleteTakenLecture: (lectureId: number) => {
+  deleteTakenLecture: (lectureId) => {
     if (mockDatabaseStore.takenLectures.takenLectures.find((lecture) => lecture.id === lectureId)) {
       mockDatabaseStore.takenLectures.takenLectures = mockDatabaseStore.takenLectures.takenLectures.filter(
         (lecture) => lecture.id !== lectureId,
@@ -39,6 +40,20 @@ export const mockDatabase: MockDatabaseAction = {
       return true;
     }
     return false;
+  },
+  addTakenLecture: (lectureId) => {
+    mockDatabaseStore.takenLectures.takenLectures = [
+      ...mockDatabaseStore.takenLectures.takenLectures,
+      {
+        id: lectureId,
+        year: '2023',
+        semester: '2학기',
+        lectureCode: 'HECD140',
+        lectureName: '추가한과목',
+        credit: 3,
+      },
+    ];
+    return true;
   },
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
   getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),

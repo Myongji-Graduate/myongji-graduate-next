@@ -9,7 +9,7 @@ export interface TakenLectrueInfo {
 }
 
 export interface LectureInfo {
-  [index: string]: string | number;
+  [index: string]: string | number | boolean;
   id: number;
   lectureCode: string;
   name: string;
