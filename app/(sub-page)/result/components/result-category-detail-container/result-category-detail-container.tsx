@@ -1,6 +1,6 @@
-import Modal from '../../../ui/view/molecule/modal/modal';
+import Modal from '../../../../ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
-import Drawer from '../../../ui/view/molecule/drawer/drawer';
+import Drawer from '../../../../ui/view/molecule/drawer/drawer';
 import ResultCategoryDetailContent from '@/app/ui/result/result-category/result-category-detail-content';
 import Responsive from '@/app/ui/responsive';
 import { fetchResultCategoryDetailInfo } from '@/app/business/result/result.query';
@@ -24,5 +24,5 @@ export default async function ResultCategoryDetailContainer({ category }: { cate
 }
 
 export function ResultCategoryDetailContainerSkeleton() {
-  return responsiveDialog(<div className="flex flex-col items-center p-4  space-y-3"></div>);
+  return responsiveDialog(<ResultCategoryDetailContainerSkeleton />);
 }
