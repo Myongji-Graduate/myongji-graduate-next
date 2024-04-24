@@ -8,6 +8,7 @@ import * as React from 'react';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
+import Link from 'next/link';
 
 function ResultCategoryCard() {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
@@ -34,7 +35,16 @@ function ResultCategoryCard() {
             <span className="font-bold text-point-blue">18</span>
           </div>
         </div>
-        <Button size="sm" label="과목 확인" onClick={toggle} />
+        <Link
+          href={{
+            pathname: `/result`,
+            query: {
+              category: 'COMMON_CULTURE',
+            },
+          }}
+        >
+          <Button size="sm" label="과목 확인" onClick={toggle} />
+        </Link>
       </div>
     </div>
   );
