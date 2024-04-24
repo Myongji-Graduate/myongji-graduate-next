@@ -2,7 +2,10 @@ import ResultCategoryCard from '@/app/ui/result/result-category/result-category-
 import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import { cn } from '@/app/utils/shadcn/utils';
-import ResultCategoryDetailContainer from './components/result-category-detail-container';
+import ResultCategoryDetailContainer, {
+  ResultCategoryDetailContainerSkeleton,
+} from './components/result-category-detail-container';
+import { Suspense } from 'react';
 
 interface ResultPageProp {
   searchParams: { category: string };
@@ -26,7 +29,9 @@ function ResultPage({ searchParams }: ResultPageProp) {
           <ResultCategoryCard key={index} />
         ))}
       </div>
-      <ResultCategoryDetailContainer category={category} />
+      <Suspense fallback={<ResultCategoryDetailContainerSkeleton />}>
+        <ResultCategoryDetailContainer category={category} />
+      </Suspense>
     </div>
   );
 }
