@@ -28,6 +28,7 @@ type MockDatabaseAction = {
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
   getUserInfo: (authId: string) => UserInfoResponse;
+  deleteUser: (authId: string, password: string) => boolean;
 };
 
 export const mockDatabase: MockDatabaseAction = {
@@ -92,6 +93,14 @@ export const mockDatabase: MockDatabaseAction = {
       major: user.major,
       isSumbitted: user.isSumbitted,
     };
+  },
+  deleteUser: (authId: string, password: string) => {
+    const user = mockDatabaseStore.users.find((u) => u.authId === authId && u.password === password);
+    if (user) {
+      mockDatabaseStore.users = mockDatabaseStore.users.filter((u) => u.authId !== authId);
+      return true;
+    }
+    return false;
   },
 };
 
