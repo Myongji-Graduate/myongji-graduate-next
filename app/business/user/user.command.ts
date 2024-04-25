@@ -2,7 +2,7 @@
 
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../api-path';
-import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse } from './user.type';
+import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse, UserDeleteRequestBody } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
 import {
@@ -23,42 +23,42 @@ export async function signOut() {
 }
 
 export async function deleteUser(prevState: FormState, formData: FormData): Promise<FormState> {
-  // const body: SignUpRequestBody = {
-  //   authId,
-  // };
+  try {
+    const body: UserDeleteRequestBody = {
+      password: formData.get('password') as string,
+    };
 
-  // try {
-  //   const response = await fetch(`${API_PATH.user}/sign-up`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(body),
-  //   });
+    const response = await fetch(`${API_PATH.user}/delete-me`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: JSON.stringify(body),
+    });
+    const result = await response.json();
 
-  //   const result = await response.json();
-
-  //   httpErrorHandler(response, result);
-  // } catch (error) {
-  //   if (error instanceof BadRequestError) {
-  //     // 잘못된 요청 처리 로직
-  //     return {
-  //       isSuccess: false,
-  //       isFailure: true,
-  //       validationError: {},
-  //       message: error.message,
-  //     };
-  //   } else {
-  //     // 나머지 에러는 더 상위 수준에서 처리
-  //     throw error;
-  //   }
-  // }
+    httpErrorHandler(response, result);
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      // 잘못된 요청 처리 로직
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: error.message,
+      };
+    } else {
+      // 나머지 에러는 더 상위 수준에서 처리
+      throw error;
+    }
+  }
 
   return {
     isSuccess: true,
     isFailure: false,
     validationError: {},
-    message: '회원가입이 완료되었습니다.',
+    message: '회원 탈퇴가 완료되었습니다.',
   };
 }
 

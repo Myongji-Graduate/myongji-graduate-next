@@ -1,3 +1,4 @@
+'use client';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import Modal from '../../view/molecule/modal/modal';
 import Form from '../../view/molecule/form';
@@ -13,7 +14,7 @@ export default function UserDeleteModal() {
           회원탈퇴를 진행하시겠습니까? 탈퇴를 진행하면더 비밀번호 입력이 필요합니다.
         </p>
         <div className="my-4">
-          <Form action={deleteUser} id={'user-delete'}>
+          <Form failMessageControl={'toast'} action={deleteUser} id={'user-delete'}>
             <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호를 입력하세요" required={true} />
             <Form.SubmitButton label="탈퇴하기" position="center" variant="primary" />
           </Form>
