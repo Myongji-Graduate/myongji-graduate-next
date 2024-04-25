@@ -3,6 +3,7 @@ import Button from '../../view/atom/button/button';
 import { getUserInfo } from '@/app/business/user/user.query';
 import Skeleton from '../../view/atom/skeleton';
 import SignOutButton from './sign-out-button';
+import UserDeleteButton from './user-delete-button';
 
 export default async function UserInfoNavigator() {
   const userInfo = await getUserInfo();
@@ -22,7 +23,7 @@ export default async function UserInfoNavigator() {
         <SignOutButton />
       </div>
       <div className="mt-2">
-        <Button size="sm" variant="text" label="회원탈퇴하기" />
+        <UserDeleteButton />
       </div>
     </div>
   );
