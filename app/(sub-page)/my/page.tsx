@@ -6,13 +6,7 @@ import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import { Suspense } from 'react';
 
-interface MyPageProps {
-  searchParams: {
-    keyword?: string;
-    type?: string;
-  };
-}
-export default function MyPage({ searchParams }: MyPageProps) {
+export default function MyPage() {
   return (
     <>
       <ContentContainer className="flex">
@@ -26,7 +20,7 @@ export default function MyPage({ searchParams }: MyPageProps) {
         </div>
       </ContentContainer>
       <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
-        <LectureSearch searchParams={searchParams} />
+        <LectureSearch />
       </Drawer>
     </>
   );
