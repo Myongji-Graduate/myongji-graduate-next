@@ -66,7 +66,7 @@ export const mockDatabase: MockDatabaseAction = {
       {
         ...user,
         isSumbitted: false,
-        major: '융소입니다',
+        major: '융합소프트웨어',
         name: '모킹이2',
       },
     ];
@@ -105,7 +105,7 @@ const initialState: MockDatabaseState = {
       studentNumber: '60000000',
       engLv: 'ENG12',
       isSumbitted: false,
-      major: '융소입니다',
+      major: '융합소프트웨어',
       name: '모킹이',
     },
   ],
