@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import Select from '../../view/molecule/select';
 import TextInput from '../../view/atom/text-input/text-input';
@@ -9,6 +10,7 @@ import { searchWordAtom } from '@/app/store/search-word';
 export default function LectureSearchBar() {
   const [searchWord, setSearchWord] = useAtom(searchWordAtom);
   let timeId: NodeJS.Timeout;
+
   useEffect(() => {
     return () => {
       setSearchWord({ keyword: null, type: 'lectureName' });
