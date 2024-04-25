@@ -3,15 +3,16 @@
 import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { cn } from '@/app/utils/shadcn/utils';
-import { DialogKey } from '@/app/utils/key/dialog.key';
+import { DialogKey } from '@/app/utils/key/dialog-key.util';
 import useDialog from '@/app/hooks/useDialog';
 
 interface DrawerProps extends React.PropsWithChildren {
   drawerKey: DialogKey;
+  closeDialog?: () => void;
 }
 
-const Drawer = ({ children, drawerKey }: DrawerProps) => {
-  const { isOpen, close } = useDialog(drawerKey);
+const Drawer = ({ children, drawerKey, closeDialog }: DrawerProps) => {
+  const { isOpen, close } = useDialog(drawerKey, closeDialog);
 
   return (
     <DrawerPrimitive.Root open={isOpen} onClose={close}>
