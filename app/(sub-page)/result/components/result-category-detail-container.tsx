@@ -5,8 +5,9 @@ import ResultCategoryDetailDialog from './result-category-detail-dialog';
 
 export default async function ResultCategoryDetailContainer({ category }: { category: string }) {
   const data = await fetchResultCategoryDetailInfo(category);
+
   return (
-    <ResultCategoryDetailDialog>
+    <ResultCategoryDetailDialog querystring={category}>
       <ResultCategoryDetailContent info={data} />
     </ResultCategoryDetailDialog>
   );

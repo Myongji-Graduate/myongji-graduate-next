@@ -7,6 +7,10 @@ export default function useDialog(key: DialogKey, closeDialog?: () => void) {
 
   const isOpen = isOpenDialogList[key];
 
+  const open = () => {
+    setOpenDialogList([key, true]);
+  };
+
   const close = () => {
     setOpenDialogList([key, false]);
     closeDialog?.();
@@ -19,5 +23,5 @@ export default function useDialog(key: DialogKey, closeDialog?: () => void) {
     if (prevState) closeDialog?.();
   };
 
-  return { isOpen, close, toggle };
+  return { isOpen, open, close, toggle };
 }

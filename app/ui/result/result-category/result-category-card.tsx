@@ -9,10 +9,17 @@ import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
 import Link from 'next/link';
+import { useSetAtom } from 'jotai';
+import { isDialogOpenAtom } from '@/app/store/dialog';
 
 function ResultCategoryCard() {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
+  const setIsOpenDialog = useSetAtom(isDialogOpenAtom);
 
+  function handleClickButton() {
+    toggle();
+    setIsOpenDialog(true);
+  }
   return (
     <div
       className={cn('flex flex-col gap-6 zIndex-1 rounded-xl shadow-lg bg-white p-[0.4rem]', 'md:w-80 md:p-[1.8rem]')}
@@ -43,7 +50,7 @@ function ResultCategoryCard() {
             },
           }}
         >
-          <Button size="sm" label="과목 확인" onClick={toggle} />
+          <Button size="sm" label="과목 확인" onClick={handleClickButton} />
         </Link>
       </div>
     </div>
