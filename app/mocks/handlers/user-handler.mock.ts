@@ -9,6 +9,7 @@ import {
   UserInfoResponse,
 } from '@/app/business/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
+import { StrictRequest } from 'msw';
 
 function mockDecryptToken(token: string) {
   if (token === 'fake-access-token') {
@@ -21,6 +22,21 @@ function mockDecryptToken(token: string) {
   };
 }
 
+export const devModeAuthGuard = (request: StrictRequest<never>) => {
+  if (process.env.NODE_ENV === 'development') {
+    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
+    if (accessToken === 'undefined' || !accessToken) {
+      throw new Error('Unauthorized');
+    }
+
+    return mockDecryptToken(accessToken);
+  } else {
+    return {
+      authId: 'admin',
+    };
+  }
+};
+
 export const userHandlers = [
   http.get<never, never, never>(`${API_PATH.auth}/failure`, async ({ request }) => {
     await delay(500);
@@ -32,19 +48,19 @@ export const userHandlers = [
     });
   }),
   http.get<never, never, UserInfoResponse | ErrorResponseData>(`${API_PATH.user}`, async ({ request }) => {
-    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
-    if (accessToken === 'undefined' || !accessToken) {
+    try {
+      const { authId } = devModeAuthGuard(request);
+      const userInfo = mockDatabase.getUserInfo(authId);
+      await delay(3000);
+
+      if (!userInfo) {
+        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      }
+
+      return HttpResponse.json(userInfo);
+    } catch {
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
     }
-
-    const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
-    await delay(3000);
-
-    if (!userInfo) {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
-
-    return HttpResponse.json(userInfo);
   }),
   http.post<never, SignUpRequestBody, never>(`${API_PATH.user}/sign-up`, async ({ request }) => {
     const userData = await request.json();
