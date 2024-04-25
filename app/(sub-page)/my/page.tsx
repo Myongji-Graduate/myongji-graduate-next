@@ -5,6 +5,7 @@ import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import { Suspense } from 'react';
+import FloatingComponentContainer from './floating-component-container';
 
 export default function MyPage() {
   return (
@@ -22,6 +23,7 @@ export default function MyPage() {
       <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
         <LectureSearch />
       </Drawer>
+      <FloatingComponentContainer />
     </>
   );
 }
