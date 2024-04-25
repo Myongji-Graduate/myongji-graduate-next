@@ -2,15 +2,20 @@ import List from '../../view/molecule/list';
 import Grid from '../../view/molecule/grid';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
 import { SearchedLectureInfo } from '@/app/type/lecture';
+import { useAtomValue } from 'jotai';
+import { searchWordAtom } from '@/app/store/search-word';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query';
 
-interface LectureSearchResultContainerProps {
-  keyword: string;
-  type: string;
-}
+export default function LectureSearchResultContainer() {
+  const searchWord = useAtomValue(searchWordAtom);
 
-export default async function LectureSearchResultContainer({ keyword, type }: LectureSearchResultContainerProps) {
-  const data = await fetchSearchLectures(type, keyword);
+  const { data } = useSuspenseQuery<SearchedLectureInfo[]>({
+    queryKey: ['search-lecture'],
+    queryFn: () => {
+      return fetchSearchLectures(searchWord.type, searchWord.keyword as string);
+    },
+  });
 
   const renderAddActionButton = (item: SearchedLectureInfo, isTaken: boolean) => {
     return <AddTakenLectureButton lectureItem={item} isTaken={isTaken} />;
@@ -33,5 +38,5 @@ export default async function LectureSearchResultContainer({ keyword, type }: Le
     );
   };
 
-  return <List data={data.lectures} render={render} isScrollList={true} />;
+  return <List data={data} render={render} isScrollList={true} />;
 }
