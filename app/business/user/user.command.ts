@@ -22,6 +22,46 @@ export async function signOut() {
   redirect('/sign-in');
 }
 
+export async function deleteUser(prevState: FormState, formData: FormData): Promise<FormState> {
+  // const body: SignUpRequestBody = {
+  //   authId,
+  // };
+
+  // try {
+  //   const response = await fetch(`${API_PATH.user}/sign-up`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(body),
+  //   });
+
+  //   const result = await response.json();
+
+  //   httpErrorHandler(response, result);
+  // } catch (error) {
+  //   if (error instanceof BadRequestError) {
+  //     // 잘못된 요청 처리 로직
+  //     return {
+  //       isSuccess: false,
+  //       isFailure: true,
+  //       validationError: {},
+  //       message: error.message,
+  //     };
+  //   } else {
+  //     // 나머지 에러는 더 상위 수준에서 처리
+  //     throw error;
+  //   }
+  // }
+
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: '회원가입이 완료되었습니다.',
+  };
+}
+
 export async function validateToken(): Promise<ValidateTokenResponse | false> {
   const accessToken = cookies().get('accessToken')?.value;
   const refreshToken = cookies().get('refreshToken')?.value;

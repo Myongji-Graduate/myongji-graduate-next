@@ -16,6 +16,10 @@ export interface SignInRequestBody {
   password: string;
 }
 
+export interface UserDeleteRequestBody {
+  password: string;
+}
+
 export type SignInResponse = z.infer<typeof SignInResponseSchema>;
 
 export type UserInfoResponse = z.infer<typeof UserInfoResponseSchema>;
