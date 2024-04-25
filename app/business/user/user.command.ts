@@ -15,6 +15,13 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 
+export async function signOut() {
+  cookies().delete('accessToken');
+  cookies().delete('refreshToken');
+
+  redirect('/sign-in');
+}
+
 export async function validateToken(): Promise<ValidateTokenResponse | false> {
   const accessToken = cookies().get('accessToken')?.value;
   const refreshToken = cookies().get('refreshToken')?.value;
