@@ -5,7 +5,7 @@ import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
 import useDialog from '@/app/hooks/useDialog';
 import * as React from 'react';
-import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
 import Link from 'next/link';
@@ -37,7 +37,7 @@ function ResultCategoryCard() {
         </div>
         <Link
           href={{
-            pathname: `/result`,
+            pathname: '/result',
             query: {
               category: 'COMMON_CULTURE',
             },

@@ -35,4 +35,5 @@ function ResultPage({ searchParams }: ResultPageProp) {
     </div>
   );
 }
+
 export default ResultPage;
