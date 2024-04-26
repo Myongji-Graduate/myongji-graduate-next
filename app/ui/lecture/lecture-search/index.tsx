@@ -1,6 +1,7 @@
 import LectureSearchBar from './lecture-search-bar';
-import LectureSearchResultContainer from './lecture-search-result-container';
+import LectureSearchResultContainer, { LectureSearchResultContainerSpinner } from './lecture-search-result-container';
 import EmptyDataContainer from './empty-data-container';
+import { Suspense } from 'react';
 
 interface LectureSearchProps {
   searchParams: {
@@ -17,7 +18,9 @@ export default function LectureSearch({ searchParams }: LectureSearchProps) {
       <div className="w-[800px] mx-auto my-7  flex flex-col gap-10 sm:gap-6">
         <LectureSearchBar />
         {hasSearchParams && isSearchable ? (
-          <LectureSearchResultContainer keyword={searchParams.keyword as string} type={searchParams.type as string} />
+          <Suspense fallback={<LectureSearchResultContainerSpinner />}>
+            <LectureSearchResultContainer keyword={searchParams.keyword as string} type={searchParams.type as string} />
+          </Suspense>
         ) : (
           <EmptyDataContainer />
         )}
