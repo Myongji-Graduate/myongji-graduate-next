@@ -17,3 +17,8 @@ export interface LectureInfo {
 }
 
 export type SearchedLectureInfo = LectureInfo & { isTaken: boolean };
+
+export type LectureSearchParams = {
+  type?: string;
+  keyword?: string;
+};

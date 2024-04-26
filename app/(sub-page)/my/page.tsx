@@ -1,3 +1,4 @@
+import { LectureSearchParams } from '@/app/type/lecture';
 import LectureSearch from '@/app/ui/lecture/lecture-search';
 import TakenLecture from '@/app/ui/lecture/taken-lecture';
 import UserInfoNavigator, { UserInfoNavigatorSkeleton } from '@/app/ui/user/user-info-navigator/user-info-navigator';
@@ -7,10 +8,7 @@ import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import { Suspense } from 'react';
 
 interface MyPageProps {
-  searchParams: {
-    keyword?: string;
-    type?: string;
-  };
+  searchParams: LectureSearchParams;
 }
 export default function MyPage({ searchParams }: MyPageProps) {
   return (

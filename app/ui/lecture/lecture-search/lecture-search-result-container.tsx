@@ -1,17 +1,12 @@
 import List from '../../view/molecule/list';
 import Grid from '../../view/molecule/grid';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
-import { SearchedLectureInfo } from '@/app/type/lecture';
+import { LectureSearchParams, SearchedLectureInfo } from '@/app/type/lecture';
 import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query';
 import LoadingSpinner from '../../view/atom/loading-spinner';
 
-interface LectureSearchResultContainerProps {
-  keyword: string;
-  type: string;
-}
-
-export default async function LectureSearchResultContainer({ keyword, type }: LectureSearchResultContainerProps) {
-  const data = await fetchSearchLectures(type, keyword);
+export default async function LectureSearchResultContainer({ keyword, type }: LectureSearchParams) {
+  const data = await fetchSearchLectures(type as string, keyword as string);
 
   const hasNoResultData = () => {
     return (
