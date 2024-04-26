@@ -2,21 +2,19 @@ import ResultCategoryDetailContent from '@/app/ui/result/result-category/result-
 import { fetchResultCategoryDetailInfo } from '@/app/business/result/result.query';
 import ResultCategoryDetailContentSkeleton from '@/app/ui/result/result-category/result-category-detail-content/result-category-detail-content.skeleton';
 import ResultCategoryDetailDialog from '../../../(sub-page)/result/components/result-category-detail-dialog';
+import { Suspense } from 'react';
 
-export default async function ResultCategoryDetailContainer({ category }: { category: string }) {
-  const data = await fetchResultCategoryDetailInfo(category);
-
+export default function ResultCategoryDetailContainer({ category }: { category: string }) {
   return (
     <ResultCategoryDetailDialog querystring={category}>
-      <ResultCategoryDetailContent info={data} />
+      <Suspense fallback={<ResultCategoryDetailContentSkeleton />}>
+        <ResultCategoryDetailInfo category={category} />
+      </Suspense>
     </ResultCategoryDetailDialog>
   );
 }
 
-export function ResultCategoryDetailSkeleton() {
-  return (
-    <ResultCategoryDetailDialog>
-      <ResultCategoryDetailContentSkeleton />
-    </ResultCategoryDetailDialog>
-  );
+async function ResultCategoryDetailInfo({ category }: { category: string }) {
+  const data = await fetchResultCategoryDetailInfo(category);
+  return <ResultCategoryDetailContent info={data} />;
 }

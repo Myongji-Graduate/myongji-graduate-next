@@ -20,7 +20,7 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
       <div className="flex justify-between">
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
-          <p className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
+          <div className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
             <span>전공필수 과목 중</span>
             <div className="w-20 h-10">
               <ResultCategoryDetailLectureToggle
@@ -31,7 +31,7 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
               />
             </div>
             <span>과목이 표시됩니다.</span>
-          </p>
+          </div>
         </div>
         <div className={cn('text-2xl font-bold', 'md:text-4xl')}>
           <span className="text-point-blue">{takenCredit}</span> / {totalCredit}

@@ -8,7 +8,6 @@ import * as React from 'react';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
-import { useSetAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 
 function ResultCategoryCard() {
