@@ -9,8 +9,6 @@ const initialState = {
 
 const dialogAtom = atom(initialState);
 
-export const isDialogOpenAtom = atom(false);
-
 export const updateDialogAtom = atom(
   (get) => get(dialogAtom),
   (get, set, [key, value]) => {

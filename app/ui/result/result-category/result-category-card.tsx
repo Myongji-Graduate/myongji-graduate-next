@@ -8,17 +8,16 @@ import * as React from 'react';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
-import Link from 'next/link';
 import { useSetAtom } from 'jotai';
-import { isDialogOpenAtom } from '@/app/store/dialog';
+import { useRouter } from 'next/navigation';
 
 function ResultCategoryCard() {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
-  const setIsOpenDialog = useSetAtom(isDialogOpenAtom);
+  const { replace } = useRouter();
 
   function handleClickButton() {
     toggle();
-    setIsOpenDialog(true);
+    replace('/result?category=COMMON_CULTURE');
   }
   return (
     <div
@@ -42,16 +41,8 @@ function ResultCategoryCard() {
             <span className="font-bold text-point-blue">18</span>
           </div>
         </div>
-        <Link
-          href={{
-            pathname: '/result',
-            query: {
-              category: 'COMMON_CULTURE',
-            },
-          }}
-        >
-          <Button size="sm" label="과목 확인" onClick={handleClickButton} />
-        </Link>
+
+        <Button size="sm" label="과목 확인" onClick={handleClickButton} />
       </div>
     </div>
   );
