@@ -11,7 +11,7 @@ import Button from '../../view/atom/button/button';
 
 function ResultCategoryCard() {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
-
+  const percentage = 100;
   return (
     <div
       className={cn('flex flex-col gap-6 zIndex-1 rounded-xl shadow-lg bg-white p-[0.4rem]', 'md:w-80 md:p-[1.8rem]')}
@@ -21,7 +21,7 @@ function ResultCategoryCard() {
         전공필수
       </div>
       <div className="m-auto">
-        <PieChart percentage={90} />
+        <PieChart percentage={percentage} />
       </div>
       <div className={cn('flex text-xs font-medium justify-between items-end', 'md:gap-4 md:text-base md:px-2')}>
         <div>
@@ -31,7 +31,7 @@ function ResultCategoryCard() {
           </div>
           <div className={cn('flex', 'md:gap-2')}>
             <span>이수학점</span>
-            <span className="font-bold text-point-blue">18</span>
+            <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-pink')}>18</span>
           </div>
         </div>
         <Button size="sm" label="과목 확인" onClick={toggle} />
