@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component: `
-- variant값으로 "primary" | "secondary" |  "text" | "delete" 중 하나를 선택할 수 있습니다.\n
+- variant값으로 "primary" | "secondary" |  "list" | "outlined" 중 하나를 선택할 수 있습니다.\n
 - size값으로 "lg" | "md" |  "sm" | "xs" | "default"  중 하나를 선택할 수 있습니다.\n
 - label 값으로 button 태그에 존재하는 text를 의미하고 필수적으로 할당해야 합니다
 `,
@@ -24,7 +24,7 @@ const meta = {
         type: { summary: 'ButtonVariant' },
         defaultValue: { summary: 'primary' },
       },
-      options: ['primary', 'secondary', 'text', 'delete'],
+      options: ['primary', 'secondary', 'text', 'list', 'outlined'],
       control: {
         type: 'radio',
       },
@@ -66,6 +66,14 @@ export const SecondaryButton: Story = {
     size: 'xs',
     variant: 'secondary',
     label: '커스텀하기',
+  },
+};
+
+export const OutlinedButton: Story = {
+  args: {
+    size: 'sm',
+    variant: 'outlined',
+    label: '주전공',
   },
 };
 
