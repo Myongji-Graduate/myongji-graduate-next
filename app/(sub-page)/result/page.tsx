@@ -4,7 +4,7 @@ import ContentContainer from '@/app/ui/view/atom/content-container';
 import { cn } from '@/app/utils/shadcn/utils';
 import ResultCategoryDetailContainer, {
   ResultCategoryDetailSkeleton,
-} from './components/result-category-detail-container';
+} from '../../ui/result/result-category/result-category-detail-container';
 import { Suspense } from 'react';
 
 interface ResultPageProp {
