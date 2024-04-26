@@ -8,19 +8,27 @@ import * as React from 'react';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
-import { RESULT_CATEGORY, ResultCategoryKey } from '@/app/utils/key/result-category.key';
+import { RESULT_CATEGORY, RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
 
-function ResultCategoryCard() {
+interface ResultCategoryCardProps {
+  category: ResultCategoryKey;
+  totalCredit: number;
+  takenCredit: number;
+  completed?: boolean;
+}
+
+function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCategoryCardProps) {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
-  const percentage = 100;
-  const category = RESULT_CATEGORY.COMMON_CULTURE;
+
+  const percentage = Number(((takenCredit / totalCredit) * 100).toFixed(0));
 
   const filterSeveralMajor = (category: ResultCategoryKey) => {
-    const { DUAL_MANDATORY_MAJOR, DUAL_ELECTIVE_MAJOR, SUB_MAJOR } = RESULT_CATEGORY;
+    const { DUAL_MANDATORY_MAJOR, DUAL_ELECTIVE_MAJOR, DUAL_BASIC_ACADEMICAL_CULTURE, SUB_MAJOR } = RESULT_CATEGORY;
 
     switch (category) {
       case DUAL_MANDATORY_MAJOR:
       case DUAL_ELECTIVE_MAJOR:
+      case DUAL_BASIC_ACADEMICAL_CULTURE:
         return <Button label="복수전공" variant="outlined" size="xs" />;
       case SUB_MAJOR:
         return <Button label="부전공" variant="outlined" size="xs" />;
@@ -36,7 +44,7 @@ function ResultCategoryCard() {
       <div className="flex justify-between items-center">
         <div className={cn('flex gap-4 font-bold text-sm', 'md:text-xl')}>
           <Image src={Book} width={24} height={24} alt="category-img" />
-          <h3>전공필수</h3>
+          <h3>{RESULT_CATEGORY_KO[category]}</h3>
         </div>
         {filterSeveralMajor(category)}
       </div>
@@ -47,11 +55,13 @@ function ResultCategoryCard() {
         <div>
           <div className={cn('flex', 'md:gap-2')}>
             <span>기준학점</span>
-            <span className="font-bold">18</span>
+            <span className="font-bold">{totalCredit}</span>
           </div>
           <div className={cn('flex', 'md:gap-2')}>
             <span>이수학점</span>
-            <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-pink')}>18</span>
+            <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-red')}>
+              {takenCredit}
+            </span>
           </div>
         </div>
         <Button size="sm" label="과목 확인" onClick={toggle} />
