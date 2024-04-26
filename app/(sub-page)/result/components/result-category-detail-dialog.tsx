@@ -30,7 +30,7 @@ export default function ResultCategoryDetailDialog({ children, querystring }: Re
   return (
     <>
       <Responsive maxWidth={767}>
-        <Drawer drawerKey={DIALOG_KEY.RESULT_CATEGORY} closeDialog={handleCloseDialog}>
+        <Drawer drawerKey={DIALOG_KEY.RESULT_CATEGORY} closeDialog={handleCloseDialog} className="h-[90vh]">
           {children}
         </Drawer>
       </Responsive>

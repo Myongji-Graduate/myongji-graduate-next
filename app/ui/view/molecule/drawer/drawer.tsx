@@ -9,9 +9,10 @@ import useDialog from '@/app/hooks/useDialog';
 interface DrawerProps extends React.PropsWithChildren {
   drawerKey: DialogKey;
   closeDialog?: () => void;
+  className?: string;
 }
 
-const Drawer = ({ children, drawerKey, closeDialog }: DrawerProps) => {
+const Drawer = ({ children, drawerKey, closeDialog, className }: DrawerProps) => {
   const { isOpen, close } = useDialog(drawerKey, closeDialog);
 
   return (
@@ -20,7 +21,8 @@ const Drawer = ({ children, drawerKey, closeDialog }: DrawerProps) => {
         <DrawerPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60" />
         <DrawerPrimitive.Content
           className={cn(
-            'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[90vh] flex-col rounded-t-[10px] border border-slate-200 bg-white',
+            'fixed inset-x-0 bottom-0 z-50 mt-24 flex flex-col rounded-t-[10px] border border-slate-200 bg-white',
+            className,
           )}
         >
           {children}
