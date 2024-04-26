@@ -12,6 +12,16 @@ interface LectureSearchResultContainerProps {
 export default async function LectureSearchResultContainer({ keyword, type }: LectureSearchResultContainerProps) {
   const data = await fetchSearchLectures(type, keyword);
 
+  const hasNoResultData = () => {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div className="text-md font-medium text-gray-500 text-center whitespace-pre-wrap">
+          {`"${keyword}"`}에 대한 검색 결과를 찾을 수 없습니다
+        </div>
+      </div>
+    );
+  };
+
   const renderAddActionButton = (item: SearchedLectureInfo, isTaken: boolean) => {
     return <AddTakenLectureButton lectureItem={item} isTaken={isTaken} />;
   };
@@ -33,5 +43,5 @@ export default async function LectureSearchResultContainer({ keyword, type }: Le
     );
   };
 
-  return <List data={data.lectures} render={render} isScrollList={true} />;
+  return <List data={data.lectures} render={render} isScrollList={true} emptyDataRender={hasNoResultData} />;
 }
