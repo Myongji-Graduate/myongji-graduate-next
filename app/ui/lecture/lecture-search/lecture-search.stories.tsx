@@ -24,12 +24,18 @@ const meta = {
             <TakenLectureList />
           </TakenLectureAtomHydrator>
           <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
-            <Story />
+            <Story type="lectureName" keyword="영어" />
           </Drawer>
         </>
       );
     },
   ],
+  args: {
+    searchParams: {
+      type: 'lectureName',
+      keyword: '영어',
+    },
+  },
 } as Meta<typeof TakenLectureList>;
 
 export default meta;
@@ -50,6 +56,21 @@ export const AddSenario: Story = {
 
       await delay(3000);
       expect(addButton[0]).toBeDisabled();
+    });
+  },
+};
+export const SearchSenario: Story = {
+  play: async ({ step }) => {
+    await step('사용자가 추가를 클릭하면 lecture search drawer 창이 띄워진다', async () => {
+      const toggleLectureSearch = await screen.findByTestId('toggle-lecture-search');
+      await userEvent.click(toggleLectureSearch);
+
+      const lectureSearch = await screen.findByTestId('lecture-search');
+      expect(lectureSearch).toBeInTheDocument();
+    });
+    await step('drawer에는 검색 데이터가 렌더링된다', async () => {
+      const lectureName = await screen.findByText('영어1');
+      expect(lectureName).toBeInTheDocument();
     });
   },
 };
