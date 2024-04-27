@@ -6,8 +6,8 @@ import Image from 'next/image';
 import useDialog from '@/app/hooks/useDialog';
 import * as React from 'react';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
-import PieChart from '../../view/molecule/pie-chart/pie-chart';
-import Button from '../../view/atom/button/button';
+import PieChart from '../view/molecule/pie-chart/pie-chart';
+import Button from '../view/atom/button/button';
 import { useRouter } from 'next/navigation';
 
 function ResultCategoryCard() {

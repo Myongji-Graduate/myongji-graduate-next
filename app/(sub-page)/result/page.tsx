@@ -1,5 +1,5 @@
-import ResultCategoryCard from '@/app/ui/result/result-category/result-category-card';
-import ResultCategoryDetail from '@/app/ui/result/result-category/result-category-detail';
+import ResultCategoryCard from '@/app/ui/result/result-category-card';
+import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
 import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import { cn } from '@/app/utils/shadcn/utils';
