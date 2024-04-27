@@ -1,7 +1,7 @@
 import ResultCategoryDetailContent from '@/app/ui/result/result-category/result-category-detail-content/result-category-detail-content';
 import { fetchResultCategoryDetailInfo } from '@/app/business/result/result.query';
 import ResultCategoryDetailContentSkeleton from '@/app/ui/result/result-category/result-category-detail-content/result-category-detail-content.skeleton';
-import ResultCategoryDetailDialog from '../../../(sub-page)/result/components/result-category-detail-dialog';
+import ResultCategoryDetailDialog from './result-category-detail-dialog';
 import { Suspense } from 'react';
 
 export default function ResultCategoryDetail({ category }: { category: string }) {

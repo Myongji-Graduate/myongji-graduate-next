@@ -1,7 +1,7 @@
 'use client';
-import Modal from '../../../ui/view/molecule/modal/modal';
+import Modal from '../../view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
-import Drawer from '../../../ui/view/molecule/drawer/drawer';
+import Drawer from '../../view/molecule/drawer/drawer';
 import Responsive from '@/app/ui/responsive';
 import React, { useEffect } from 'react';
 import useDialog from '@/app/hooks/useDialog';
@@ -27,12 +27,12 @@ export default function ResultCategoryDetailDialog({ children, querystring }: Re
   return (
     <>
       <Responsive maxWidth={767}>
-        <Drawer drawerKey={DIALOG_KEY.RESULT_CATEGORY} closeDialog={handleCloseDialog} className="h-[90vh]">
+        <Drawer drawerKey={DIALOG_KEY.RESULT_CATEGORY} onClose={handleCloseDialog} className="h-[90vh]">
           {children}
         </Drawer>
       </Responsive>
       <Responsive minWidth={768}>
-        <Modal modalKey={DIALOG_KEY.RESULT_CATEGORY} closeDialog={handleCloseDialog}>
+        <Modal modalKey={DIALOG_KEY.RESULT_CATEGORY} onClose={handleCloseDialog}>
           {children}
         </Modal>
       </Responsive>
