@@ -3,9 +3,6 @@ import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import { cn } from '@/app/utils/shadcn/utils';
 import ResultCategoryDetailContainer from '../../ui/result/result-category/result-category-detail-container';
-import { Suspense } from 'react';
-import ResultCategoryDetailContentSkeleton from '@/app/ui/result/result-category/result-category-detail-content/result-category-detail-content.skeleton';
-import ResultCategoryDetailDialog from './components/result-category-detail-dialog';
 
 interface ResultPageProp {
   searchParams: { category: string };
