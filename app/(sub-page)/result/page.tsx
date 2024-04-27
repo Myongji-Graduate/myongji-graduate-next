@@ -26,7 +26,7 @@ function ResultPage({ searchParams }: ResultPageProp) {
           <ResultCategoryCard key={index} />
         ))}
       </div>
-      <ResultCategoryDetail category={category} />
+      {category && <ResultCategoryDetail category={category} />}
     </div>
   );
 }
