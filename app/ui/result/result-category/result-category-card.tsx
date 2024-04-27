@@ -17,25 +17,25 @@ interface ResultCategoryCardProps {
   completed?: boolean;
 }
 
+const filterSeveralMajor = (category: ResultCategoryKey) => {
+  const { DUAL_MANDATORY_MAJOR, DUAL_ELECTIVE_MAJOR, DUAL_BASIC_ACADEMICAL_CULTURE, SUB_MAJOR } = RESULT_CATEGORY;
+
+  switch (category) {
+    case DUAL_MANDATORY_MAJOR:
+    case DUAL_ELECTIVE_MAJOR:
+    case DUAL_BASIC_ACADEMICAL_CULTURE:
+      return <Button label="복수전공" variant="outlined" size="xs" />;
+    case SUB_MAJOR:
+      return <Button label="부전공" variant="outlined" size="xs" />;
+    default:
+      return <></>;
+  }
+};
+
 function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCategoryCardProps) {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
 
   const percentage = Number(((takenCredit / totalCredit) * 100).toFixed(0));
-
-  const filterSeveralMajor = (category: ResultCategoryKey) => {
-    const { DUAL_MANDATORY_MAJOR, DUAL_ELECTIVE_MAJOR, DUAL_BASIC_ACADEMICAL_CULTURE, SUB_MAJOR } = RESULT_CATEGORY;
-
-    switch (category) {
-      case DUAL_MANDATORY_MAJOR:
-      case DUAL_ELECTIVE_MAJOR:
-      case DUAL_BASIC_ACADEMICAL_CULTURE:
-        return <Button label="복수전공" variant="outlined" size="xs" />;
-      case SUB_MAJOR:
-        return <Button label="부전공" variant="outlined" size="xs" />;
-      default:
-        return <></>;
-    }
-  };
 
   return (
     <div
