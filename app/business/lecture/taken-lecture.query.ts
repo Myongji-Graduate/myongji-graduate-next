@@ -10,7 +10,6 @@ export interface TakenLectures {
 export const fetchTakenLectures = async (): Promise<TakenLectures> => {
   const response = await fetch(API_PATH.takenLectures, {
     next: { tags: [TAG.GET_TAKEN_LECTURES] },
-    cache: 'force-cache',
   });
   const data = await response.json();
   return data;

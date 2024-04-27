@@ -11,7 +11,6 @@ export async function getUserInfo(): Promise<UserInfoResponse> {
       headers: {
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
-      cache: 'force-cache',
     });
 
     const result = await response.json();

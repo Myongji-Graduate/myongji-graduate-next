@@ -15,7 +15,10 @@ export default function LectureSearch({ searchParams }: LectureSearchProps) {
       <div className="w-[800px] mx-auto my-7  flex flex-col gap-10 sm:gap-6">
         <LectureSearchBar />
         {isSearchable ? (
-          <Suspense fallback={<LectureSearchResultContainerSpinner />}>
+          <Suspense
+            key={`${searchParams.keyword}${searchParams.type}`}
+            fallback={<LectureSearchResultContainerSpinner />}
+          >
             <LectureSearchResultContainer keyword={searchParams.keyword as string} type={searchParams.type as string} />
           </Suspense>
         ) : (

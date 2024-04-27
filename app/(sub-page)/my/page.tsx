@@ -15,12 +15,14 @@ export default function MyPage({ searchParams }: MyPageProps) {
     <>
       <ContentContainer className="flex">
         <div className="hidden lg:w-[30%] lg:block">
-          <Suspense fallback={<UserInfoNavigatorSkeleton />}>
+          <Suspense key={'userinfo'} fallback={<UserInfoNavigatorSkeleton />}>
             <UserInfoNavigator />
           </Suspense>
         </div>
         <div className="w-full lg:w-[70%] lg:px-[20px]">
-          <TakenLecture />
+          <Suspense key={'taken-lecture'} fallback={<p>...loading</p>}>
+            <TakenLecture />
+          </Suspense>
         </div>
       </ContentContainer>
       <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
