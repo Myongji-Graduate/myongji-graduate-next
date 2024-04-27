@@ -13,11 +13,11 @@ const noneSlideAnimation =
 
 interface ModalProp extends React.PropsWithChildren {
   modalKey: DialogKey;
-  closeDialog?: () => void;
+  onClose?: () => void;
 }
 
-const Modal = ({ modalKey, children, closeDialog }: ModalProp) => {
-  const { isOpen, toggle } = useDialog(modalKey, closeDialog);
+const Modal = ({ modalKey, children, onClose }: ModalProp) => {
+  const { isOpen, toggle } = useDialog(modalKey, onClose);
 
   return (
     <Root open={isOpen} onOpenChange={toggle}>

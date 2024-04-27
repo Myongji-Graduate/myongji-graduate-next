@@ -2,7 +2,7 @@ import { DialogKey } from '../utils/key/dialog-key.util';
 import { updateDialogAtom } from '../store/dialog';
 import { useAtom } from 'jotai';
 
-export default function useDialog(key: DialogKey, closeDialog?: () => void) {
+export default function useDialog(key: DialogKey, onClose?: () => void) {
   const [isOpenDialogList, setOpenDialogList] = useAtom(updateDialogAtom);
 
   const isOpen = isOpenDialogList[key];
@@ -13,14 +13,14 @@ export default function useDialog(key: DialogKey, closeDialog?: () => void) {
 
   const close = () => {
     setOpenDialogList([key, false]);
-    closeDialog?.();
+    onClose?.();
   };
 
   const toggle = () => {
     const prevState = isOpenDialogList[key];
     setOpenDialogList([key, !prevState]);
 
-    if (prevState) closeDialog?.();
+    if (prevState) onClose?.();
   };
 
   return { isOpen, open, close, toggle };

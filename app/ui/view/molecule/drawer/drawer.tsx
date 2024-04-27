@@ -8,12 +8,12 @@ import useDialog from '@/app/hooks/useDialog';
 
 interface DrawerProps extends React.PropsWithChildren {
   drawerKey: DialogKey;
-  closeDialog?: () => void;
+  onClose?: () => void;
   className?: string;
 }
 
-const Drawer = ({ children, drawerKey, closeDialog, className }: DrawerProps) => {
-  const { isOpen, close } = useDialog(drawerKey, closeDialog);
+const Drawer = ({ children, drawerKey, onClose, className }: DrawerProps) => {
+  const { isOpen, close } = useDialog(drawerKey, onClose);
 
   return (
     <DrawerPrimitive.Root open={isOpen} onClose={close}>
