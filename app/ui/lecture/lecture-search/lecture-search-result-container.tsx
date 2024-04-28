@@ -1,22 +1,21 @@
 import List from '../../view/molecule/list';
 import Grid from '../../view/molecule/grid';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
-import { LectureSearchParams, SearchedLectureInfo } from '@/app/type/lecture';
+import { SearchedLectureInfo } from '@/app/type/lecture';
+import { useAtomValue } from 'jotai';
+import { searchWordAtom } from '@/app/store/search-word';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query';
-import LoadingSpinner from '../../view/atom/loading-spinner';
 
-export default async function LectureSearchResultContainer({ keyword, type }: LectureSearchParams) {
-  const data = await fetchSearchLectures(type as string, keyword as string);
+export default function LectureSearchResultContainer() {
+  const searchWord = useAtomValue(searchWordAtom);
 
-  const hasNoResultData = () => {
-    return (
-      <div className="flex flex-col items-center justify-center gap-4">
-        <div className="text-md font-medium text-gray-500 text-center whitespace-pre-wrap">
-          {`"${keyword}"`}에 대한 검색 결과를 찾을 수 없습니다
-        </div>
-      </div>
-    );
-  };
+  const { data } = useSuspenseQuery<SearchedLectureInfo[]>({
+    queryKey: ['search-lecture'],
+    queryFn: () => {
+      return fetchSearchLectures(searchWord.type, searchWord.keyword as string);
+    },
+  });
 
   const renderAddActionButton = (item: SearchedLectureInfo, isTaken: boolean) => {
     return <AddTakenLectureButton lectureItem={item} isTaken={isTaken} />;
@@ -39,18 +38,5 @@ export default async function LectureSearchResultContainer({ keyword, type }: Le
     );
   };
 
-  return <List data={data.lectures} render={render} isScrollList={true} emptyDataRender={hasNoResultData} />;
-}
-
-export function LectureSearchResultContainerSpinner() {
-  return (
-    <div
-      className={'rounded-xl border-[1px] border-gray-300 w-full h-72 overflow-auto flex justify-center items-center'}
-    >
-      <LoadingSpinner
-        className={'animate-spin shrink-0 h-12 w-12 mr-1.5 -ml-1 fill-gray-400'}
-        style={{ transition: `width 150ms` }}
-      />
-    </div>
-  );
+  return <List data={data} render={render} isScrollList={true} />;
 }
