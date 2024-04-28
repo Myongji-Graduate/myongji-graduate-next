@@ -1,44 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import Select from '../../view/molecule/select';
 import TextInput from '../../view/atom/text-input/text-input';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { searchWordAtom } from '@/app/store/search-word';
 
 export default function LectureSearchBar() {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const params = new URLSearchParams(searchParams);
+  const [searchWord, setSearchWord] = useAtom(searchWordAtom);
   let timeId: NodeJS.Timeout;
 
-  const deleteParams = () => {
-    params.delete('type');
-    params.delete('keyword');
-    replace(`${pathname}?${params.toString()}`);
-  };
-
-  const setParams = (name: string, value: string) => {
-    params.set(name, value);
-    replace(`${pathname}?${params.toString()}`);
-  };
-
   useEffect(() => {
-    setParams('type', 'lectureName');
-    return deleteParams;
+    return () => {
+      setSearchWord({ keyword: null, type: 'lectureName' });
+    };
   }, []);
 
   const handleTypeSeaerch = (value: unknown) => {
     if (typeof value === 'string') {
-      setParams('type', value);
+      setSearchWord({ ...searchWord, type: value });
     }
   };
 
   const handleDebounceKeywordSearch = (value: string) => {
     if (timeId) clearTimeout(timeId);
     timeId = setTimeout(() => {
-      setParams('keyword', value);
-    }, 500);
+      setSearchWord({ ...searchWord, keyword: value });
+    }, 300);
   };
 
   return (
