@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Button from '../../view/atom/button/button';
 import LabelContainer from '../../view/atom/label-container/label-container';
 import useDialog from '@/app/hooks/useDialog';
-import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 
 export default function TakenLectureLabel() {
   const { toggle } = useDialog(DIALOG_KEY.LECTURE_SEARCH);
