@@ -24,9 +24,9 @@ const filterSeveralMajor = (category: ResultCategoryKey) => {
     case DUAL_MANDATORY_MAJOR:
     case DUAL_ELECTIVE_MAJOR:
     case DUAL_BASIC_ACADEMICAL_CULTURE:
-      return <Button label="복수전공" variant="outlined" size="xs" />;
+      return <Button label="복수전공" variant="outlined" size="xs" role="none presentation" />;
     case SUB_MAJOR:
-      return <Button label="부전공" variant="outlined" size="xs" />;
+      return <Button label="부전공" variant="outlined" size="xs" role="none presentation" />;
     default:
       return <></>;
   }
