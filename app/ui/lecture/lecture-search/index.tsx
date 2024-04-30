@@ -1,10 +1,11 @@
 'use client';
 import { useAtomValue } from 'jotai';
 import LectureSearchBar from './lecture-search-bar';
-import LectureSearchResultContainer from './lecture-search-result-container';
 import { searchWordAtom } from '@/app/store/search-word';
 import EmptyDataContainer from './empty-data-container';
 import { Suspense } from 'react';
+import { LectureSearchResultSpinner } from './lecture-search-result/lecture-search-result-spinner';
+import LectureSearchResultContainer from './lecture-search-result';
 
 export default function LectureSearch() {
   const searchWord = useAtomValue(searchWordAtom);
@@ -14,7 +15,7 @@ export default function LectureSearch() {
       <div className="w-[800px] mx-auto my-7  flex flex-col gap-10 sm:gap-6">
         <LectureSearchBar />
         {searchable ? (
-          <Suspense fallback={<p>,,,loading</p>}>
+          <Suspense fallback={<LectureSearchResultSpinner />}>
             <LectureSearchResultContainer />
           </Suspense>
         ) : (

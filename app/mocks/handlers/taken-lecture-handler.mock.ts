@@ -6,11 +6,12 @@ import { parsePDF } from '../data.mock';
 export const takenLectureHandlers = [
   http.get(API_PATH.takenLectures, async () => {
     const takenLectures = mockDatabase.getTakenLectures();
-    await delay(3000);
+    await delay(1000);
     return HttpResponse.json(takenLectures);
   }),
   http.get(API_PATH.lectures, async () => {
     const takenLectures = mockDatabase.getSearchLectures();
+    await delay(1000);
     return HttpResponse.json(takenLectures);
   }),
   http.post<never, { lectureId: number }>(API_PATH.takenLectures, async ({ request }) => {

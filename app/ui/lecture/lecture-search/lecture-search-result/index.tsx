@@ -1,11 +1,11 @@
-import List from '../../view/molecule/list';
-import Grid from '../../view/molecule/grid';
-import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
 import { SearchedLectureInfo } from '@/app/type/lecture';
 import { useAtomValue } from 'jotai';
 import { searchWordAtom } from '@/app/store/search-word';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query';
+import AddTakenLectureButton from '../../taken-lecture/add-taken-lecture-button';
+import List from '@/app/ui/view/molecule/list';
+import Grid from '@/app/ui/view/molecule/grid';
 
 export default function LectureSearchResultContainer() {
   const searchWord = useAtomValue(searchWordAtom);

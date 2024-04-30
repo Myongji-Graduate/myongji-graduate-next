@@ -11,14 +11,12 @@ export default function MyPage() {
     <>
       <ContentContainer className="flex">
         <div className="hidden lg:w-[30%] lg:block">
-          <Suspense key={'userinfo'} fallback={<UserInfoNavigatorSkeleton />}>
+          <Suspense fallback={<UserInfoNavigatorSkeleton />}>
             <UserInfoNavigator />
           </Suspense>
         </div>
         <div className="w-full lg:w-[70%] lg:px-[20px]">
-          <Suspense key={'taken-lecture'} fallback={<p>...loading</p>}>
-            <TakenLecture />
-          </Suspense>
+          <TakenLecture />
         </div>
       </ContentContainer>
       <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
