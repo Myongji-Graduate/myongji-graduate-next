@@ -6,12 +6,13 @@ import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query
 import AddTakenLectureButton from '../../taken-lecture/add-taken-lecture-button';
 import List from '@/app/ui/view/molecule/list';
 import Grid from '@/app/ui/view/molecule/grid';
+import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 
 export default function LectureSearchResultContainer() {
   const searchWord = useAtomValue(searchWordAtom);
 
   const { data } = useSuspenseQuery<SearchedLectureInfo[]>({
-    queryKey: ['search-lecture'],
+    queryKey: [QUERY_KEY.SEARCH_LECTURE],
     queryFn: () => {
       return fetchSearchLectures(searchWord.type, searchWord.keyword as string);
     },
