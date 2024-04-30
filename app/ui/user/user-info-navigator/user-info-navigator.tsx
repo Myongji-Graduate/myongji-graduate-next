@@ -1,7 +1,6 @@
 import Avatar from '../../view/atom/avatar/avatar';
 import Button from '../../view/atom/button/button';
 import { getUserInfo } from '@/app/business/user/user.query';
-import Skeleton from '../../view/atom/skeleton';
 
 export default async function UserInfoNavigator() {
   const userInfo = await getUserInfo();
@@ -22,19 +21,6 @@ export default async function UserInfoNavigator() {
       </div>
       <div className="mt-2">
         <Button size="sm" variant="text" label="회원탈퇴하기" />
-      </div>
-    </div>
-  );
-}
-
-export function UserInfoNavigatorSkeleton() {
-  return (
-    <div className="flex flex-col items-center p-4  space-y-3">
-      <Skeleton className="h-24 w-24 rounded-full" />
-      <div className="space-y-6">
-        <Skeleton className="h-4 w-24" />
-        <Skeleton className="h-4 w-32" />
-        <Skeleton className="h-4 w-32" />
       </div>
     </div>
   );

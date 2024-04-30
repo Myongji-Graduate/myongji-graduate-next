@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Modal from './modal';
-import { DIALOG_KEY, DialogKey } from '@/app/utils/key/dialog.key';
+import { DIALOG_KEY, DialogKey } from '@/app/utils/key/dialog-key.util';
 
 const meta = {
   title: 'ui/view/molecule/Modal',

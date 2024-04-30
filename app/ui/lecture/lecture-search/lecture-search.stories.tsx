@@ -6,7 +6,7 @@ import { screen } from '@storybook/testing-library';
 import TakenLectureLabel from '../taken-lecture/taken-lecture-label';
 import TakenLectureList from '../taken-lecture/taken-lecture-list';
 import LectureSearch from '.';
-import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Drawer from '../../view/molecule/drawer/drawer';
 import { delay } from 'msw';
 import Provider from '@/app/provider';

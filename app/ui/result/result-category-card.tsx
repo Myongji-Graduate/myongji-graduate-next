@@ -5,13 +5,19 @@ import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
 import useDialog from '@/app/hooks/useDialog';
 import * as React from 'react';
-import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
-import PieChart from '../../view/molecule/pie-chart/pie-chart';
-import Button from '../../view/atom/button/button';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
+import PieChart from '../view/molecule/pie-chart/pie-chart';
+import Button from '../view/atom/button/button';
+import { useRouter } from 'next/navigation';
 
 function ResultCategoryCard() {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
+  const { replace } = useRouter();
 
+  function handleClickButton() {
+    toggle();
+    replace('/result?category=COMMON_CULTURE');
+  }
   return (
     <div
       className={cn('flex flex-col gap-6 zIndex-1 rounded-xl shadow-lg bg-white p-[0.4rem]', 'md:w-80 md:p-[1.8rem]')}
@@ -34,7 +40,8 @@ function ResultCategoryCard() {
             <span className="font-bold text-point-blue">18</span>
           </div>
         </div>
-        <Button size="sm" label="과목 확인" onClick={toggle} />
+
+        <Button size="sm" label="과목 확인" onClick={handleClickButton} />
       </div>
     </div>
   );
