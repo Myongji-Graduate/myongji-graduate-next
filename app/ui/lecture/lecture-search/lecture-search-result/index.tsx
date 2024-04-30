@@ -8,7 +8,7 @@ import List from '@/app/ui/view/molecule/list';
 import Grid from '@/app/ui/view/molecule/grid';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 
-export default function LectureSearchResultContainer() {
+export default function LectureSearchResult() {
   const searchWord = useAtomValue(searchWordAtom);
 
   const { data } = useSuspenseQuery<SearchedLectureInfo[]>({

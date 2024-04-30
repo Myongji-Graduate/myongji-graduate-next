@@ -5,7 +5,7 @@ import { searchWordAtom } from '@/app/store/search-word';
 import EmptyDataContainer from './empty-data-container';
 import { Suspense } from 'react';
 import { LectureSearchResultSpinner } from './lecture-search-result/lecture-search-result-spinner';
-import LectureSearchResultContainer from './lecture-search-result';
+import LectureSearchResult from './lecture-search-result';
 
 export default function LectureSearch() {
   const searchWord = useAtomValue(searchWordAtom);
@@ -16,7 +16,7 @@ export default function LectureSearch() {
         <LectureSearchBar />
         {searchable ? (
           <Suspense fallback={<LectureSearchResultSpinner />}>
-            <LectureSearchResultContainer />
+            <LectureSearchResult />
           </Suspense>
         ) : (
           <EmptyDataContainer />
