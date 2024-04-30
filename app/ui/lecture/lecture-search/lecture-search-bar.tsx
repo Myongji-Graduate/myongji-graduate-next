@@ -43,6 +43,7 @@ export default function LectureSearchBar() {
           placeholder="검색어를 입력해주세요"
           icon={MagnifyingGlassIcon}
           onValueChange={handleDebounceKeywordSearch}
+          data-testid="lecture-search-input"
         />
       </div>
     </div>

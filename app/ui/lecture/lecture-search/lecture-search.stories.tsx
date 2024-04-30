@@ -9,6 +9,7 @@ import LectureSearch from '.';
 import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
 import Drawer from '../../view/molecule/drawer/drawer';
 import { delay } from 'msw';
+import Provider from '@/app/provider';
 
 const meta = {
   title: 'ui/lecture/lecture-search',
@@ -19,13 +20,15 @@ const meta = {
       const data = mockDatabase.getTakenLectures();
       return (
         <>
-          <TakenLectureAtomHydrator initialValue={data.takenLectures}>
-            <TakenLectureLabel />
-            <TakenLectureList />
-          </TakenLectureAtomHydrator>
-          <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
-            <Story type="lectureName" keyword="영어" />
-          </Drawer>
+          <Provider>
+            <TakenLectureAtomHydrator initialValue={data.takenLectures}>
+              <TakenLectureLabel />
+              <TakenLectureList />
+            </TakenLectureAtomHydrator>
+            <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
+              <Story type="lectureName" keyword="영어" />
+            </Drawer>
+          </Provider>
         </>
       );
     },
@@ -50,7 +53,14 @@ export const AddSenario: Story = {
       const lectureSearch = await screen.findByTestId('lecture-search');
       expect(lectureSearch).toBeInTheDocument();
     });
-    await step('추가 버튼을 클릭하면 추가 버튼이 disabled 된다', async () => {
+    await step('과목을 검색하면 검색 결과가 렌더링된다', async () => {
+      const lectureSearchInput = await screen.findByTestId('lecture-search-input');
+      await userEvent.type(lectureSearchInput, '영어');
+      await delay(3000);
+      const lectureName = await screen.findByText('영어1');
+      expect(lectureName).toBeInTheDocument();
+    });
+    await step('검색 결과의 추가 버튼을 클릭하면 추가 버튼이 disabled 된다', async () => {
       const addButton = await screen.findAllByTestId('add-taken-lecture-button');
       await userEvent.click(addButton[0]);
 
@@ -68,7 +78,10 @@ export const SearchSenario: Story = {
       const lectureSearch = await screen.findByTestId('lecture-search');
       expect(lectureSearch).toBeInTheDocument();
     });
-    await step('drawer에는 검색 데이터가 렌더링된다', async () => {
+    await step('과목을 검색하면 검색 결과가 렌더링된다', async () => {
+      const lectureSearchInput = await screen.findByTestId('lecture-search-input');
+      await userEvent.type(lectureSearchInput, '영어');
+      await delay(3000);
       const lectureName = await screen.findByText('영어1');
       expect(lectureName).toBeInTheDocument();
     });
