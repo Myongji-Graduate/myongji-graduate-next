@@ -4,13 +4,17 @@ import ContentContainer from '@/app/ui/view/atom/content-container';
 import { cn } from '@/app/utils/shadcn/utils';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
+import { fetchCredits } from '@/app/business/result/result.query';
 
 interface ResultPageProp {
   searchParams: { category: string };
 }
 
-function ResultPage({ searchParams }: ResultPageProp) {
+async function ResultPage({ searchParams }: ResultPageProp) {
+  const categorys = await fetchCredits();
+
   const { category } = searchParams;
+
   const DUMMY_DATA = {
     category: 'COMMON_CULTURE' as keyof typeof RESULT_CATEGORY,
     totalCredit: 70,
@@ -29,12 +33,12 @@ function ResultPage({ searchParams }: ResultPageProp) {
           'md:max-w-[700px] md:gap-10 md:top-[33rem]',
         )}
       >
-        {Array.from({ length: 8 }).map((_, index) => (
+        {categorys.map((category, index) => (
           <ResultCategoryCard
             key={index}
-            category={RESULT_CATEGORY[DUMMY_DATA.category]}
-            totalCredit={DUMMY_DATA.totalCredit}
-            takenCredit={DUMMY_DATA.takenCredit}
+            category={RESULT_CATEGORY[category.category]}
+            totalCredit={category.totalCredit}
+            takenCredit={category.takenCredit}
           />
         ))}
       </div>
