@@ -5,6 +5,8 @@ import { cn } from '@/app/utils/shadcn/utils';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
 import { fetchCredits } from '@/app/business/result/result.query';
+import { Suspense } from 'react';
+import UserInfoCardSkeleton from '@/app/ui/user/user-info-card/user-info-card.skeleton';
 
 interface ResultPageProp {
   searchParams: { category: string };
@@ -18,7 +20,9 @@ async function ResultPage({ searchParams }: ResultPageProp) {
   return (
     <div className="flex justify-center items-end">
       <ContentContainer className="md:w-[700px] p-8">
-        <UserInfoCard />
+        <Suspense fallback={<UserInfoCardSkeleton />}>
+          <UserInfoCard />
+        </Suspense>
       </ContentContainer>
       <div
         className={cn(

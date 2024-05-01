@@ -72,7 +72,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
           <div className={cn('flex', 'md:gap-2')}>
             <span>이수학점</span>
             <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-red')}>
-              {takeCategoryCredit(category, totalCredit)}
+              {takeCategoryCredit(category, takenCredit)}
             </span>
           </div>
         </div>
