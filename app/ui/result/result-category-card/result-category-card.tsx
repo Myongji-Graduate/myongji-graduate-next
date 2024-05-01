@@ -45,6 +45,10 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
     replace('/result?category=COMMON_CULTURE');
   };
 
+  const takeCategoryCredit = (category: ResultCategoryKey, credit: number): number => {
+    return category === RESULT_CATEGORY.CHAPEL ? credit * 2 : credit;
+  };
+
   return (
     <div
       className={cn('flex flex-col gap-6 zIndex-1 rounded-xl shadow-lg bg-white p-[0.4rem]', 'md:w-80 md:p-[1.8rem]')}
@@ -63,12 +67,12 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
         <div>
           <div className={cn('flex', 'md:gap-2')}>
             <span>기준학점</span>
-            <span className="font-bold">{totalCredit}</span>
+            <span className="font-bold">{takeCategoryCredit(category, totalCredit)}</span>
           </div>
           <div className={cn('flex', 'md:gap-2')}>
             <span>이수학점</span>
             <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-red')}>
-              {takenCredit}
+              {takeCategoryCredit(category, totalCredit)}
             </span>
           </div>
         </div>
