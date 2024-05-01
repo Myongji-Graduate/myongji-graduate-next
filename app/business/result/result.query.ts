@@ -1,3 +1,4 @@
+import { ResultUserInfo } from './result.query';
 import { LectureInfo } from '@/app/type/lecture';
 import { API_PATH } from '../api-path';
 import { cookies } from 'next/headers';
@@ -17,6 +18,20 @@ export interface ResultCategoryDetailInfo {
   takenCredit: number;
   detailCategory: ResultCategoryDetailLectures[];
   completed: boolean;
+}
+
+export interface Major {
+  majorType: 'PRIMARY' | 'DUAL' | 'SUB';
+  major: string;
+}
+
+export interface ResultUserInfo {
+  studentNumber: string;
+  studentName: string;
+  completionDivision: Major[];
+  totalCredit: number;
+  takenCredit: number;
+  graduated: boolean;
 }
 
 export interface ResultUserInfo {

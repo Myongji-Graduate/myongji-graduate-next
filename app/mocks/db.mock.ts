@@ -1,7 +1,7 @@
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { ResultCategoryDetailInfo } from '../business/result/result.query';
+import { ResultCategoryDetailInfo, ResultUserInfo } from '../business/result/result.query';
 import { SignUpRequestBody, SignInRequestBody, UserInfoResponse } from '../business/user/user.type';
-import { takenLectures, resultCategoryDetailInfo } from './data.mock';
+import { takenLectures, resultCategoryDetailInfo, resultUserInfo } from './data.mock';
 
 interface MockUser {
   authId: string;
@@ -16,6 +16,7 @@ interface MockUser {
 interface MockDatabaseState {
   takenLectures: TakenLectures;
   resultCategoryDetailInfo: ResultCategoryDetailInfo;
+  resultUserInfo: ResultUserInfo;
   users: MockUser[];
 }
 
@@ -28,10 +29,12 @@ type MockDatabaseAction = {
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
   getUserInfo: (authId: string) => UserInfoResponse;
+  getResultUserInfo: () => ResultUserInfo;
 };
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
+  getResultUserInfo: () => mockDatabaseStore.resultUserInfo,
   deleteTakenLecture: (lectureId) => {
     if (mockDatabaseStore.takenLectures.takenLectures.find((lecture) => lecture.id === lectureId)) {
       mockDatabaseStore.takenLectures.takenLectures = mockDatabaseStore.takenLectures.takenLectures.filter(
@@ -98,6 +101,7 @@ export const mockDatabase: MockDatabaseAction = {
 const initialState: MockDatabaseState = {
   takenLectures: takenLectures,
   resultCategoryDetailInfo: resultCategoryDetailInfo,
+  resultUserInfo: resultUserInfo,
   users: [
     {
       authId: 'admin',
