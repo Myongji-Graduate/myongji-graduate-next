@@ -47,14 +47,14 @@ export const userHandlers = [
 
     return HttpResponse.json(userInfo);
   }),
-  http.get<never, never, ResultUserInfo | ErrorResponseData>(`${API_PATH.resultUserInfo}`, async ({ request }) => {
+  http.get<never, never, ResultUserInfo | ErrorResponseData>(API_PATH.resultUserInfo, async ({ request }) => {
     const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
     if (accessToken === 'undefined' || !accessToken) {
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
     }
 
     const userInfo = mockDatabase.getResultUserInfo();
-    await delay(3000);
+    await delay(2000);
 
     if (!userInfo) {
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });

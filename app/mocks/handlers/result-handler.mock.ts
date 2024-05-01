@@ -10,7 +10,7 @@ export const resultHandlers = [
   }),
   http.get(API_PATH.credits, async () => {
     const resultCategoryInfo = mockDatabase.getCredits();
-    await delay(4000);
+    await delay(5000);
     return HttpResponse.json(resultCategoryInfo);
   }),
 ];

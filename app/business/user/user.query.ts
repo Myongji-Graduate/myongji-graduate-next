@@ -30,7 +30,7 @@ export async function getUserInfo(): Promise<UserInfoResponse> {
 
 export async function fetchResultUserInfo(): Promise<ResultUserInfo> {
   try {
-    const response = await fetch(`${API_PATH.resultUserInfo}`, {
+    const response = await fetch(API_PATH.resultUserInfo, {
       headers: {
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
