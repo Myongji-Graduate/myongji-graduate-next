@@ -4,7 +4,7 @@ import { Portal, Overlay, Content, Root } from '@radix-ui/react-dialog';
 
 import { cn } from '../../../../utils/shadcn/utils';
 import useDialog from '@/app/hooks/useDialog';
-import { DialogKey } from '@/app/utils/key/dialog.key';
+import { DialogKey } from '@/app/utils/key/dialog-key.util';
 
 const fadeAnimation =
   'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0';
@@ -13,10 +13,11 @@ const noneSlideAnimation =
 
 interface ModalProp extends React.PropsWithChildren {
   modalKey: DialogKey;
+  onClose?: () => void;
 }
 
-const Modal = ({ modalKey, children }: ModalProp) => {
-  const { isOpen, toggle } = useDialog(modalKey);
+const Modal = ({ modalKey, children, onClose }: ModalProp) => {
+  const { isOpen, toggle } = useDialog(modalKey, onClose);
 
   return (
     <Root open={isOpen} onOpenChange={toggle}>
