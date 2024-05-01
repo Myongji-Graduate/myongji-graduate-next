@@ -10,6 +10,7 @@ import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Button from '../../view/atom/button/button';
 import { useRouter } from 'next/navigation';
+import { getPercentage } from '@/app/utils/chart.util';
 
 interface ResultCategoryCardProps {
   category: ResultCategoryKey;
@@ -37,12 +38,13 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
   const { replace } = useRouter();
 
-  const percentage = Number(((takenCredit / totalCredit) * 100).toFixed(0));
+  const percentage = getPercentage(takenCredit, totalCredit);
 
-  function handleClickButton() {
+  const handleClickButton = () => {
     toggle();
     replace('/result?category=COMMON_CULTURE');
-  }
+  };
+
   return (
     <div
       className={cn('flex flex-col gap-6 zIndex-1 rounded-xl shadow-lg bg-white p-[0.4rem]', 'md:w-80 md:p-[1.8rem]')}
