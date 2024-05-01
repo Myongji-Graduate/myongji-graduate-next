@@ -15,13 +15,6 @@ async function ResultPage({ searchParams }: ResultPageProp) {
 
   const { category } = searchParams;
 
-  const DUMMY_DATA = {
-    category: 'COMMON_CULTURE' as keyof typeof RESULT_CATEGORY,
-    totalCredit: 70,
-    takenCredit: 68,
-    completed: false,
-  };
-
   return (
     <div className="flex justify-center items-end">
       <ContentContainer className="md:w-[700px] p-8">

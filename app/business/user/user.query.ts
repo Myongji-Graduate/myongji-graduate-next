@@ -28,7 +28,7 @@ export async function getUserInfo(): Promise<UserInfoResponse> {
   }
 }
 
-export async function getResultUserInfo(): Promise<ResultUserInfo> {
+export async function fetchResultUserInfo(): Promise<ResultUserInfo> {
   try {
     const response = await fetch(`${API_PATH.resultUserInfo}`, {
       headers: {

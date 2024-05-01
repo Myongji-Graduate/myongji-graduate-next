@@ -1,9 +1,9 @@
-import { fetchResultCategoryDetailInfo } from '@/app/business/result/result.query';
+import { getPercentage } from '@/app/utils/chart.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
-import { getResultUserInfo } from '@/app/business/user/user.query';
+import { fetchResultUserInfo } from '@/app/business/user/user.query';
 
 async function UserInfoCard() {
-  const data = await getResultUserInfo();
+  const data = await fetchResultUserInfo();
   const { studentNumber, studentName, completionDivision, totalCredit, takenCredit, graduated } = data;
 
   return (
@@ -27,11 +27,11 @@ async function UserInfoCard() {
             <li>{completionDivision[0].major}</li>
             <li>{totalCredit}</li>
             <li>{takenCredit}</li>
-            <li>{graduated ? '' : '불'}가능</li>
+            <li>{graduated ? '가능' : '불가능'}</li>
           </ul>
         </div>
         <div className="md:px-10">
-          <PieChart percentage={77} />
+          <PieChart percentage={getPercentage(takenCredit, totalCredit)} />
         </div>
       </div>
       <p className="text-gray-6 text-xs">

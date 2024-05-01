@@ -1,6 +1,6 @@
 'use client';
-import { cn } from '@/app/utils/shadcn/utils';
 
+import { cn } from '@/app/utils/shadcn/utils';
 import { useState } from 'react';
 import { ResultCategoryDetailLectureToggle } from '../result-category-detail-lecture/result-category-detail-lecture-toggle';
 import ResultCagegoryDetailLecture from '../result-category-detail-lecture/result-cagegory-detail-lecture';
