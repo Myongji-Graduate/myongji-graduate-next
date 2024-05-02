@@ -4,8 +4,9 @@ import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Drawer from '../../view/molecule/drawer/drawer';
 import Responsive from '@/app/ui/responsive';
 import React, { useEffect } from 'react';
+import { useAtomValue } from 'jotai';
+import { isDialogOpenAtom } from '@/app/store/dialog';
 import useDialog from '@/app/hooks/useDialog';
-import { useRouter } from 'next/navigation';
 
 interface ResultCategoryDetailDialogProp {
   children: React.ReactNode;
@@ -13,7 +14,8 @@ interface ResultCategoryDetailDialogProp {
 }
 
 export default function ResultCategoryDetailDialog({ children, querystring }: ResultCategoryDetailDialogProp) {
-  const { replace } = useRouter();
+  const isOpenDialog = useAtomValue(isDialogOpenAtom);
+
   const { isOpen, open } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
 
   useEffect(() => {
@@ -21,7 +23,8 @@ export default function ResultCategoryDetailDialog({ children, querystring }: Re
   }, []);
 
   const handleCloseDialog = () => {
-    replace('/result');
+    if (isOpenDialog) window.history.go(-1);
+    window.history.replaceState({}, '', '/result');
   };
 
   return (

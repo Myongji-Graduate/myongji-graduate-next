@@ -6,7 +6,7 @@ import { screen } from '@storybook/testing-library';
 import { delay } from 'msw';
 
 const meta = {
-  title: 'ui/result-category/ResultCategoryDetailContent',
+  title: 'ui/result/result-category-detail-content',
   component: ResultCategoryDetailContent,
   args: { info: mockDatabase.getResultCategoryDetailInfo() },
   decorators: [(Story) => <Story />],
