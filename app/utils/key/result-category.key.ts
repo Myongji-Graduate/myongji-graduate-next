@@ -29,3 +29,9 @@ export const RESULT_CATEGORY_KO = {
 } as const;
 
 export type ResultCategoryKey = (typeof RESULT_CATEGORY)[keyof typeof RESULT_CATEGORY];
+
+export const MAJOR_NOTATION = {
+  PRIMARY: '전공',
+  SUB: '부전공',
+  DUAL: '복수전공',
+};

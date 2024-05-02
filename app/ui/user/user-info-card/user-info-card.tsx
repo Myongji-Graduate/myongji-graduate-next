@@ -1,10 +1,20 @@
 import { getPercentage } from '@/app/utils/chart.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import { fetchResultUserInfo } from '@/app/business/user/user.query';
+import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 
 async function UserInfoCard() {
   const data = await fetchResultUserInfo();
-  const { studentNumber, studentName, completionDivision, totalCredit, takenCredit, graduated } = data;
+
+  const { studentNumber, studentName, completionDivision: majors, totalCredit, takenCredit, graduated } = data;
+
+  const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
+    return majors.map((major, index) => {
+      const { major: majorName, majorType } = major;
+
+      return <li key={index}>{notation === 'title' ? MAJOR_NOTATION[majorType] : majorName}</li>;
+    });
+  };
 
   return (
     <>
@@ -16,7 +26,7 @@ async function UserInfoCard() {
           <ul className="text-gray-6 flex flex-col gap-1">
             <li>이름</li>
             <li>학번</li>
-            <li>학과</li>
+            {displaySeveralMajor('title')}
             <li>졸업필요학점</li>
             <li>총 이수 학점</li>
             <li>졸업가능여부</li>
@@ -24,7 +34,7 @@ async function UserInfoCard() {
           <ul className="flex flex-col gap-1">
             <li>{studentNumber}</li>
             <li>{studentName}</li>
-            <li>{completionDivision[0].major}</li>
+            {displaySeveralMajor('major')}
             <li>{totalCredit}</li>
             <li>{takenCredit}</li>
             <li>{graduated ? '가능' : '불가능'}</li>

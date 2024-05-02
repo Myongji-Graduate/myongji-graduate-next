@@ -76,7 +76,12 @@ export const resultUserInfo = JSON.parse(`{
         {
             "majorType" : "PRIMARY",
             "major": "디지털콘텐츠디자인학과"
+        },
+        {
+            "majorType" : "DUAL",
+            "major": "경영학과"
         }
+     
     ],
     "totalCredit": 132,
     "takenCredit": 50,
