@@ -1,5 +1,6 @@
 import { SignInRequestBody, SignUpRequestBody, UserInfoResponse } from '@/app/business/user/user.type';
-import { mockDatabaseStore, MockUser } from '../db.mock';
+import { MockUser } from '../data';
+import { mockDatabaseStore } from '../data';
 
 export interface MockUserACtion {
   getUser: (authId: string) => MockUser | undefined;

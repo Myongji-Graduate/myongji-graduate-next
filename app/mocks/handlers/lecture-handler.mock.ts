@@ -1,7 +1,7 @@
 import { HttpResponse, http, delay } from 'msw';
 import { API_PATH } from '../../business/api-path';
 import { mockDatabase } from '../db.mock';
-import { parsePDF } from '../data.mock';
+import { parsePDF } from '../data/data.mock';
 
 export const lectureHandlers = [
   http.get(API_PATH.takenLectures, async () => {

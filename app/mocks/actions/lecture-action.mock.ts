@@ -1,6 +1,6 @@
 import { SearchLectures } from '@/app/business/lecture/search-lecture.query';
 import { TakenLectures } from '@/app/business/lecture/taken-lecture.query';
-import { mockDatabaseStore } from '../db.mock';
+import { mockDatabaseStore } from '../data';
 
 export interface MockLectureAction {
   getTakenLectures: () => TakenLectures;

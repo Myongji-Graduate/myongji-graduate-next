@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SignUpForm from './sign-up-form';
 
 import { userEvent, within, expect, fn, waitFor } from '@storybook/test';
-import { resetMockDB } from '@/app/mocks/db.mock';
+import { resetMockDB } from '@/app/mocks/data';
 
 const meta = {
   title: 'ui/user/SignUpForm',

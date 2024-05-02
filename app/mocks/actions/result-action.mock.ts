@@ -1,5 +1,5 @@
 import { type ResultCategoryDetailInfo } from '../../business/result/result.query';
-import { mockDatabaseStore } from '../db.mock';
+import { mockDatabaseStore } from '../data';
 
 export interface MockResultAction {
   getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;

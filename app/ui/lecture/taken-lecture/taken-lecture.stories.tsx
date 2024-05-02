@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent } from '@storybook/test';
-import { mockDatabase, resetMockDB } from '@/app/mocks/db.mock';
+import { mockDatabase } from '@/app/mocks/db.mock';
+import { resetMockDB } from '@/app/mocks/data';
 import TakenLectureList from './taken-lecture-list';
 import TakenLectureAtomHydrator from '@/app/store/taken-lecture-atom-hydrator';
 import { screen } from '@storybook/testing-library';
