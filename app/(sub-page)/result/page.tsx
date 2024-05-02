@@ -8,6 +8,7 @@ import { fetchCredits } from '@/app/business/result/result.query';
 import { Suspense } from 'react';
 import UserInfoCardSkeleton from '@/app/ui/user/user-info-card/user-info-card.skeleton';
 import ResultCategory from '@/app/ui/result/result-category/result-category';
+import ResultCategorySkeleton from '@/app/ui/result/result-category/result-category.skeleton';
 
 interface ResultPageProp {
   searchParams: { category: string };
@@ -23,7 +24,7 @@ async function ResultPage({ searchParams }: ResultPageProp) {
           <UserInfoCard />
         </Suspense>
       </ContentContainer>
-      <Suspense fallback={<UserInfoCardSkeleton />}>
+      <Suspense fallback={<ResultCategorySkeleton />}>
         <ResultCategory />
       </Suspense>
 
