@@ -5,7 +5,7 @@ import { mockDatabase } from '../db.mock';
 export const resultHandlers = [
   http.get(API_PATH.resultCategoryDetailInfo, async () => {
     const resultCategoryDetailInfo = mockDatabase.getResultCategoryDetailInfo();
-    await delay(4000);
+    await delay(2000);
     return HttpResponse.json(resultCategoryDetailInfo);
   }),
   http.get(API_PATH.credits, async () => {
