@@ -1,10 +1,10 @@
 import { SearchLectures } from '../business/lecture/search-lecture.query';
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
 import { ResultCategoryDetailInfo } from '../business/result/result.query';
-import { SignUpRequestBody, SignInRequestBody, UserInfoResponse } from '../business/user/user.type';
 import { takenLectures, resultCategoryDetailInfo, searchLectures } from './data.mock';
+import { mockUserAction, type MockUserACtion } from './actions/user-action.mock';
 
-interface MockUser {
+export interface MockUser {
   authId: string;
   password: string;
   studentNumber: string;
@@ -27,11 +27,7 @@ type MockDatabaseAction = {
   getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
-  getUser: (authId: string) => MockUser | undefined;
-  createUser: (user: SignUpRequestBody) => boolean;
-  signIn: (userData: SignInRequestBody) => boolean;
-  getUserInfo: (authId: string) => UserInfoResponse;
-};
+} & MockUserACtion;
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
@@ -60,43 +56,7 @@ export const mockDatabase: MockDatabaseAction = {
     return true;
   },
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
-  getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
-  createUser: (user: SignUpRequestBody) => {
-    if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
-      return false;
-    }
-    mockDatabaseStore.users = [
-      ...mockDatabaseStore.users,
-      {
-        ...user,
-        isSumbitted: false,
-        major: '융소입니다',
-        name: '모킹이2',
-      },
-    ];
-    return true;
-  },
-  signIn: (userData: SignInRequestBody) => {
-    const user = mockDatabaseStore.users.find((u) => u.authId === userData.authId && u.password === userData.password);
-    return !!user;
-  },
-  getUserInfo: (authId: string) => {
-    const user = mockDatabaseStore.users.find((u) => u.authId === authId);
-    if (!user) {
-      return {
-        studentNumber: '',
-        studentName: '',
-        major: '',
-        isSumbitted: false,
-      };
-    }
-    return {
-      studentNumber: user.studentNumber,
-      studentName: user.name,
-      major: user.major,
-      isSumbitted: user.isSumbitted,
-    };
-  },
+  ...mockUserAction,
 };
 
 const initialState: MockDatabaseState = {
