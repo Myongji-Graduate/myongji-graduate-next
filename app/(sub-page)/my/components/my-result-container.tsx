@@ -1,4 +1,4 @@
-import UserCreditResult from '@/app/ui/user/total-credit-result';
+import UserCreditResult from '@/app/ui/user/user-credit-result';
 import Button from '@/app/ui/view/atom/button/button';
 import Link from 'next/link';
 import React from 'react';
