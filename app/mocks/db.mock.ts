@@ -3,6 +3,7 @@ import { TakenLectures } from '../business/lecture/taken-lecture.query';
 import { ResultCategoryDetailInfo } from '../business/result/result.query';
 import { takenLectures, resultCategoryDetailInfo, searchLectures } from './data.mock';
 import { mockUserAction, type MockUserACtion } from './actions/user-action.mock';
+import { mockLectureAction, type MockLectureAction } from './actions/lecture-action.mock';
 
 export interface MockUser {
   authId: string;
@@ -22,41 +23,14 @@ interface MockDatabaseState {
 }
 
 type MockDatabaseAction = {
-  getTakenLectures: () => TakenLectures;
-  getSearchLectures: () => SearchLectures;
   getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;
-  addTakenLecture: (lectureId: number) => boolean;
-  deleteTakenLecture: (lectureId: number) => boolean;
-} & MockUserACtion;
+} & MockUserACtion &
+  MockLectureAction;
 
 export const mockDatabase: MockDatabaseAction = {
-  getTakenLectures: () => mockDatabaseStore.takenLectures,
-  getSearchLectures: () => mockDatabaseStore.searchLectures,
-  deleteTakenLecture: (lectureId) => {
-    if (mockDatabaseStore.takenLectures.takenLectures.find((lecture) => lecture.id === lectureId)) {
-      mockDatabaseStore.takenLectures.takenLectures = mockDatabaseStore.takenLectures.takenLectures.filter(
-        (lecture) => lecture.id !== lectureId,
-      );
-      return true;
-    }
-    return false;
-  },
-  addTakenLecture: (lectureId) => {
-    mockDatabaseStore.takenLectures.takenLectures = [
-      ...mockDatabaseStore.takenLectures.takenLectures,
-      {
-        id: lectureId,
-        year: '2023',
-        semester: '2학기',
-        lectureCode: 'HECD140',
-        lectureName: '추가한과목',
-        credit: 3,
-      },
-    ];
-    return true;
-  },
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
   ...mockUserAction,
+  ...mockLectureAction,
 };
 
 const initialState: MockDatabaseState = {
