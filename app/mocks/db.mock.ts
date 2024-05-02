@@ -4,6 +4,7 @@ import { ResultCategoryDetailInfo } from '../business/result/result.query';
 import { takenLectures, resultCategoryDetailInfo, searchLectures } from './data.mock';
 import { mockUserAction, type MockUserACtion } from './actions/user-action.mock';
 import { mockLectureAction, type MockLectureAction } from './actions/lecture-action.mock';
+import { mockResultAction, type MockResultAction } from './actions/result-action.mock';
 
 export interface MockUser {
   authId: string;
@@ -22,15 +23,12 @@ interface MockDatabaseState {
   searchLectures: SearchLectures;
 }
 
-type MockDatabaseAction = {
-  getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;
-} & MockUserACtion &
-  MockLectureAction;
+type MockDatabaseAction = MockUserACtion & MockLectureAction & MockResultAction;
 
 export const mockDatabase: MockDatabaseAction = {
-  getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
   ...mockUserAction,
   ...mockLectureAction,
+  ...mockResultAction,
 };
 
 const initialState: MockDatabaseState = {
