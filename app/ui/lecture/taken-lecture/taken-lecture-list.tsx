@@ -6,6 +6,7 @@ import { useOptimistic } from 'react';
 import { useAtom } from 'jotai';
 import { deleteTakenLecture } from '@/app/business/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
+import Responsive from '../../responsive';
 
 const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
 
@@ -33,8 +34,7 @@ export default function TakenLectureList() {
 
   return (
     <>
-      {/* pc  */}
-      <div className="hidden lg:block">
+      <Responsive minWidth={1024}>
         <Table
           headerInfo={headerInfo}
           data={optimisticLecture}
@@ -42,16 +42,15 @@ export default function TakenLectureList() {
             <DeleteTakenLectureButton lectureId={id} onDelete={handleDeleteTakenLecture} />
           )}
         />
-      </div>
-      {/* mobile */}
-      <div className="block lg:hidden">
+      </Responsive>
+      <Responsive maxWidth={1023}>
         <Table
           headerInfo={headerInfo}
           data={optimisticLecture}
           onSwipeAction={handleDeleteTakenLecture}
           swipeable={true}
         />
-      </div>
+      </Responsive>
     </>
   );
 }

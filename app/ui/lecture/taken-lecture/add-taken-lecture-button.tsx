@@ -1,3 +1,4 @@
+'use client';
 import { LectureInfo } from '@/app/type/lecture';
 import Form from '../../view/molecule/form';
 import { addTakenLecture } from '@/app/business/lecture/taken-lecture.command';
@@ -6,11 +7,11 @@ import { useState } from 'react';
 
 interface AddTakenLectureButtonProps {
   lectureItem: LectureInfo;
-  isTakenLecture: boolean;
+  isTaken: boolean;
 }
-export default function AddTakenLectureButton({ lectureItem, isTakenLecture }: AddTakenLectureButtonProps) {
+export default function AddTakenLectureButton({ lectureItem, isTaken }: AddTakenLectureButtonProps) {
   const { toast } = useToast();
-  const [disabled, setDisabled] = useState(isTakenLecture);
+  const [disabled, setDisabled] = useState(isTaken);
 
   const handleSuccessOfAdditionTakenLecture = () => {
     setDisabled(true);

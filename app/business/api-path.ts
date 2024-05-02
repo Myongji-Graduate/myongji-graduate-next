@@ -1,4 +1,4 @@
-const BASE_URL = process.env.API_MOCKING === 'enable' ? 'http://localhost:9090' : 'https://mock.api.com';
+const BASE_URL = process.env.API_MOCKING === 'enable' ? 'http://localhost:9090' : '';
 
 export const API_PATH = {
   revenue: `${BASE_URL}/revenue`,
@@ -10,4 +10,5 @@ export const API_PATH = {
   resultUserInfo: `${BASE_URL}/resultUserInfo`,
   credits: `${BASE_URL}/credits`,
   auth: `${BASE_URL}/auth`,
+  lectures: `${BASE_URL}/lectures`,
 };

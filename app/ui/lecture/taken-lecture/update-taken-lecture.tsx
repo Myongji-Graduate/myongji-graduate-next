@@ -11,7 +11,7 @@ export default function UpdateTakenLecture({ data, children }: React.PropsWithCh
 
   useEffect(() => {
     setTakenLectures(data);
-  }, [isLectureSearchOpen]);
+  }, [isLectureSearchOpen, data]);
 
   return children;
 }

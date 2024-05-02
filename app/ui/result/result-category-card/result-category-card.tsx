@@ -12,10 +12,12 @@ import {
   ResultCategoryKey,
 } from '@/app/utils/key/result-category.key';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
-import PieChart from '../../view/molecule/pie-chart/pie-chart';
+import Link from 'next/link';
+import { useSetAtom } from 'jotai';
+import { isDialogOpenAtom } from '@/app/store/dialog';
 import Button from '../../view/atom/button/button';
-import { useRouter } from 'next/navigation';
 import { getPercentage } from '@/app/utils/chart.util';
+import PieChart from '../../view/molecule/pie-chart/pie-chart';
 
 interface ResultCategoryCardProps {
   category: ResultCategoryKey;
@@ -42,13 +44,13 @@ const displaySeveralMajor = (category: ResultCategoryKey) => {
 
 function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCategoryCardProps) {
   const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
-  const { replace } = useRouter();
+  const setIsOpenDialog = useSetAtom(isDialogOpenAtom);
 
   const percentage = getPercentage(takenCredit, totalCredit);
 
   const handleClickButton = () => {
     toggle();
-    replace('/result?category=COMMON_CULTURE');
+    setIsOpenDialog(true);
   };
 
   const takeCategoryCredit = (category: ResultCategoryKey, credit: number): number => {
@@ -82,8 +84,16 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
             </span>
           </div>
         </div>
-
-        <Button size="sm" label="과목 확인" onClick={handleClickButton} />
+        <Link
+          href={{
+            pathname: '/result',
+            query: {
+              category: 'COMMON_CULTURE',
+            },
+          }}
+        >
+          <Button size="sm" label="과목 확인" onClick={handleClickButton} />
+        </Link>
       </div>
     </div>
   );
