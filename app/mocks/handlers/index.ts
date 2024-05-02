@@ -1,5 +1,5 @@
 import { resultHandlers } from './result-handler.mock';
-import { takenLectureHandlers } from './taken-lecture-handler.mock';
+import { lectureHandlers } from './lecture-handler.mock';
 import { userHandlers } from './user-handler.mock';
 
-export const handlers = [...userHandlers, ...takenLectureHandlers, ...resultHandlers];
+export const handlers = [...userHandlers, ...lectureHandlers, ...resultHandlers];

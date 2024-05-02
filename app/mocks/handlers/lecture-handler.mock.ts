@@ -3,7 +3,7 @@ import { API_PATH } from '../../business/api-path';
 import { mockDatabase } from '../db.mock';
 import { parsePDF } from '../data.mock';
 
-export const takenLectureHandlers = [
+export const lectureHandlers = [
   http.get(API_PATH.takenLectures, async () => {
     const takenLectures = mockDatabase.getTakenLectures();
     await delay(1000);
