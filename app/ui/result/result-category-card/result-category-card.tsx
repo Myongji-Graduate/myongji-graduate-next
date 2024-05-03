@@ -53,7 +53,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
     setIsOpenDialog(true);
   };
 
-  const takeCategoryCredit = (category: ResultCategoryKey, credit: number): number => {
+  const getCategoryCredit = (category: ResultCategoryKey, credit: number): number => {
     return category === RESULT_CATEGORY.CHAPEL ? credit * 2 : credit;
   };
 
@@ -75,12 +75,12 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
         <div>
           <div className={cn('flex', 'md:gap-2')}>
             <span>기준학점</span>
-            <span className="font-bold">{takeCategoryCredit(category, totalCredit)}</span>
+            <span className="font-bold">{getCategoryCredit(category, totalCredit)}</span>
           </div>
           <div className={cn('flex', 'md:gap-2')}>
             <span>이수학점</span>
             <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-red')}>
-              {takeCategoryCredit(category, takenCredit)}
+              {getCategoryCredit(category, takenCredit)}
             </span>
           </div>
         </div>
