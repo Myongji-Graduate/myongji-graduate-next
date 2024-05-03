@@ -10,7 +10,7 @@ interface ResultPageProp {
   searchParams: { category: string };
 }
 
-async function ResultPage({ searchParams }: ResultPageProp) {
+function ResultPage({ searchParams }: ResultPageProp) {
   const { category } = searchParams;
 
   return (
