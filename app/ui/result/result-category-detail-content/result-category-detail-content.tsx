@@ -17,7 +17,7 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
 
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2 overflow-scroll">
-      <div className="flex justify-between">
+      <div className={cn('flex justify-between mb-6', 'md:mb-10')}>
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
           <div className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>

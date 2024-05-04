@@ -2,6 +2,7 @@ import { Table } from '../../view/molecule/table';
 import AnnounceMessageBox from '@/app/ui/view/molecule/announce-message-box/announce-massage-box';
 import { ResultCategoryDetailLectures } from '@/app/business/result/result.query';
 import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
+import { cn } from '@/app/utils/shadcn/utils';
 
 const headerInfo = ['과목코드', '과목명', '학점'];
 
@@ -16,7 +17,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
   const showCompleted = !isTakenLecture && completed;
 
   return (
-    <div className="my-4 flex flex-col gap-4">
+    <div className={cn('my-4 flex flex-col gap-4 min-h-48', 'md:min-h-60')}>
       <LabelContainer
         label={categoryName}
         rightElement={
