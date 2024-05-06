@@ -25,6 +25,7 @@ const Drawer = ({ children, drawerKey, onClose, className }: DrawerProps) => {
             className,
           )}
         >
+          <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-slate-300" />
           {children}
         </DrawerPrimitive.Content>
       </DrawerPrimitive.Portal>

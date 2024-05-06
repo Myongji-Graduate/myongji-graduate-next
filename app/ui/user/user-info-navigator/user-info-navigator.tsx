@@ -13,7 +13,7 @@ export default async function UserInfoNavigator() {
         <span className="font-semibold">{userInfo.studentName}</span>
         <span>님</span>
       </div>
-      <div className="mb-3 text-sm">{userInfo.major}</div>
+      <div className="mb-3 text-sm">{userInfo.completionDivision[0].major}</div>
       <div className="text-sm text-gray-400">{userInfo.studentNumber}</div>
 
       <div className="mt-9">
