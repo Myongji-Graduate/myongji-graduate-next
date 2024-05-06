@@ -1,6 +1,6 @@
 import { SearchLectures } from '../business/lecture/search-lecture.query';
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { Credit, ResultCategoryDetailInfo, ResultUserInfo } from '../business/result/result.query';
+import { CreditResponse, ResultCategoryDetailResponse, ResultUserInfo } from '../business/result/result.query';
 import { SignUpRequestBody, SignInRequestBody, UserInfoResponse } from '../business/user/user.type';
 import { takenLectures, resultCategoryDetailInfo, resultUserInfo, credits, searchLectures } from './data.mock';
 
@@ -16,9 +16,9 @@ interface MockUser {
 
 interface MockDatabaseState {
   takenLectures: TakenLectures;
-  resultCategoryDetailInfo: ResultCategoryDetailInfo;
+  resultCategoryDetailInfo: ResultCategoryDetailResponse;
   resultUserInfo: ResultUserInfo;
-  credits: Credit[];
+  credits: CreditResponse[];
   users: MockUser[];
   searchLectures: SearchLectures;
 }
@@ -26,13 +26,13 @@ interface MockDatabaseState {
 type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures;
   getSearchLectures: () => SearchLectures;
-  getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;
+  getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
   getUser: (authId: string) => MockUser | undefined;
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
-  getCredits: () => Credit[];
+  getCredits: () => CreditResponse[];
   getUserInfo: (authId: string) => UserInfoResponse;
   getResultUserInfo: () => ResultUserInfo;
 };

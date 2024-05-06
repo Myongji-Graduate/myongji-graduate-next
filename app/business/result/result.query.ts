@@ -13,7 +13,7 @@ export interface ResultCategoryDetailLectures {
   completed: boolean;
 }
 
-export interface ResultCategoryDetailInfo {
+export interface ResultCategoryDetailResponse {
   totalCredit: number;
   takenCredit: number;
   detailCategory: ResultCategoryDetailLectures[];
@@ -34,13 +34,13 @@ export interface ResultUserInfo {
   graduated: boolean;
 }
 
-export interface Credit {
+export interface CreditResponse {
   category: keyof typeof RESULT_CATEGORY;
   totalCredit: number;
   takenCredit: number;
   completed: boolean;
 }
-export const fetchResultCategoryDetailInfo = async (category: string): Promise<ResultCategoryDetailInfo> => {
+export const fetchResultCategoryDetailInfo = async (category: string): Promise<ResultCategoryDetailResponse> => {
   //FIX : category를 querystring으로 호출하는 건은 mock단계에서는 불필요할 것으로 예상, 실제 api 연결시 변경 예정
   try {
     const response = await fetch(API_PATH.resultCategoryDetailInfo, {
@@ -57,7 +57,7 @@ export const fetchResultCategoryDetailInfo = async (category: string): Promise<R
   }
 };
 
-export const fetchCredits = async (): Promise<Credit[]> => {
+export const fetchCredits = async (): Promise<CreditResponse[]> => {
   try {
     const response = await fetch(API_PATH.credits, {
       headers: {
