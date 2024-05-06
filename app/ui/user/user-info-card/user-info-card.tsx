@@ -4,9 +4,14 @@ import { fetchResultUserInfo } from '@/app/business/user/user.query';
 import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 
 async function UserInfoCard() {
-  const data = await fetchResultUserInfo();
-
-  const { studentNumber, studentName, completionDivision: majors, totalCredit, takenCredit, graduated } = data;
+  const {
+    studentNumber,
+    studentName,
+    completionDivision: majors,
+    totalCredit,
+    takenCredit,
+    graduated,
+  } = await fetchResultUserInfo();
 
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
     return majors.map((major, index) => {
