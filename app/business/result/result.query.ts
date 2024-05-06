@@ -34,15 +34,6 @@ export interface ResultUserInfo {
   graduated: boolean;
 }
 
-export interface ResultUserInfo {
-  studentNumber: string;
-  studentName: string;
-  studentCategory: 'NORMAL' | 'CHANGE_MAJOR' | 'DUAL_MAJOR' | 'SUB_MAJOR';
-  major: string;
-  totalCredit: number;
-  takenCredit: number;
-}
-
 export interface Credit {
   category: keyof typeof RESULT_CATEGORY;
   totalCredit: number;
