@@ -92,30 +92,15 @@ export const mockDatabase: MockDatabaseAction = {
       return {
         studentNumber: '',
         studentName: '',
-        completionDivision: [
-          {
-            majorType: '',
-            major: '',
-          },
-        ],
-        totalCredit: 0,
-        takenCredit: 0,
-        graduated: false,
+        major: '',
+        isSumbitted: false,
       };
     }
     return {
       studentNumber: user.studentNumber,
       studentName: user.name,
-      completionDivision: [
-        {
-          majorType: 'primary',
-          major: '디지털컨텐츠디자인학과',
-        },
-      ],
-
-      totalCredit: 132,
-      takenCredit: 50,
-      graduated: false,
+      major: user.major,
+      isSumbitted: user.isSumbitted,
     };
   },
 };

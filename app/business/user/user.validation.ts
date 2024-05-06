@@ -5,15 +5,8 @@ import { z } from 'zod';
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.string(),
-  completionDivision: z.array(
-    z.object({
-      majorType: z.string(),
-      major: z.string(),
-    }),
-  ),
-  totalCredit: z.number(),
-  takenCredit: z.number(),
-  graduated: z.boolean(),
+  major: z.string(),
+  isSumbitted: z.boolean(),
 });
 
 export const ValidateTokenResponseSchema = z.object({

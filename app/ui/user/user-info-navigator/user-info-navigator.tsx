@@ -1,9 +1,9 @@
 import Avatar from '../../view/atom/avatar/avatar';
 import Button from '../../view/atom/button/button';
-import { getUserInfo } from '@/app/business/user/user.query';
+import { fetchResultUserInfo } from '@/app/business/user/user.query';
 
 export default async function UserInfoNavigator() {
-  const userInfo = await getUserInfo();
+  const userInfo = await fetchResultUserInfo();
 
   return (
     <div className="flex flex-col items-center p-4 ">
