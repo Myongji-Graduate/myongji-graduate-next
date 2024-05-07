@@ -1,14 +1,30 @@
-import Link from 'next/link';
-
-export default function Home() {
+import Image from 'next/image';
+import mainBookBackground from '../public/assets/main-book-background.png';
+import mainMyongjiLogo from '../public/assets/main-myongji-logo.png';
+import Responsive from './ui/responsive';
+import NavigationBar from './ui/view/molecule/navigation-bar';
+import Button from './ui/view/atom/button/button';
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Link
-        href="/dashboard"
-        className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-      >
-        <span>dashboard</span>
-      </Link>
-    </main>
+    <div className="bg-primary w-[100vw] h-[100vh] overflow-hidden relative">
+      <NavigationBar />
+
+      <Responsive minWidth={768}>
+        <Image
+          src={mainBookBackground}
+          alt="main-book-background"
+          width={900}
+          height={800}
+          className="absolute right-0"
+        />
+      </Responsive>
+      <Image
+        src={mainMyongjiLogo}
+        alt="main-myongji-logo"
+        width={120}
+        height={120}
+        className="absolute top-24 right-4"
+      />
+    </div>
   );
 }
