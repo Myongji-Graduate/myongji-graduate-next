@@ -1,8 +1,8 @@
 import { SearchLectures } from '../business/lecture/search-lecture.query';
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { ResultCategoryDetailInfo } from '../business/result/result.query';
+import { CreditResponse, ResultCategoryDetailResponse, ResultUserInfo } from '../business/result/result.query';
 import { SignUpRequestBody, SignInRequestBody, UserInfoResponse } from '../business/user/user.type';
-import { takenLectures, resultCategoryDetailInfo, searchLectures } from './data.mock';
+import { takenLectures, resultCategoryDetailInfo, resultUserInfo, credits, searchLectures } from './data.mock';
 
 interface MockUser {
   authId: string;
@@ -16,7 +16,9 @@ interface MockUser {
 
 interface MockDatabaseState {
   takenLectures: TakenLectures;
-  resultCategoryDetailInfo: ResultCategoryDetailInfo;
+  resultCategoryDetailInfo: ResultCategoryDetailResponse;
+  resultUserInfo: ResultUserInfo;
+  credits: CreditResponse[];
   users: MockUser[];
   searchLectures: SearchLectures;
 }
@@ -24,17 +26,20 @@ interface MockDatabaseState {
 type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures;
   getSearchLectures: () => SearchLectures;
-  getResultCategoryDetailInfo: () => ResultCategoryDetailInfo;
+  getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
   getUser: (authId: string) => MockUser | undefined;
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
+  getCredits: () => CreditResponse[];
   getUserInfo: (authId: string) => UserInfoResponse;
+  getResultUserInfo: () => ResultUserInfo;
 };
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
+  getResultUserInfo: () => mockDatabaseStore.resultUserInfo,
   getSearchLectures: () => mockDatabaseStore.searchLectures,
   deleteTakenLecture: (lectureId) => {
     if (mockDatabaseStore.takenLectures.takenLectures.find((lecture) => lecture.id === lectureId)) {
@@ -61,6 +66,7 @@ export const mockDatabase: MockDatabaseAction = {
   },
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
   getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
+  getCredits: () => mockDatabaseStore.credits,
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
       return false;
@@ -117,6 +123,8 @@ export const mockDatabase: MockDatabaseAction = {
 const initialState: MockDatabaseState = {
   takenLectures: takenLectures,
   resultCategoryDetailInfo: resultCategoryDetailInfo,
+  credits: credits,
+  resultUserInfo: resultUserInfo,
   users: [
     {
       authId: 'admin',

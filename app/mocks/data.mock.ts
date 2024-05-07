@@ -69,6 +69,25 @@ export const takenLectures = JSON.parse(`{
   ]
 }`);
 
+export const resultUserInfo = JSON.parse(`{
+    "studentNumber": "60181666",
+    "studentName": "장진욱",
+    "completionDivision" : [
+        {
+            "majorType" : "PRIMARY",
+            "major": "디지털콘텐츠디자인학과"
+        },
+        {
+            "majorType" : "DUAL",
+            "major": "경영학과"
+        }
+     
+    ],
+    "totalCredit": 132,
+    "takenCredit": 50,
+    "graduated" : true
+}`);
+
 export const resultCategoryDetailInfo = JSON.parse(`{
   "totalCredit": 15,
   "takenCredit": 12,
@@ -176,6 +195,80 @@ export const resultCategoryDetailInfo = JSON.parse(`{
   "completed": false
 }`);
 
+export const credits = JSON.parse(`[
+    {
+        "category": "COMMON_CULTURE",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "CORE_CULTURE",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "PRIMARY_MANDATORY_MAJOR",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "PRIMARY_ELECTIVE_MAJOR",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "DUAL_MANDATORY_MAJOR",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "DUAL_ELECTIVE_MAJOR",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "SUB_MAJOR",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "PRIMARY_BASIC_ACADEMICAL_CULTURE",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "DUAL_BASIC_ACADEMICAL_CULTURE",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "NORMAL_CULTURE",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "FREE_ELECTIVE",
+        "totalCredit" : 70,
+        "takenCredit" : 40,
+        "completed": false
+    },
+    {
+        "category": "CHAPEL",
+        "totalCredit" : 4,
+        "takenCredit" : 1,
+        "completed": false
+    }
+]`);
 export const searchLectures = JSON.parse(`{
 	"lectures": [
         {
