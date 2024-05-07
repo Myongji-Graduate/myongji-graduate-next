@@ -16,9 +16,9 @@ const Drawer = ({ children, drawerKey, onClose, className }: DrawerProps) => {
   const { isOpen, close } = useDialog(drawerKey, onClose);
 
   return (
-    <DrawerPrimitive.Root open={isOpen} onClose={close}>
+    <DrawerPrimitive.Root open={isOpen} onClose={close} shouldScaleBackground={true}>
       <DrawerPrimitive.Portal>
-        <DrawerPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60" />
+        <DrawerPrimitive.Overlay onClick={close} className="fixed inset-0 z-50 bg-black/60" />
         <DrawerPrimitive.Content
           className={cn(
             'fixed inset-x-0 bottom-0 z-50 mt-24 flex flex-col rounded-t-[10px] border border-slate-200 bg-white',
