@@ -5,6 +5,7 @@ import graduationCap from '../public/assets/graduation-cap.png';
 import Responsive from './ui/responsive';
 import NavigationBar from './ui/view/molecule/navigation-bar';
 import Button from './ui/view/atom/button/button';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -41,7 +42,9 @@ export default function HomePage() {
           </div>
           <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
         </p>
-        <Button label="검사 시작" variant="dark" size="xl" />
+        <Link href="/grade-upload">
+          <Button label="검사 시작" variant="dark" size="xl" />
+        </Link>
       </div>
     </div>
   );
