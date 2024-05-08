@@ -16,7 +16,7 @@ const Drawer = ({ children, drawerKey, onClose, className }: DrawerProps) => {
   const { isOpen, close } = useDialog(drawerKey, onClose);
 
   return (
-    <DrawerPrimitive.Root open={isOpen} onClose={close} shouldScaleBackground={true}>
+    <DrawerPrimitive.Root open={isOpen} onClose={close}>
       <DrawerPrimitive.Portal>
         <DrawerPrimitive.Overlay
           onClick={close}
