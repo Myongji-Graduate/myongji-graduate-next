@@ -29,7 +29,6 @@ type MockDatabaseAction = {
   getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
-  getUser: (authId: string) => MockUser | undefined;
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
   getCredits: () => CreditResponse[];
@@ -65,7 +64,6 @@ export const mockDatabase: MockDatabaseAction = {
     return true;
   },
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
-  getUser: (authId: string) => mockDatabaseStore.users.find((user) => user.authId === authId),
   getCredits: () => mockDatabaseStore.credits,
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
