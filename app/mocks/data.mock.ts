@@ -195,6 +195,15 @@ export const resultCategoryDetailInfo = JSON.parse(`{
   "completed": false
 }`);
 
+export const users = JSON.parse(`[
+    {
+      "authId": "admin",
+      "password": "admin",
+      "studentNumber": "60000000",
+      "engLv": "ENG12"
+    }
+  ]`);
+
 export const credits = JSON.parse(`[
     {
         "category": "COMMON_CULTURE",
@@ -269,6 +278,7 @@ export const credits = JSON.parse(`[
         "completed": false
     }
 ]`);
+
 export const searchLectures = JSON.parse(`{
 	"lectures": [
         {

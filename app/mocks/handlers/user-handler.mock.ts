@@ -2,7 +2,7 @@ import { HttpResponse, http, delay } from 'msw';
 import { API_PATH } from '../../business/api-path';
 import { mockDatabase } from '../db.mock';
 import {
-  SignUpRequestBody,
+  MockUser as SignUpRequestBody,
   SignInRequestBody,
   SignInResponse,
   ValidateTokenResponse,

@@ -2,18 +2,25 @@ import { z } from 'zod';
 
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
-  studentName: z.string().nullable(),
-  completionDivision: z
-    .array(
-      z.object({
-        majorType: z.enum(['PRIMARY', 'DUAL', 'SUB']),
-        major: z.string(),
-      }),
-    )
-    .nullable(),
-  totalCredit: z.number().nullable(),
-  takenCredit: z.number().nullable(),
-  graduated: z.boolean().nullable(),
+  studentName: z.string(),
+  completionDivision: z.array(
+    z.object({
+      majorType: z.enum(['PRIMARY', 'DUAL', 'SUB']),
+      major: z.string(),
+    }),
+  ),
+  totalCredit: z.number(),
+  takenCredit: z.number(),
+  graduated: z.boolean(),
+});
+
+export const InitUserInfoResponseSchema = z.object({
+  studentNumber: z.string(),
+  studentName: z.null(),
+  completionDivision: z.null(),
+  totalCredit: z.null(),
+  takenCredit: z.null(),
+  graduated: z.null(),
 });
 
 export const ValidateTokenResponseSchema = z.object({

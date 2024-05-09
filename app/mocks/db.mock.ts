@@ -1,8 +1,9 @@
+import { MockUser, UserInfoResponse } from './../business/user/user.type';
 import { SearchLectures } from '../business/lecture/search-lecture.query';
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
 import { CreditResponse, ResultCategoryDetailResponse } from '../business/result/result.type';
-import { SignUpRequestBody, SignInRequestBody, MockUser, User, Init } from '../business/user/user.type';
-import { takenLectures, credits, searchLectures, userInfo, resultCategoryDetailInfo } from './data.mock';
+import { MockUser as SignUpRequestBody, SignInRequestBody } from '../business/user/user.type';
+import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo } from './data.mock';
 
 interface MockDatabaseState {
   takenLectures: TakenLectures;
@@ -10,7 +11,7 @@ interface MockDatabaseState {
   credits: CreditResponse[];
   users: MockUser[];
   searchLectures: SearchLectures;
-  userInfo: User;
+  userInfo: UserInfoResponse;
 }
 
 type MockDatabaseAction = {
@@ -21,7 +22,7 @@ type MockDatabaseAction = {
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
   getCredits: () => CreditResponse[];
-  getUserInfo: (authId: string) => User | Init;
+  getUserInfo: (authId: string) => UserInfoResponse;
   getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
 };
 
@@ -58,12 +59,7 @@ export const mockDatabase: MockDatabaseAction = {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
       return false;
     }
-    mockDatabaseStore.users = [
-      ...mockDatabaseStore.users,
-      {
-        ...user,
-      },
-    ];
+    mockDatabaseStore.users = [...mockDatabaseStore.users, user];
     return true;
   },
   signIn: (userData: SignInRequestBody) => {
@@ -90,14 +86,7 @@ const initialState: MockDatabaseState = {
   takenLectures: takenLectures,
   resultCategoryDetailInfo: resultCategoryDetailInfo,
   credits: credits,
-  users: [
-    {
-      authId: 'admin',
-      password: 'admin',
-      studentNumber: '60000000',
-      engLv: 'ENG12',
-    },
-  ],
+  users: users,
   searchLectures: searchLectures,
   userInfo: userInfo,
 };

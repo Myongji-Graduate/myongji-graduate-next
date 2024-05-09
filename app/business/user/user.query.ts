@@ -3,7 +3,7 @@ import { API_PATH } from '../api-path';
 import { UserInfoResponse } from './user.type';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
-import { UserInfoResponseSchema } from './user.validation';
+import { InitUserInfoResponseSchema, UserInfoResponseSchema } from './user.validation';
 
 export async function getUserInfo(): Promise<UserInfoResponse> {
   try {
@@ -17,7 +17,7 @@ export async function getUserInfo(): Promise<UserInfoResponse> {
 
     httpErrorHandler(response, result);
 
-    if (isValidation(result, UserInfoResponseSchema)) {
+    if (isValidation(result, UserInfoResponseSchema || InitUserInfoResponseSchema)) {
       return result;
     } else {
       throw 'Invalid user info response schema.';
