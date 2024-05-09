@@ -1,7 +1,8 @@
 import { getPercentage } from '@/app/utils/chart.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
-import { fetchResultUserInfo } from '@/app/business/user/user.query';
+import { getUserInfo } from '@/app/business/user/user.query';
 import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
+import { User } from '@/app/business/user/user.type';
 
 async function UserInfoCard() {
   const {
@@ -11,7 +12,7 @@ async function UserInfoCard() {
     totalCredit,
     takenCredit,
     graduated,
-  } = await fetchResultUserInfo();
+  } = (await getUserInfo()) as User;
 
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
     return majors.map((major, index) => {

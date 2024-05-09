@@ -1,45 +1,34 @@
 import { SearchLectures } from '../business/lecture/search-lecture.query';
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { CreditResponse, ResultCategoryDetailResponse, ResultUserInfo } from '../business/result/result.query';
-import { SignUpRequestBody, SignInRequestBody, UserInfoResponse } from '../business/user/user.type';
-import { takenLectures, resultCategoryDetailInfo, resultUserInfo, credits, searchLectures } from './data.mock';
-
-interface MockUser {
-  authId: string;
-  password: string;
-  studentNumber: string;
-  engLv: string;
-  major: string;
-  isSumbitted: boolean;
-  name: string;
-}
+import { CreditResponse, ResultCategoryDetailResponse } from '../business/result/result.query';
+import { SignUpRequestBody, SignInRequestBody, MockUser, User, Init } from '../business/user/user.type';
+import { takenLectures, credits, searchLectures, userInfo, resultCategoryDetailInfo } from './data.mock';
 
 interface MockDatabaseState {
   takenLectures: TakenLectures;
   resultCategoryDetailInfo: ResultCategoryDetailResponse;
-  resultUserInfo: ResultUserInfo;
   credits: CreditResponse[];
   users: MockUser[];
   searchLectures: SearchLectures;
+  userInfo: User;
 }
 
 type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures;
   getSearchLectures: () => SearchLectures;
-  getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
   getCredits: () => CreditResponse[];
-  getUserInfo: (authId: string) => UserInfoResponse;
-  getResultUserInfo: () => ResultUserInfo;
+  getUserInfo: (authId: string) => User | Init;
+  getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
 };
 
 export const mockDatabase: MockDatabaseAction = {
   getTakenLectures: () => mockDatabaseStore.takenLectures,
-  getResultUserInfo: () => mockDatabaseStore.resultUserInfo,
   getSearchLectures: () => mockDatabaseStore.searchLectures,
+  getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
   deleteTakenLecture: (lectureId) => {
     if (mockDatabaseStore.takenLectures.takenLectures.find((lecture) => lecture.id === lectureId)) {
       mockDatabaseStore.takenLectures.takenLectures = mockDatabaseStore.takenLectures.takenLectures.filter(
@@ -63,7 +52,7 @@ export const mockDatabase: MockDatabaseAction = {
     ];
     return true;
   },
-  getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
+
   getCredits: () => mockDatabaseStore.credits,
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
@@ -73,9 +62,6 @@ export const mockDatabase: MockDatabaseAction = {
       ...mockDatabaseStore.users,
       {
         ...user,
-        isSumbitted: false,
-        major: '융소입니다',
-        name: '모킹이2',
       },
     ];
     return true;
@@ -89,17 +75,14 @@ export const mockDatabase: MockDatabaseAction = {
     if (!user) {
       return {
         studentNumber: '',
-        studentName: '',
-        major: '',
-        isSumbitted: false,
+        studentName: null,
+        completionDivision: null,
+        totalCredit: null,
+        takenCredit: null,
+        graduated: null,
       };
     }
-    return {
-      studentNumber: user.studentNumber,
-      studentName: user.name,
-      major: user.major,
-      isSumbitted: user.isSumbitted,
-    };
+    return mockDatabaseStore.userInfo;
   },
 };
 
@@ -107,19 +90,16 @@ const initialState: MockDatabaseState = {
   takenLectures: takenLectures,
   resultCategoryDetailInfo: resultCategoryDetailInfo,
   credits: credits,
-  resultUserInfo: resultUserInfo,
   users: [
     {
       authId: 'admin',
       password: 'admin',
       studentNumber: '60000000',
       engLv: 'ENG12',
-      isSumbitted: false,
-      major: '융소입니다',
-      name: '모킹이',
     },
   ],
   searchLectures: searchLectures,
+  userInfo: userInfo,
 };
 
 function initStore(): MockDatabaseState {

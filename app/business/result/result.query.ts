@@ -25,15 +25,6 @@ export interface Major {
   major: string;
 }
 
-export interface ResultUserInfo {
-  studentNumber: string;
-  studentName: string;
-  completionDivision: Major[];
-  totalCredit: number;
-  takenCredit: number;
-  graduated: boolean;
-}
-
 export interface CreditResponse {
   category: keyof typeof RESULT_CATEGORY;
   totalCredit: number;

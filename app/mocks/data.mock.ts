@@ -69,7 +69,7 @@ export const takenLectures = JSON.parse(`{
   ]
 }`);
 
-export const resultUserInfo = JSON.parse(`{
+export const userInfo = JSON.parse(`{
     "studentNumber": "60181666",
     "studentName": "장진욱",
     "completionDivision" : [

@@ -9,7 +9,6 @@ import {
   UserInfoResponse,
 } from '@/app/business/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
-import { ResultUserInfo } from '@/app/business/result/result.query';
 
 function mockDecryptToken(token: string) {
   if (token === 'fake-access-token') {
@@ -32,12 +31,11 @@ export const userHandlers = [
       accessToken: 'fake-access-token',
     });
   }),
-  http.get<never, never, UserInfoResponse | ErrorResponseData>(`${API_PATH.user}`, async ({ request }) => {
+  http.get<never, never, UserInfoResponse | ErrorResponseData>(API_PATH.user, async ({ request }) => {
     const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
     if (accessToken === 'undefined' || !accessToken) {
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
     }
-
     const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
     await delay(3000);
 
@@ -47,24 +45,9 @@ export const userHandlers = [
 
     return HttpResponse.json(userInfo);
   }),
-  http.get<never, never, ResultUserInfo | ErrorResponseData>(API_PATH.resultUserInfo, async ({ request }) => {
-    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
-    if (accessToken === 'undefined' || !accessToken) {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
 
-    const userInfo = mockDatabase.getResultUserInfo();
-    await delay(2000);
-
-    if (!userInfo) {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
-
-    return HttpResponse.json(userInfo);
-  }),
   http.post<never, SignUpRequestBody, never>(`${API_PATH.user}/sign-up`, async ({ request }) => {
     const userData = await request.json();
-
     const isSuccess = mockDatabase.createUser(userData);
     await delay(500);
 
