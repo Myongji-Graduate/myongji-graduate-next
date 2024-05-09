@@ -1,6 +1,6 @@
 import { SearchLectures } from '../business/lecture/search-lecture.query';
 import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { CreditResponse, ResultCategoryDetailResponse } from '../business/result/result.query';
+import { CreditResponse, ResultCategoryDetailResponse } from '../business/result/result.type';
 import { SignUpRequestBody, SignInRequestBody, MockUser, User, Init } from '../business/user/user.type';
 import { takenLectures, credits, searchLectures, userInfo, resultCategoryDetailInfo } from './data.mock';
 
