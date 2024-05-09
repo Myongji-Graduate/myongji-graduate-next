@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { validateToken } from './app/business/user/user.command';
-import { getUserInfo } from './app/business/user/user.query';
+import { fetchUserInfo } from './app/business/user/user.query';
 
 async function getAuth(request: NextRequest): Promise<{
   role: 'guest' | 'user' | 'init';
@@ -24,8 +24,7 @@ async function getAuth(request: NextRequest): Promise<{
 
   request.cookies.set('accessToken', validatedResult.accessToken);
 
-  // 유저 정보 요청
-  const user = await getUserInfo();
+  const user = await fetchUserInfo();
   return {
     role: user.studentName ? 'user' : 'init',
   };

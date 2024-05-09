@@ -1,6 +1,6 @@
 import { getPercentage } from '@/app/utils/chart.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
-import { getUserInfo } from '@/app/business/user/user.query';
+import { fetchUserInfo } from '@/app/business/user/user.query';
 import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 import { UserInfoResponseSchema } from '@/app/business/user/user.validation';
 import { z } from 'zod';
@@ -13,7 +13,7 @@ async function UserInfoCard() {
     totalCredit,
     takenCredit,
     graduated,
-  } = (await getUserInfo()) as z.infer<typeof UserInfoResponseSchema>;
+  } = (await fetchUserInfo()) as z.infer<typeof UserInfoResponseSchema>;
 
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
     return majors.map((major, index) => {
