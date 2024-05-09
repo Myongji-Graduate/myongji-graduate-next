@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { InitUserInfoResponseSchema, UserInfoResponseSchema } from './user.validation';
 
-export async function getUserInfo(): Promise<UserInfoResponse> {
+export async function fetchUserInfo(): Promise<UserInfoResponse> {
   try {
     const response = await fetch(`${API_PATH.user}`, {
       headers: {
