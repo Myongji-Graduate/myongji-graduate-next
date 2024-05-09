@@ -1,9 +1,11 @@
+import { UserInfoResponseSchema } from '@/app/business/user/user.validation';
 import Avatar from '../../view/atom/avatar/avatar';
 import Button from '../../view/atom/button/button';
 import { fetchUserInfo } from '@/app/business/user/user.query';
+import { z } from 'zod';
 
 export default async function UserInfoNavigator() {
-  const userInfo = await fetchUserInfo();
+  const userInfo = (await fetchUserInfo()) as z.infer<typeof UserInfoResponseSchema>;
 
   return (
     <div className="flex flex-col items-center p-4 ">
@@ -13,7 +15,7 @@ export default async function UserInfoNavigator() {
         <span className="font-semibold">{userInfo.studentName}</span>
         <span>님</span>
       </div>
-      <div className="mb-3 text-sm">{userInfo.completionDivision ? userInfo.completionDivision[0].major : ''}</div>
+      <div className="mb-3 text-sm">{userInfo.completionDivision[0].major}</div>
       <div className="text-sm text-gray-400">{userInfo.studentNumber}</div>
       <div className="mt-9">
         <Button size="sm" variant="secondary" label="로그아웃" />
