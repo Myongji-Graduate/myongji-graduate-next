@@ -1,12 +1,19 @@
 import { z } from 'zod';
 
-// api 변경 예정
-
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
-  studentName: z.string(),
-  major: z.string(),
-  isSumbitted: z.boolean(),
+  studentName: z.string().nullable(),
+  completionDivision: z
+    .array(
+      z.object({
+        majorType: z.enum(['PRIMARY', 'DUAL', 'SUB']),
+        major: z.string(),
+      }),
+    )
+    .nullable(),
+  totalCredit: z.number().nullable(),
+  takenCredit: z.number().nullable(),
+  graduated: z.boolean().nullable(),
 });
 
 export const ValidateTokenResponseSchema = z.object({

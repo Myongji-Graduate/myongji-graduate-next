@@ -27,7 +27,7 @@ async function getAuth(request: NextRequest): Promise<{
   // 유저 정보 요청
   const user = await getUserInfo();
   return {
-    role: user.isSumbitted ? 'user' : 'init',
+    role: user.studentName ? 'user' : 'init',
   };
 }
 
@@ -43,7 +43,6 @@ export async function middleware(request: NextRequest) {
   // 개발용이성을 위해 isAuth=true 일 때만 동작
   if (isAuth === 'true') {
     const auth = await getAuth(request);
-
     if (auth.role === 'init' && !request.nextUrl.pathname.startsWith('/grade-upload')) {
       return Response.redirect(new URL('/grade-upload', request.url));
     }
