@@ -4,6 +4,7 @@ import { UserInfoResponse } from './user.type';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { UserInfoResponseSchema } from './user.validation';
+import { ResultUserInfo } from '../result/result.query';
 
 export async function getUserInfo(): Promise<UserInfoResponse> {
   try {
@@ -22,6 +23,23 @@ export async function getUserInfo(): Promise<UserInfoResponse> {
     } else {
       throw 'Invalid user info response schema.';
     }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchResultUserInfo(): Promise<ResultUserInfo> {
+  try {
+    const response = await fetch(API_PATH.resultUserInfo, {
+      headers: {
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+    });
+
+    const result = await response.json();
+
+    httpErrorHandler(response, result);
+    return result;
   } catch (error) {
     throw error;
   }

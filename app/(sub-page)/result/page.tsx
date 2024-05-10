@@ -1,9 +1,10 @@
-import ResultCategoryCard from '@/app/ui/result/result-category-card/result-category-card';
 import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
 import ContentContainer from '@/app/ui/view/atom/content-container';
-import { cn } from '@/app/utils/shadcn/utils';
-import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
+import { Suspense } from 'react';
+import UserInfoCardSkeleton from '@/app/ui/user/user-info-card/user-info-card.skeleton';
+import ResultCategory from '@/app/ui/result/result-category/result-category';
+import ResultCategorySkeleton from '@/app/ui/result/result-category/result-category.skeleton';
 
 interface ResultPageProp {
   searchParams: { category: string };
@@ -11,34 +12,18 @@ interface ResultPageProp {
 
 function ResultPage({ searchParams }: ResultPageProp) {
   const { category } = searchParams;
-  const DUMMY_DATA = {
-    category: 'COMMON_CULTURE' as keyof typeof RESULT_CATEGORY,
-    totalCredit: 70,
-    takenCredit: 68,
-    completed: false,
-  };
 
   return (
     <div className="flex justify-center items-end">
       <ContentContainer className="md:w-[700px] p-4 py-6 md:p-8">
-        <UserInfoCard />
+        <Suspense fallback={<UserInfoCardSkeleton />}>
+          <UserInfoCard />
+        </Suspense>
       </ContentContainer>
-      <div
-        className={cn(
-          'absolute grid grid-cols-2 gap-2 top-[30rem] w-full',
-          'md:max-w-[700px] md:gap-10 md:top-[33rem]',
-        )}
-      >
-        {Array.from({ length: 8 }).map((_, index) => (
-          <ResultCategoryCard
-            key={index}
-            category={RESULT_CATEGORY[DUMMY_DATA.category]}
-            totalCredit={DUMMY_DATA.totalCredit}
-            takenCredit={DUMMY_DATA.takenCredit}
-          />
-        ))}
-      </div>
-      {category && <ResultCategoryDetail category={category} />}
+      <Suspense fallback={<ResultCategorySkeleton />}>
+        <ResultCategory />
+      </Suspense>
+      <ResultCategoryDetail category={category} />
     </div>
   );
 }
