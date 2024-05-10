@@ -23,6 +23,7 @@ export interface MockUser {
 
 export type SignInResponse = z.infer<typeof SignInResponseSchema>;
 
-export type UserInfoResponse = z.infer<typeof UserInfoResponseSchema | typeof InitUserInfoResponseSchema>;
+export type UserInfoResponse = z.infer<typeof UserInfoResponseSchema>;
+export type InitUserInfoResponse = z.infer<typeof InitUserInfoResponseSchema>;
 
 export type ValidateTokenResponse = z.infer<typeof ValidateTokenResponseSchema>;

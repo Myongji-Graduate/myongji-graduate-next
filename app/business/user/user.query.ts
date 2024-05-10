@@ -1,11 +1,12 @@
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { API_PATH } from '../api-path';
-import { UserInfoResponse } from './user.type';
+
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
-import { InitUserInfoResponseSchema, UserInfoResponseSchema } from './user.validation';
+import { InitUserInfoResponse, UserInfoResponse } from './user.type';
+import { UserInfoResponseSchema, InitUserInfoResponseSchema } from './user.validation';
 
-export async function fetchUserInfo(): Promise<UserInfoResponse> {
+export async function fetchUserInfo(): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
     const response = await fetch(`${API_PATH.user}`, {
       headers: {
