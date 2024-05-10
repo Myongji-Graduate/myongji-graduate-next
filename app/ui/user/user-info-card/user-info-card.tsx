@@ -25,11 +25,11 @@ function UserInfoCard() {
             <li>불가능</li>
           </ul>
         </div>
-        <div className="md:px-10">
+        <div className="mr-[10%]">
           <PieChart percentage={77} />
         </div>
       </div>
-      <p className="text-gray-6 text-xs">
+      <p className="text-gray-6 md:text-xs text-[10px]">
         * 서비스의 결과는 공식적인 효력을 갖지 않습니다. 정확한 졸업사정결과는 소속 단과대 교학팀에서의 확인을
         권장합니다.
       </p>

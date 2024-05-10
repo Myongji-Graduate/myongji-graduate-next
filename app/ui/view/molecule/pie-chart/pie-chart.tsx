@@ -22,7 +22,7 @@ function PieChart({ percentage }: PieChartProp) {
       style={{
         '--percentage': percentage,
         '--startRadius': isDesktop ? '1.5rem' : '1.1rem',
-        '--endRadius': isDesktop ? '0.74rem' : '0.52rem',
+        '--endRadius': isDesktop ? '0.74rem' : '0.50rem',
         '--pieSize': isDesktop ? '9rem' : '6.5rem',
       }}
     >

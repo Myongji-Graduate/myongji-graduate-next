@@ -50,7 +50,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
     <div
       className={cn(
         'flex flex-col gap-6 zIndex-1 rounded-xl shadow-md bg-white p-4 m-auto w-full',
-        'md:p-[1.8rem] max-w-72',
+        'md:p-[1.8rem] max-w-80',
       )}
     >
       <div className="flex justify-between items-center">
