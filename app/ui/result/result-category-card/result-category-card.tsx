@@ -19,6 +19,7 @@ import Button from '../../view/atom/button/button';
 import { getPercentage } from '@/app/utils/chart.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Responsive from '../../responsive';
+import { useMediaQuery } from 'usehooks-ts';
 
 interface ResultCategoryCardProps {
   category: ResultCategoryKey;
@@ -31,13 +32,26 @@ const displaySeveralMajor = (category: ResultCategoryKey) => {
   const { DUAL_MANDATORY_MAJOR, DUAL_ELECTIVE_MAJOR, DUAL_BASIC_ACADEMICAL_CULTURE, SUB_MAJOR } = RESULT_CATEGORY;
   const { DUAL, SUB } = MAJOR_NOTATION;
 
+  function render(majorType: string) {
+    return (
+      <>
+        <Responsive maxWidth={767}>
+          <Button label={majorType} variant="outlined" size="xs" role="none presentation" className="p-1 text-[10px]" />
+        </Responsive>
+        <Responsive minWidth={768}>
+          <Button label={majorType} variant="outlined" size="xs" role="none presentation" />
+        </Responsive>
+      </>
+    );
+  }
+
   switch (category) {
     case DUAL_MANDATORY_MAJOR:
     case DUAL_ELECTIVE_MAJOR:
     case DUAL_BASIC_ACADEMICAL_CULTURE:
-      return <Button label={DUAL} variant="outlined" size="xs" role="none presentation" />;
+      return render(DUAL);
     case SUB_MAJOR:
-      return <Button label={SUB} variant="outlined" size="xs" role="none presentation" />;
+      return render(SUB);
     default:
       return <></>;
   }
@@ -66,7 +80,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
       )}
     >
       <div className="flex justify-between items-center">
-        <div className={cn('flex gap-2 font-bold text-sm', 'md:gap-4 md:text-xl')}>
+        <div className={cn('flex items-center gap-1 font-bold text-sm', 'md:gap-4 md:text-xl')}>
           <Image src={Book} width={24} height={24} alt="category-img" />
           <h3>{RESULT_CATEGORY_KO[category]}</h3>
         </div>
