@@ -21,7 +21,7 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>전공필수</h1>
           <div className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
-            <span>전공필수 과목 중</span>
+            <span className="hidden md:block">전공필수 과목 중</span>
             <div className="w-20 h-10">
               <ResultCategoryDetailLectureToggle
                 checked={isTakenLecture}

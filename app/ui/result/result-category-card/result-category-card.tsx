@@ -12,6 +12,7 @@ import { isDialogOpenAtom } from '@/app/store/dialog';
 import Button from '../../view/atom/button/button';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import { RESULT_CATEGORY, RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
+import Responsive from '../../responsive';
 
 interface ResultCategoryCardProps {
   category: ResultCategoryKey;
@@ -47,10 +48,13 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
   }
   return (
     <div
-      className={cn('flex flex-col gap-6 zIndex-1 rounded-xl shadow-lg bg-white p-[0.4rem]', 'md:w-80 md:p-[1.8rem]')}
+      className={cn(
+        'flex flex-col gap-6 zIndex-1 rounded-xl shadow-md bg-white p-4 m-auto w-full',
+        'md:p-[1.8rem] max-w-72',
+      )}
     >
       <div className="flex justify-between items-center">
-        <div className={cn('flex gap-4 font-bold text-sm', 'md:text-xl')}>
+        <div className={cn('flex gap-2 font-bold text-sm', 'md:gap-4 md:text-xl')}>
           <Image src={Book} width={24} height={24} alt="category-img" />
           <h3>{RESULT_CATEGORY_KO[category]}</h3>
         </div>
@@ -59,13 +63,13 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
       <div className="m-auto">
         <PieChart percentage={percentage} />
       </div>
-      <div className={cn('flex text-xs font-medium justify-between items-end', 'md:gap-4 md:text-base md:px-2')}>
+      <div className={cn('w-full flex text-xs font-medium justify-between items-end', 'md:gap-4 md:text-base')}>
         <div>
-          <div className={cn('flex', 'md:gap-2')}>
+          <div className="flex gap-2">
             <span>기준학점</span>
             <span className="font-bold">{totalCredit}</span>
           </div>
-          <div className={cn('flex', 'md:gap-2')}>
+          <div className="flex gap-2">
             <span>이수학점</span>
             <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-red')}>
               {takenCredit}
@@ -80,7 +84,12 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
             },
           }}
         >
-          <Button size="sm" label="과목 확인" onClick={handleClickButton} />
+          <Responsive maxWidth={767}>
+            <Button size="sm" label="과목 확인" onClick={handleClickButton} className="text-[10px] p-1 px-4" />
+          </Responsive>
+          <Responsive minWidth={768}>
+            <Button size="sm" label="과목 확인" onClick={handleClickButton} />
+          </Responsive>
         </Link>
       </div>
     </div>
