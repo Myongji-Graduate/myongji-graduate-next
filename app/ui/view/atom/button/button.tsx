@@ -3,11 +3,11 @@ import { cva } from 'class-variance-authority';
 import React from 'react';
 import LoadingSpinner from '../loading-spinner';
 
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'default' | 'xl';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
-  variant?: 'primary' | 'secondary' | 'text' | 'list' | 'outlined';
+  variant?: 'primary' | 'secondary' | 'text' | 'list' | 'outlined' | 'dark';
   size?: ButtonSize;
   loading?: boolean;
   disabled?: boolean;
@@ -18,6 +18,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
     variant: {
       primary: 'bg-primary rounded-[100px] text-white border-0 hover:bg-primary-hover',
       outlined: 'rounded-[100px] text-primary border-solid border-[1px] border-primary',
+      dark: 'bg-dark rounded-[100px] text-white border-0 hover:bg-dark-hover',
       secondary: 'bg-white rounded-[100px] border-solid border-[1px] border-gray-6 hover:bg-white-hover',
       text: 'font-medium text-slate-400 text-sm hover:text-slate-600',
       list: 'py-1 px-3 bg-blue-500 rounded-[7px] text-white leading-5 font-medium text-base hover:bg-blue-500',
@@ -28,6 +29,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
       sm: 'px-10 py-2.5 text-xs font-medium leading-3',
       md: 'px-20 py-4 text-base font-medium leading-3',
       lg: 'px-28 py-4 text-2xl font-medium leading-9',
+      xl: 'px-36 py-5 text-3xl font-medium leading-9',
     },
   },
 });
@@ -40,6 +42,7 @@ export const LoadingIconVariants = cva('animate-spin shrink-0', {
       sm: 'h-5 w-5 mr-1.5 -ml-1',
       md: 'h-6 w-6 mr-1.5 -ml-1',
       lg: 'h-12 w-12 mr-1.5 -ml-1',
+      xl: 'h-12 w-12 mr-1.5 -ml-1',
     },
   },
 });
