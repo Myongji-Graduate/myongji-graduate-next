@@ -22,14 +22,12 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
           rel="stylesheet"
         />
+        <link href="https://webfontworld.github.io/vitro/VitroCore.css" rel="stylesheet" />
       </head>
       <body>
         <div className="bg-white">
           <Provider>
-            <MSWComponent>
-              <NavigationBar />
-              {children}
-            </MSWComponent>
+            <MSWComponent>{children}</MSWComponent>
           </Provider>
         </div>
         <Toaster />

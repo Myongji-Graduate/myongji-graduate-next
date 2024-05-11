@@ -46,7 +46,7 @@ type Story = StoryObj<typeof meta>;
 
 export const AddSenario: Story = {
   play: async ({ step }) => {
-    await step('사용자가 추가를 클릭하면 lecture search drawer 창이 띄워진다', async () => {
+    await step('사용자가 과목 추가를 클릭하면 lecture search drawer 창이 띄워진다', async () => {
       const toggleLectureSearch = await screen.findByTestId('toggle-lecture-search');
       await userEvent.click(toggleLectureSearch);
 
@@ -67,14 +67,20 @@ export const AddSenario: Story = {
       await delay(3000);
       expect(addButton[0]).toBeDisabled();
     });
+    await step('drawer 외부 overlay를 클릭하면 drawer가 닫힌다', async () => {
+      const drawerOverlay = await screen.findByTestId('drawer-overlay');
+      await userEvent.click(drawerOverlay);
+      const toggleLectureSearch = await screen.findByTestId('toggle-lecture-search');
+      expect(toggleLectureSearch).toBeInTheDocument();
+    });
   },
 };
+
 export const SearchSenario: Story = {
   play: async ({ step }) => {
-    await step('사용자가 추가를 클릭하면 lecture search drawer 창이 띄워진다', async () => {
+    await step('사용자가 과목 추가를 클릭하면 lecture search drawer 창이 띄워진다', async () => {
       const toggleLectureSearch = await screen.findByTestId('toggle-lecture-search');
       await userEvent.click(toggleLectureSearch);
-
       const lectureSearch = await screen.findByTestId('lecture-search');
       expect(lectureSearch).toBeInTheDocument();
     });
