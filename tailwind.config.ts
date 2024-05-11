@@ -46,8 +46,8 @@ const config: Config = {
         'white-hover': '#f3f4f6',
       },
       zIndex: {
-        1: '100', // upper layout
-        2: '200', // upper content
+        1: '100', // upper layout, navigation bar, main page content
+        2: '200', // upper content , main page graduation cap
         3: '300', // upper all
       },
       gridTemplateColumns: {
