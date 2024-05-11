@@ -32,7 +32,6 @@ export const takenLectureHandlers = [
   }),
   http.post(API_PATH.parsePDFtoText, async () => {
     await delay(1000);
-    console.log(parsePDF);
     return HttpResponse.json(parsePDF);
   }),
 

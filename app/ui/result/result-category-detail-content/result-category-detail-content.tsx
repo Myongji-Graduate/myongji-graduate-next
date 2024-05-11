@@ -4,7 +4,7 @@ import { cn } from '@/app/utils/shadcn/utils';
 import { useState } from 'react';
 import { ResultCategoryDetailLectureToggle } from '../result-category-detail-lecture/result-category-detail-lecture-toggle';
 import ResultCagegoryDetailLecture from '../result-category-detail-lecture/result-cagegory-detail-lecture';
-import { ResultCategoryDetailResponse } from '@/app/business/result/result.query';
+import { ResultCategoryDetailResponse } from '@/app/business/result/result.type';
 
 interface ResultCategoryDetailContentProps {
   info: ResultCategoryDetailResponse;
