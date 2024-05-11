@@ -2,11 +2,12 @@ import { HttpResponse, http, delay } from 'msw';
 import { API_PATH } from '../../business/api-path';
 import { mockDatabase } from '../db.mock';
 import {
-  MockUser as SignUpRequestBody,
+  SignUpRequestBody,
   SignInRequestBody,
   SignInResponse,
   ValidateTokenResponse,
   UserInfoResponse,
+  InitUserInfoResponse,
 } from '@/app/business/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
 
@@ -31,20 +32,23 @@ export const userHandlers = [
       accessToken: 'fake-access-token',
     });
   }),
-  http.get<never, never, UserInfoResponse | ErrorResponseData>(API_PATH.user, async ({ request }) => {
-    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
-    if (accessToken === 'undefined' || !accessToken) {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
-    const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
-    await delay(3000);
+  http.get<never, never, UserInfoResponse | InitUserInfoResponse | ErrorResponseData>(
+    API_PATH.user,
+    async ({ request }) => {
+      const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
+      if (accessToken === 'undefined' || !accessToken) {
+        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      }
+      const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
+      await delay(3000);
 
-    if (!userInfo) {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
+      if (!userInfo) {
+        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      }
 
-    return HttpResponse.json(userInfo);
-  }),
+      return HttpResponse.json(userInfo);
+    },
+  ),
 
   http.post<never, SignUpRequestBody, never>(`${API_PATH.user}/sign-up`, async ({ request }) => {
     const userData = await request.json();

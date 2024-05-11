@@ -14,7 +14,7 @@ export interface SignInRequestBody {
   password: string;
 }
 
-export interface MockUser {
+export interface SignUpRequestBody {
   authId: string;
   password: string;
   studentNumber: string;

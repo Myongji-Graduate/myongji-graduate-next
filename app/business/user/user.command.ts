@@ -2,7 +2,7 @@
 
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../api-path';
-import { MockUser as SignUpRequestBody, SignInRequestBody, ValidateTokenResponse } from './user.type';
+import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
 import {
