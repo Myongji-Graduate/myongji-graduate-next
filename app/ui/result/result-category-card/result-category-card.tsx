@@ -32,7 +32,7 @@ const displaySeveralMajor = (category: ResultCategoryKey) => {
   const { DUAL_MANDATORY_MAJOR, DUAL_ELECTIVE_MAJOR, DUAL_BASIC_ACADEMICAL_CULTURE, SUB_MAJOR } = RESULT_CATEGORY;
   const { DUAL, SUB } = MAJOR_NOTATION;
 
-  function render(majorType: string) {
+  function severalButtonRender(majorType: string) {
     return (
       <>
         <Responsive maxWidth={767}>
@@ -49,9 +49,9 @@ const displaySeveralMajor = (category: ResultCategoryKey) => {
     case DUAL_MANDATORY_MAJOR:
     case DUAL_ELECTIVE_MAJOR:
     case DUAL_BASIC_ACADEMICAL_CULTURE:
-      return render(DUAL);
+      return severalButtonRender(DUAL);
     case SUB_MAJOR:
-      return render(SUB);
+      return severalButtonRender(SUB);
     default:
       return <></>;
   }
