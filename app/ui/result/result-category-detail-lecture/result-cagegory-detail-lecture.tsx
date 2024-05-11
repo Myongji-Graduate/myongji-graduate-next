@@ -1,8 +1,8 @@
 import { Table } from '../../view/molecule/table';
 import AnnounceMessageBox from '@/app/ui/view/molecule/announce-message-box/announce-massage-box';
-import { ResultCategoryDetailLectures } from '@/app/business/result/result.query';
 import LabelContainer from '@/app/ui/view/atom/label-container/label-container';
 import { cn } from '@/app/utils/shadcn/utils';
+import { ResultCategoryDetailLectures } from '@/app/business/result/result.type';
 
 const headerInfo = ['과목코드', '과목명', '학점'];
 

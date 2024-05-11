@@ -2,7 +2,7 @@ import { HttpResponse, http, delay } from 'msw';
 import { API_PATH } from '../../business/api-path';
 import { mockDatabase } from '../db.mock';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
-import { CreditResponse, ResultCategoryDetailResponse } from '@/app/business/result/result.query';
+import { CreditResponse, ResultCategoryDetailResponse } from '@/app/business/result/result.type';
 
 export const resultHandlers = [
   http.get<never, never, ResultCategoryDetailResponse | ErrorResponseData>(
