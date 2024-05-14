@@ -6,7 +6,7 @@ import React, { Suspense } from 'react';
 
 export default function MyResultContainer() {
   return (
-    <div className="flex flex-col  justify-center gap-10">
+    <div className="flex flex-col  justify-center gap-10 px-2 lg:px-0">
       <p className="font-bold sm:text-3xl text-2xl ml-1 sm:ml-0">마이페이지</p>
       <Suspense fallback={<UserCreditResultSkeleton />}>
         <UserCreditResult />
