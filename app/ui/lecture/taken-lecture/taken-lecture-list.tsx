@@ -7,8 +7,7 @@ import { useAtom } from 'jotai';
 import { deleteTakenLecture } from '@/app/business/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
 import Responsive from '../../responsive';
-
-const headerInfo = ['수강년도', '수강학기', '과목코드', '과목명', '학점'];
+import { TAKEN_LECTURE_TABLE_HEADER_INFO } from './taken-lecture-constant';
 
 export default function TakenLectureList() {
   const [takenLectures, setTakenLectures] = useAtom(takenLectureAtom);
@@ -36,7 +35,7 @@ export default function TakenLectureList() {
     <>
       <Responsive minWidth={1024}>
         <Table
-          headerInfo={headerInfo}
+          headerInfo={TAKEN_LECTURE_TABLE_HEADER_INFO}
           data={optimisticLecture}
           renderActionButton={(id: number) => (
             <DeleteTakenLectureButton lectureId={id} onDelete={handleDeleteTakenLecture} />
@@ -45,7 +44,7 @@ export default function TakenLectureList() {
       </Responsive>
       <Responsive maxWidth={1023}>
         <Table
-          headerInfo={headerInfo}
+          headerInfo={TAKEN_LECTURE_TABLE_HEADER_INFO}
           data={optimisticLecture}
           onSwipeAction={handleDeleteTakenLecture}
           swipeable={true}
