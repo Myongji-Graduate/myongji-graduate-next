@@ -1,4 +1,4 @@
-import Skeleton from '../../view/atom/skeleton';
+import Skeleton from '../../../utils/skeleton';
 import { TableHeader } from '../../view/molecule/table/table-header';
 import { TAKEN_LECTURE_TABLE_HEADER_INFO } from './taken-lecture-constant';
 import TakenLectureLabel from './taken-lecture-label';
