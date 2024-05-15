@@ -10,8 +10,14 @@ interface AnnounceMessageBoxProp {
 
 function AnnounceMessageBox({ message }: AnnounceMessageBoxProp) {
   return (
-    <div className="relative flex justify-center items-center p-2 bg-yellow-5 min-h-fit">
-      <Image src={CompletedImage} width={1200} height={270} alt="category-fullfill-image" className="min-h-20" />
+    <div className="relative flex justify-center items-center p-2 bg-yellow-5">
+      <Image
+        src={CompletedImage}
+        width={1200}
+        height={270}
+        alt="category-fullfill-image"
+        className={cn('min-h-20 max-h-40', 'md:min-h-32')}
+      />
       <div className="absolute">
         <Image
           className={cn('m-auto w-[30px]', 'md:w-[50px]')}

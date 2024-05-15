@@ -15,7 +15,7 @@ function ResultPage({ searchParams }: ResultPageProp) {
 
   return (
     <div className="flex justify-center items-end">
-      <ContentContainer className="md:w-[700px] p-8">
+      <ContentContainer className="md:w-[700px] p-4 py-6 md:p-8">
         <Suspense fallback={<UserInfoCardSkeleton />}>
           <UserInfoCard />
         </Suspense>

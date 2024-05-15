@@ -48,14 +48,14 @@ export const LoadingIconVariants = cva('animate-spin shrink-0', {
 });
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { label, variant = 'primary', size = 'default', loading, disabled, ...props },
+  { className, label, variant = 'primary', size = 'default', loading, disabled, ...props },
   ref,
 ) {
   const isDisabled = loading || disabled;
 
   return (
     <button
-      className={cn(isDisabled && 'opacity-50 cursor-not-allowed', ButtonVariants({ variant, size }))}
+      className={cn(isDisabled && 'opacity-50 cursor-not-allowed', ButtonVariants({ variant, size }), className)}
       disabled={disabled}
       {...props}
       ref={ref}
