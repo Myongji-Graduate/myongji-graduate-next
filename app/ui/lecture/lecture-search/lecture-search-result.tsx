@@ -3,10 +3,10 @@ import { useAtomValue } from 'jotai';
 import { searchWordAtom } from '@/app/store/search-word';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query';
-import AddTakenLectureButton from '../../taken-lecture/add-taken-lecture-button';
 import List from '@/app/ui/view/molecule/list';
 import Grid from '@/app/ui/view/molecule/grid';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
+import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
 
 export default function LectureSearchResult() {
   const searchWord = useAtomValue(searchWordAtom);
