@@ -6,7 +6,6 @@ import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import { Suspense } from 'react';
-import FloatingComponentContainer from './floating-component-container';
 import MyResultContainer from './components/my-result-container';
 import UserDeleteModal from '@/app/ui/user/user-info-navigator/user-delete-modal';
 
