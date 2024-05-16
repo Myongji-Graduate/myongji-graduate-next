@@ -11,7 +11,7 @@ async function UserInfoCard() {
   }
 
   function renderUserInfo(data: UserInfoResponse | InitUserInfoResponse) {
-    isInitUser(data) ? <InitUserAnnounce /> : <UserInfoContent data={data} />;
+    return isInitUser(data) ? <InitUserAnnounce /> : <UserInfoContent data={data} />;
   }
 
   return <>{renderUserInfo(data)}</>;
