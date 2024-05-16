@@ -10,6 +10,7 @@ import MyResultContainer from './components/my-result-container';
 import UserDeleteModal from '@/app/ui/user/user-info-navigator/user-delete-modal';
 import SignOutButton from '@/app/ui/user/user-info-navigator/sign-out-button';
 import UserDeleteButton from '@/app/ui/user/user-info-navigator/user-delete-button';
+import SignButtonGroup from '@/app/ui/user/user-info-navigator/sign-button-group';
 
 export default function MyPage() {
   return (
@@ -18,9 +19,8 @@ export default function MyPage() {
         <div className="hidden lg:w-[30%] lg:block">
           <Suspense fallback={<UserInfoNavigatorSkeleton />}>
             <UserInfoNavigator />
-            <div className="flex flex-col items-center mt-9 space-y-2">
-              <SignOutButton />
-              <UserDeleteButton />
+            <div className="mt-9">
+              <SignButtonGroup />
             </div>
           </Suspense>
         </div>
