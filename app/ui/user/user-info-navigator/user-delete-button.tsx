@@ -4,7 +4,7 @@ import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import useDialog from '@/app/hooks/useDialog';
 
 export default function UserDeleteButton() {
-  const { toggle } = useDialog(DIALOG_KEY.USER_DEELETE);
+  const { toggle } = useDialog(DIALOG_KEY.USER_DELETE);
 
   const handleModalToggle = () => {
     toggle();

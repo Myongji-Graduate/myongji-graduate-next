@@ -6,7 +6,7 @@ import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 
 export default function UserDeleteModal() {
   return (
-    <Modal modalKey={DIALOG_KEY.USER_DEELETE}>
+    <Modal modalKey={DIALOG_KEY.USER_DELETE}>
       <div className="max-w-sm mx-auto my-12 p-6 border rounded-lg shadow-md bg-white">
         <h2 className="text-xl font-bold text-center">회원 탈퇴</h2>
         <div className="h-1 w-10 bg-blue-600 mx-auto my-3" />
