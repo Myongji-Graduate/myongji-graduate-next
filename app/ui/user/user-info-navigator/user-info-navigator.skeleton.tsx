@@ -1,4 +1,4 @@
-import Skeleton from '../../view/atom/skeleton';
+import Skeleton from '../../../utils/skeleton';
 
 export default function UserInfoNavigatorSkeleton() {
   return (

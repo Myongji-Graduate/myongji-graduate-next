@@ -4,7 +4,7 @@ import { cn } from '@/app/utils/shadcn/utils';
 import Book from '@/public/assets/book.svg';
 import Image from 'next/image';
 import * as React from 'react';
-import Skeleton from '../../view/atom/skeleton';
+import Skeleton from '../../../utils/skeleton';
 
 function ResultCategoryCardSkeleton() {
   return (
