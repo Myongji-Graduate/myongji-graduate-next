@@ -8,6 +8,7 @@ import {
   ValidateTokenResponse,
   UserInfoResponse,
   UserDeleteRequestBody,
+  InitUserInfoResponse,
 } from '@/app/business/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
 import { StrictRequest } from 'msw';
@@ -64,10 +65,14 @@ export const userHandlers = [
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
     }
   }),
-  http.get<never, never, UserInfoResponse | ErrorResponseData>(`${API_PATH.user}`, async ({ request }) => {
-    try {
-      const { authId } = devModeAuthGuard(request);
-      const userInfo = mockDatabase.getUserInfo(authId);
+  http.get<never, never, UserInfoResponse | InitUserInfoResponse | ErrorResponseData>(
+    API_PATH.user,
+    async ({ request }) => {
+      const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
+      if (accessToken === 'undefined' || !accessToken) {
+        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      }
+      const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
       await delay(3000);
 
       if (!userInfo) {
@@ -75,13 +80,11 @@ export const userHandlers = [
       }
 
       return HttpResponse.json(userInfo);
-    } catch {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
-  }),
+    },
+  ),
+
   http.post<never, SignUpRequestBody, never>(`${API_PATH.user}/sign-up`, async ({ request }) => {
     const userData = await request.json();
-
     const isSuccess = mockDatabase.createUser(userData);
     await delay(500);
 

@@ -6,6 +6,11 @@ const nextConfig = {
       allowedOrigins: ['localhost:3000', 'ideal-waddle-5xwrj5ppjvxhvq7x-3000.app.github.dev'],
     },
   },
+  // logging: {
+  //   fetches: {
+  //     fullUrl: true,
+  //   },
+  // },
 };
 
 export default nextConfig;

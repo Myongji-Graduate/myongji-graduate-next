@@ -1,25 +1,31 @@
-import ResultCategoryCard from '@/app/ui/result/result-category/result-category-card';
 import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
 import ContentContainer from '@/app/ui/view/atom/content-container';
-import { cn } from '@/app/utils/shadcn/utils';
+import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
+import { Suspense } from 'react';
+import UserInfoCardSkeleton from '@/app/ui/user/user-info-card/user-info-card.skeleton';
+import ResultCategory from '@/app/ui/result/result-category/result-category';
+import ResultCategorySkeleton from '@/app/ui/result/result-category/result-category.skeleton';
 
-function ResultPage() {
+interface ResultPageProp {
+  searchParams: { category: string };
+}
+
+function ResultPage({ searchParams }: ResultPageProp) {
+  const { category } = searchParams;
+
   return (
     <div className="flex justify-center items-end">
-      <ContentContainer className="md:w-[700px] p-8">
-        <UserInfoCard />
+      <ContentContainer className="md:w-[700px] p-4 py-6 md:p-8">
+        <Suspense fallback={<UserInfoCardSkeleton />}>
+          <UserInfoCard />
+        </Suspense>
       </ContentContainer>
-      <div
-        className={cn(
-          'absolute grid grid-cols-2 gap-2 top-[30rem] w-full',
-          'md:max-w-[700px] md:gap-10 md:top-[33rem]',
-        )}
-      >
-        {Array.from({ length: 8 }).map((_, index) => (
-          <ResultCategoryCard key={index} />
-        ))}
-      </div>
+      <Suspense fallback={<ResultCategorySkeleton />}>
+        <ResultCategory />
+      </Suspense>
+      <ResultCategoryDetail category={category} />
     </div>
   );
 }
+
 export default ResultPage;

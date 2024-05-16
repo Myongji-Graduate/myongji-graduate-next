@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { validateToken } from './app/business/user/user.command';
-import { getUserInfo } from './app/business/user/user.query';
+import { fetchUserInfo } from './app/business/user/user.query';
 
 async function getAuth(request: NextRequest): Promise<{
   role: 'guest' | 'user' | 'init';
@@ -24,10 +24,9 @@ async function getAuth(request: NextRequest): Promise<{
 
   request.cookies.set('accessToken', validatedResult.accessToken);
 
-  // 유저 정보 요청
-  const user = await getUserInfo();
+  const user = await fetchUserInfo();
   return {
-    role: user.isSumbitted ? 'user' : 'init',
+    role: user.studentName ? 'user' : 'init',
   };
 }
 
@@ -45,7 +44,6 @@ export async function middleware(request: NextRequest) {
   // 개발용이성을 위해 isAuth=true 일 때만 동작
   if (isAuth === 'true') {
     const auth = await getAuth(request);
-
     if (auth.role === 'init' && !request.nextUrl.pathname.startsWith('/grade-upload')) {
       return Response.redirect(new URL('/grade-upload', request.url));
     }

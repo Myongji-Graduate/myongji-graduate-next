@@ -1,12 +1,12 @@
+import { UserInfoResponseSchema } from '@/app/business/user/user.validation';
 import Avatar from '../../view/atom/avatar/avatar';
-import Button from '../../view/atom/button/button';
-import { getUserInfo } from '@/app/business/user/user.query';
-import Skeleton from '../../view/atom/skeleton';
 import SignOutButton from './sign-out-button';
 import UserDeleteButton from './user-delete-button';
+import { fetchUserInfo } from '@/app/business/user/user.query';
+import { z } from 'zod';
 
 export default async function UserInfoNavigator() {
-  const userInfo = await getUserInfo();
+  const userInfo = (await fetchUserInfo()) as z.infer<typeof UserInfoResponseSchema>;
 
   return (
     <div className="flex flex-col items-center p-4 ">
@@ -16,27 +16,13 @@ export default async function UserInfoNavigator() {
         <span className="font-semibold">{userInfo.studentName}</span>
         <span>님</span>
       </div>
-      <div className="mb-3 text-sm">{userInfo.major}</div>
+      <div className="mb-3 text-sm">{userInfo.completionDivision[0].major}</div>
       <div className="text-sm text-gray-400">{userInfo.studentNumber}</div>
-
       <div className="mt-9">
         <SignOutButton />
       </div>
       <div className="mt-2">
         <UserDeleteButton />
-      </div>
-    </div>
-  );
-}
-
-export function UserInfoNavigatorSkeleton() {
-  return (
-    <div className="flex flex-col items-center p-4  space-y-3">
-      <Skeleton className="h-24 w-24 rounded-full" />
-      <div className="space-y-6">
-        <Skeleton className="h-4 w-24" />
-        <Skeleton className="h-4 w-32" />
-        <Skeleton className="h-4 w-32" />
       </div>
     </div>
   );

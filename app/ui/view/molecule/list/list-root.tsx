@@ -7,7 +7,7 @@ export interface ListRow {
 }
 interface ListRootProps<T extends ListRow> {
   data: T[];
-  render: (item: T, index: number) => ReactNode;
+  render?: (item: T, index: number) => ReactNode;
   isScrollList?: boolean;
   emptyDataRender?: () => ReactNode;
 }
@@ -15,8 +15,14 @@ interface ListRootProps<T extends ListRow> {
 export function ListRoot<T extends ListRow>({ data, render, isScrollList = false, emptyDataRender }: ListRootProps<T>) {
   const hasNotData = emptyDataRender && data.length === 0;
   return (
-    <div className={cn('rounded-xl border-[1px] border-gray-300 w-full ', isScrollList && 'h-72 overflow-auto')}>
-      {data.map((item, index) => render(item, index))}
+    <div
+      className={cn(
+        'rounded-xl border-[1px] border-gray-300 w-full ',
+        isScrollList && 'h-72 overflow-auto',
+        hasNotData && 'flex justify-center items-center',
+      )}
+    >
+      {data.map((item, index) => render && render(item, index))}
       {hasNotData ? emptyDataRender() : null}
     </div>
   );

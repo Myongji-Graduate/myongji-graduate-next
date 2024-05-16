@@ -1,6 +1,6 @@
 'use client';
 import Button from '../../view/atom/button/button';
-import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import useDialog from '@/app/hooks/useDialog';
 
 export default function UserDeleteButton() {

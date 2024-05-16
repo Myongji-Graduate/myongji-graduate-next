@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import NavigationBar from './ui/view/molecule/navigation-bar';
 import { Toaster } from './ui/view/molecule/toast/toaster';
+import Provider from './provider';
+import MSWComponent from './mocks/msw-component.mock';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,11 +22,13 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
           rel="stylesheet"
         />
+        <link href="https://webfontworld.github.io/vitro/VitroCore.css" rel="stylesheet" />
       </head>
       <body>
-        <div className="bg-white w-[100vw] h-[100vh]">
-          <NavigationBar />
-          {children}
+        <div className="bg-white">
+          <Provider>
+            <MSWComponent>{children}</MSWComponent>
+          </Provider>
         </div>
         <Toaster />
       </body>

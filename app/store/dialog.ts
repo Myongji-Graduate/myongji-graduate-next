@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { DIALOG_KEY } from '../utils/key/dialog.key';
+import { DIALOG_KEY } from '../utils/key/dialog-key.util';
 
 const initialState = {
   [DIALOG_KEY.RESULT_CATEGORY]: false,
@@ -9,6 +9,8 @@ const initialState = {
 };
 
 const dialogAtom = atom(initialState);
+
+export const isDialogOpenAtom = atom(false);
 
 export const updateDialogAtom = atom(
   (get) => get(dialogAtom),

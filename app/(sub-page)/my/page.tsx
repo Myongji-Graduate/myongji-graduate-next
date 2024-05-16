@@ -1,11 +1,13 @@
 import LectureSearch from '@/app/ui/lecture/lecture-search';
 import TakenLecture from '@/app/ui/lecture/taken-lecture';
-import UserInfoNavigator, { UserInfoNavigatorSkeleton } from '@/app/ui/user/user-info-navigator/user-info-navigator';
+import UserInfoNavigator from '@/app/ui/user/user-info-navigator/user-info-navigator';
+import UserInfoNavigatorSkeleton from '@/app/ui/user/user-info-navigator/user-info-navigator.skeleton';
 import ContentContainer from '@/app/ui/view/atom/content-container';
 import Drawer from '@/app/ui/view/molecule/drawer/drawer';
-import { DIALOG_KEY } from '@/app/utils/key/dialog.key';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import { Suspense } from 'react';
 import FloatingComponentContainer from './floating-component-container';
+import MyResultContainer from './components/my-result-container';
 
 export default function MyPage() {
   return (
@@ -16,7 +18,8 @@ export default function MyPage() {
             <UserInfoNavigator />
           </Suspense>
         </div>
-        <div className="w-full lg:w-[70%] lg:px-[20px]">
+        <div className="w-full lg:w-[70%] lg:px-[20px] pt-12 pb-2 flex flex-col gap-12">
+          <MyResultContainer />
           <TakenLecture />
         </div>
       </ContentContainer>
