@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import NavigationBar from './ui/view/molecule/navigation-bar';
+import NavigationBar from './(sub-page)/components/navigation-bar';
 import { Toaster } from './ui/view/molecule/toast/toaster';
 import Provider from './provider';
 import MSWComponent from './mocks/msw-component.mock';

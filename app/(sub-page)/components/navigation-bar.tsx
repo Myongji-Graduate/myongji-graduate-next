@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import logo from '../../../../public/assets/logo.svg';
-import Responsive from '../../responsive';
-import SideNavigationBar from './side-navigation-bar';
+import Responsive from '../../ui/responsive';
+import SideNavigationBar from '../../ui/view/molecule/side-navigation-bar';
 
 export default function NavigationBar() {
   return (
