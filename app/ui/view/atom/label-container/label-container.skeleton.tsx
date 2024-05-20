@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Skeleton from '../skeleton';
+import Skeleton from '../../../../utils/skeleton';
 
 interface LabelContainerProps {
   rightElement: ReactNode;
