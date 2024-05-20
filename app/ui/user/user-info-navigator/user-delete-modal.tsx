@@ -11,7 +11,7 @@ export default function UserDeleteModal() {
         <h2 className="text-xl font-bold text-center">회원 탈퇴</h2>
         <div className="h-1 w-10 bg-blue-600 mx-auto my-3" />
         <p className="text-sm text-center my-4">
-          회원탈퇴를 진행하시겠습니까? 탈퇴를 진행하면더 비밀번호 입력이 필요합니다.
+          회원탈퇴를 진행하시겠습니까? 탈퇴를 진행하려면 비밀번호 입력이 필요합니다.
         </p>
         <div className="my-4">
           <Form failMessageControl={'toast'} action={deleteUser} id={'user-delete'}>
