@@ -12,7 +12,7 @@ export default function SideNavigationBar({ header, content, footer }: SideNavig
   return (
     <Sheet>
       <SheetTrigger className="h-6">
-        <HamburgerMenuIcon className="w-6 h-6 text-white" />;
+        <HamburgerMenuIcon className="w-6 h-6 text-white" />
       </SheetTrigger>
       <SheetContent className="z-3">
         <div className="flex h-full flex-col justify-between">
