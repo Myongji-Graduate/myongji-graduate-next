@@ -2,11 +2,11 @@
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetFooter } from '../../ui/view/molecule/sheet/sheet';
 
-type SideNavigationBarProps = {
+interface SideNavigationBarProps {
   header: React.ReactNode;
   footer: React.ReactNode;
   content: React.ReactNode;
-};
+}
 
 export default function SideNavigationBar({ header, content, footer }: SideNavigationBarProps) {
   return (
