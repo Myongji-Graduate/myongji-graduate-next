@@ -22,10 +22,10 @@ const Modal = ({ modalKey, children, onClose }: ModalProp) => {
   return (
     <Root open={isOpen} onOpenChange={toggle}>
       <Portal>
-        <Overlay className={cn('fixed inset-0 zIndex-3 bg-black/50', fadeAnimation)} />
+        <Overlay className={cn('fixed inset-0 z-3 bg-black/50', fadeAnimation)} />
         <Content
           className={cn(
-            'outline-none fixed left-[50%] top-[50%] zIndex-3 max-w-[90%] min-w-[30%] overflow-y-auto translate-x-[-50%] translate-y-[-50%] bg-white p-6 shadow-lg duration-200 rounded-lg max-h-[70vh] lg:max-h-[90vh]',
+            'outline-none fixed left-[50%] top-[50%] z-3 max-w-[90%] min-w-[30%] overflow-y-auto translate-x-[-50%] translate-y-[-50%] bg-white p-6 shadow-lg duration-200 rounded-lg max-h-[70vh] lg:max-h-[90vh]',
             noneSlideAnimation,
             fadeAnimation,
           )}

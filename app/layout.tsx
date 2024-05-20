@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import NavigationBar from './(sub-page)/components/navigation-bar';
 import { Toaster } from './ui/view/molecule/toast/toaster';
 import Provider from './provider';
 import MSWComponent from './mocks/msw-component.mock';
+import UserDeleteModal from './ui/user/user-info-navigator/user-delete-modal';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -31,6 +31,7 @@ export default function RootLayout({
           </Provider>
         </div>
         <Toaster />
+        <UserDeleteModal />
       </body>
     </html>
   );

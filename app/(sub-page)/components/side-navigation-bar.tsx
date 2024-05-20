@@ -1,6 +1,8 @@
 'use client';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetFooter } from '../../ui/view/molecule/sheet/sheet';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
+import useDialog from '@/app/hooks/useDialog';
 
 interface SideNavigationBarProps {
   header: React.ReactNode;
@@ -9,8 +11,18 @@ interface SideNavigationBarProps {
 }
 
 export default function SideNavigationBar({ header, content, footer }: SideNavigationBarProps) {
+  const { isOpen, open, close } = useDialog(DIALOG_KEY.SIDE_NAVIGATION);
+
+  const handleSideNavOpen = (value: boolean) => {
+    if (value) {
+      open();
+    } else {
+      close();
+    }
+  };
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={handleSideNavOpen}>
       <SheetTrigger className="h-6">
         <HamburgerMenuIcon className="w-6 h-6 text-white" />
       </SheetTrigger>

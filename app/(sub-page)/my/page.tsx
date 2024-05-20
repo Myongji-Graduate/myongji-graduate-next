@@ -7,7 +7,6 @@ import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import { Suspense } from 'react';
 import MyResultContainer from './components/my-result-container';
-import UserDeleteModal from '@/app/ui/user/user-info-navigator/user-delete-modal';
 import SignButtonGroup from '@/app/ui/user/user-info-navigator/sign-button-group';
 import Responsive from '@/app/ui/responsive';
 
@@ -33,7 +32,6 @@ export default function MyPage() {
       <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
         <LectureSearch />
       </Drawer>
-      <UserDeleteModal />
     </>
   );
 }
