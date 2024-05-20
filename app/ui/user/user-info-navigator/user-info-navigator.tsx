@@ -11,15 +11,15 @@ function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | unde
 } {
   if (!userInfo) {
     return {
-      name: 'GUEST',
-      major: '로그인이 필요합니다.',
+      name: '소중한 GUEST',
+      major: '성적표를 입력하고, 졸업 여부를 확인하세요',
       studentNumber: '',
     };
   }
 
   if (isInitUser(userInfo)) {
     return {
-      name: '명지대학우..?',
+      name: '명지인',
       major: '성적표를 입력하고, 졸업 여부를 확인하세요',
       studentNumber: userInfo.studentNumber,
     };
