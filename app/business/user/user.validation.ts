@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { UserInfoResponse, InitUserInfoResponse } from './user.type';
 
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
@@ -71,3 +72,6 @@ export const SignUpFormSchema = z
       });
     }
   });
+export function isInitUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
+  return typeof x.studentName === null;
+}

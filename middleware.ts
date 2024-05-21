@@ -30,10 +30,12 @@ async function getAuth(request: NextRequest): Promise<{
   };
 }
 
-const allowdGuestPath = ['/tutorial', '/sign-in', '/sign-up', '/find-password', '/find-id'];
+const allowedOnlyGuestPath = ['/sign-in', '/sign-up', '/find-password', '/find-id'];
+const allowedGuestPath = ['/', '/tutorial', ...allowedOnlyGuestPath];
 
-function isAllowedGuestPath(path: string) {
-  return allowdGuestPath.some((allowedPath) => path.startsWith(allowedPath));
+function isAllowedGuestPath(path: string, strict: boolean = false) {
+  const allowedPath = strict ? allowedOnlyGuestPath : allowedGuestPath;
+  return allowedPath.some((allowedPath) => path.startsWith(allowedPath));
 }
 
 export async function middleware(request: NextRequest) {
@@ -48,6 +50,10 @@ export async function middleware(request: NextRequest) {
 
     if (auth.role === 'guest' && !isAllowedGuestPath(request.nextUrl.pathname)) {
       return Response.redirect(new URL('/sign-in', request.url));
+    }
+
+    if (auth.role !== 'guest' && isAllowedGuestPath(request.nextUrl.pathname, true)) {
+      return Response.redirect(new URL('/my', request.url));
     }
   }
 }

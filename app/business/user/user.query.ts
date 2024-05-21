@@ -5,6 +5,19 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { InitUserInfoResponse, UserInfoResponse } from './user.type';
 import { UserInfoResponseSchema, InitUserInfoResponseSchema } from './user.validation';
+import { UnauthorizedError } from '@/app/utils/http/http-error';
+
+export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
+  try {
+    const result = await fetchUserInfo();
+    return result;
+  } catch (error) {
+    if (error instanceof UnauthorizedError) {
+      return;
+    }
+    throw error;
+  }
+}
 
 export async function fetchUserInfo(): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
