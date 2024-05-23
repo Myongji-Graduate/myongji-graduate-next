@@ -18,7 +18,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "type": "tsc --noEmit",
-    "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
@@ -72,6 +73,7 @@
     "chromatic": "^10.9.4",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
+    "cypress": "^13.9.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "eslint-plugin-storybook": "^0.6.15",
