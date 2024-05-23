@@ -7,7 +7,7 @@ import Drawer from '@/app/ui/view/molecule/drawer/drawer';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import { Suspense } from 'react';
 import MyResultContainer from './components/my-result-container';
-import TakenLectureSkeleton from '@/app/ui/lecture/taken-lecture/taken-lecture-skeleton';
+import TakenLectureSkeleton from '@/app/ui/lecture/taken-lecture/taken-lecture.skeleton';
 
 export default function MyPage() {
   return (
