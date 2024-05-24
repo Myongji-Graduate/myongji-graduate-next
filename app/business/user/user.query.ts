@@ -9,7 +9,7 @@ export async function fetchUserInfo() {
   try {
     const { data } = await axios<InitUserInfoResponse | UserInfoResponse>(API_PATH.user, {
       headers: {
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
 
