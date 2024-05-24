@@ -8,6 +8,19 @@ import { z } from 'zod';
 const meta = {
   title: 'ui/view/molecule/Form',
   component: Form,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+- form component와 form의 하위 컴포넌트들이 존재합니다\n
+- 이때 하위 컴포넌트는 form-text-input, form-number-input, form-password-input, form-select, form-submit-button이 존재합니다\n
+- form component는 성공시 실행되는 함수 isSuccess, submit시 실행되는 함수 action, message를 띄우는 방법인 failMessageControl, form의 id를 매개변수로 받습니다\n
+`,
+      },
+    },
+  },
+
   decorators: [
     (Story) => (
       <div className="w-72">
@@ -84,6 +97,9 @@ async function mockFormAction(prevState: FormState, formData: FormData): Promise
 }
 
 const SingUpFormTemplate: Story = {
+  args: {
+    failMessageControl: 'alert',
+  },
   render: () => {
     return (
       <Form action={mockFormAction} id="회원가입">
