@@ -15,15 +15,6 @@ const meta = {
       },
     },
   },
-  argTypes: {
-    src: {
-      description: '이미지 경로를 설정합니다',
-      table: {
-        type: { summary: 'AvatarSrc' },
-        defaultValue: { summary: './assets/profile-image.png' },
-      },
-    },
-  },
 } as Meta<typeof Avatar>;
 
 export default meta;
