@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export type ColType = 3 | 4 | 5 | 6 | 'render-button';
 
-type GridRootProps = {
+export type GridRootProps = {
   children: ReactNode;
   cols: ColType;
 };
