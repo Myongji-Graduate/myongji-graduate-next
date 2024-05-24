@@ -4,7 +4,7 @@ import LabelContainer from './label-container';
 import Button from '../button/button';
 
 const meta = {
-  title: 'ui/view/atom/Button',
+  title: 'ui/view/atom/label-container',
   component: LabelContainer,
   tags: ['autodocs'],
   parameters: {
@@ -27,8 +27,8 @@ export const TakenLectureLabel: StoryObj<typeof LabelContainer> = {
     label: '내 기이수 과목',
     rightElement: (
       <div className="flex gap-2">
-        <Button label="커스텀하기" variant="secondary" size="md" />
-        <Button label="업데이트" variant="secondary" size="md" />
+        <Button label="커스텀하기" variant="secondary" size="xs" />
+        <Button label="업데이트" variant="secondary" size="xs" />
       </div>
     ),
   },
