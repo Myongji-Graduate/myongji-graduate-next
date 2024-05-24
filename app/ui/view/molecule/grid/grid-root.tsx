@@ -3,10 +3,10 @@ import { ReactNode } from 'react';
 
 export type ColType = 3 | 4 | 5 | 6 | 'render-button';
 
-export type GridRootProps = {
+export interface GridRootProps {
   children: ReactNode;
   cols: ColType;
-};
+}
 
 export const GridVariants = cva('grid', {
   variants: {
