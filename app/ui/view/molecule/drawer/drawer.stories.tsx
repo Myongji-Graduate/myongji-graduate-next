@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Drawer from './drawer';
 import { DIALOG_KEY, DialogKey } from '@/app/utils/key/dialog-key.util';
-import useDialog from '@/app/hooks/useDialog';
 
 const meta = {
   title: 'ui/view/molecule/Drawer',
