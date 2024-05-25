@@ -6,6 +6,46 @@ import Select from '.';
 const meta = {
   title: 'ui/view/molecule/Select',
   component: Select,
+  parameters: {
+    docs: {
+      description: {
+        component: '- Select의 하위 컴포넌트로 Select Item이 존재합니다',
+      },
+    },
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    placeholder: {
+      description: 'Select의 placeholder을 설정할 수 있습니다',
+    },
+    defaultValue: {
+      description: '기본 value값을 설정할 수 있습니다',
+    },
+    name: {
+      description: 'name을 설정할 수 있습니다',
+    },
+    icon: {
+      description: 'icon을 설정할 수 있습니다',
+    },
+    error: {
+      description: 'error여부를 설정할 수 있습니다',
+    },
+    errorMessages: {
+      description: 'error시 노출할 메세지들을 배열에 담아 할당할 수 있습니다',
+    },
+    disabled: {
+      description: 'disabled 여부를 설정할 수 있습니다',
+    },
+    children: {
+      description: 'select 내부 요소를 설정할 수 있습니다',
+    },
+    required: {
+      description: '필수로 할당이 되어야 하는지 설정할 수 있습니다',
+    },
+    onValueChange: {
+      description: 'value가 바뀌었을 때마다 실행할 함수를 설정할 수 있습니다',
+    },
+  },
   decorators: [
     (Story) => (
       <div className="w-52">
