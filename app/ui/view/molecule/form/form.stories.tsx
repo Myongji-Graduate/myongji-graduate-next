@@ -9,6 +9,11 @@ const meta = {
   title: 'ui/view/molecule/Form',
   component: Form,
   tags: ['autodocs'],
+  parameters: {
+    description: {
+      component: 'form 하위 컴포넌트로 form-select, form-input, form-submit-button이 존재합니다',
+    },
+  },
   argTypes: {
     isSuccess: {
       description: '성공 시 실행되는 함수를 할당할 수 있습니다',
