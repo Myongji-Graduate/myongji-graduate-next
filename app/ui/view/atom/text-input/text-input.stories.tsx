@@ -7,23 +7,9 @@ const meta = {
   title: 'ui/view/atom/TextInput',
   component: TextInput,
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: `
-- type 값으로 'text' | 'password' | 'number' 를 선택할 수 있습니다 \n
-- defaultValue 값으로  string 또는 number를 입력할 수 있습니다.\n
-- value 값은 input의 value를 control하는 값으로 string 또는 number를 입력할 수 있습니다\n
-- error 값은 error 여부를 boolean으로 나타낼 수 있습니다\n
-- errorMessages는 여러 메세지를 배열에 담아 할당할 수 있습니다\n
-- onValueChange는 value 가 바뀌었을 때 실행될 함수입니다\n
-`,
-      },
-    },
-  },
   argTypes: {
     type: {
-      description: 'Text Input의 type을 설정합니다',
+      description: "Text Input의 type값으로 'text' | 'password' | 'number' 를 할당할 수 있습니다",
       table: {
         type: { summary: 'TextInputType' },
         defaultValue: { summary: 'text' },
@@ -54,6 +40,21 @@ const meta = {
       control: {
         type: 'radio',
       },
+    },
+    defaultValue: {
+      description: '기본값으로 string | number를 입력할 수 있습니다',
+    },
+    value: {
+      description: 'nput의 value를 control하는 값으로 string | number를 입력할 수 있습니다',
+    },
+    errorMessages: {
+      description: '에러 메세지들을 배열에 담아 할당할 수 있습니다',
+    },
+    onValueChange: {
+      description: 'value가 바뀌었을 때마다 실행되는 함수를 할당할 수 있습니다',
+    },
+    icon: {
+      description: 'input에 icon을 할당할 수 있습니다',
     },
   },
 } satisfies Meta<typeof TextInput>;

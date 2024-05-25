@@ -9,13 +9,13 @@ const meta = {
   tags: ['autodocs'],
   parameters: {
     componentSubtitle: 'LabelContainer는 기이수, 미이수 과목에 대한 정보를 나타낼 때 사용되는 view component입니다.',
-    docs: {
-      description: {
-        component: `
-- label 값으로 화면에 출력하고 싶은 text를 할당해야합니다. \n
-- right element 값으로 오른쪽에 렌더링 될 요소를 할당해야합니다. \n
-`,
-      },
+  },
+  argTypes: {
+    label: {
+      description: '화면에 출력하고 싶은 text를 설정합니다',
+    },
+    rightElement: {
+      description: '오른쪽에 렌더링 될 요소를 설정합니다',
     },
   },
 } satisfies Meta<typeof LabelContainer>;
