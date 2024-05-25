@@ -4,7 +4,7 @@ import LabelContainer from './label-container';
 import Button from '../button/button';
 
 const meta = {
-  title: 'ui/view/atom/label-container',
+  title: 'ui/view/atom/LabelContainer',
   component: LabelContainer,
   tags: ['autodocs'],
   parameters: {
