@@ -12,15 +12,13 @@ const meta = {
       description: {
         component: `
 - Grid component 하위에는 grid column component가 존재합니다 \n
-- cols 속성을 통해 요소 비율을 control 할 수 있습니다 \n
-- cols 속성엔 숫자가 할당될 수도 있지만, 특수한 경우를 고려해 'render-button' 값도 할당할 수 있습니다.
 `,
       },
     },
   },
   argTypes: {
     cols: {
-      description: 'cols 요소를 설정합니다',
+      description: '요소 비율을 설정할 수 있습니다.',
       table: {
         type: { summary: 'GridCols' },
         defaultValue: { summary: 3 },
@@ -29,6 +27,9 @@ const meta = {
       control: {
         type: 'radio',
       },
+    },
+    children: {
+      description: 'grid 내부 요소들을 설정할 수 있습니다',
     },
   },
   decorators: [

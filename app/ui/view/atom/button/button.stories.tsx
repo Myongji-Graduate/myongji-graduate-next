@@ -5,19 +5,6 @@ const meta = {
   title: 'ui/view/atom/Button',
   component: Button,
   tags: ['autodocs'],
-  parameters: {
-    componentSubtitle: 'Button은 사용자가 한 번의 탭으로 작업을 수행하고 선택할 수 있는 컴포넌트입니다.',
-    docs: {
-      description: {
-        component: `
-- variant값으로 'primary' | 'secondary' | 'text' | 'list' | 'outlined' | 'dark' 중 하나를 선택할 수 있습니다.\n
-- size값으로 'xs' | 'sm' | 'md' | 'lg' | 'default' | 'xl' 중 하나를 선택할 수 있습니다.\n
-- label 값으로 button 태그에 존재하는 text를 의미하고 필수적으로 할당해야 합니다
-- loading 값으로 loading 중 여부를 나타낼 수 있습니다.
-`,
-      },
-    },
-  },
   argTypes: {
     variant: {
       description: 'Button의 Variant를 설정합니다.',

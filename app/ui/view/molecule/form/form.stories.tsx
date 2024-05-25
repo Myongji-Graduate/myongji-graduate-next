@@ -9,18 +9,20 @@ const meta = {
   title: 'ui/view/molecule/Form',
   component: Form,
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: `
-- form component와 form의 하위 컴포넌트들이 존재합니다\n
-- 이때 하위 컴포넌트는 form-text-input, form-number-input, form-password-input, form-select, form-submit-button이 존재합니다\n
-- form component는 성공시 실행되는 함수 isSuccess, submit시 실행되는 함수 action, message를 띄우는 방법인 failMessageControl, form의 id를 매개변수로 받습니다\n
-`,
-      },
+  argTypes: {
+    isSuccess: {
+      description: '성공 시 실행되는 함수를 할당할 수 있습니다',
+    },
+    action: {
+      description: 'submit 시 실행되는 함수를 할당할 수 있습니다',
+    },
+    failMessageControl: {
+      description: 'message를 띄우는 방법인 toast와 alert를 선택할 수 있습니다 ',
+    },
+    id: {
+      description: 'form의 id를 할당할 수 있습니다',
     },
   },
-
   decorators: [
     (Story) => (
       <div className="w-72">

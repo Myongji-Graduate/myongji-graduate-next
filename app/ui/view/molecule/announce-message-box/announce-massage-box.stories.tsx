@@ -7,12 +7,10 @@ const meta = {
   tags: ['autodocs'],
   parameters: {
     componentSubtitle: '메세지를 담고 있는 container로 충족된 졸업 요건을 나타낼 때 사용됩니다',
-    docs: {
-      description: {
-        component: `
-- message prop을 통해 string 형태로 할당할 수 있습니다\n
-`,
-      },
+  },
+  argTypes: {
+    message: {
+      description: 'container 내부 메세지를 설정할 수 있습니다',
     },
   },
 } satisfies Meta<typeof AnnounceMessageBox>;

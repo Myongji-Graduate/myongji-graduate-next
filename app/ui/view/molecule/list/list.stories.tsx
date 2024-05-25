@@ -13,12 +13,23 @@ const meta = {
       description: {
         component: `
 - List component 하위에는 list row component가 존재합니다 \n
-- data는 맵핑을 해 렌더링 할 데이터입니다\n
-- 이때 렌더링은 render 함수를 실행시켜 list 내부 요소를 렌더링하도록 실행합니다.\n
-- isScrollList는 지정된 높이가 넘어가면 scroll을 노출시킬지 여부입니다. lecture search component에서 사용됩니다\n
-- emptyDataRender는 data가 존재하지 않을 때 호출할 함수입니다.
 `,
       },
+    },
+  },
+  argTypes: {
+    data: {
+      description: '맵핑을 해 렌더링 할 데이터를 할당할 수 있습니다',
+    },
+    render: {
+      description: 'list 내부 요소들은 render 함수를 통해 렌더링합니다',
+    },
+    isScrollList: {
+      description:
+        '지정된 높이가 넘어가면 scroll을 노출시킬지 여부를 설정할 수 있습니다. lecture search component에서 사용됩니다',
+    },
+    emptyDataRender: {
+      description: 'data가 존재하지 않을 때 호출할 함수입니다.',
     },
   },
 } satisfies Meta<typeof List>;
