@@ -17,7 +17,7 @@ const ResultCategoryDetailLectureToggle = React.forwardRef<
     {...props}
     ref={ref}
   >
-    <div className={cn('zIndex-1 absolute text-white text-base', props.checked ? 'left-1' : 'right-1')}>
+    <div className={cn('z-1 absolute text-white text-base', props.checked ? 'left-1' : 'right-1')}>
       {props.checked ? '기이수' : '미이수'}
     </div>
     <SwitchPrimitives.Thumb
