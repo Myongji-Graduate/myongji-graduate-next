@@ -1,7 +1,7 @@
 import { cn } from '@/app/utils/shadcn/utils';
 import { cva } from 'class-variance-authority';
 import React from 'react';
-import LoadingSpinner from '../loading-spinner';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'default' | 'xl';
 
