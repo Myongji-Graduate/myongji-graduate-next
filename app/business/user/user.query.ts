@@ -2,8 +2,21 @@ import { API_PATH } from '../api-path';
 import { InitUserInfoResponse, UserInfoResponse } from './user.type';
 import axios from 'axios';
 import { getToken } from '../auth';
-import { InitUserInfoResponseSchema, UserInfoResponseSchema } from './user.validation';
 import { isValidation } from '@/app/utils/zod/validation.util';
+import { UserInfoResponseSchema, InitUserInfoResponseSchema } from './user.validation';
+import { UnauthorizedError } from '@/app/utils/http/http-error';
+
+export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
+  try {
+    const result = await fetchUserInfo();
+    return result;
+  } catch (error) {
+    if (error instanceof UnauthorizedError) {
+      return;
+    }
+    throw error;
+  }
+}
 
 export async function fetchUserInfo() {
   try {
