@@ -3,7 +3,6 @@ import useFunnel from '@/app/hooks/useFunnel';
 import SignUpForm from '@/app/ui/user/sign-up-form/sign-up-form';
 import SignUpTerm from './sign-up-terms';
 import SignUpSuccess from './sign-up-success';
-import ContentContainer from '@/app/ui/view/atom/content-container';
 
 export default function SignUpContainer() {
   const { Funnel, setStep } = useFunnel<'terms' | 'form' | 'success'>('terms');

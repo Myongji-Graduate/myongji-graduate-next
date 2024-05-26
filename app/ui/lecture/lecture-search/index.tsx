@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';
 import List from '../../view/molecule/list';
-import LoadingSpinner from '../../view/atom/loading-spinner';
+import LoadingSpinner from '../../view/atom/loading-spinner/loading-spinner';
 import LectureSearchResult from './lecture-search-result';
 
 const emptyDataRender = () => {

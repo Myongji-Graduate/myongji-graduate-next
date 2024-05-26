@@ -1,8 +1,7 @@
-import { UserInfoResponseSchema } from '@/app/business/user/user.validation';
-import Avatar from '../../view/atom/avatar/avatar';
-import { auth, fetchUserInfo } from '@/app/business/user/user.query';
+import { auth } from '@/app/business/user/user.query';
 import { isInitUser } from '@/app/business/user/user.validation';
 import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/user/user.type';
+import Avatar from '../../view/atom/avatar';
 
 function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | undefined): {
   name: string;
