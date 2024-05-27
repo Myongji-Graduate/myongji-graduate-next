@@ -44,14 +44,14 @@ export async function middleware(request: NextRequest) {
   const isAuth = request.nextUrl.searchParams.get('isAuth');
 
   // 개발용이성을 위해 isAuth=true 일 때만 동작
-  const auth = await getAuth(request);
-  if (auth.role === 'init' && !request.nextUrl.pathname.startsWith('/grade-upload')) {
-    return Response.redirect(new URL('/grade-upload', request.url));
-  }
+  // const auth = await getAuth(request);
+  // if (auth.role === 'init' && !request.nextUrl.pathname.startsWith('/grade-upload')) {
+  //   return Response.redirect(new URL('/grade-upload', request.url));
+  // }
 
-  if (auth.role === 'guest' && !isAllowedGuestPath(request.nextUrl.pathname)) {
-    return Response.redirect(new URL('/sign-in', request.url));
-  }
+  // if (auth.role === 'guest' && !isAllowedGuestPath(request.nextUrl.pathname)) {
+  //   return Response.redirect(new URL('/sign-in', request.url));
+  // }
 }
 
 export const config = {
