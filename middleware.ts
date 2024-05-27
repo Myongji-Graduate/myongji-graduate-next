@@ -33,6 +33,10 @@ async function getAuth(request: NextRequest): Promise<{
 const allowdGuestPath = ['/tutorial', '/sign-in', '/sign-up', '/find-password', '/find-id'];
 
 function isAllowedGuestPath(path: string) {
+  if (path === '/') {
+    return true;
+  }
+
   return allowdGuestPath.some((allowedPath) => path.startsWith(allowedPath));
 }
 
@@ -51,5 +55,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/((?!api|mockServiceWorker|_next/static|_next/image|.*\\.png$).*)'],
 };
