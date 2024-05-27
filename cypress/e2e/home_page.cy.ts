@@ -4,4 +4,8 @@ describe('The Home Page', () => {
 
     cy.login('admin', 'admin');
   });
+
+  it('critical path', () => {
+    //  마이페이지 → 결과페이지
+  });
 });
