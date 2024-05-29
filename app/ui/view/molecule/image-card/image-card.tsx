@@ -4,7 +4,7 @@ import Image, { StaticImageData } from 'next/image';
 export interface ImageCardProps {
   image: StaticImageData;
   title: string;
-  content: string;
+  content: React.ReactNode;
   className?: string;
 }
 
