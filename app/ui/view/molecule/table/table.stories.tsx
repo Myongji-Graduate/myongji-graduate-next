@@ -6,6 +6,24 @@ import DeleteTakenLectureButton from '@/app/ui/lecture/taken-lecture/delete-take
 const meta = {
   title: 'ui/view/molecule/Table',
   component: Table,
+  tags: ['autodocs'],
+  argTypes: {
+    data: {
+      description: 'table에 할당할 data를 설정할 수 있습니다',
+    },
+    headerInfo: {
+      description: 'table 의 header 정보를 설정할 수 있습니다',
+    },
+    renderActionButton: {
+      description: 'table 내 존재할 action 버튼을 렌더링할 수 있습니다',
+    },
+    swipeable: {
+      description: 'swipe 여부를 설정할 수 있습니다',
+    },
+    onSwipeAction: {
+      description: 'swipe 이 가능하면 swipe 시 실행할 함수를 설정할 수 있습니다',
+    },
+  },
 } satisfies Meta<typeof Table>;
 
 export default meta;

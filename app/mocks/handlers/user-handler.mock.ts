@@ -7,9 +7,11 @@ import {
   SignInResponse,
   ValidateTokenResponse,
   UserInfoResponse,
+  UserDeleteRequestBody,
   InitUserInfoResponse,
 } from '@/app/business/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
+import { StrictRequest } from 'msw';
 
 function mockDecryptToken(token: string) {
   if (token === 'fake-access-token') {
@@ -22,6 +24,21 @@ function mockDecryptToken(token: string) {
   };
 }
 
+export const devModeAuthGuard = (request: StrictRequest<any>) => {
+  if (process.env.NODE_ENV === 'development') {
+    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
+    if (accessToken === 'undefined' || !accessToken) {
+      throw new Error('Unauthorized');
+    }
+
+    return mockDecryptToken(accessToken);
+  } else {
+    return {
+      authId: 'admin',
+    };
+  }
+};
+
 export const userHandlers = [
   http.get<never, never, never>(`${API_PATH.auth}/failure`, async ({ request }) => {
     await delay(500);
@@ -31,6 +48,22 @@ export const userHandlers = [
     return HttpResponse.json({
       accessToken: 'fake-access-token',
     });
+  }),
+  http.delete<never, UserDeleteRequestBody, never>(`${API_PATH.user}/delete-me`, async ({ request }) => {
+    try {
+      const { authId } = devModeAuthGuard(request);
+      const { password } = await request.json();
+
+      const result = mockDatabase.deleteUser(authId, password);
+
+      if (result) {
+        return HttpResponse.json({ status: 200 });
+      } else {
+        return HttpResponse.json({ status: 400, message: '비밀번호가 일치하지 않습니다' }, { status: 400 });
+      }
+    } catch {
+      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+    }
   }),
   http.get<never, never, UserInfoResponse | InitUserInfoResponse | ErrorResponseData>(
     API_PATH.user,

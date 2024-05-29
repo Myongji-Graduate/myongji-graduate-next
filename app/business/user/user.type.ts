@@ -21,6 +21,15 @@ export interface SignUpRequestBody {
   engLv: string;
 }
 
+export interface SignInRequestBody {
+  authId: string;
+  password: string;
+}
+
+export interface UserDeleteRequestBody {
+  password: string;
+}
+
 export type SignInResponse = z.infer<typeof SignInResponseSchema>;
 
 export type UserInfoResponse = z.infer<typeof UserInfoResponseSchema>;

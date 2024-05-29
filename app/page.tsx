@@ -3,7 +3,7 @@ import mainBookBackground from '../public/assets/main-book-background.png';
 import mainMyongjiLogo from '../public/assets/main-myongji-logo.png';
 import graduationCap from '../public/assets/graduation-cap.png';
 import Responsive from './ui/responsive';
-import NavigationBar from './ui/view/molecule/navigation-bar';
+import NavigationBar from './(sub-page)/components/navigation-bar';
 import Button from './ui/view/atom/button/button';
 import Link from 'next/link';
 

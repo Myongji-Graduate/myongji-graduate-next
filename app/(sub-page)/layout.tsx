@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import background from '../../public/assets/background.png';
-import NavigationBar from '../ui/view/molecule/navigation-bar';
+import NavigationBar from './components/navigation-bar';
 
 interface LayoutProps {
   children: React.ReactNode;
