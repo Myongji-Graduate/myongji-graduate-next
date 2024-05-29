@@ -1,37 +1,30 @@
 import { API_PATH } from '../api-path';
-import { cookies } from 'next/headers';
-import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { CreditResponse, ResultCategoryDetailResponse } from './result.type';
+import axios from 'axios';
+import { getToken } from '../auth';
 
-export const fetchResultCategoryDetailInfo = async (category: string): Promise<ResultCategoryDetailResponse> => {
+export const fetchResultCategoryDetailInfo = async (category: string) => {
   //FIX : category를 querystring으로 호출하는 건은 mock단계에서는 불필요할 것으로 예상, 실제 api 연결시 변경 예정
   try {
-    const response = await fetch(API_PATH.resultCategoryDetailInfo, {
+    const { data } = await axios<ResultCategoryDetailResponse>(API_PATH.resultCategoryDetailInfo, {
       headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
-    const result = await response.json();
-    httpErrorHandler(response, result);
-
-    return result;
+    return data;
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchCredits = async (): Promise<CreditResponse[]> => {
+export const fetchCredits = async () => {
   try {
-    const response = await fetch(API_PATH.credits, {
+    const { data } = await axios<CreditResponse[]>(API_PATH.credits, {
       headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
-    const result = await response.json();
-
-    httpErrorHandler(response, result);
-
-    return result;
+    return data;
   } catch (error) {
     throw error;
   }

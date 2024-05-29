@@ -1,4 +1,4 @@
-import ContentContainer from '../../ui/view/atom/content-container';
+import ContentContainer from '../../ui/view/atom/content-container/content-container';
 import Manual from './components/manual';
 import UploadTakenLecture from '../../ui/lecture/upload-taken-lecture/upload-taken-lecture';
 

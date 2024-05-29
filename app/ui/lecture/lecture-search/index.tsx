@@ -3,11 +3,11 @@ import { useAtomValue } from 'jotai';
 import LectureSearchBar from './lecture-search-bar';
 import { searchWordAtom } from '@/app/store/search-word';
 import { Suspense } from 'react';
-import { LectureSearchResultSpinner } from './lecture-search-result/lecture-search-result-spinner';
-import LectureSearchResult from './lecture-search-result';
 import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';
 import List from '../../view/molecule/list';
+import LoadingSpinner from '../../view/atom/loading-spinner/loading-spinner';
+import LectureSearchResult from './lecture-search-result';
 
 const emptyDataRender = () => {
   return (
@@ -30,7 +30,16 @@ export default function LectureSearch() {
       <div className="w-[800px] mx-auto my-7  flex flex-col gap-10 sm:gap-6">
         <LectureSearchBar />
         {searchable ? (
-          <Suspense fallback={<LectureSearchResultSpinner />}>
+          <Suspense
+            fallback={
+              <div className="rounded-xl border-[1px] border-gray-300 w-full h-72 overflow-auto flex justify-center items-center">
+                <LoadingSpinner
+                  className={'animate-spin shrink-0 h-12 w-12 mr-1.5 -ml-1 fill-gray-400'}
+                  style={{ transition: `width 150ms` }}
+                />
+              </div>
+            }
+          >
             <LectureSearchResult />
           </Suspense>
         ) : (

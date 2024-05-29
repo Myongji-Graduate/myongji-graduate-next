@@ -11,6 +11,8 @@ interface UserInfoContentProps {
 function UserInfoContent({ data }: UserInfoContentProps) {
   const { studentNumber, studentName, completionDivision: majors, totalCredit, takenCredit, graduated } = data;
 
+  const percentage = getPercentage(takenCredit, totalCredit);
+
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
     return majors.map((major, index) => {
       const { major: majorName, majorType } = major;
@@ -44,7 +46,7 @@ function UserInfoContent({ data }: UserInfoContentProps) {
           </ul>
         </div>
         <div className="mr-[10%]">
-          <PieChart percentage={getPercentage(takenCredit, totalCredit)} />
+          <PieChart percentage={percentage} />
         </div>
       </div>
       <p className="text-gray-6 md:text-xs text-[10px]">

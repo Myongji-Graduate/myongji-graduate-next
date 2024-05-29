@@ -5,6 +5,8 @@ const initialState = {
   [DIALOG_KEY.RESULT_CATEGORY]: false,
   [DIALOG_KEY.DIALOG_TEST]: true,
   [DIALOG_KEY.LECTURE_SEARCH]: false,
+  [DIALOG_KEY.USER_DELETE]: false,
+  [DIALOG_KEY.SIDE_NAVIGATION]: false,
 };
 
 const dialogAtom = atom(initialState);

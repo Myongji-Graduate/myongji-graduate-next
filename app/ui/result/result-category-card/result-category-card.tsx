@@ -19,7 +19,6 @@ import Button from '../../view/atom/button/button';
 import { getPercentage } from '@/app/utils/chart.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Responsive from '../../responsive';
-import { useMediaQuery } from 'usehooks-ts';
 
 interface ResultCategoryCardProps {
   category: ResultCategoryKey;

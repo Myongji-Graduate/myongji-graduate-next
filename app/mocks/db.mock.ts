@@ -25,6 +25,7 @@ type MockDatabaseAction = {
   deleteTakenLecture: (lectureId: number) => boolean;
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
+  deleteUser: (authId: string, password: string) => boolean;
   getCredits: () => CreditResponse[];
   getUserInfo: (authId: string) => UserInfoResponse | InitUserInfoResponse;
   getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
@@ -83,6 +84,14 @@ export const mockDatabase: MockDatabaseAction = {
       };
     }
     return mockDatabaseStore.userInfo;
+  },
+  deleteUser: (authId: string, password: string) => {
+    const user = mockDatabaseStore.users.find((u) => u.authId === authId && u.password === password);
+    if (user) {
+      mockDatabaseStore.users = mockDatabaseStore.users.filter((u) => u.authId !== authId);
+      return true;
+    }
+    return false;
   },
 };
 

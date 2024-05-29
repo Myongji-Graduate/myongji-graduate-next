@@ -5,7 +5,7 @@ export interface ListRow {
   id: number;
   [key: string]: string | number | boolean;
 }
-interface ListRootProps<T extends ListRow> {
+export interface ListRootProps<T extends ListRow> {
   data: T[];
   render?: (item: T, index: number) => ReactNode;
   isScrollList?: boolean;

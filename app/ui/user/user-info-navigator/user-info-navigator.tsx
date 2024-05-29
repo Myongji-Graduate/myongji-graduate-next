@@ -1,27 +1,49 @@
-import { UserInfoResponseSchema } from '@/app/business/user/user.validation';
-import Avatar from '../../view/atom/avatar/avatar';
-import Button from '../../view/atom/button/button';
-import { fetchUserInfo } from '@/app/business/user/user.query';
-import { z } from 'zod';
+import { auth } from '@/app/business/user/user.query';
+import { isInitUser } from '@/app/business/user/user.validation';
+import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/user/user.type';
+import Avatar from '../../view/atom/avatar';
+
+function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | undefined): {
+  name: string;
+  major: string;
+  studentNumber: string;
+} {
+  if (!userInfo) {
+    return {
+      name: '소중한 GUEST',
+      major: '성적표를 입력하고, 졸업 여부를 확인하세요',
+      studentNumber: '',
+    };
+  }
+
+  if (isInitUser(userInfo)) {
+    return {
+      name: '명지인',
+      major: '성적표를 입력하고, 졸업 여부를 확인하세요',
+      studentNumber: userInfo.studentNumber,
+    };
+  }
+
+  return {
+    name: userInfo.studentName,
+    major: userInfo.completionDivision[0].major,
+    studentNumber: userInfo.studentNumber,
+  };
+}
 
 export default async function UserInfoNavigator() {
-  const userInfo = (await fetchUserInfo()) as z.infer<typeof UserInfoResponseSchema>;
+  const userInfo = formatUserInfo(await auth());
 
   return (
-    <div className="flex flex-col items-center p-4 ">
-      <Avatar className="w-24 h-24" alt="Profile picture" src={'/assets/profile-image.png'} />
-
-      <div className="my-5 text-lg">
-        <span className="font-semibold">{userInfo.studentName}</span>
-        <span>님</span>
-      </div>
-      <div className="mb-3 text-sm">{userInfo.completionDivision[0].major}</div>
-      <div className="text-sm text-gray-400">{userInfo.studentNumber}</div>
-      <div className="mt-9">
-        <Button size="sm" variant="secondary" label="로그아웃" />
-      </div>
-      <div className="mt-2">
-        <Button size="sm" variant="text" label="회원탈퇴하기" />
+    <div className="flex md:flex-col items-center md:p-4 space-x-4 md:space-x-0">
+      <Avatar className="w-20 h-20 md:w-24 md:h-24" alt="Profile picture" src={'/assets/profile-image.png'} />
+      <div className="flex flex-col items-start md:items-center">
+        <div className="md:my-5 md:text-lg ">
+          <span className="font-semibold">{userInfo.name}</span>
+          <span>님</span>
+        </div>
+        <div className="mb-3 md:text-sm text-xs truncate">{userInfo.major}</div>
+        <div className="md:text-sm text-xs text-gray-400">{userInfo.studentNumber}</div>
       </div>
     </div>
   );

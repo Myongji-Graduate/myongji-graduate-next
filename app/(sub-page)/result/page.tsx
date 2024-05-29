@@ -1,10 +1,10 @@
 import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
-import ContentContainer from '@/app/ui/view/atom/content-container';
 import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
 import { Suspense } from 'react';
 import UserInfoCardSkeleton from '@/app/ui/user/user-info-card/user-info-card.skeleton';
 import ResultCategory from '@/app/ui/result/result-category/result-category';
 import ResultCategorySkeleton from '@/app/ui/result/result-category/result-category.skeleton';
+import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 
 interface ResultPageProp {
   searchParams: { category: string };

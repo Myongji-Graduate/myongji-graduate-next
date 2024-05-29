@@ -5,18 +5,6 @@ const meta = {
   title: 'ui/view/atom/Button',
   component: Button,
   tags: ['autodocs'],
-  parameters: {
-    componentSubtitle: 'Button은 사용자가 한 번의 탭으로 작업을 수행하고 선택할 수 있는 컴포넌트입니다.',
-    docs: {
-      description: {
-        component: `
-- variant값으로 "primary" | "secondary" |  "list" | "outlined" 중 하나를 선택할 수 있습니다.\n
-- size값으로 "lg" | "md" |  "sm" | "xs" | "default"  중 하나를 선택할 수 있습니다.\n
-- label 값으로 button 태그에 존재하는 text를 의미하고 필수적으로 할당해야 합니다
-`,
-      },
-    },
-  },
   argTypes: {
     variant: {
       description: 'Button의 Variant를 설정합니다.',
@@ -45,6 +33,17 @@ const meta = {
       table: {
         type: { summary: 'ButtonLabel' },
         defaultValue: { summary: '' },
+      },
+    },
+    loading: {
+      description: 'Button의 loading 여부를 설정합니다',
+      table: {
+        type: { summary: 'ButtonSize' },
+        defaultValue: { summary: 'md' },
+      },
+      options: [true, false],
+      control: {
+        type: 'radio',
       },
     },
   },
@@ -81,7 +80,7 @@ export const ListActionButton: Story = {
   args: {
     size: 'default',
     variant: 'list',
-    label: '삭제',
+    label: '추가',
   },
 };
 
