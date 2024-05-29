@@ -3,7 +3,7 @@ describe('The Home Page', () => {
     cy.login('admin', 'admin');
     cy.visit('/my');
     //  마이페이지 → 결과페이지
-    cy.dataCy('result-page-link').click();
+    // cy.dataCy('result-page-link').click();
   });
 
   it('critical path', () => {

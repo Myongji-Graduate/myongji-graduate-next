@@ -1,3 +1,4 @@
+'use client';
 import { fetchUserInfo } from '@/app/business/user/user.query';
 import books from '@/public/assets/books.png';
 import pencil from '@/public/assets/pencil.png';
