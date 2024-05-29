@@ -1,9 +1,9 @@
-import ContentContainer from '@/app/ui/view/atom/content-container';
 import ImageCard from '@/app/ui/view/molecule/image-card/image-card';
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 import { cn } from '@/app/utils/shadcn/utils';
 import Image from 'next/image';
 import { TUTORIAL_FEATRUE, TUTORIAL_UPLOAD } from './data';
+import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 
 function TutorialPage() {
   return (
