@@ -1,5 +1,5 @@
 import LabelContainerSkeleton from '@/app/ui/view/atom/label-container/label-container.skeleton';
-import Skeleton from '@/app/ui/view/atom/skeleton';
+import Skeleton from '@/app/utils/skeleton';
 
 export default function ResultCategoryDetailContentSkeleton() {
   return (

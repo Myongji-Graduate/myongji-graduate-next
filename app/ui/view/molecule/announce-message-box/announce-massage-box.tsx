@@ -26,7 +26,7 @@ function AnnounceMessageBox({ message }: AnnounceMessageBoxProp) {
           height={36}
           alt="category-fullfill-image"
         />
-        <p className={cn('zIndex-1 text-sm', 'md:text-lg')}>{message}</p>
+        <p className={cn('z-1 text-sm', 'md:text-lg')}>{message}</p>
       </div>
     </div>
   );

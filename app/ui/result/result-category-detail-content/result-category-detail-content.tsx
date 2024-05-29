@@ -27,7 +27,7 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
                 checked={isTakenLecture}
                 data-testid="lecture-toggle"
                 onCheckedChange={setIsTakenLectrue}
-                className="absolute zIndex-2"
+                className="absolute z-2"
               />
             </div>
             <span>과목이 표시됩니다.</span>
