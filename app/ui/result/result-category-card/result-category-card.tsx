@@ -102,6 +102,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
           </div>
         </div>
         <Link
+          data-cy={`${category}-button`}
           href={{
             pathname: '/result',
             query: {
