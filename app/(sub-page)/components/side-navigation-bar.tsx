@@ -11,7 +11,7 @@ interface SideNavigationBarProps {
 }
 
 export default function SideNavigationBar({ header, content, footer }: SideNavigationBarProps) {
-  const { isOpen, open } = useDialog(DIALOG_KEY.SIDE_NAVIGATION);
+  const { isOpen, open, close } = useDialog(DIALOG_KEY.SIDE_NAVIGATION);
 
   const handleSideNavOpen = (value: boolean) => {
     if (value) {
