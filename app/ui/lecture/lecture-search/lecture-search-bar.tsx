@@ -40,6 +40,7 @@ export default function LectureSearchBar() {
       </div>
       <div className="w-[60%] sm:w-[40%] flex justify-between">
         <TextInput
+          data-cy="search-lecture-input"
           placeholder="검색어를 입력해주세요"
           icon={MagnifyingGlassIcon}
           onValueChange={handleDebounceKeywordSearch}

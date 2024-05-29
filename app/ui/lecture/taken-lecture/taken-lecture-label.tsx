@@ -15,6 +15,7 @@ export default function TakenLectureLabel() {
       rightElement={
         <div className="flex gap-2">
           <Button
+            data-cy="open-lecture-search-dialog-button"
             label="과목 추가"
             variant="secondary"
             size="xs"

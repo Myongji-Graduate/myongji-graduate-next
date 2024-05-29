@@ -38,8 +38,8 @@ Cypress.Commands.add('login', (id, password) => {
   //   cy.get('h1').should('contain', username)
 });
 
-Cypress.Commands.add('dataCy', (value) => {
-  return cy.get(`[data-cy=${value}]`);
+Cypress.Commands.add('dataCy', (value, options) => {
+  return cy.get(`[data-cy=${value}]`, options);
 });
 
 //
