@@ -1,12 +1,10 @@
-'use client';
-import { fetchUserInfo } from '@/app/business/user/user.query';
+import { fetchUser } from '@/app/business/auth';
 import books from '@/public/assets/books.png';
 import pencil from '@/public/assets/pencil.png';
 import Image from 'next/image';
 
 export default async function UserCreditResult() {
-  const userInfo = await fetchUserInfo();
-
+  const userInfo = await fetchUser();
   return (
     <div className="flex justify-between items-center bg-zinc-100 min-h-20 rounded-lg py-1 px-8 gap-3">
       <div className="relative sm:h-20 sm:w-20 h-14 w-14">
