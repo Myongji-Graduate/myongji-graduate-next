@@ -23,6 +23,6 @@ describe('The Home Page', () => {
 
     cy.dataCy('add-lecture-button-영어1').click();
 
-    // cy.dataCy('lecture-list').should('have.length', 1);
+    cy.contains('과목 추가에 성공했습니다').should('exist');
   });
 });
