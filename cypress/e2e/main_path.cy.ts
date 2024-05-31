@@ -1,7 +1,14 @@
 describe('The Home Page', () => {
-  it('critical path', () => {
+  beforeEach(() => {
     cy.login('admin', 'admin');
+    // cy.visit('/my');
+    // cy.window().invoke(
+    //   // name of the method
+    //   'resetMockData',
+    // );
+  });
 
+  it('critical path', () => {
     cy.visit('/my');
 
     cy.dataCy('result-page-link').click();
@@ -10,8 +17,6 @@ describe('The Home Page', () => {
   });
 
   it('add lecture', () => {
-    cy.login('admin', 'admin');
-
     cy.visit('/my');
 
     cy.dataCy('open-lecture-search-dialog-button').click();

@@ -54,15 +54,21 @@ Cypress.Commands.add('dataCy', (value, options) => {
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
+// //
+
 declare global {
   namespace Cypress {
     interface Chainable {
       login(email: string, password: string): Chainable<void>;
-      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+      dataCy(
+        value: string,
+        options?: Partial<Loggable & Timeoutable & Withinable & Shadow>,
+      ): Chainable<JQuery<HTMLElement>>;
       // drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       // dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
     }
   }
 }
+
+export {};
