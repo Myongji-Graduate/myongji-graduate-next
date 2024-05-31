@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from './ui/view/molecule/toast/toaster';
-import Provider from './provider';
+import { CypressProvider } from './utils/provider/cypress-provider';
+import { ReactQueryProvider } from './utils/provider/react-query-provider';
 import MSWComponent from './mocks/msw-component.mock';
 import UserDeleteModal from './ui/user/user-info-navigator/user-delete-modal';
 
@@ -26,9 +27,11 @@ export default function RootLayout({
       </head>
       <body>
         <div className="bg-white">
-          <Provider>
-            <MSWComponent>{children}</MSWComponent>
-          </Provider>
+          <ReactQueryProvider>
+            <CypressProvider>
+              <MSWComponent>{children}</MSWComponent>
+            </CypressProvider>
+          </ReactQueryProvider>
         </div>
         <Toaster />
         <UserDeleteModal />
