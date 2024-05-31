@@ -34,7 +34,7 @@ const allowedOnlyGuestPath = ['/sign-in', '/sign-up', '/find-password', '/find-i
 const allowedGuestPath = ['/tutorial', ...allowedOnlyGuestPath];
 
 function isAllowedGuestPath(path: string, strict: boolean = false) {
-  if (path === '/' && !strict) {
+  if (path === '/') {
     return true;
   }
 
