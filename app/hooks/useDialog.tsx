@@ -13,6 +13,8 @@ export default function useDialog(key: DialogKey, onClose?: () => void) {
 
   const close = () => {
     setOpenDialogList([key, false]);
+
+    onClose?.();
   };
 
   const toggle = () => {
