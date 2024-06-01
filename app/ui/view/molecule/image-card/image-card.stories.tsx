@@ -1,4 +1,4 @@
-import feature1 from '@/public/assets/tutorial/tutorial-feature1.png';
+import featureIamge from '@/public/assets/tutorial/tutorial-feature1.png';
 import type { Meta, StoryObj } from '@storybook/react';
 import ImageCard, { ImageCardProps } from './image-card';
 
@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    image: feature1,
+    image: featureIamge,
     title: 'first',
     content: '강의 커스텀을 통한 졸업 사정 예측',
   },
