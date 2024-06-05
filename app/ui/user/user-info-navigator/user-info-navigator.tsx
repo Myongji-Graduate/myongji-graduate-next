@@ -1,4 +1,4 @@
-import { auth } from '@/app/business/services/auth';
+import { auth } from '@/app/business/services/user/user.query';
 import { isInitUser } from '@/app/business/services/user/user.validation';
 import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/user/user.type';
 import Avatar from '../../view/atom/avatar';
