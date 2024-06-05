@@ -1,17 +1,11 @@
 'use client';
-import { fetchUserInfo } from '@/app/business/services/user/user.query';
 import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/user/user.type';
 import InitUserAnnounce from './init-user-announce';
 import UserInfoContent from './user-info-content';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { QUERY_KEY } from '@/app/utils/query/react-query-key';
+import { useFetchUserInfo } from '@/app/store/querys/user';
 
 function UserInfoCard() {
-  const { data } = useSuspenseQuery<InitUserInfoResponse | UserInfoResponse>({
-    queryKey: [QUERY_KEY.USER],
-    staleTime: Infinity,
-    queryFn: fetchUserInfo,
-  });
+  const { data } = useFetchUserInfo();
 
   function isInitUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
     return typeof x.studentName === null;
