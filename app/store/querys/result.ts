@@ -1,9 +1,33 @@
 import { API_PATH } from '@/app/business/api-path';
 import { getToken } from '@/app/business/services/auth';
-import { CreditResponse, ResultCategoryDetailResponse } from '@/app/business/services/result/result.type';
+import { LectureInfo } from '@/app/type/lecture';
+import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import axios from 'axios';
+
+export interface ResultCategoryDetailLecturesResponse {
+  categoryName: string;
+  totalCredits: number;
+  takenCredits: number;
+  takenLectures: LectureInfo[];
+  haveToLectures: LectureInfo[];
+  completed: boolean;
+}
+
+export interface ResultCategoryDetailResponse {
+  totalCredit: number;
+  takenCredit: number;
+  detailCategory: ResultCategoryDetailLecturesResponse[];
+  completed: boolean;
+}
+
+export interface CreditResponse {
+  category: keyof typeof RESULT_CATEGORY;
+  totalCredit: number;
+  takenCredit: number;
+  completed: boolean;
+}
 
 export const useFetchCredits = () => {
   return useSuspenseQuery<CreditResponse[]>({
@@ -13,7 +37,7 @@ export const useFetchCredits = () => {
   });
 };
 
-export const fetchCredits = async () => {
+const fetchCredits = async () => {
   try {
     const { data } = await axios<CreditResponse[]>(API_PATH.credits, {
       headers: {
@@ -34,7 +58,7 @@ export const useFetchResultCategoryDetailInfo = (category: string) => {
   });
 };
 
-export const fetchResultCategoryDetailInfo = async (category: string) => {
+const fetchResultCategoryDetailInfo = async (category: string) => {
   //FIX : category를 querystring으로 호출하는 건은 mock단계에서는 불필요할 것으로 예상, 실제 api 연결시 변경 예정
   try {
     const { data } = await axios<ResultCategoryDetailResponse>(API_PATH.resultCategoryDetailInfo, {

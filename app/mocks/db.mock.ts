@@ -1,6 +1,6 @@
 import { SearchLectures } from '../store/querys/lecture';
 import { TakenLectures } from '../business/services/lecture/taken-lecture.query';
-import { CreditResponse, ResultCategoryDetailResponse } from '../business/services/result/result.type';
+import { CreditResponse, ResultCategoryDetailResponse } from '../store/querys/result';
 import {
   SignUpRequestBody,
   SignInRequestBody,
