@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { DIALOG_KEY } from '../utils/key/dialog-key.util';
+import { DIALOG_KEY } from '../../utils/key/dialog-key.util';
 
 const initialState = {
   [DIALOG_KEY.RESULT_CATEGORY]: false,

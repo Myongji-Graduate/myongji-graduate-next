@@ -22,7 +22,6 @@ describe('The Home Page', () => {
     cy.dataCy('open-lecture-search-dialog-button').click();
 
     cy.dataCy('search-lecture-input').type('영어1');
-    // cy.dataCy('search-lecture-button').click();
 
     cy.dataCy('lecture-영어1', { timeout: 10000 }).should('exist');
 

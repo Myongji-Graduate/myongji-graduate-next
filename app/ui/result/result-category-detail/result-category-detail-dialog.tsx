@@ -5,7 +5,7 @@ import Drawer from '../../view/molecule/drawer/drawer';
 import Responsive from '@/app/ui/responsive';
 import React, { useEffect } from 'react';
 import { useAtomValue } from 'jotai';
-import { isDialogOpenAtom } from '@/app/store/dialog';
+import { isDialogOpenAtom } from '@/app/store/stores/dialog';
 import useDialog from '@/app/hooks/useDialog';
 
 interface ResultCategoryDetailDialogProp {

@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { TakenLectrueInfo } from '../type/lecture';
+import { TakenLectrueInfo } from '../../type/lecture';
 
 export const takenLectureAtom = atom<TakenLectrueInfo[]>([]);
 

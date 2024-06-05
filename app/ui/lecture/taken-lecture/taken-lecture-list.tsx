@@ -1,7 +1,7 @@
 'use client';
 import { Table } from '../../view/molecule/table';
 import DeleteTakenLectureButton from './delete-taken-lecture-button';
-import { takenLectureAtom } from '@/app/store/custom-taken-lecture';
+import { takenLectureAtom } from '@/app/store/stores/custom-taken-lecture';
 import { useOptimistic } from 'react';
 import { useAtom } from 'jotai';
 import { deleteTakenLecture } from '@/app/business/lecture/taken-lecture.command';
@@ -19,6 +19,7 @@ export default function TakenLectureList() {
       return currentTakenLectures.filter((lecture) => lecture.id !== lectureId);
     },
   );
+
   const handleDeleteTakenLecture = async (lectureId: number) => {
     deleteOptimisticLecture(lectureId);
     const result = await deleteTakenLecture(lectureId);

@@ -1,7 +1,7 @@
 'use client';
 import { useAtomValue } from 'jotai';
 import LectureSearchBar from './lecture-search-bar';
-import { searchWordAtom } from '@/app/store/search-word';
+import { searchWordAtom } from '@/app/store/stores/search-word';
 import { Suspense } from 'react';
 import Image from 'next/image';
 import searchResultIcon from '@/public/assets/searchResultIcon.svg';

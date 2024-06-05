@@ -1,5 +1,5 @@
 import { DialogKey } from '../utils/key/dialog-key.util';
-import { updateDialogAtom } from '../store/dialog';
+import { updateDialogAtom } from '../store/stores/dialog';
 import { useAtom } from 'jotai';
 
 export default function useDialog(key: DialogKey, onClose?: () => void) {
