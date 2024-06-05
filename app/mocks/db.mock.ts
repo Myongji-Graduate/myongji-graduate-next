@@ -1,4 +1,4 @@
-import { SearchLectures } from '../business/services/lecture/search-lecture.query';
+import { SearchLectures } from '../store/querys/user';
 import { TakenLectures } from '../business/services/lecture/taken-lecture.query';
 import { CreditResponse, ResultCategoryDetailResponse } from '../business/services/result/result.type';
 import {
