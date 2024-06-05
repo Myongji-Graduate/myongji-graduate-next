@@ -1,7 +1,7 @@
 import { takenLectureAtom } from '@/app/store/stores/custom-taken-lecture';
 import { useOptimistic } from 'react';
 import { useAtom } from 'jotai';
-import { TakenLectrueInfo } from '@/app/type/lecture';
+import { TakenLectrueInfo } from '@/app/store/stores/custom-taken-lecture';
 
 export function useTakenLecture() {
   const [takenLectures, setTakenLectures] = useAtom(takenLectureAtom);

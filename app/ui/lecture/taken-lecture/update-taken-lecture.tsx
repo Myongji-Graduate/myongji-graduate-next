@@ -1,5 +1,5 @@
 'use client';
-import { TakenLectrueInfo } from '@/app/type/lecture';
+import { TakenLectrueInfo } from '@/app/store/stores/custom-taken-lecture';
 import { useEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { updateDialogAtom } from '@/app/store/stores/dialog';

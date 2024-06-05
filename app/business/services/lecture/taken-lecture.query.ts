@@ -1,11 +1,20 @@
-import { TakenLectrueInfo } from '@/app/type/lecture';
 import { API_PATH } from '../../api-path';
 import { TAG } from '@/app/utils/http/tag';
 import { cookies } from 'next/headers';
 
 export interface TakenLectures {
   totalCredit: number;
-  takenLectures: TakenLectrueInfo[];
+  takenLectures: TakenLectrueInfoResponse[];
+}
+
+interface TakenLectrueInfoResponse {
+  [index: string]: string | number;
+  id: number;
+  year: string;
+  semester: string;
+  lectureCode: string;
+  lectureName: string;
+  credit: number;
 }
 
 export const fetchTakenLectures = async (): Promise<TakenLectures> => {

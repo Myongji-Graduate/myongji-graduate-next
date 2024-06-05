@@ -1,5 +1,14 @@
 import { atom } from 'jotai';
-import { TakenLectrueInfo } from '../../type/lecture';
+
+export interface TakenLectrueInfo {
+  [index: string]: string | number;
+  id: number;
+  year: string;
+  semester: string;
+  lectureCode: string;
+  lectureName: string;
+  credit: number;
+}
 
 export const takenLectureAtom = atom<TakenLectrueInfo[]>([]);
 
