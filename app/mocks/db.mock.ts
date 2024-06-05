@@ -1,4 +1,4 @@
-import { SearchLectures } from '../store/querys/lecture';
+import { SearchLecturesResponse } from '../store/querys/lecture';
 import { TakenLectures } from '../business/services/lecture/taken-lecture.query';
 import { CreditResponse, ResultCategoryDetailResponse } from '../store/querys/result';
 import {
@@ -14,13 +14,13 @@ interface MockDatabaseState {
   resultCategoryDetailInfo: ResultCategoryDetailResponse;
   credits: CreditResponse[];
   users: SignUpRequestBody[];
-  searchLectures: SearchLectures;
+  searchLectures: SearchLecturesResponse;
   userInfo: UserInfoResponse;
 }
 
 type MockDatabaseAction = {
   getTakenLectures: () => TakenLectures;
-  getSearchLectures: () => SearchLectures;
+  getSearchLectures: () => SearchLecturesResponse;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
   createUser: (user: SignUpRequestBody) => boolean;

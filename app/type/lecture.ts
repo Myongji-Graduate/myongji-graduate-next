@@ -7,18 +7,3 @@ export interface TakenLectrueInfo {
   lectureName: string;
   credit: number;
 }
-
-export interface LectureInfo {
-  [index: string]: string | number | boolean;
-  id: number;
-  lectureCode: string;
-  name: string;
-  credit: number;
-}
-
-export type SearchedLectureInfo = LectureInfo & { isTaken: boolean };
-
-export type LectureSearchParams = {
-  type?: string;
-  keyword?: string;
-};

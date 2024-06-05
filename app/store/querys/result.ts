@@ -1,17 +1,24 @@
 import { API_PATH } from '@/app/business/api-path';
 import { getToken } from '@/app/business/services/auth';
-import { LectureInfo } from '@/app/type/lecture';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+export interface LectureInfoResponse {
+  [index: string]: string | number | boolean;
+  id: number;
+  lectureCode: string;
+  name: string;
+  credit: number;
+}
+
 export interface ResultCategoryDetailLecturesResponse {
   categoryName: string;
   totalCredits: number;
   takenCredits: number;
-  takenLectures: LectureInfo[];
-  haveToLectures: LectureInfo[];
+  takenLectures: LectureInfoResponse[];
+  haveToLectures: LectureInfoResponse[];
   completed: boolean;
 }
 
