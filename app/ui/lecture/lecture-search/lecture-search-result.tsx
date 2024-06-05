@@ -2,7 +2,7 @@ import { SearchedLectureInfo } from '@/app/type/lecture';
 import { useAtomValue } from 'jotai';
 import { searchWordAtom } from '@/app/store/stores/search-word';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { fetchSearchLectures } from '@/app/business/service/lecture/search-lecture.query';
+import { fetchSearchLectures } from '@/app/business/services/lecture/search-lecture.query';
 import List from '@/app/ui/view/molecule/list';
 import Grid from '@/app/ui/view/molecule/grid';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';

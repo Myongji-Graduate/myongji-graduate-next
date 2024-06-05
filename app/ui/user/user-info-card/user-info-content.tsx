@@ -1,4 +1,4 @@
-import { UserInfoResponse } from '@/app/business/service/user/user.type';
+import { UserInfoResponse } from '@/app/business/services/user/user.type';
 import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 import React from 'react';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';

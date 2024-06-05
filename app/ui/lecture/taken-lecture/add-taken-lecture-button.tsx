@@ -1,7 +1,7 @@
 'use client';
 import { LectureInfo } from '@/app/type/lecture';
 import Form from '../../view/molecule/form';
-import { addTakenLecture } from '@/app/business/service/lecture/taken-lecture.command';
+import { addTakenLecture } from '@/app/business/services/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
 import { useState } from 'react';
 

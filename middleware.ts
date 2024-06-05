@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
-import { validateToken } from './app/business/service/user/user.command';
-import { fetchUser } from './app/business/service/auth';
+import { validateToken } from './app/business/services/user/user.command';
+import { fetchUser } from './app/business/services/auth';
 
 async function getAuth(request: NextRequest): Promise<{
   role: 'guest' | 'user' | 'init';

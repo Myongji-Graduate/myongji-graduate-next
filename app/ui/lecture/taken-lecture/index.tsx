@@ -1,4 +1,4 @@
-import { fetchTakenLectures } from '@/app/business/service/lecture/taken-lecture.query';
+import { fetchTakenLectures } from '@/app/business/services/lecture/taken-lecture.query';
 import TakenLectureList from './taken-lecture-list';
 import TakenLectureLabel from './taken-lecture-label';
 import TakenLectureAtomHydrator from '@/app/store/stores/taken-lecture-atom-hydrator';

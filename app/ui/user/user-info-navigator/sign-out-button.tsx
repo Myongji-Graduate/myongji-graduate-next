@@ -1,5 +1,5 @@
 'use client';
-import { signOut } from '@/app/business/service/user/user.command';
+import { signOut } from '@/app/business/services/user/user.command';
 import Button from '../../view/atom/button/button';
 
 export default function SignOutButton() {
