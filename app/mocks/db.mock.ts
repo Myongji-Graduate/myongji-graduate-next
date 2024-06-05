@@ -1,5 +1,5 @@
 import { SearchLecturesResponse } from '../store/querys/lecture';
-import { TakenLectures } from '../business/services/lecture/taken-lecture.query';
+import { TakenLecturesResponse } from '../business/services/lecture/taken-lecture.query';
 import { CreditResponse, ResultCategoryDetailResponse } from '../store/querys/result';
 import {
   SignUpRequestBody,
@@ -10,7 +10,7 @@ import {
 import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo } from './data.mock';
 
 interface MockDatabaseState {
-  takenLectures: TakenLectures;
+  takenLectures: TakenLecturesResponse;
   resultCategoryDetailInfo: ResultCategoryDetailResponse;
   credits: CreditResponse[];
   users: SignUpRequestBody[];
@@ -19,7 +19,7 @@ interface MockDatabaseState {
 }
 
 type MockDatabaseAction = {
-  getTakenLectures: () => TakenLectures;
+  getTakenLectures: () => TakenLecturesResponse;
   getSearchLectures: () => SearchLecturesResponse;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;

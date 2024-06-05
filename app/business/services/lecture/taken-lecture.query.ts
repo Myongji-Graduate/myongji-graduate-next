@@ -2,7 +2,7 @@ import { API_PATH } from '../../api-path';
 import { TAG } from '@/app/utils/http/tag';
 import { cookies } from 'next/headers';
 
-export interface TakenLectures {
+export interface TakenLecturesResponse {
   totalCredit: number;
   takenLectures: TakenLectrueInfoResponse[];
 }
@@ -17,7 +17,7 @@ interface TakenLectrueInfoResponse {
   credit: number;
 }
 
-export const fetchTakenLectures = async (): Promise<TakenLectures> => {
+export const fetchTakenLectures = async (): Promise<TakenLecturesResponse> => {
   const response = await fetch(API_PATH.takenLectures, {
     next: { tags: [TAG.GET_TAKEN_LECTURES] },
     headers: {
