@@ -1,11 +1,10 @@
-'use client';
 import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/user/user.type';
 import InitUserAnnounce from './init-user-announce';
 import UserInfoContent from './user-info-content';
-import { useFetchUserInfo } from '@/app/store/querys/user';
+import { fetchUser } from '@/app/business/services/user/user.query';
 
-function UserInfoCard() {
-  const { data } = useFetchUserInfo();
+async function UserInfoCard() {
+  const data = await fetchUser();
 
   function isInitUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
     return typeof x.studentName === null;
