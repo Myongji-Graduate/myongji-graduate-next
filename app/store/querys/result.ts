@@ -1,6 +1,6 @@
 import { API_PATH } from '@/app/business/api-path';
 import { getToken } from '@/app/business/services/auth';
-import { CreditResponse } from '@/app/business/services/result/result.type';
+import { CreditResponse, ResultCategoryDetailResponse } from '@/app/business/services/result/result.type';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -16,6 +16,28 @@ export const useFetchCredits = () => {
 export const fetchCredits = async () => {
   try {
     const { data } = await axios<CreditResponse[]>(API_PATH.credits, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const useFetchResultCategoryDetailInfo = (category: string) => {
+  return useSuspenseQuery<ResultCategoryDetailResponse>({
+    queryKey: [QUERY_KEY.CATEGORY],
+    staleTime: Infinity,
+    queryFn: () => fetchResultCategoryDetailInfo(category),
+  });
+};
+
+export const fetchResultCategoryDetailInfo = async (category: string) => {
+  //FIX : category를 querystring으로 호출하는 건은 mock단계에서는 불필요할 것으로 예상, 실제 api 연결시 변경 예정
+  try {
+    const { data } = await axios<ResultCategoryDetailResponse>(API_PATH.resultCategoryDetailInfo, {
       headers: {
         Authorization: `Bearer ${getToken()}`,
       },
