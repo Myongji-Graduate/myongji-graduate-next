@@ -3,7 +3,7 @@ import { TakenLectrueInfo } from '@/app/type/lecture';
 import { useEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { updateDialogAtom } from '@/app/store/stores/dialog';
-import { useTakenLecture } from '@/app/business/hooks/use-taken-lecture';
+import { useTakenLecture } from '@/app/business/hooks/use-taken-lecture.hook';
 
 export default function UpdateTakenLecture({ data, children }: React.PropsWithChildren<{ data: TakenLectrueInfo[] }>) {
   const isLectureSearchOpen = useAtomValue(updateDialogAtom);

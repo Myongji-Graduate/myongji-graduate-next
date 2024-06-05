@@ -5,7 +5,7 @@ import { deleteTakenLecture } from '@/app/business/services/lecture/taken-lectur
 import { useToast } from '../../view/molecule/toast/use-toast';
 import Responsive from '../../responsive';
 import { TAKEN_LECTURE_TABLE_HEADER_INFO } from './taken-lecture-constant';
-import { useTakenLecture } from '@/app/business/hooks/use-taken-lecture';
+import { useTakenLecture } from '@/app/business/hooks/use-taken-lecture.hook';
 
 export default function TakenLectureList() {
   const { optimisticLecture, deleteOptimisticLecture, deleteLecture } = useTakenLecture();
