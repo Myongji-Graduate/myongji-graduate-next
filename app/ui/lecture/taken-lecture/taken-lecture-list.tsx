@@ -1,24 +1,16 @@
 'use client';
 import { Table } from '../../view/molecule/table';
 import DeleteTakenLectureButton from './delete-taken-lecture-button';
-import { takenLectureAtom } from '@/app/store/stores/custom-taken-lecture';
-import { useOptimistic } from 'react';
-import { useAtom } from 'jotai';
 import { deleteTakenLecture } from '@/app/business/services/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
 import Responsive from '../../responsive';
 import { TAKEN_LECTURE_TABLE_HEADER_INFO } from './taken-lecture-constant';
+import { useTakenLecture } from '@/app/business/hooks/use-taken-lecture';
 
 export default function TakenLectureList() {
-  const [takenLectures, setTakenLectures] = useAtom(takenLectureAtom);
-  const { toast } = useToast();
+  const { optimisticLecture, deleteOptimisticLecture, deleteLecture } = useTakenLecture();
 
-  const [optimisticLecture, deleteOptimisticLecture] = useOptimistic(
-    takenLectures,
-    (currentTakenLectures, lectureId) => {
-      return currentTakenLectures.filter((lecture) => lecture.id !== lectureId);
-    },
-  );
+  const { toast } = useToast();
 
   const handleDeleteTakenLecture = async (lectureId: number) => {
     deleteOptimisticLecture(lectureId);
@@ -29,7 +21,7 @@ export default function TakenLectureList() {
         variant: 'destructive',
       });
     }
-    setTakenLectures(takenLectures?.filter((lecture) => lecture.id !== lectureId));
+    deleteLecture(lectureId);
   };
 
   return (

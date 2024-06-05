@@ -1,16 +1,16 @@
 'use client';
-import { takenLectureAtom } from '@/app/store/stores/custom-taken-lecture';
 import { TakenLectrueInfo } from '@/app/type/lecture';
 import { useEffect } from 'react';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { updateDialogAtom } from '@/app/store/stores/dialog';
+import { useTakenLecture } from '@/app/business/hooks/use-taken-lecture';
 
 export default function UpdateTakenLecture({ data, children }: React.PropsWithChildren<{ data: TakenLectrueInfo[] }>) {
   const isLectureSearchOpen = useAtomValue(updateDialogAtom);
-  const setTakenLectures = useSetAtom(takenLectureAtom);
+  const { initializeTakenLectures } = useTakenLecture();
 
   useEffect(() => {
-    setTakenLectures(data);
+    initializeTakenLectures(data);
   }, [isLectureSearchOpen, data]);
 
   return children;
