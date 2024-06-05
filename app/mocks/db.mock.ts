@@ -1,12 +1,12 @@
-import { SearchLectures } from '../business/lecture/search-lecture.query';
-import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { CreditResponse, ResultCategoryDetailResponse } from '../business/result/result.type';
+import { SearchLectures } from '../business/service/lecture/search-lecture.query';
+import { TakenLectures } from '../business/service/lecture/taken-lecture.query';
+import { CreditResponse, ResultCategoryDetailResponse } from '../business/service/result/result.type';
 import {
   SignUpRequestBody,
   SignInRequestBody,
   UserInfoResponse,
   InitUserInfoResponse,
-} from '../business/user/user.type';
+} from '../business/service/user/user.type';
 import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo } from './data.mock';
 
 interface MockDatabaseState {

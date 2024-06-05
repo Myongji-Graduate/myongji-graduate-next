@@ -1,10 +1,10 @@
 'use client';
 import { cn } from '@/app/utils/shadcn/utils';
 import ResultCategoryCard from '../result-category-card/result-category-card';
-import { fetchCredits } from '@/app/business/result/result.query';
+import { fetchCredits } from '@/app/business/service/result/result.query';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { CreditResponse } from '@/app/business/result/result.type';
+import { CreditResponse } from '@/app/business/service/result/result.type';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 
 function ResultCategory() {

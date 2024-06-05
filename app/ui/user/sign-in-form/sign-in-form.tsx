@@ -1,6 +1,6 @@
 'use client';
 import Form from '../../view/molecule/form';
-import { authenticate } from '@/app/business/user/user.command';
+import { authenticate } from '@/app/business/service/user/user.command';
 
 export default function SignInForm() {
   return (

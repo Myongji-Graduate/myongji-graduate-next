@@ -4,7 +4,7 @@ import DeleteTakenLectureButton from './delete-taken-lecture-button';
 import { takenLectureAtom } from '@/app/store/stores/custom-taken-lecture';
 import { useOptimistic } from 'react';
 import { useAtom } from 'jotai';
-import { deleteTakenLecture } from '@/app/business/lecture/taken-lecture.command';
+import { deleteTakenLecture } from '@/app/business/service/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
 import Responsive from '../../responsive';
 import { TAKEN_LECTURE_TABLE_HEADER_INFO } from './taken-lecture-constant';

@@ -1,4 +1,4 @@
-import { API_PATH } from '../api-path';
+import { API_PATH } from '../../api-path';
 import { CreditResponse, ResultCategoryDetailResponse } from './result.type';
 import axios from 'axios';
 import { getToken } from '../auth';

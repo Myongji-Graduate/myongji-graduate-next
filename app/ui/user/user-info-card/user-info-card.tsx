@@ -1,6 +1,6 @@
 'use client';
-import { fetchUserInfo } from '@/app/business/user/user.query';
-import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/user/user.type';
+import { fetchUserInfo } from '@/app/business/service/user/user.query';
+import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/service/user/user.type';
 import InitUserAnnounce from './init-user-announce';
 import UserInfoContent from './user-info-content';
 import { useSuspenseQuery } from '@tanstack/react-query';

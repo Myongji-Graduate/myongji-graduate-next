@@ -1,5 +1,5 @@
 import { TakenLectrueInfo } from '@/app/type/lecture';
-import { API_PATH } from '../api-path';
+import { API_PATH } from '../../api-path';
 import { TAG } from '@/app/utils/http/tag';
 import { cookies } from 'next/headers';
 

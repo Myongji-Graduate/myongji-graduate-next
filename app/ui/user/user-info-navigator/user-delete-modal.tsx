@@ -1,7 +1,7 @@
 'use client';
 import Modal from '../../view/molecule/modal/modal';
 import Form from '../../view/molecule/form';
-import { deleteUser } from '@/app/business/user/user.command';
+import { deleteUser } from '@/app/business/service/user/user.command';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 
 export default function UserDeleteModal() {

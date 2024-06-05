@@ -1,5 +1,5 @@
 import { SearchedLectureInfo } from '@/app/type/lecture';
-import { API_PATH } from '../api-path';
+import { API_PATH } from '../../api-path';
 import axios from 'axios';
 import { getToken } from '../auth';
 

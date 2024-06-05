@@ -1,6 +1,6 @@
-import { auth } from '@/app/business/auth';
-import { isInitUser } from '@/app/business/user/user.validation';
-import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/user/user.type';
+import { auth } from '@/app/business/service/auth';
+import { isInitUser } from '@/app/business/service/user/user.validation';
+import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/service/user/user.type';
 import Avatar from '../../view/atom/avatar';
 
 function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | undefined): {

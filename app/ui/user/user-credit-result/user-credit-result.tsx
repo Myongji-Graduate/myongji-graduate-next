@@ -1,4 +1,4 @@
-import { fetchUser } from '@/app/business/auth';
+import { fetchUser } from '@/app/business/service/auth';
 import books from '@/public/assets/books.png';
 import pencil from '@/public/assets/pencil.png';
 import Image from 'next/image';

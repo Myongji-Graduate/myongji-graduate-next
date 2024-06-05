@@ -1,6 +1,6 @@
 'use server';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
-import { API_PATH } from '../api-path';
+import { API_PATH } from '../../api-path';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
 import { revalidateTag } from 'next/cache';
