@@ -2,7 +2,7 @@ import { SearchedLectureInfo } from '@/app/type/lecture';
 import List from '@/app/ui/view/molecule/list';
 import Grid from '@/app/ui/view/molecule/grid';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
-import { useFetchSearchLecture } from '@/app/store/querys/user';
+import { useFetchSearchLecture } from '@/app/store/querys/lecture';
 
 export default function LectureSearchResult() {
   const { data } = useFetchSearchLecture();
