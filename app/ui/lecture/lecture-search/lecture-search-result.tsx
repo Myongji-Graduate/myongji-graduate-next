@@ -1,22 +1,11 @@
 import { SearchedLectureInfo } from '@/app/type/lecture';
-import { useAtomValue } from 'jotai';
-import { searchWordAtom } from '@/app/store/stores/search-word';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { fetchSearchLectures } from '@/app/business/services/lecture/search-lecture.query';
 import List from '@/app/ui/view/molecule/list';
 import Grid from '@/app/ui/view/molecule/grid';
-import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
+import { useFetchSearchLecture } from '@/app/store/querys/user';
 
 export default function LectureSearchResult() {
-  const searchWord = useAtomValue(searchWordAtom);
-
-  const { data } = useSuspenseQuery<SearchedLectureInfo[]>({
-    queryKey: [QUERY_KEY.SEARCH_LECTURE],
-    queryFn: () => {
-      return fetchSearchLectures(searchWord.type, searchWord.keyword as string);
-    },
-  });
+  const { data } = useFetchSearchLecture();
 
   const renderAddActionButton = (item: SearchedLectureInfo, isTaken: boolean) => {
     return <AddTakenLectureButton lectureItem={item} isTaken={isTaken} />;
