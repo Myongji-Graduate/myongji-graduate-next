@@ -30,7 +30,7 @@ export const resultHandlers = [
     }
 
     const data = mockDatabase.getCredits();
-    await delay(5000);
+    await delay(1000);
     if (!data) {
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
     }

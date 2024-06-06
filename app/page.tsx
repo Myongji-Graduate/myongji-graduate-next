@@ -42,7 +42,7 @@ export default function HomePage() {
           </div>
           <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
         </p>
-        <Link href="/grade-upload">
+        <Link href="/result">
           <Button label="검사 시작" variant="dark" size="xl" />
         </Link>
       </div>

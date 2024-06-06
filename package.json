@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "dev:mock": "concurrently --kill-others \"cross-env API_MOCKING=enable next dev\" \"cross-env API_MOCKING=enable npx tsx watch ./app/mocks/http.ts\"",
+    "start:mock": "concurrently --kill-others \"cross-env API_MOCKING=enable next start\" \"cross-env API_MOCKING=enable npx tsx watch ./app/mocks/http.ts\"",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",

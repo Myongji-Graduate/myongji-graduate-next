@@ -36,6 +36,7 @@ export default function AddTakenLectureButton({ lectureItem, isTaken }: AddTaken
         disabled={disabled}
         size="default"
         data-testid="add-taken-lecture-button"
+        data-cy={`add-lecture-button-${lectureItem.name}`}
       />
     </Form>
   );

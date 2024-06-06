@@ -73,7 +73,7 @@ export const userHandlers = [
         return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
       }
       const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
-      await delay(3000);
+      await delay(500);
 
       if (!userInfo) {
         return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
