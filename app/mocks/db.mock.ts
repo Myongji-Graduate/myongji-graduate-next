@@ -19,6 +19,7 @@ interface MockDatabaseState {
 }
 
 type MockDatabaseAction = {
+  reset: () => void;
   getTakenLectures: () => TakenLecturesResponse;
   getSearchLectures: () => SearchLecturesResponse;
   addTakenLecture: (lectureId: number) => boolean;
@@ -32,6 +33,9 @@ type MockDatabaseAction = {
 };
 
 export const mockDatabase: MockDatabaseAction = {
+  reset: () => {
+    resetMockDB();
+  },
   getTakenLectures: () => mockDatabaseStore.takenLectures,
   getSearchLectures: () => mockDatabaseStore.searchLectures,
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
