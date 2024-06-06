@@ -26,6 +26,7 @@ function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps)
               <ResultCategoryDetailLectureToggle
                 checked={isTakenLecture}
                 data-testid="lecture-toggle"
+                data-cy="lecture-toggle"
                 onCheckedChange={setIsTakenLectrue}
                 className="absolute z-2"
               />
