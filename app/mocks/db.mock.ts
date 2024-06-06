@@ -45,15 +45,19 @@ export const mockDatabase: MockDatabaseAction = {
     return false;
   },
   addTakenLecture: (lectureId) => {
+    const lecture = mockDatabaseStore.searchLectures.lectures.find((lecture) => lecture.id === lectureId);
+    if (!lecture) {
+      return false;
+    }
     mockDatabaseStore.takenLectures.takenLectures = [
       ...mockDatabaseStore.takenLectures.takenLectures,
       {
         id: lectureId,
         year: '2023',
         semester: '2학기',
-        lectureCode: 'HECD140',
-        lectureName: '추가한과목',
-        credit: 3,
+        lectureCode: lecture?.lectureCode,
+        lectureName: lecture?.name,
+        credit: lecture?.credit,
       },
     ];
     return true;
