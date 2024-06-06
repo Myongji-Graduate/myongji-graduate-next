@@ -1,11 +1,11 @@
 describe('The Home Page', () => {
   beforeEach(() => {
     cy.login('admin', 'admin');
-    // cy.visit('/my');
-    // cy.window().invoke(
-    //   // name of the method
-    //   'resetMockData',
-    // );
+    cy.visit('/my');
+    cy.window().invoke(
+      // name of the method
+      'resetMockDB',
+    );
   });
 
   it('critical path', () => {
@@ -28,5 +28,15 @@ describe('The Home Page', () => {
     cy.dataCy('add-lecture-button-영어1').click();
 
     cy.contains('과목 추가에 성공했습니다').should('exist');
+  });
+
+  it('delete lecture', () => {
+    cy.visit('/my');
+    cy.window().invoke(
+      // name of the method
+      'addTakenLecture',
+      [1, 2, 3],
+    );
+    cy.visit('/my');
   });
 });
