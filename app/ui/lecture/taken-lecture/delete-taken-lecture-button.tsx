@@ -21,7 +21,13 @@ export default function DeleteTakenLectureButton({ lectureId, onDelete }: Delete
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <div className="opacity-0 group-hover:opacity-100">
-          <Button label="삭제" variant="text" size="default" data-testid="taken-lecture-delete-button" />
+          <Button
+            label="삭제"
+            variant="text"
+            size="default"
+            data-cy={`taken-lecture-delete-model-trigger-${lectureId}`}
+            data-testid="taken-lecture-delete-button"
+          />
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -38,6 +44,7 @@ export default function DeleteTakenLectureButton({ lectureId, onDelete }: Delete
             <Button
               label="확인"
               className="font-bold"
+              data-cy="confirm-button"
               data-testid="confirm-button"
               onClick={() => {
                 setOpen(false);
