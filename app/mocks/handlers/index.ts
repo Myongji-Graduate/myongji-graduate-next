@@ -7,8 +7,6 @@ import { http, HttpResponse } from 'msw';
 
 const defaultHandlers = [
   http.get<never, never, never>(`${API_PATH.default}/reset`, async () => {
-    console.log('reset');
-    console.log('reset');
     mockDatabase.reset();
     return HttpResponse.json({ status: 200 });
   }),
