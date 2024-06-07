@@ -37,7 +37,7 @@ export default function DeleteTakenLectureButton({ lectureId, onDelete }: Delete
           >
             <Button
               label="확인"
-              className="text-primary font-bold"
+              className="text-primary font-bold bg-white"
               data-testid="confirm-button"
               onClick={() => {
                 setOpen(false);
