@@ -7,7 +7,6 @@ export interface TakenLectrueInfo {
   lectureName: string;
   credit: number;
 }
-
 export interface LectureInfo {
   [index: string]: string | number | boolean;
   id: number;

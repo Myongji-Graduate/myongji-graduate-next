@@ -285,7 +285,7 @@ export const searchLectures = [
     lectureCode: 'KMA02106',
     name: '영어1',
     credit: 2,
-    isRevocked: false,
+    isRevoked: false,
     isTaken: false,
   },
   {
@@ -293,7 +293,7 @@ export const searchLectures = [
     lectureCode: 'KMA02107',
     name: '영어2',
     credit: 2,
-    isRevocked: false,
+    isRevoked: false,
     isTaken: true,
   },
   {
@@ -301,7 +301,7 @@ export const searchLectures = [
     lectureCode: 'KMA02109',
     name: '영어회화1',
     credit: 2,
-    isRevocked: false,
+    isRevoked: false,
     isTaken: false,
   },
   {
@@ -309,7 +309,7 @@ export const searchLectures = [
     lectureCode: 'KMA02144',
     name: '영어회화2',
     credit: 2,
-    isRevocked: true,
+    isRevoked: true,
     isTaken: false,
   },
 ];

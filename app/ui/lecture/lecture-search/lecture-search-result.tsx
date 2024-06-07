@@ -25,7 +25,7 @@ export default function LectureSearchResult() {
   const render = (item: SearchLectures, index: number) => {
     const searchLectureItem = item;
     return (
-      <List.Row data-cy={`lecture-${searchLectureItem.name}`} key={index}>
+      <List.Row data-cy={`lecture-${searchLectureItem.name}`} key={index} textColor={item.isRevoked ? 'red' : 'black'}>
         <Grid cols={4}>
           {Object.keys(searchLectureItem).map((key, index) => {
             if (key === 'id' || key === 'isTaken' || key === 'isRevoked') return null;
