@@ -3,7 +3,7 @@ export default {
     baseUrl: 'http://localhost:3000',
     viewportWidth: 1280,
     viewportHeight: 844,
-    setupNodeEvents(on, config) {
+    setupNodeEvents(on: any, config: any) {
       // implement node event listeners here
     },
   },

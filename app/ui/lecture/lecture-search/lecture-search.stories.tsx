@@ -9,7 +9,7 @@ import LectureSearch from '.';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Drawer from '../../view/molecule/drawer/drawer';
 import { delay } from 'msw';
-import Provider from '@/app/provider';
+import { ReactQueryProvider } from '@/app/utils/provider/react-query-provider';
 
 const meta = {
   title: 'ui/lecture/lecture-search',
@@ -20,7 +20,7 @@ const meta = {
       const data = mockDatabase.getTakenLectures();
       return (
         <>
-          <Provider>
+          <ReactQueryProvider>
             <TakenLectureAtomHydrator initialValue={data.takenLectures}>
               <TakenLectureLabel />
               <TakenLectureList />
@@ -28,7 +28,7 @@ const meta = {
             <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
               <Story type="lectureName" keyword="영어" />
             </Drawer>
-          </Provider>
+          </ReactQueryProvider>
         </>
       );
     },

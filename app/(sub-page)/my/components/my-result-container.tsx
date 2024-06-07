@@ -12,7 +12,7 @@ export default function MyResultContainer() {
         <UserCreditResult />
       </Suspense>
       <div className="flex justify-center">
-        <Link href="/result">
+        <Link data-cy="result-page-link" href="/result">
           <Button label="수강현황 자세히 보기" variant="primary" size="xs" />
         </Link>
       </div>

@@ -37,6 +37,11 @@ Cypress.Commands.add('login', (id, password) => {
   // UI should reflect this user being logged in
   //   cy.get('h1').should('contain', username)
 });
+
+Cypress.Commands.add('dataCy', (value, options) => {
+  return cy.get(`[data-cy=${value}]`, options);
+});
+
 //
 //
 // -- This is a child command --
@@ -49,14 +54,21 @@ Cypress.Commands.add('login', (id, password) => {
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+// //
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(email: string, password: string): Chainable<void>;
+      dataCy(
+        value: string,
+        options?: Partial<Loggable & Timeoutable & Withinable & Shadow>,
+      ): Chainable<JQuery<HTMLElement>>;
+      // drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      // dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+    }
+  }
+}
+
+export {};

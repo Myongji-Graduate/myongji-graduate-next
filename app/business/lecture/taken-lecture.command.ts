@@ -91,6 +91,7 @@ export const addTakenLecture = async (lectureId: number) => {
       throw error;
     }
   }
+
   revalidateTag(TAG.GET_TAKEN_LECTURES);
   return {
     isSuccess: true,

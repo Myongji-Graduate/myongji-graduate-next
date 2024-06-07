@@ -1,4 +1,4 @@
-import { auth } from '@/app/business/user/user.query';
+import { auth } from '@/app/business/auth';
 import SignOutButton from './sign-out-button';
 import UserDeleteButton from './user-delete-button';
 import SignInLinkButton from './sign-in-link-button';

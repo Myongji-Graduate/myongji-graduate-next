@@ -24,7 +24,11 @@ function UserInfoContent({ data }: UserInfoContentProps) {
   return (
     <>
       <p className="font-bold text-sm md:text-xl">
-        졸업필요학점보다 <span className="text-point-blue">{totalCredit - takenCredit}</span>학점이 부족합니다.
+        졸업필요학점보다{' '}
+        <span data-cy="remain-credit" className="text-point-blue">
+          {totalCredit - takenCredit}
+        </span>
+        학점이 부족합니다.
       </p>
       <div className="flex border-t-2 my-4 py-4 justify-between items-center">
         <div className="flex font-medium text-xs md:text-lg gap-4 md:gap-14 ">

@@ -11,7 +11,7 @@ export const takenLectureHandlers = [
   }),
   http.get(API_PATH.lectures, async () => {
     const takenLectures = mockDatabase.getSearchLectures();
-    await delay(1000);
+    await delay(100);
     return HttpResponse.json(takenLectures);
   }),
   http.post<never, { lectureId: number }>(API_PATH.takenLectures, async ({ request }) => {

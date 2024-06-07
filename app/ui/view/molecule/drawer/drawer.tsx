@@ -20,12 +20,12 @@ const Drawer = ({ children, drawerKey, onClose, className }: DrawerProps) => {
       <DrawerPrimitive.Portal>
         <DrawerPrimitive.Overlay
           onClick={toggle}
-          className="fixed inset-0 z-50 bg-black/60"
+          className="fixed inset-0 z-2 bg-black/60"
           data-testid="drawer-overlay"
         />
         <DrawerPrimitive.Content
           className={cn(
-            'fixed inset-x-0 bottom-0 z-50 mt-24 flex flex-col rounded-t-[10px] border border-slate-200 bg-white',
+            'fixed inset-x-0 bottom-0 z-2 mt-24 flex flex-col rounded-t-[10px] border border-slate-200 bg-white',
             className,
           )}
         >
