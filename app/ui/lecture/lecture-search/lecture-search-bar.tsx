@@ -38,7 +38,7 @@ export default function LectureSearchBar() {
           <Select.Item value="lectureCode" placeholder="과목코드" />
         </Select>
       </div>
-      <div className="w-[60%] sm:w-[40%] flex justify-between">
+      <div className="w-[60%] sm:w-[40%] flex justify-between flex-col gap-1">
         <TextInput
           data-cy="search-lecture-input"
           placeholder="검색어를 입력해주세요"
@@ -46,6 +46,7 @@ export default function LectureSearchBar() {
           onValueChange={handleDebounceKeywordSearch}
           data-testid="lecture-search-input"
         />
+        <div className="text-zinc-400 text-xs text-end">※ 회색으로 표기된 과목은 폐강과목입니다</div>
       </div>
     </div>
   );

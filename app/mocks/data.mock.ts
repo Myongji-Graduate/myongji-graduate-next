@@ -312,4 +312,12 @@ export const searchLectures = [
     revoked: true,
     taken: false,
   },
+  {
+    id: 5,
+    lectureCode: 'KMA02145',
+    name: '영어회화3',
+    credit: 2,
+    revoked: true,
+    taken: false,
+  },
 ];
