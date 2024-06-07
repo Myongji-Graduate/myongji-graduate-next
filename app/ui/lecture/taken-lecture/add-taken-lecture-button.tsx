@@ -7,11 +7,11 @@ import { useState } from 'react';
 
 interface AddTakenLectureButtonProps {
   lectureItem: LectureInfo;
-  isTaken: boolean;
+  taken: boolean;
 }
-export default function AddTakenLectureButton({ lectureItem, isTaken }: AddTakenLectureButtonProps) {
+export default function AddTakenLectureButton({ lectureItem, taken }: AddTakenLectureButtonProps) {
   const { toast } = useToast();
-  const [disabled, setDisabled] = useState(isTaken);
+  const [disabled, setDisabled] = useState(taken);
 
   const handleSuccessOfAdditionTakenLecture = () => {
     setDisabled(true);

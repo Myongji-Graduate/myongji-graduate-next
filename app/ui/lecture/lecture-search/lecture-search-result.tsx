@@ -18,21 +18,21 @@ export default function LectureSearchResult() {
     },
   });
 
-  const renderAddActionButton = (item: SearchLectures, isTaken: boolean) => {
-    return <AddTakenLectureButton lectureItem={item} isTaken={isTaken} />;
+  const renderAddActionButton = (item: SearchLectures, taken: boolean) => {
+    return <AddTakenLectureButton lectureItem={item} taken={taken} />;
   };
 
   const render = (item: SearchLectures, index: number) => {
     const searchLectureItem = item;
     return (
-      <List.Row data-cy={`lecture-${searchLectureItem.name}`} key={index} textColor={item.isRevoked ? 'red' : 'black'}>
+      <List.Row data-cy={`lecture-${searchLectureItem.name}`} key={index} textColor={item.revoked ? 'red' : 'black'}>
         <Grid cols={4}>
           {Object.keys(searchLectureItem).map((key, index) => {
-            if (key === 'id' || key === 'isTaken' || key === 'isRevoked') return null;
+            if (key === 'id' || key === 'taken' || key === 'revoked') return null;
             return <Grid.Column key={index}>{searchLectureItem[key]}</Grid.Column>;
           })}
           {renderAddActionButton ? (
-            <Grid.Column>{renderAddActionButton(searchLectureItem, item.isTaken)}</Grid.Column>
+            <Grid.Column>{renderAddActionButton(searchLectureItem, item.taken)}</Grid.Column>
           ) : null}
         </Grid>
       </List.Row>
