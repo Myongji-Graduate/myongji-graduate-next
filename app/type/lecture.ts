@@ -16,7 +16,7 @@ export interface LectureInfo {
   credit: number;
 }
 
-export type SearchedLectureInfo = LectureInfo & { isTaken: boolean };
+export type SearchLectures = LectureInfo & { isTaken: boolean; isRevoked: boolean };
 
 export type LectureSearchParams = {
   type?: string;
