@@ -279,41 +279,37 @@ export const credits = JSON.parse(`[
     }
 ]`);
 
-export const searchLectures = JSON.parse(`{
-	"lectures": [
-        {
-            "id": 1,
-            "lectureCode": "KMA02106",
-            "name": "영어1",
-            "credit": 2,
-            "isTaken" : false
-        },
-        {
-          "id": 2,
-          "lectureCode": "KMA02106",
-          "name": "영어2",
-          "credit": 2,
-          "isTaken" : true
-      },
-      {
-        "id": 3,
-        "lectureCode": "KMA02136",
-        "name": "영어무역이론",
-        "credit": 3,
-        "isTaken" : false
-    },
-    {
-      "id": 1,
-      "lectureCode": "KMA02106",
-      "name": "영어회화3",
-      "credit": 1,
-      "isTaken" : false
-  }, 
+export const searchLectures = [
   {
-    "id": 1,
-    "lectureCode": "KMA02106",
-    "name": "영어회화4",
-    "credit": 2,
-    "isTaken" : true
-}]
-}`);
+    id: 1,
+    lectureCode: 'KMA02106',
+    name: '영어1',
+    credit: 2,
+    isRevocked: false,
+    isTaken: false,
+  },
+  {
+    id: 2,
+    lectureCode: 'KMA02107',
+    name: '영어2',
+    credit: 2,
+    isRevocked: false,
+    isTaken: true,
+  },
+  {
+    id: 3,
+    lectureCode: 'KMA02109',
+    name: '영어회화1',
+    credit: 2,
+    isRevocked: false,
+    isTaken: false,
+  },
+  {
+    id: 4,
+    lectureCode: 'KMA02144',
+    name: '영어회화2',
+    credit: 2,
+    isRevocked: true,
+    isTaken: false,
+  },
+];
