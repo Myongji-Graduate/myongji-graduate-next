@@ -59,9 +59,9 @@ export const mockDatabase: MockDatabaseAction = {
         id: lectureId,
         year: '2023',
         semester: '2학기',
-        lectureCode: lecture?.lectureCode,
-        lectureName: lecture?.name,
-        credit: lecture?.credit,
+        lectureCode: lecture.lectureCode,
+        lectureName: lecture.name,
+        credit: lecture.credit,
       },
     ];
     return true;

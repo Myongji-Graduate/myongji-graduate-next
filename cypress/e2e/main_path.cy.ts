@@ -46,7 +46,6 @@ describe('The Home Page', () => {
 
     deleteLecture(testLectureIds[2]);
 
-    // command로 뺄까?
     function deleteLecture(lectureId: number) {
       cy.dataCy(`taken-lecture-delete-model-trigger-${lectureId}`).click();
 
