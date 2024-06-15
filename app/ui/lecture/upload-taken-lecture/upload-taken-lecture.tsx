@@ -1,6 +1,6 @@
 'use client';
 
-import { registerUserGrade } from '@/app/business/lecture/taken-lecture.command';
+import { registerUserGrade } from '@/app/business/services/lecture/taken-lecture.command';
 import UploadPdf from '@/app/ui/view/molecule/upload-pdf/upload-pdf';
 import Form from '../../view/molecule/form';
 

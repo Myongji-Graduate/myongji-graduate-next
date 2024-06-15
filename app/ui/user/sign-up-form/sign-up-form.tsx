@@ -1,5 +1,5 @@
 'use client';
-import { createUser } from '@/app/business/user/user.command';
+import { createUser } from '@/app/business/services/user/user.command';
 import Form from '../../view/molecule/form';
 
 interface SignUpFormProps {

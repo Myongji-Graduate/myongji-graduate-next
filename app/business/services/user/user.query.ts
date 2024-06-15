@@ -1,15 +1,10 @@
-'use server';
+import { UnauthorizedError } from '@/app/utils/http/http-error';
+import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
+import { isValidation } from '@/app/utils/zod/validation.util';
 import { cookies } from 'next/headers';
-import { UnauthorizedError } from '../utils/http/http-error';
-import { httpErrorHandler } from '../utils/http/http-error-handler';
-import { isValidation } from '../utils/zod/validation.util';
-import { API_PATH } from './api-path';
-import { InitUserInfoResponse, UserInfoResponse } from './user/user.type';
-import { UserInfoResponseSchema, InitUserInfoResponseSchema } from './user/user.validation';
-
-export const getToken = (): string | undefined => {
-  return cookies().get('accessToken')?.value;
-};
+import { API_PATH } from '../../api-path';
+import { InitUserInfoResponse, UserInfoResponse } from './user.type';
+import { UserInfoResponseSchema, InitUserInfoResponseSchema } from './user.validation';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
   try {

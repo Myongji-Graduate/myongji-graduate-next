@@ -9,7 +9,7 @@ import {
   UserInfoResponse,
   UserDeleteRequestBody,
   InitUserInfoResponse,
-} from '@/app/business/user/user.type';
+} from '@/app/business/services/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
 import { StrictRequest } from 'msw';
 

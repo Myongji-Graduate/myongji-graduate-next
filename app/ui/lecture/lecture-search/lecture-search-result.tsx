@@ -1,28 +1,17 @@
-import { SearchedLectureInfo } from '@/app/type/lecture';
-import { useAtomValue } from 'jotai';
-import { searchWordAtom } from '@/app/store/search-word';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { fetchSearchLectures } from '@/app/business/lecture/search-lecture.query';
+import { SearchedLectureInfoResponse } from '@/app/store/querys/lecture';
 import List from '@/app/ui/view/molecule/list';
 import Grid from '@/app/ui/view/molecule/grid';
-import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import AddTakenLectureButton from '../taken-lecture/add-taken-lecture-button';
+import { useFetchSearchLecture } from '@/app/store/querys/lecture';
 
 export default function LectureSearchResult() {
-  const searchWord = useAtomValue(searchWordAtom);
+  const { data } = useFetchSearchLecture();
 
-  const { data } = useSuspenseQuery<SearchedLectureInfo[]>({
-    queryKey: [QUERY_KEY.SEARCH_LECTURE],
-    queryFn: () => {
-      return fetchSearchLectures(searchWord.type, searchWord.keyword as string);
-    },
-  });
-
-  const renderAddActionButton = (item: SearchedLectureInfo, isTaken: boolean) => {
+  const renderAddActionButton = (item: SearchedLectureInfoResponse, isTaken: boolean) => {
     return <AddTakenLectureButton lectureItem={item} isTaken={isTaken} />;
   };
 
-  const render = (item: SearchedLectureInfo, index: number) => {
+  const render = (item: SearchedLectureInfoResponse, index: number) => {
     const searchLectureItem = item;
     return (
       <List.Row data-cy={`lecture-${searchLectureItem.name}`} key={index}>

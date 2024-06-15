@@ -1,10 +1,18 @@
 'use client';
+import { API_PATH } from '@/app/business/api-path';
+import { addTakenLecture } from '@/app/business/services/lecture/taken-lecture.command';
 import { useEffect } from 'react';
 
 export function CypressProvider({ children }: React.PropsWithChildren) {
   useEffect(() => {
     if (window.Cypress) {
-      window.resetMockData = () => {};
+      window.addTakenLecture = async (lectureId: number[]) => {
+        await Promise.all(lectureId.map((id) => addTakenLecture(id)));
+      };
+
+      window.resetMockDB = async () => {
+        await fetch(`${API_PATH.default}/reset`);
+      };
     }
   }, []);
 
@@ -13,6 +21,7 @@ export function CypressProvider({ children }: React.PropsWithChildren) {
 
 declare global {
   interface Window {
-    resetMockData: () => void;
+    addTakenLecture: (lectureId: number[]) => Promise<void>;
+    resetMockDB: () => Promise<void>;
   }
 }

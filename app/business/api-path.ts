@@ -2,6 +2,7 @@ const BASE_URL = 'http://localhost:9090';
 // process.env.API_MOCKING === 'enable' ? 'http://localhost:9090' : '';
 
 export const API_PATH = {
+  default: BASE_URL,
   revenue: `${BASE_URL}/revenue`,
   registerUserGrade: `${BASE_URL}/registerUserGrade`,
   parsePDFtoText: `${BASE_URL}/parsePDFtoText`,

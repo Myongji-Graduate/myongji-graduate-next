@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
-import { validateToken } from './app/business/user/user.command';
-import { fetchUser } from './app/business/auth';
+import { validateToken } from './app/business/services/user/user.command';
+import { fetchUser } from './app/business/services/user/user.query';
 
 async function getAuth(request: NextRequest): Promise<{
   role: 'guest' | 'user' | 'init';
@@ -34,7 +34,7 @@ const allowedOnlyGuestPath = ['/sign-in', '/sign-up', '/find-password', '/find-i
 const allowedGuestPath = ['/tutorial', ...allowedOnlyGuestPath];
 
 function isAllowedGuestPath(path: string, strict: boolean = false) {
-  if (path === '/' && !strict) {
+  if (path === '/') {
     return true;
   }
 

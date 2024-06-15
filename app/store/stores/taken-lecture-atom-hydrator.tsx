@@ -1,6 +1,6 @@
 'use client';
-import { takenLectureAtom } from '@/app/store/custom-taken-lecture';
-import { TakenLectrueInfo } from '@/app/type/lecture';
+import { takenLectureAtom } from '@/app/store/stores/custom-taken-lecture';
+import { TakenLectrueInfo } from './custom-taken-lecture';
 import { useHydrateAtoms } from 'jotai/utils';
 
 export default function TakenLectureAtomHydrator({

@@ -1,18 +1,11 @@
 'use client';
 import { cn } from '@/app/utils/shadcn/utils';
 import ResultCategoryCard from '../result-category-card/result-category-card';
-import { fetchCredits } from '@/app/business/result/result.query';
+import { useFetchCredits } from '@/app/store/querys/result';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { CreditResponse } from '@/app/business/result/result.type';
-import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 
 function ResultCategory() {
-  const { data: categorys } = useSuspenseQuery<CreditResponse[]>({
-    queryKey: [QUERY_KEY.CREDIT],
-    staleTime: Infinity,
-    queryFn: fetchCredits,
-  });
+  const { data: categorys } = useFetchCredits();
 
   return (
     <div

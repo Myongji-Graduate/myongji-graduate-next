@@ -5,7 +5,7 @@ import TextInput from '../../view/atom/text-input/text-input';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { searchWordAtom } from '@/app/store/search-word';
+import { searchWordAtom } from '@/app/store/stores/search-word';
 
 export default function LectureSearchBar() {
   const [searchWord, setSearchWord] = useAtom(searchWordAtom);

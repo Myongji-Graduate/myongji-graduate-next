@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent } from '@storybook/test';
 import { mockDatabase, resetMockDB } from '@/app/mocks/db.mock';
-import TakenLectureAtomHydrator from '@/app/store/taken-lecture-atom-hydrator';
+import TakenLectureAtomHydrator from '@/app/store/stores/taken-lecture-atom-hydrator';
 import { screen } from '@storybook/testing-library';
 import TakenLectureLabel from '../taken-lecture/taken-lecture-label';
 import TakenLectureList from '../taken-lecture/taken-lecture-list';

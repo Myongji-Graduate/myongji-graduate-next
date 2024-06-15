@@ -1,26 +1,27 @@
-import { SearchLectures } from '../business/lecture/search-lecture.query';
-import { TakenLectures } from '../business/lecture/taken-lecture.query';
-import { CreditResponse, ResultCategoryDetailResponse } from '../business/result/result.type';
+import { SearchLecturesResponse } from '../store/querys/lecture';
+import { TakenLecturesResponse } from '../business/services/lecture/taken-lecture.query';
+import { CreditResponse, ResultCategoryDetailResponse } from '../store/querys/result';
 import {
   SignUpRequestBody,
   SignInRequestBody,
   UserInfoResponse,
   InitUserInfoResponse,
-} from '../business/user/user.type';
+} from '../business/services/user/user.type';
 import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo } from './data.mock';
 
 interface MockDatabaseState {
-  takenLectures: TakenLectures;
+  takenLectures: TakenLecturesResponse;
   resultCategoryDetailInfo: ResultCategoryDetailResponse;
   credits: CreditResponse[];
   users: SignUpRequestBody[];
-  searchLectures: SearchLectures;
+  searchLectures: SearchLecturesResponse;
   userInfo: UserInfoResponse;
 }
 
 type MockDatabaseAction = {
-  getTakenLectures: () => TakenLectures;
-  getSearchLectures: () => SearchLectures;
+  reset: () => void;
+  getTakenLectures: () => TakenLecturesResponse;
+  getSearchLectures: () => SearchLecturesResponse;
   addTakenLecture: (lectureId: number) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
   createUser: (user: SignUpRequestBody) => boolean;
@@ -32,6 +33,9 @@ type MockDatabaseAction = {
 };
 
 export const mockDatabase: MockDatabaseAction = {
+  reset: () => {
+    resetMockDB();
+  },
   getTakenLectures: () => mockDatabaseStore.takenLectures,
   getSearchLectures: () => mockDatabaseStore.searchLectures,
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
@@ -45,15 +49,19 @@ export const mockDatabase: MockDatabaseAction = {
     return false;
   },
   addTakenLecture: (lectureId) => {
+    const lecture = mockDatabaseStore.searchLectures.lectures.find((lecture) => lecture.id === lectureId);
+    if (!lecture) {
+      return false;
+    }
     mockDatabaseStore.takenLectures.takenLectures = [
       ...mockDatabaseStore.takenLectures.takenLectures,
       {
         id: lectureId,
         year: '2023',
         semester: '2학기',
-        lectureCode: 'HECD140',
-        lectureName: '추가한과목',
-        credit: 3,
+        lectureCode: lecture.lectureCode,
+        lectureName: lecture.name,
+        credit: lecture.credit,
       },
     ];
     return true;
