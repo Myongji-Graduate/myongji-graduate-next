@@ -9,7 +9,7 @@ interface UserInfoContentProps {
 }
 
 function UserInfoContent({ data }: UserInfoContentProps) {
-  const { studentNumber, studentName, completionDivision: majors, totalCredit, takenCredit, graduated } = data;
+  const { studentNumber, studentName, completeDivision: majors, totalCredit, takenCredit, graduated } = data;
 
   const percentage = getPercentage(takenCredit, totalCredit);
 
