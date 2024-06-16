@@ -5,6 +5,7 @@ import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
 import { revalidateTag } from 'next/cache';
 import { TAG } from '@/app/utils/http/tag';
+import { cookies } from 'next/headers';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   const parsingText = await parsePDFtoText(formData);
@@ -43,29 +44,34 @@ export const parsePDFtoText = async (formData: FormData) => {
 };
 
 export const deleteTakenLecture = async (lectureId: number) => {
-  try {
-    const response = await fetch(API_PATH.takenLectures, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ lectureId }),
-    });
-    const result = await response.json();
-    httpErrorHandler(response, result);
-  } catch (error) {
-    if (error instanceof BadRequestError) {
-      return {
-        isSuccess: false,
-      };
-    } else {
-      throw error;
-    }
+  // try {
+  const response = await fetch(`${API_PATH.takenLectures}/${lectureId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+  });
+  // fetch 가 수정되면서 바꿀 예정이므로 현재는 작동만 되도록 수정
+  if (response.ok) {
+    return {
+      isSuccess: true,
+    };
+  } else {
+    return {
+      isSuccess: false,
+    };
   }
+  // } catch (error) {
+  //   if (error instanceof BadRequestError) {
+  //     return {
+  //       isSuccess: false,
+  //     };
+  //   } else {
+  //     throw error;
+  //   }
+  // }
   revalidateTag(TAG.GET_TAKEN_LECTURES);
-  return {
-    isSuccess: true,
-  };
 };
 
 export const addTakenLecture = async (lectureId: number) => {
