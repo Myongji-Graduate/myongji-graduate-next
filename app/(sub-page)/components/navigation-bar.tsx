@@ -5,6 +5,7 @@ import SideNavigationBar from './side-navigation-bar';
 import UserInfoNavigator from '@/app/ui/user/user-info-navigator/user-info-navigator';
 import SignButtonGroup from '@/app/ui/user/user-info-navigator/sign-button-group';
 import Link from 'next/link';
+import Button from '@/app/ui/view/atom/button/button';
 
 export default function NavigationBar() {
   return (
@@ -14,6 +15,19 @@ export default function NavigationBar() {
       </Link>
       <Responsive maxWidth={1023}>
         <SideNavigationBar header={<UserInfoNavigator />} content={<div>콘텐츠</div>} footer={<SignButtonGroup />} />
+      </Responsive>
+      <Responsive minWidth={1024}>
+        <div className="flex">
+          <Link href={'/sign-in'}>
+            <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label="로그인" />
+          </Link>
+          <Link href={'/sign-in'}>
+            <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label="튜토리얼" />
+          </Link>
+          <Link href={'/sign-in'}>
+            <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label="팀소개" />
+          </Link>
+        </div>
       </Responsive>
     </div>
   );
