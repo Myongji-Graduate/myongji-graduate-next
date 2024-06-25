@@ -18,17 +18,24 @@ export default function NavigationBar() {
       </Responsive>
       <Responsive minWidth={1024}>
         <div className="flex">
-          <Link href={'/sign-in'}>
-            <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label="로그인" />
-          </Link>
-          <Link href={'/sign-in'}>
-            <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label="튜토리얼" />
-          </Link>
-          <Link href={'/sign-in'}>
-            <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label="팀소개" />
-          </Link>
+          <NavigationItem href={'/sign-in'} label="로그인" />
+          <NavigationItem href={'/tutorial'} label="튜토리얼" />
+          <NavigationItem href={'/'} label="팀소개" />
         </div>
       </Responsive>
     </div>
+  );
+}
+
+type NavigationItemProps = {
+  href: string;
+  label: string;
+};
+
+function NavigationItem({ href, label }: NavigationItemProps) {
+  return (
+    <Link href={href}>
+      <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label={label} />
+    </Link>
   );
 }
