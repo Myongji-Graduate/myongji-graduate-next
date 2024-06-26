@@ -1,6 +1,7 @@
 import { auth } from '@/app/business/services/user/user.query';
 import Button from '@/app/ui/view/atom/button/button';
 import Link from 'next/link';
+import { ChevronRightIcon } from 'lucide-react';
 
 export default async function NavigationItems() {
   const userInfo = await auth();
@@ -28,13 +29,14 @@ type NavigationItemProps = {
 
 export function NavigationItem({ href, label }: NavigationItemProps) {
   return (
-    <Link href={href}>
+    <Link href={href} className="flex items-center justify-between">
       <Button
         size={'xs'}
         className="text-black lg:text-white hover:text-slate-400 lg:text-base text-lg my-1"
         variant={'text'}
         label={label}
       />
+      <ChevronRightIcon className="h-4 w-4 lg:hidden text-black" />
     </Link>
   );
 }
