@@ -6,7 +6,7 @@ export default async function NavigationItems() {
   const userInfo = await auth();
 
   return (
-    <div className="flex">
+    <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 ">
       {userInfo ? (
         <>
           <NavigationItem href={'/my'} label="마이페이지" />
@@ -29,7 +29,12 @@ type NavigationItemProps = {
 export function NavigationItem({ href, label }: NavigationItemProps) {
   return (
     <Link href={href}>
-      <Button size={'xs'} className="text-white hover:text-slate-400" variant={'text'} label={label} />
+      <Button
+        size={'xs'}
+        className="text-black lg:text-white hover:text-slate-400 lg:text-base text-lg my-1"
+        variant={'text'}
+        label={label}
+      />
     </Link>
   );
 }
