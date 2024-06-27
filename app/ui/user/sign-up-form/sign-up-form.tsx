@@ -3,12 +3,12 @@ import { createUser } from '@/app/business/services/user/user.command';
 import Form from '../../view/molecule/form';
 
 interface SignUpFormProps {
-  onNext?: () => void;
+  onSuccess?: () => void;
 }
 
-export default function SignUpForm({ onNext }: SignUpFormProps) {
+export default function SignUpForm({ onSuccess }: SignUpFormProps) {
   return (
-    <Form onSuccess={onNext} action={createUser} id="회원가입">
+    <Form onSuccess={onSuccess} action={createUser} id="회원가입">
       <Form.TextInput required={true} label="아이디" id="authId" placeholder="6자 이상 20자 이하" />
       <Form.PasswordInput
         required={true}

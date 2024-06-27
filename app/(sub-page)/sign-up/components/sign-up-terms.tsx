@@ -5,7 +5,7 @@ interface SignUpTermProps {
   onNext?: () => void;
 }
 
-// 약관 내용이랑 스타일은 mock인 상태입니다.
+// 약관내용 최신화 필요(* 검사 대상)
 export default function SignUpTerm({ onNext }: SignUpTermProps) {
   const handleAgreeButtonClick = () => {
     onNext?.();
