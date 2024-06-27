@@ -3,8 +3,11 @@ import ContentContainer from '@/app/ui/view/atom/content-container/content-conta
 
 export default function Page() {
   return (
-    <ContentContainer className="md:w-[768px]">
-      <SignInForm />
+    <ContentContainer className="md:w-[768px] flex">
+      <div className="w-2/5"></div>
+      <div className="w-3/5 p-7">
+        <SignInForm />
+      </div>
     </ContentContainer>
   );
 }

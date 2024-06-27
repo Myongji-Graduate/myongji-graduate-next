@@ -23,6 +23,7 @@ interface FormRootProps {
   onSuccess?: () => void;
   action: (prevState: FormState, formData: FormData) => Promise<FormState> | FormState;
   failMessageControl?: 'alert' | 'toast';
+  className?: string;
 }
 
 export function FormRoot({
@@ -31,6 +32,7 @@ export function FormRoot({
   onSuccess,
   failMessageControl = 'alert',
   children,
+  className,
 }: React.PropsWithChildren<FormRootProps>) {
   const initialState: FormState = { isSuccess: false, isFailure: false, message: null, validationError: {} };
   const [formState, dispatch] = useFormState(action, initialState);
@@ -65,7 +67,7 @@ export function FormRoot({
           <AlertDestructive description={formState.message!} />
         </div>
       ) : null}
-      <form id={id} action={dispatch}>
+      <form className={className} id={id} action={dispatch}>
         {renderWithoutSubmitButton()}
         {formSubmitButton}
       </form>
