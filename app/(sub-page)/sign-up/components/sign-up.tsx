@@ -10,8 +10,8 @@ interface SignUpProps {
 export default function SignUp({ onNext }: SignUpProps) {
   return (
     <div className="flex p-9">
-      <div className="w-2/4">
-        <Image className="object-cover h-full" src={MaruImage} alt="마루" />
+      <div className="w-2/4 flex items-center justify-center">
+        <Image className="object-cover h-[400px]" src={MaruImage} alt="마루" />
       </div>
       <div className="w-2/4 pl-7 ">
         <div className="pb-12">
