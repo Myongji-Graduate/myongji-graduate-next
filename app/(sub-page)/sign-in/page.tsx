@@ -11,7 +11,7 @@ export default function Page() {
         <Image className="object-cover h-full" src={MaruImage} alt="마루" />
       </div>
       <div className="w-2/4 pl-7 ">
-        <div className="pb-16">
+        <div className="pb-12">
           <TitleBox title={'로그인'} />
         </div>
         <SignInForm />
