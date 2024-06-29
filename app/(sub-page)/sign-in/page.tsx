@@ -3,6 +3,8 @@ import ContentContainer from '@/app/ui/view/atom/content-container/content-conta
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 import Image from 'next/image';
 import MaruImage from '@/public/assets/mju-maru.jpg';
+import Separator from '@/app/ui/view/atom/separator';
+import Button from '@/app/ui/view/atom/button/button';
 
 export default function Page() {
   return (
@@ -15,6 +17,13 @@ export default function Page() {
           <TitleBox title={'로그인'} />
         </div>
         <SignInForm />
+        <div className="flex mt-12 space-x-4 h-6 items-center justify-center">
+          <Button className="text-xs" label="아이디 찾기" variant={'text'} />
+          <Separator orientation={'vertical'} />
+          <Button className="text-xs" label="비밀번호 재설정" variant={'text'} />
+          <Separator orientation={'vertical'} />
+          <Button className="text-xs" label="회원가입 하기" variant={'text'} />
+        </div>
       </div>
     </ContentContainer>
   );
