@@ -198,9 +198,12 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
       body: JSON.stringify(body),
     });
 
-    const result = await response.json();
+    console.log(response);
 
-    httpErrorHandler(response, result);
+    if (response.status !== 200) {
+      const result = await response.json();
+      httpErrorHandler(response, result);
+    }
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
