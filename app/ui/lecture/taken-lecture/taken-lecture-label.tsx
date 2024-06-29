@@ -20,10 +20,11 @@ export default function TakenLectureLabel() {
             variant="secondary"
             size="xs"
             data-testid="toggle-lecture-search"
+            className="max-lg:text-xs"
             onClick={toggle}
           />
           <Link href="/grade-upload">
-            <Button label="성적표 재업로드" variant="secondary" size="xs" />
+            <Button className="max-lg:text-xs" label="성적표 재업로드" variant="secondary" size="xs" />
           </Link>
         </div>
       }
