@@ -12,7 +12,7 @@ export default function SignUpTerm({ onNext }: SignUpTermProps) {
   };
 
   return (
-    <div className=" mx-auto my-8 p-6 bg-white ">
+    <div className=" mx-auto my-8 md:p-6 bg-white ">
       <TitleBox title="약관동의">
         <div className="border p-6 pl-8 rounded-lg">
           <ul className="list-disc space-y-4 text-sm ">
