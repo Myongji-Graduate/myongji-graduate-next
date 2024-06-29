@@ -6,6 +6,7 @@ import MaruImage from '@/public/assets/mju-maru.jpg';
 import Separator from '@/app/ui/view/atom/separator';
 import Button from '@/app/ui/view/atom/button/button';
 import Responsive from '@/app/ui/responsive';
+import Link from 'next/link';
 
 export default function Page() {
   return (
@@ -21,11 +22,17 @@ export default function Page() {
         </div>
         <SignInForm />
         <div className="flex mt-12 space-x-4 h-6 items-center justify-center">
-          <Button className="text-xs" label="아이디 찾기" variant={'text'} />
+          <Link href={'/'}>
+            <Button className="text-xs" label="아이디 찾기" variant={'text'} />
+          </Link>
           <Separator orientation={'vertical'} />
-          <Button className="text-xs" label="비밀번호 재설정" variant={'text'} />
+          <Link href={'/'}>
+            <Button className="text-xs" label="비밀번호 재설정" variant={'text'} />
+          </Link>
           <Separator orientation={'vertical'} />
-          <Button className="text-xs" label="회원가입" variant={'text'} />
+          <Link href={'/sign-up'}>
+            <Button className="text-xs" label="회원가입" variant={'text'} />
+          </Link>
         </div>
       </div>
     </ContentContainer>

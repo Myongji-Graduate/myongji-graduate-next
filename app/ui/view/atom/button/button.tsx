@@ -29,7 +29,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
       sm: 'px-10 py-2.5 text-xs font-medium leading-3',
       md: 'px-20 py-4 text-base font-medium leading-3',
       lg: 'px-28 py-4 text-2xl font-medium leading-9',
-      xl: 'px-36 py-5 text-3xl font-medium leading-9',
+      xl: 'px-16 py-4 text-xl md:px-36 md:py-5 md:text-3xl font-medium leading-9',
     },
   },
 });
