@@ -6,13 +6,7 @@ import { ResultCategoryDetailLectureToggle } from '../result-category-detail-lec
 import ResultCagegoryDetailLecture from '../result-category-detail-lecture/result-cagegory-detail-lecture';
 import { ResultCategoryDetailResponse } from '@/app/store/querys/result';
 
-interface ResultCategoryDetailContentProps {
-  info: ResultCategoryDetailResponse;
-}
-
-function ResultCategoryDetailContent({ info }: ResultCategoryDetailContentProps) {
-  const { takenCredit, totalCredit, detailCategory } = info;
-
+function ResultCategoryDetailContent({ takenCredit, totalCredit, detailCategory }: ResultCategoryDetailResponse) {
   const [isTakenLecture, setIsTakenLectrue] = useState(false);
 
   return (
