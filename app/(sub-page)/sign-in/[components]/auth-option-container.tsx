@@ -7,7 +7,7 @@ function AuthOptionContainer() {
         <Link href="/find-id">아이디 찾기</Link>
       </div>
       <div className="after:content-['|'] after:pl-2">
-        <Link href="/find-pw">비밀번호 재설정</Link>
+        <Link href="/find-password">비밀번호 재설정</Link>
       </div>
       <Link href="/sign-up">회원가입하기</Link>
     </div>
