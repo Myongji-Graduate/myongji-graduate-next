@@ -85,7 +85,7 @@ export const mockDatabase: MockDatabaseAction = {
       return {
         studentNumber: '',
         studentName: null,
-        completionDivision: null,
+        completeDivision: null,
         totalCredit: null,
         takenCredit: null,
         graduated: null,

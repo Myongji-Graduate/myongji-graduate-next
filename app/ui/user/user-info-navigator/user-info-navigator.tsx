@@ -26,7 +26,7 @@ function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | unde
 
   return {
     name: userInfo.studentName,
-    major: userInfo.completionDivision[0].major,
+    major: userInfo.completeDivision[0].major,
     studentNumber: userInfo.studentNumber,
   };
 }
