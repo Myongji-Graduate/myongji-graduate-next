@@ -4,7 +4,7 @@ import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../../api-path';
 import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse, UserDeleteRequestBody } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
-import { BadRequestError } from '@/app/utils/http/http-error';
+import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import {
   SignUpFormSchema,
   SignInFormSchema,
@@ -140,7 +140,8 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
       redirect('/my');
     }
   } catch (error) {
-    if (error instanceof BadRequestError) {
+    // 명세와 다르게 에러가 발생할 경우 BadRequestError가 아니라 UnauthorizedError가 발생
+    if (error instanceof UnauthorizedError) {
       // 잘못된 요청 처리 로직
       return {
         isSuccess: false,
