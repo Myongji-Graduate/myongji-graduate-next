@@ -7,7 +7,7 @@ const meta = {
   component: TitleBox,
   tags: ['autodocs'],
   parameters: {
-    componentSubTitle: '요소는 페이지의 대표 title을 표기하는 경우에 사용됩니다.',
+    componentSubtitle: '요소는 페이지의 대표 title을 표기하는 경우에 사용됩니다.',
   },
   argTypes: {
     title: {
