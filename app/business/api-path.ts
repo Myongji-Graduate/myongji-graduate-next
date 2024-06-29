@@ -1,5 +1,7 @@
-const BASE_URL = 'http://staging-plzgraduation-env.eba-s4bbj5cp.ap-northeast-2.elasticbeanstalk.com/api/v1';
-// process.env.API_MOCKING === 'enable' ? 'http://localhost:9090' : '';
+const BASE_URL =
+  process.env.API_MOCKING === 'enable'
+    ? 'http://localhost:9090'
+    : 'http://staging-plzgraduation-env.eba-s4bbj5cp.ap-northeast-2.elasticbeanstalk.com/api/v1';
 
 export const API_PATH = {
   default: BASE_URL,
