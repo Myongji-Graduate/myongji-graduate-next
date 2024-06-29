@@ -5,14 +5,17 @@ import Image from 'next/image';
 import MaruImage from '@/public/assets/mju-maru.jpg';
 import Separator from '@/app/ui/view/atom/separator';
 import Button from '@/app/ui/view/atom/button/button';
+import Responsive from '@/app/ui/responsive';
 
 export default function Page() {
   return (
     <ContentContainer className="md:w-[768px] h-[550px] xl:w-[960px] flex p-9">
-      <div className="w-2/4">
-        <Image className="object-cover h-full" src={MaruImage} alt="마루" />
-      </div>
-      <div className="w-2/4 pl-7 ">
+      <Responsive minWidth={767}>
+        <div className="w-2/4">
+          <Image className="object-cover h-full" src={MaruImage} alt="마루" />
+        </div>
+      </Responsive>
+      <div className="w-full md:w-2/4 md:pl-7 ">
         <div className="pb-12">
           <TitleBox title={'로그인'} />
         </div>
@@ -22,7 +25,7 @@ export default function Page() {
           <Separator orientation={'vertical'} />
           <Button className="text-xs" label="비밀번호 재설정" variant={'text'} />
           <Separator orientation={'vertical'} />
-          <Button className="text-xs" label="회원가입 하기" variant={'text'} />
+          <Button className="text-xs" label="회원가입" variant={'text'} />
         </div>
       </div>
     </ContentContainer>
