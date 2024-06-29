@@ -6,7 +6,7 @@ const meta = {
   component: PieChart,
   tags: ['autodocs'],
   parameters: {
-    componentSubtitle: '원형 차트 컴포넌트이며 이수율을 나타낼때 사용됩니다',
+    componentSubtitle: '원형 차트 컴포넌트이며 이수율(percentage)을 나타낼때 사용됩니다',
   },
   argTypes: {
     percentage: {
