@@ -106,7 +106,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
           href={{
             pathname: '/result',
             query: {
-              category: 'COMMON_CULTURE',
+              category: category,
             },
           }}
         >
