@@ -59,7 +59,7 @@ export const userHandlers = [
       if (result) {
         return HttpResponse.json({ status: 200 });
       } else {
-        return HttpResponse.json({ status: 400, message: '비밀번호가 일치하지 않습니다' }, { status: 400 });
+        return HttpResponse.json({ status: 401, message: '비밀번호가 일치하지 않습니다' }, { status: 401 });
       }
     } catch {
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
