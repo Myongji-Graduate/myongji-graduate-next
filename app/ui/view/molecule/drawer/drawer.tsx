@@ -13,13 +13,13 @@ interface DrawerProps extends React.PropsWithChildren {
 }
 
 const Drawer = ({ children, drawerKey, onClose, className }: DrawerProps) => {
-  const { isOpen, toggle } = useDialog(drawerKey, onClose);
+  const { isOpen, close } = useDialog(drawerKey, onClose);
 
   return (
-    <DrawerPrimitive.Root open={isOpen} onRelease={toggle}>
+    <DrawerPrimitive.Root open={isOpen} onClose={close}>
       <DrawerPrimitive.Portal>
         <DrawerPrimitive.Overlay
-          onClick={toggle}
+          onClick={close}
           className="fixed inset-0 z-2 bg-black/60"
           data-testid="drawer-overlay"
         />
