@@ -18,10 +18,10 @@ export const UserInfoResponseSchema = z.object({
 export const InitUserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.null(),
-  completionDivision: z.null(),
-  totalCredit: z.null(),
-  takenCredit: z.null(),
-  graduated: z.null(),
+  completionDivision: z.string().array().length(0),
+  totalCredit: z.number(),
+  takenCredit: z.number(),
+  graduated: z.boolean(),
 });
 
 export const ValidateTokenResponseSchema = z.object({

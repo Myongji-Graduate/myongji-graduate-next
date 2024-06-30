@@ -66,7 +66,7 @@ export const userHandlers = [
     }
   }),
   http.get<never, never, UserInfoResponse | InitUserInfoResponse | ErrorResponseData>(
-    API_PATH.user,
+    `${API_PATH.user}/me`,
     async ({ request }) => {
       const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
       if (accessToken === 'undefined' || !accessToken) {

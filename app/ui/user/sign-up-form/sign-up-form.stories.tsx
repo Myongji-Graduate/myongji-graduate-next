@@ -9,7 +9,7 @@ const meta = {
   title: 'ui/user/SignUpForm',
   component: SignUpForm,
   args: {
-    onNext: fn(),
+    onSuccess: fn(),
   },
   decorators: [
     (Story) => (
@@ -39,7 +39,7 @@ export const SuccessSenario: Story = {
     });
 
     await step('회원가입에 성공한다', async () => {
-      await waitFor(() => expect(args.onNext).toHaveBeenCalled());
+      await waitFor(() => expect(args.onSuccess).toHaveBeenCalled());
     });
   },
 };
@@ -61,7 +61,7 @@ export const FailureSenarioWithValidation: Story = {
 
     await step('유효성 검사에 실패한다.', async () => {
       await waitFor(() => {
-        expect(args.onNext).not.toHaveBeenCalled();
+        expect(args.onSuccess).not.toHaveBeenCalled();
         expect(canvas.getByText('양식에 맞춰 다시 입력해주세요.')).toBeInTheDocument();
         expect(canvas.getByText('아이디는 6자 이상 20자 이하여야 합니다.')).toBeInTheDocument();
         expect(canvas.getByText('비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.')).toBeInTheDocument();
@@ -89,7 +89,7 @@ export const FailureSenarioWithDuplicatedStudentNumber: Story = {
 
     await step('회원가입에 실패한다.', async () => {
       await waitFor(() => {
-        expect(args.onNext).not.toHaveBeenCalled();
+        expect(args.onSuccess).not.toHaveBeenCalled();
         expect(canvas.getByText('이미 가입된 학번입니다.')).toBeInTheDocument();
       });
     });
