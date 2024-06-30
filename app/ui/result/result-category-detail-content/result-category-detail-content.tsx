@@ -7,13 +7,16 @@ import ResultCagegoryDetailLecture from '../result-category-detail-lecture/resul
 import { ResultCategoryDetailResponse } from '@/app/store/querys/result';
 import { RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
 
-interface ResultCategoryDetailContentProps {
-  info: ResultCategoryDetailResponse;
+interface ResultCategoryDetailContentProps extends ResultCategoryDetailResponse {
   category: ResultCategoryKey;
 }
 
-function ResultCategoryDetailContent({ info, category }: ResultCategoryDetailContentProps) {
-  const { takenCredit, totalCredit, detailCategory } = info;
+function ResultCategoryDetailContent({
+  takenCredit,
+  totalCredit,
+  detailCategory,
+  category,
+}: ResultCategoryDetailContentProps) {
   const [isTakenLecture, setIsTakenLectrue] = useState(false);
 
   return (
