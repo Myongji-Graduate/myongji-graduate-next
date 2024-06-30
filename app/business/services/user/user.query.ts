@@ -30,8 +30,6 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
 
     httpErrorHandler(response, result);
 
-    console.log(result);
-
     if (isValidation(result, UserInfoResponseSchema)) {
       return result;
     } else if (isValidation(result, InitUserInfoResponseSchema)) {

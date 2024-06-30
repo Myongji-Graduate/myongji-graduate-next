@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { UserInfoResponse, InitUserInfoResponse } from './user.type';
 
+// 동기화
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.string(),
@@ -15,6 +16,7 @@ export const UserInfoResponseSchema = z.object({
   graduated: z.boolean(),
 });
 
+// 동기화
 export const InitUserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.null(),
@@ -28,16 +30,19 @@ export const ValidateTokenResponseSchema = z.object({
   accessToken: z.string(),
 });
 
+// 동기화
 export const SignInFormSchema = z.object({
   authId: z.string(),
   password: z.string(),
 });
 
+// 동기화
 export const SignInResponseSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
 });
 
+// 동기화
 export const SignUpFormSchema = z
   .object({
     authId: z
@@ -72,6 +77,7 @@ export const SignUpFormSchema = z
       });
     }
   });
+
 export function isInitUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
-  return typeof x.studentName === null;
+  return x.studentName === null;
 }

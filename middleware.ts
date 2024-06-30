@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
-import { validateToken } from './app/business/services/user/user.command';
-import { fetchUser } from './app/business/services/user/user.query';
+import { auth } from './app/business/services/user/user.query';
+import { isInitUser } from './app/business/services/user/user.validation';
 
 async function getAuth(request: NextRequest): Promise<{
   role: 'guest' | 'user' | 'init';
@@ -12,21 +12,18 @@ async function getAuth(request: NextRequest): Promise<{
     };
   }
 
-  // const validatedResult = await validateToken();
+  const user = await auth();
 
-  // if (!validatedResult) {
-  //   request.cookies.delete('accessToken');
-  //   request.cookies.delete('refreshToken');
-  //   return {
-  //     role: 'guest',
-  //   };
-  // }
+  if (!user) {
+    request.cookies.delete('accessToken');
+    request.cookies.delete('refreshToken');
+    return {
+      role: 'guest',
+    };
+  }
 
-  // request.cookies.set('accessToken', validatedResult.accessToken);
-
-  const user = await fetchUser();
   return {
-    role: user.studentName ? 'user' : 'init',
+    role: isInitUser(user) ? 'init' : 'user',
   };
 }
 
