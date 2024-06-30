@@ -30,7 +30,6 @@ export default function RootLayout({
           <ReactQueryProvider>
             <CypressProvider>
               <MSWComponent>{children}</MSWComponent>
-              {/* {children} */}
             </CypressProvider>
           </ReactQueryProvider>
         </div>
