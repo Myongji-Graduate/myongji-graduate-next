@@ -23,6 +23,7 @@ export async function signOut() {
   redirect('/sign-in');
 }
 
+// 동기화 -> 서버 측 에러 인지 확인 필요
 export async function deleteUser(prevState: FormState, formData: FormData): Promise<FormState> {
   try {
     const body: UserDeleteRequestBody = {
