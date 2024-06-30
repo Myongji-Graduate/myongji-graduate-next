@@ -20,7 +20,7 @@ export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | 
 
 export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
-    const response = await fetch(`${API_PATH.user}`, {
+    const response = await fetch(`${API_PATH.user}/me`, {
       headers: {
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
@@ -29,7 +29,6 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
     const result = await response.json();
 
     httpErrorHandler(response, result);
-
     if (isValidation(result, UserInfoResponseSchema || InitUserInfoResponseSchema)) {
       return result;
     } else {

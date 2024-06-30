@@ -21,9 +21,11 @@ export const takenLectureHandlers = [
     if (isAdded) return HttpResponse.json({ message: '과목 추가에 성공했습니다' }, { status: 200 });
     return HttpResponse.json({ errorCode: 400, message: '추가에 실패했습니다' }, { status: 400 });
   }),
-  http.delete<never, { lectureId: number }>(API_PATH.takenLectures, async ({ request }) => {
-    const body = await request.json();
-    const isDeleted = mockDatabase.deleteTakenLecture(body.lectureId);
+  http.delete<never, { lectureId: number }>(`${API_PATH.takenLectures}/:id`, async ({ request }) => {
+    const url = new URL(request.url);
+    // url.pathname.split("/") 의 결과 : ['','taken-lectures',120]
+    const lectureId = Number(url.pathname.split('/')[2]);
+    const isDeleted = mockDatabase.deleteTakenLecture(lectureId);
     await delay(1000);
     if (isDeleted) {
       return HttpResponse.json({ message: '삭제되었습니다' }, { status: 200 });

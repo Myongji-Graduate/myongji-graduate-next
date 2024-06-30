@@ -7,7 +7,7 @@ import { API_PATH } from '@/app/business/api-path';
 import { getToken } from '@/app/business/services/auth';
 import { LectureInfoResponse } from './result';
 
-export type SearchedLectureInfoResponse = LectureInfoResponse & { isTaken: boolean };
+export type SearchedLectureInfoResponse = LectureInfoResponse & { taken: boolean; revoked: boolean };
 
 export const useFetchSearchLecture = () => {
   const searchWord = useAtomValue(searchWordAtom);
@@ -20,15 +20,12 @@ export const useFetchSearchLecture = () => {
   });
 };
 
-export interface SearchLecturesResponse {
-  lectures: SearchedLectureInfoResponse[];
-}
-
 export const fetchSearchLectures = async (type: string, keyword: string) => {
-  const response = await axios<SearchLecturesResponse>(`${API_PATH.lectures}?type=${type}&&keyword=${keyword}`, {
+  const token = await getToken();
+  const response = await axios<SearchedLectureInfoResponse[]>(`${API_PATH.lectures}?type=${type}&&keyword=${keyword}`, {
     headers: {
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     },
   });
-  return response.data.lectures;
+  return response.data;
 };
