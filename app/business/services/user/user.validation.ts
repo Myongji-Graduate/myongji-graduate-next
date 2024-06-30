@@ -4,7 +4,7 @@ import { UserInfoResponse, InitUserInfoResponse } from './user.type';
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.string(),
-  completionDivision: z.array(
+  completeDivision: z.array(
     z.object({
       majorType: z.enum(['PRIMARY', 'DUAL', 'SUB']),
       major: z.string(),
@@ -18,7 +18,7 @@ export const UserInfoResponseSchema = z.object({
 export const InitUserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.null(),
-  completionDivision: z.string().array().length(0),
+  completeDivision: z.string().array(),
   totalCredit: z.number(),
   takenCredit: z.number(),
   graduated: z.boolean(),

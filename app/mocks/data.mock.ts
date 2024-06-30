@@ -72,7 +72,7 @@ export const takenLectures = JSON.parse(`{
 export const userInfo = JSON.parse(`{
     "studentNumber": "60181666",
     "studentName": "장진욱",
-    "completionDivision" : [
+    "completeDivision" : [
         {
             "majorType" : "PRIMARY",
             "major": "디지털콘텐츠디자인학과"

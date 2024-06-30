@@ -30,7 +30,11 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
 
     httpErrorHandler(response, result);
 
-    if (isValidation(result, UserInfoResponseSchema || InitUserInfoResponseSchema)) {
+    console.log(result);
+
+    if (isValidation(result, UserInfoResponseSchema)) {
+      return result;
+    } else if (isValidation(result, InitUserInfoResponseSchema)) {
       return result;
     } else {
       throw 'Invalid user info response schema.';

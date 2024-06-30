@@ -12,17 +12,17 @@ async function getAuth(request: NextRequest): Promise<{
     };
   }
 
-  const validatedResult = await validateToken();
+  // const validatedResult = await validateToken();
 
-  if (!validatedResult) {
-    request.cookies.delete('accessToken');
-    request.cookies.delete('refreshToken');
-    return {
-      role: 'guest',
-    };
-  }
+  // if (!validatedResult) {
+  //   request.cookies.delete('accessToken');
+  //   request.cookies.delete('refreshToken');
+  //   return {
+  //     role: 'guest',
+  //   };
+  // }
 
-  request.cookies.set('accessToken', validatedResult.accessToken);
+  // request.cookies.set('accessToken', validatedResult.accessToken);
 
   const user = await fetchUser();
   return {
