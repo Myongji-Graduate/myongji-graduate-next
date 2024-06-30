@@ -15,6 +15,7 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 
+// 동기화
 export async function signOut() {
   cookies().delete('accessToken');
   cookies().delete('refreshToken');
@@ -28,7 +29,7 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       password: formData.get('password') as string,
     };
 
-    const response = await fetch(`${API_PATH.user}/delete-me`, {
+    const response = await fetch(`${API_PATH.user}/me`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -36,10 +37,12 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       },
       body: JSON.stringify(body),
     });
+
     const result = await response.json();
 
     httpErrorHandler(response, result);
   } catch (error) {
+    console.log(error);
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
       return {
