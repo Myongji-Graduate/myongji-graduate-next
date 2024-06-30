@@ -94,8 +94,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
   "detailCategory": [
       {
           "categoryName": "공통교양(기독교)",
-          "totalCredits": 4,
-          "takenCredits": 4,
+          "totalCredit": 4,
+          "takenCredit": 4,
           "takenLectures": [
               {
                   "id": 3,
@@ -122,8 +122,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
       },
       {
           "categoryName": "공통교양(진로와 선택)",
-          "totalCredits": 2,
-          "takenCredits": 2,
+          "totalCredit": 2,
+          "takenCredit": 2,
           "takenLectures": [
               {
                   "id": 18,
@@ -137,8 +137,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
       },
       {
           "categoryName": "공통교양(사고와 표현)",
-          "totalCredits": 3,
-          "takenCredits": 3,
+          "totalCredit": 3,
+          "takenCredit": 3,
           "takenLectures": [
               {
                   "id": 9,
@@ -159,8 +159,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
       },
       {
           "categoryName": "공통교양(영어)",
-          "totalCredits": 6,
-          "takenCredits": 3,
+          "totalCredit": 6,
+          "takenCredit": 3,
           "takenLectures": [
               {
                   "id": 10,
