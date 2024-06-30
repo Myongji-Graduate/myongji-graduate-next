@@ -64,7 +64,7 @@ export const SignUpFormSchema = z
     studentNumber: z.string().length(8, { message: '학번은 8자리여야 합니다.' }).startsWith('60', {
       message: '학번은 60으로 시작해야 합니다.',
     }),
-    engLv: z.enum(['basic', 'ENG12', 'ENG34', 'bypass'], {
+    engLv: z.enum(['기초영어', 'ENG12', 'ENG34', '면제'], {
       invalid_type_error: '올바른 영어 레벨을 선택해주세요.',
     }),
   })

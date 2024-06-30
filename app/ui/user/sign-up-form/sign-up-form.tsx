@@ -24,10 +24,10 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
         id="engLv"
         placeholder="선택하세요"
         options={[
-          { value: 'basic', placeholder: '기초영어' },
+          { value: '기초영어', placeholder: '기초영어' },
           { value: 'ENG12', placeholder: 'Level12' },
           { value: 'ENG34', placeholder: 'Level34' },
-          { value: 'bypass', placeholder: '면제' },
+          { value: '면제', placeholder: '면제' },
         ]}
       />
       <Form.SubmitButton label="회원가입" position="center" variant="secondary" />

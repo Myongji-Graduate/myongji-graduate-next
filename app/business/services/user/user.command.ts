@@ -62,6 +62,7 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
   };
 }
 
+// 동기화
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignInFormSchema.safeParse({
     authId: formData.get('authId'),
@@ -132,6 +133,7 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
   };
 }
 
+// 동기화
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignUpFormSchema.safeParse({
     authId: formData.get('authId'),
