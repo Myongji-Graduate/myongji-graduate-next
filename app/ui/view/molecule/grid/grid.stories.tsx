@@ -7,7 +7,7 @@ const meta = {
   component: Grid,
   tags: ['autodocs'],
   parameters: {
-    componentSubTitle: '요소들은 grid 로 나타낼때 사용하는 컴포넌트로 주로 Table 컴포넌트에서 사용됩니다',
+    componentSubtitle: '요소들은 grid 로 나타낼때 사용하는 컴포넌트로 주로 Table 컴포넌트에서 사용됩니다',
     docs: {
       description: {
         component: `

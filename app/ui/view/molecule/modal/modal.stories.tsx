@@ -14,7 +14,7 @@ const meta = {
       description: 'modal 내부 요소를 설정할 수 있습니다',
     },
     onClose: {
-      description: 'modal이 close 되었을 때 실행되는 함수를 설정할 수 있습니다',
+      description: 'modal이 close 되었을 때 callback으로 실행되는 함수를 설정할 수 있습니다',
     },
   },
 } satisfies Meta<typeof Modal>;

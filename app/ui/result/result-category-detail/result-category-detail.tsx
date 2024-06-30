@@ -18,5 +18,11 @@ export default function ResultCategoryDetail({ category }: { category: string })
 function ResultCategoryDetailInfo({ category }: { category: string }) {
   const { data } = useFetchResultCategoryDetailInfo(category);
 
-  return <ResultCategoryDetailContent info={data} />;
+  return (
+    <ResultCategoryDetailContent
+      takenCredit={data.takenCredit}
+      totalCredit={data.totalCredit}
+      detailCategory={data.detailCategory}
+    />
+  );
 }

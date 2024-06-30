@@ -26,7 +26,7 @@ export interface ResultCategoryDetailResponse {
   totalCredit: number;
   takenCredit: number;
   detailCategory: ResultCategoryDetailLecturesResponse[];
-  completed: boolean;
+  completed?: boolean;
 }
 
 export interface CreditResponse {
