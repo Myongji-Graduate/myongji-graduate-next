@@ -10,6 +10,7 @@ interface UserInfoContentProps {
 
 function UserInfoContent({ data }: UserInfoContentProps) {
   const { studentNumber, studentName, completeDivision: majors, totalCredit, takenCredit, graduated } = data;
+
   const percentage = getPercentage(takenCredit, totalCredit);
 
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
