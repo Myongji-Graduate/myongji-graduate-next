@@ -12,7 +12,7 @@ interface ResultCagegoryDetailLectureProps {
 }
 
 function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultCagegoryDetailLectureProps) {
-  const { categoryName, totalCredits, takenCredits, takenLectures, haveToLectures, completed } = detailCategory;
+  const { categoryName, totalCredit, takenCredit, takenLectures, haveToLectures, completed } = detailCategory;
 
   const showCompleted = !isTakenLecture && completed;
 
@@ -22,7 +22,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
         label={categoryName}
         rightElement={
           <div className="text-2xl text-gray-6">
-            {takenCredits} / {totalCredits}
+            {takenCredit} / {totalCredit}
           </div>
         }
       />

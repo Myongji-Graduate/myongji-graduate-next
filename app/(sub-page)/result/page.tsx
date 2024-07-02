@@ -5,9 +5,10 @@ import UserInfoCardSkeleton from '@/app/ui/user/user-info-card/user-info-card.sk
 import ResultCategory from '@/app/ui/result/result-category/result-category';
 import ResultCategorySkeleton from '@/app/ui/result/result-category/result-category.skeleton';
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
+import { ResultCategoryKey } from '@/app/utils/key/result-category.key';
 
 interface ResultPageProp {
-  searchParams: { category: string };
+  searchParams: { category: ResultCategoryKey };
 }
 
 function ResultPage({ searchParams }: ResultPageProp) {

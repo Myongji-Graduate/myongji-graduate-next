@@ -6,6 +6,7 @@ import { BadRequestError } from '@/app/utils/http/http-error';
 import { revalidateTag } from 'next/cache';
 import { TAG } from '@/app/utils/http/tag';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { getToken } from '../auth';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
@@ -14,6 +15,10 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
   const res = await fetch(API_PATH.registerUserGrade, {
     method: 'POST',
     body: JSON.stringify({ parsingText }),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
   });
 
   if (!res.ok) {
@@ -24,13 +29,7 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
       message: 'fail upload grade',
     };
   }
-
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '',
-  };
+  redirect('/my');
 };
 
 export const parsePDFtoText = async (formData: FormData) => {
@@ -41,7 +40,7 @@ export const parsePDFtoText = async (formData: FormData) => {
       message: 'fail parsing to text',
     };
   }
-  return await res.json();
+  return await res.text();
 };
 
 export const deleteTakenLecture = async (lectureId: number) => {
