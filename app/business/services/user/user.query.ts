@@ -43,7 +43,7 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
   }
 }
 
-export async function findId(prevState: FormState, formData: FormData): Promise<FormState> {
+export async function findUserToStudentNumber(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = FindIdFormSchema.safeParse({
     studentNumber: formData.get('studentNumber'),
   });
@@ -66,20 +66,20 @@ export async function findId(prevState: FormState, formData: FormData): Promise<
       },
     });
     const result = await response.json();
-    if (result.status === 400)
+    if (result.status === 200)
+      return {
+        isSuccess: true,
+        isFailure: false,
+        validationError: {},
+        message: '',
+        value: result,
+      };
+    else
       return {
         isSuccess: false,
         isFailure: true,
         validationError: {},
         message: result.message,
-      };
-    else
-      return {
-        isSuccess: true,
-        isFailure: false,
-        validationError: {},
-        message: '아이디를 성공적으로 찾았습니다.',
-        value: result,
       };
   } catch (error) {
     if (error instanceof BadRequestError) {
