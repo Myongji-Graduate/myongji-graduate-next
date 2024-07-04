@@ -14,8 +14,8 @@ export default function FindIdContainer() {
         <Funnel.Step name="form">
           <FindIdForm
             onNext={(formState?: FormState) => {
-              setStep('success');
               if (formState?.value) setAuthId(formState.value.authId);
+              setStep('success');
             }}
           />
         </Funnel.Step>
