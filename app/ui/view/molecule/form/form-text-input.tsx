@@ -8,9 +8,10 @@ interface FormTextInputProps {
   id: string;
   placeholder: string;
   required?: boolean;
+  value?: string;
 }
 
-export function FormTextInput({ label, id, placeholder, required = false }: FormTextInputProps) {
+export function FormTextInput({ label, id, value, placeholder, required = false }: FormTextInputProps) {
   const { errors } = useContext(FormContext);
   const { pending } = useFormStatus();
 
@@ -31,6 +32,7 @@ export function FormTextInput({ label, id, placeholder, required = false }: Form
         id={id}
         name={id}
         placeholder={placeholder}
+        value={value}
       />
     </div>
   );
