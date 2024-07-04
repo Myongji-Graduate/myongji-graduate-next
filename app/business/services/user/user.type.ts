@@ -30,6 +30,12 @@ export interface UserDeleteRequestBody {
   password: string;
 }
 
+export interface ResetPasswordRequestBody {
+  authId: string;
+  newPassword: string;
+  passwordCheck: string;
+}
+
 export type SignInResponse = z.infer<typeof SignInResponseSchema>;
 
 export type UserInfoResponse = z.infer<typeof UserInfoResponseSchema>;
