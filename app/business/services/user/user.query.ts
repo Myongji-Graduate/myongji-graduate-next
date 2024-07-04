@@ -94,3 +94,56 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
     }
   }
 }
+
+export async function validateUser(prevState: FormState, formData: FormData): Promise<FormState> {
+  const validatedFields = FindIdFormSchema.safeParse({
+    authId: formData.get('authId'),
+    studentNumber: formData.get('studentNumber'),
+  });
+  if (!validatedFields.success) {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
+      message: '학번이 8글자가 맞는지 확인해주세요.',
+    };
+  }
+
+  try {
+    const { studentNumber, authId } = validatedFields.data;
+
+    const response = await fetch(`${API_PATH.user}/${studentNumber}/validate?auth-id=${authId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+    if (result.passedUserValidation)
+      return {
+        isSuccess: true,
+        isFailure: false,
+        validationError: {},
+        message: '',
+        value: { authId },
+      };
+    else
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '해당 사용자가 존재하지 않습니다',
+      };
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '',
+      };
+    } else {
+      throw error;
+    }
+  }
+}
