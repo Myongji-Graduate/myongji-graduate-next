@@ -1,10 +1,13 @@
-import { UnauthorizedError } from '@/app/utils/http/http-error';
+'use server';
+
+import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { cookies } from 'next/headers';
 import { API_PATH } from '../../api-path';
 import { InitUserInfoResponse, UserInfoResponse } from './user.type';
-import { UserInfoResponseSchema, InitUserInfoResponseSchema } from './user.validation';
+import { UserInfoResponseSchema, InitUserInfoResponseSchema, FindIdFormSchema } from './user.validation';
+import { FormState } from '@/app/ui/view/molecule/form/form-root';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
   try {
@@ -37,5 +40,57 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
     }
   } catch (error) {
     throw error;
+  }
+}
+
+export async function findId(prevState: FormState, formData: FormData): Promise<FormState> {
+  const validatedFields = FindIdFormSchema.safeParse({
+    studentNumber: formData.get('studentNumber'),
+  });
+  if (!validatedFields.success) {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
+      message: '학번이 8글자가 맞는지 확인해주세요.',
+    };
+  }
+
+  try {
+    const { studentNumber } = validatedFields.data;
+
+    const response = await fetch(`${API_PATH.user}/${studentNumber}/auth-id`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+    if (result.status === 400)
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: result.message,
+      };
+    else
+      return {
+        isSuccess: true,
+        isFailure: false,
+        validationError: {},
+        message: '아이디를 성공적으로 찾았습니다.',
+        value: result,
+      };
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: error.message,
+      };
+    } else {
+      throw error;
+    }
   }
 }
