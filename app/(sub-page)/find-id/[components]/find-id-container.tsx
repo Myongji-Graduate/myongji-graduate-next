@@ -1,7 +1,6 @@
 'use client';
 import useFunnel from '@/app/hooks/useFunnel';
 import FindIdForm from '@/app/ui/user/find-id-form/find-id-form';
-import SignUpSuccess from '../../sign-up/components/sign-up-success';
 import { useState } from 'react';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import FindIdSuccess from './find-id-success';
