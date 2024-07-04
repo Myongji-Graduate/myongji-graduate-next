@@ -4,7 +4,7 @@ import ContentContainer from '@/app/ui/view/atom/content-container/content-conta
 import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 
 // Refactor: fallback 스켈레톤으로 대체
-export default function Page() {
+export default function SignUpPage() {
   return (
     <ContentContainer className="md:w-[768px]">
       <Suspense
