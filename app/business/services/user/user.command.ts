@@ -5,20 +5,20 @@ import { API_PATH } from '../../api-path';
 import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse, UserDeleteRequestBody } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
-import {
-  SignUpFormSchema,
-  SignInFormSchema,
-  SignInResponseSchema,
-  ValidateTokenResponseSchema,
-} from './user.validation';
+import { SignUpFormSchema, SignInFormSchema, SignInResponseSchema } from './user.validation';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 
 // 동기화
-export async function signOut() {
+
+function deleteCookies() {
   cookies().delete('accessToken');
   cookies().delete('refreshToken');
+}
+
+export async function signOut() {
+  deleteCookies();
 
   redirect('/sign-in');
 }
@@ -39,9 +39,10 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       body: JSON.stringify(body),
     });
 
-    const result = await response.json();
-
-    httpErrorHandler(response, result);
+    if (response.status !== 200) {
+      const result = await response.json();
+      httpErrorHandler(response, result);
+    }
   } catch (error) {
     console.log(error);
     if (error instanceof BadRequestError) {
@@ -58,12 +59,8 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
     }
   }
 
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '회원 탈퇴가 완료되었습니다.',
-  };
+  deleteCookies();
+  redirect('/sign-in');
 }
 
 // 동기화
@@ -110,8 +107,6 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
         secure: process.env.NODE_ENV === 'production',
         path: '/',
       });
-
-      redirect('/my');
     }
   } catch (error) {
     // 명세와 다르게 에러가 발생할 경우 BadRequestError가 아니라 UnauthorizedError가 발생
@@ -129,12 +124,7 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     }
   }
 
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '로그인 성공',
-  };
+  redirect('/my');
 }
 
 // 동기화
@@ -172,8 +162,6 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
       },
       body: JSON.stringify(body),
     });
-
-    console.log(response);
 
     if (response.status !== 200) {
       const result = await response.json();
