@@ -10,8 +10,6 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 
-// 동기화
-
 function deleteCookies() {
   cookies().delete('accessToken');
   cookies().delete('refreshToken');
@@ -23,7 +21,6 @@ export async function signOut() {
   redirect('/sign-in');
 }
 
-// 동기화 -> 서버 측 에러 인지 확인 필요
 export async function deleteUser(prevState: FormState, formData: FormData): Promise<FormState> {
   try {
     const body: UserDeleteRequestBody = {
@@ -63,7 +60,6 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
   redirect('/sign-in');
 }
 
-// 동기화
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignInFormSchema.safeParse({
     authId: formData.get('authId'),
@@ -127,7 +123,6 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
   redirect('/my');
 }
 
-// 동기화
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
   const validatedFields = SignUpFormSchema.safeParse({
     authId: formData.get('authId'),
