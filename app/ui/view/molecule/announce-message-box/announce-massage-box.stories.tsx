@@ -6,7 +6,7 @@ const meta = {
   component: AnnounceMessageBox,
   tags: ['autodocs'],
   parameters: {
-    componentSubtitle: '메세지를 담고 있는 container로 충족된 졸업 요건을 나타낼 때 사용됩니다',
+    componentSubtitle: '메세지를 담고 있는 container로 안내할 메시지가 있는 경우 사용됩니다',
   },
   argTypes: {
     message: {

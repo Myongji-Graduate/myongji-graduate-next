@@ -7,7 +7,7 @@ import useDialog from '@/app/hooks/useDialog';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 
 export default function TakenLectureLabel() {
-  const { toggle } = useDialog(DIALOG_KEY.LECTURE_SEARCH);
+  const { open } = useDialog(DIALOG_KEY.LECTURE_SEARCH);
 
   return (
     <LabelContainer
@@ -20,8 +20,7 @@ export default function TakenLectureLabel() {
             variant="secondary"
             size="xs"
             data-testid="toggle-lecture-search"
-            className="max-lg:text-xs"
-            onClick={toggle}
+            onClick={open}
           />
           <Link href="/grade-upload">
             <Button className="max-lg:text-xs" label="성적표 재업로드" variant="secondary" size="xs" />
