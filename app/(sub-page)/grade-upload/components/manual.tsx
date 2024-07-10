@@ -2,11 +2,11 @@ export default function Manual() {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col gap-6">
-        <h1 className="text-center text-3xl font-bold p-4 border-b-2 border-gray-100 md:text-4xl">
+        <h1 className="text-center text-2xl font-bold p-4 border-b-2 border-gray-100 md:text-4xl">
           한 번의 성적표 입력으로
           <br /> 맞춤형 결과를 확인하세요 !
         </h1>
-        <div className="text-base flex flex-col gap-2 md:text-lg">
+        <div className="text-base px-6 md:px-0 flex flex-col gap-2 md:text-lg">
           <div>
             1.
             <a
