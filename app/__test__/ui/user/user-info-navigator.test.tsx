@@ -17,5 +17,6 @@ describe('UserInfoNavigator', () => {
     expect(await screen.findByText(/장진욱/i)).toBeInTheDocument();
     expect(await screen.findByText(/디지털콘텐츠디자인학과/i)).toBeInTheDocument();
     expect(await screen.findByText(/60181666/i)).toBeInTheDocument();
+    // expect(await screen.findByText(/디지털콘텐츠디자인학과/i)).toBeInTheDocument();
   });
 });

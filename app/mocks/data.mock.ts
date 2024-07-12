@@ -69,6 +69,11 @@ export const takenLectures = JSON.parse(`{
   ]
 }`);
 
+export const findId = JSON.parse(`{
+    "studentNumber": "60201671",
+    "authId" : "ahdbrud"
+}`);
+
 export const userInfo = JSON.parse(`{
     "studentNumber": "60181666",
     "studentName": "장진욱",

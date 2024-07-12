@@ -1,3 +1,4 @@
+import { FindIdResponseSchema } from './../business/services/user/user.validation';
 import { SearchLecturesResponse } from '../store/querys/lecture';
 import { TakenLecturesResponse } from '../business/services/lecture/taken-lecture.query';
 import { CreditResponse, ResultCategoryDetailResponse } from '../store/querys/result';
@@ -6,8 +7,10 @@ import {
   SignInRequestBody,
   UserInfoResponse,
   InitUserInfoResponse,
+  FindIdResponse,
+  FindIdFormSchema,
 } from '../business/services/user/user.type';
-import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo } from './data.mock';
+import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo, findId } from './data.mock';
 
 interface MockDatabaseState {
   takenLectures: TakenLecturesResponse;
@@ -16,6 +19,9 @@ interface MockDatabaseState {
   users: SignUpRequestBody[];
   searchLectures: SearchLecturesResponse;
   userInfo: UserInfoResponse;
+  findId: FindIdResponse;
+
+  // findPassword:FindPasswordResponse;
 }
 
 type MockDatabaseAction = {
@@ -28,6 +34,7 @@ type MockDatabaseAction = {
   signIn: (userData: SignInRequestBody) => boolean;
   deleteUser: (authId: string, password: string) => boolean;
   getCredits: () => CreditResponse[];
+  getFindId: (studentNumber: FindIdFormSchema) => FindIdResponse;
   getUserInfo: (authId: string) => UserInfoResponse | InitUserInfoResponse;
   getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
 };
@@ -66,7 +73,7 @@ export const mockDatabase: MockDatabaseAction = {
     ];
     return true;
   },
-
+  getFindId: () => mockDatabaseStore.findId,
   getCredits: () => mockDatabaseStore.credits,
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
@@ -110,6 +117,7 @@ const initialState: MockDatabaseState = {
   users: users,
   searchLectures: searchLectures,
   userInfo: userInfo,
+  findId: findId,
 };
 
 function initStore(): MockDatabaseState {

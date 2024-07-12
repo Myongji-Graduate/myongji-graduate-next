@@ -44,11 +44,13 @@ export const userHandlers = [
     await delay(500);
     return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
   }),
+
   http.post<never, never, ValidateTokenResponse>(`${API_PATH.auth}/token`, async ({ request }) => {
     return HttpResponse.json({
       accessToken: 'fake-access-token',
     });
   }),
+
   http.delete<never, UserDeleteRequestBody, never>(`${API_PATH.user}/delete-me`, async ({ request }) => {
     try {
       const { authId } = devModeAuthGuard(request);
@@ -65,6 +67,7 @@ export const userHandlers = [
       return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
     }
   }),
+
   http.get<never, never, UserInfoResponse | InitUserInfoResponse | ErrorResponseData>(
     API_PATH.user,
     async ({ request }) => {
@@ -94,6 +97,7 @@ export const userHandlers = [
 
     return HttpResponse.json({ status: 200 });
   }),
+
   http.post<never, SignInRequestBody, SignInResponse | ErrorResponseData>(
     `${API_PATH.auth}/sign-in`,
     async ({ request }) => {
@@ -115,4 +119,12 @@ export const userHandlers = [
       });
     },
   ),
+
+  http.get<never, never, never>(`${API_PATH.auth}/\\d{8}/auth-id`, async ({ request }) => {
+    await delay(500);
+
+    const DUMMY_STUDENTNUMBER = { studentNumber: '60201671' };
+    const userInfo = mockDatabase.getFindId(DUMMY_STUDENTNUMBER);
+    return HttpResponse.json(userInfo);
+  }),
 ];
