@@ -6,6 +6,7 @@ import {
   FindIdFormSchema,
   FindIdResponseSchema,
   InitUserInfoResponseSchema,
+  ResetPasswordFormSchema,
   SignInResponseSchema,
   UserInfoResponseSchema,
   ValidateTokenResponseSchema,
@@ -48,3 +49,4 @@ export type ValidateTokenResponse = z.infer<typeof ValidateTokenResponseSchema>;
 
 export type FindIdResponse = z.infer<typeof FindIdResponseSchema>;
 export type FindIdFormSchema = z.infer<typeof FindIdFormSchema>;
+export type FindPasswordFormSchema = z.infer<typeof ResetPasswordFormSchema>;

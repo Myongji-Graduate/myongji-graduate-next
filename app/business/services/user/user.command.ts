@@ -22,6 +22,7 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 import { auth } from './user.query';
+import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 
 export async function signOut() {
   cookies().delete('accessToken');
@@ -260,6 +261,9 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
       },
       body: JSON.stringify(body),
     });
+    toast({
+      title: '비밀번호 변경에 성공했습니다',
+    });
     redirect('/sign-in');
   } catch (error) {
     if (error instanceof BadRequestError) {
@@ -273,11 +277,4 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
       throw error;
     }
   }
-
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '비밀번호 재설정이 완료되었습니다.',
-  };
 }

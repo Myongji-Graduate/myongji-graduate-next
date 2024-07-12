@@ -33,7 +33,6 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
     });
-
     const result = await response.json();
 
     httpErrorHandler(response, result);
@@ -64,7 +63,6 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
 
   try {
     const { studentNumber } = validatedFields.data;
-
     const response = await fetch(`${API_PATH.user}/${studentNumber}/auth-id`, {
       method: 'GET',
       headers: {

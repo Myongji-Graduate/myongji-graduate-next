@@ -1,3 +1,4 @@
+import { FindIdResponseSchema } from './../../business/services/user/user.validation';
 import { HttpResponse, http, delay } from 'msw';
 import { API_PATH } from '../../business/api-path';
 import { mockDatabase } from '../db.mock';
@@ -7,11 +8,18 @@ import {
   SignInResponse,
   ValidateTokenResponse,
   UserInfoResponse,
+  FindIdResponse,
+  FindIdFormSchema,
   UserDeleteRequestBody,
   InitUserInfoResponse,
+  FindPasswordFormSchema,
+  ResetPasswordRequestBody,
 } from '@/app/business/services/user/user.type';
 import { ErrorResponseData } from '@/app/utils/http/http-error-handler';
 import { StrictRequest } from 'msw';
+
+const findAuthId = new RegExp(API_PATH.user + '/\\d{8}/auth-id');
+const validateUser = new RegExp(API_PATH.user + '/\\d{8}/validate(?:auth-id=[\\w]*)?$');
 
 function mockDecryptToken(token: string) {
   if (token === 'fake-access-token') {
@@ -120,11 +128,25 @@ export const userHandlers = [
     },
   ),
 
-  http.get<never, never, never>(`${API_PATH.auth}/\\d{8}/auth-id`, async ({ request }) => {
+  http.get<never, FindIdFormSchema, FindIdResponse>(findAuthId, async ({ request }) => {
     await delay(500);
-
     const DUMMY_STUDENTNUMBER = { studentNumber: '60201671' };
     const userInfo = mockDatabase.getFindId(DUMMY_STUDENTNUMBER);
     return HttpResponse.json(userInfo);
+  }),
+
+  http.get<never, FindIdFormSchema, never>(validateUser, async ({ request }) => {
+    await delay(500);
+    const DUMMY_STUDENTNUMBER = { authId: 'ahdbrud', studentNumber: '60201671' };
+    const result = mockDatabase.validateUser(DUMMY_STUDENTNUMBER);
+    return HttpResponse.json(result);
+  }),
+
+  http.patch<never, FindPasswordFormSchema, never>(`${API_PATH.user}/password`, async ({ request }) => {
+    const userData = await request.json();
+    const result = mockDatabase.resetPassword(userData);
+    await delay(500);
+
+    return HttpResponse.json({ status: 200 });
   }),
 ];

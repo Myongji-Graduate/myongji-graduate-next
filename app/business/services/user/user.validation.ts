@@ -32,6 +32,18 @@ export const FindIdFormSchema = z.object({
   studentNumber: z.string().length(8),
 });
 
+export const FindPasswordFormSchema = z.object({
+  authId: z.string(),
+  newPassword: z
+    .string()
+    .min(8, { message: '비밀번호는 8자 이상이어야 합니다.' })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, {
+      message: '비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.',
+    })
+    .max(20, { message: '비밀번호는 20자 이하여야 합니다.' }),
+  passwordCheck: z.string(),
+});
+
 export const FindIdResponseSchema = z.object({
   authId: z.string(),
   studentNumber: z.string().length(8),

@@ -9,8 +9,18 @@ import {
   InitUserInfoResponse,
   FindIdResponse,
   FindIdFormSchema,
+  FindPasswordFormSchema,
 } from '../business/services/user/user.type';
-import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo, findId } from './data.mock';
+import {
+  takenLectures,
+  credits,
+  searchLectures,
+  userInfo,
+  users,
+  resultCategoryDetailInfo,
+  findId,
+  validateUser,
+} from './data.mock';
 
 interface MockDatabaseState {
   takenLectures: TakenLecturesResponse;
@@ -20,6 +30,7 @@ interface MockDatabaseState {
   searchLectures: SearchLecturesResponse;
   userInfo: UserInfoResponse;
   findId: FindIdResponse;
+  validateUser: { passedUserValidation: boolean };
 
   // findPassword:FindPasswordResponse;
 }
@@ -37,12 +48,15 @@ type MockDatabaseAction = {
   getFindId: (studentNumber: FindIdFormSchema) => FindIdResponse;
   getUserInfo: (authId: string) => UserInfoResponse | InitUserInfoResponse;
   getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
+  resetPassword: (request: FindPasswordFormSchema) => boolean;
+  validateUser: (userInfo: FindIdResponse) => { passedUserValidation: boolean };
 };
 
 export const mockDatabase: MockDatabaseAction = {
   reset: () => {
     resetMockDB();
   },
+  validateUser: (userInfo: FindIdResponse) => mockDatabaseStore.validateUser,
   getTakenLectures: () => mockDatabaseStore.takenLectures,
   getSearchLectures: () => mockDatabaseStore.searchLectures,
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
@@ -74,6 +88,7 @@ export const mockDatabase: MockDatabaseAction = {
     return true;
   },
   getFindId: () => mockDatabaseStore.findId,
+  resetPassword: () => true,
   getCredits: () => mockDatabaseStore.credits,
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {
@@ -118,6 +133,7 @@ const initialState: MockDatabaseState = {
   searchLectures: searchLectures,
   userInfo: userInfo,
   findId: findId,
+  validateUser: validateUser,
 };
 
 function initStore(): MockDatabaseState {
