@@ -6,7 +6,12 @@ import { isValidation } from '@/app/utils/zod/validation.util';
 import { cookies } from 'next/headers';
 import { API_PATH } from '../../api-path';
 import { InitUserInfoResponse, UserInfoResponse } from './user.type';
-import { UserInfoResponseSchema, InitUserInfoResponseSchema, FindIdFormSchema } from './user.validation';
+import {
+  UserInfoResponseSchema,
+  InitUserInfoResponseSchema,
+  FindIdFormSchema,
+  FindIdResponseSchema,
+} from './user.validation';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
@@ -47,6 +52,7 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
   const validatedFields = FindIdFormSchema.safeParse({
     studentNumber: formData.get('studentNumber'),
   });
+
   if (!validatedFields.success) {
     return {
       isSuccess: false,
@@ -66,7 +72,7 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
       },
     });
     const result = await response.json();
-    if (result.status === 200)
+    if (response.status === 200)
       return {
         isSuccess: true,
         isFailure: false,
@@ -96,7 +102,7 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
 }
 
 export async function validateUser(prevState: FormState, formData: FormData): Promise<FormState> {
-  const validatedFields = FindIdFormSchema.safeParse({
+  const validatedFields = FindIdResponseSchema.safeParse({
     authId: formData.get('authId'),
     studentNumber: formData.get('studentNumber'),
   });

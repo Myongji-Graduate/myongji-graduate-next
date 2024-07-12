@@ -29,9 +29,14 @@ export const ValidateTokenResponseSchema = z.object({
 });
 
 export const FindIdFormSchema = z.object({
+  studentNumber: z.string().length(8),
+});
+
+export const FindIdResponseSchema = z.object({
   authId: z.string(),
   studentNumber: z.string().length(8),
 });
+
 export const SignInFormSchema = z.object({
   authId: z.string(),
   password: z.string(),
