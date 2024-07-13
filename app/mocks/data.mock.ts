@@ -69,10 +69,6 @@ export const takenLectures = JSON.parse(`{
   ]
 }`);
 
-export const validateUser = JSON.parse(`{
-    "passedUserValidation": true
-}`);
-
 export const userInfo = JSON.parse(`{
     "studentNumber": "60181666",
     "studentName": "장진욱",

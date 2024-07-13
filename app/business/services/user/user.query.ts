@@ -124,6 +124,7 @@ export async function validateUser(prevState: FormState, formData: FormData): Pr
       },
     });
     const result = await response.json();
+
     if (result.passedUserValidation)
       return {
         isSuccess: true,

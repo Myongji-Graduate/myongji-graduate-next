@@ -1,4 +1,4 @@
-import { findUserToStudentNumber, validateUser } from '@/app/business/services/user/user.query';
+import { validateUser } from '@/app/business/services/user/user.query';
 import Form from '../../view/molecule/form';
 import { FormState } from '../../view/molecule/form/form-root';
 

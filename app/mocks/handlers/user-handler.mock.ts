@@ -1,3 +1,4 @@
+import { userInfo } from './../data.mock';
 import { FindIdResponseSchema } from './../../business/services/user/user.validation';
 import { HttpResponse, http, delay } from 'msw';
 import { API_PATH } from '../../business/api-path';
@@ -139,9 +140,12 @@ export const userHandlers = [
 
   http.get<never, FindIdFormSchema, never>(validateUser, async ({ request }) => {
     await delay(500);
-    const DUMMY_STUDENTNUMBER = { authId: 'ahdbrud', studentNumber: '60201671' };
-    const result = mockDatabase.validateUser(DUMMY_STUDENTNUMBER);
-    return HttpResponse.json(result);
+    const studentNumber = request.url.split('/')[4];
+    const authId = request.url.split('=')[1];
+    const response = mockDatabase.validateUser({ authId, studentNumber });
+    return response.passedUserValidation
+      ? HttpResponse.json(response)
+      : HttpResponse.json({ status: 400, message: '해당 사용자를 찾을 수 없습니다.' }, { status: 400 });
   }),
 
   http.patch<never, FindPasswordFormSchema, never>(`${API_PATH.user}/password`, async ({ request }) => {

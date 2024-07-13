@@ -1,4 +1,3 @@
-import { FindIdResponseSchema } from './../business/services/user/user.validation';
 import { SearchLecturesResponse } from '../store/querys/lecture';
 import { TakenLecturesResponse } from '../business/services/lecture/taken-lecture.query';
 import { CreditResponse, ResultCategoryDetailResponse } from '../store/querys/result';
@@ -11,15 +10,7 @@ import {
   FindIdFormSchema,
   FindPasswordFormSchema,
 } from '../business/services/user/user.type';
-import {
-  takenLectures,
-  credits,
-  searchLectures,
-  userInfo,
-  users,
-  resultCategoryDetailInfo,
-  validateUser,
-} from './data.mock';
+import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo } from './data.mock';
 
 interface MockDatabaseState {
   takenLectures: TakenLecturesResponse;
@@ -28,8 +19,6 @@ interface MockDatabaseState {
   users: SignUpRequestBody[];
   searchLectures: SearchLecturesResponse;
   userInfo: UserInfoResponse;
-  validateUser: { passedUserValidation: boolean };
-
   // findPassword:FindPasswordResponse;
 }
 
@@ -54,7 +43,13 @@ export const mockDatabase: MockDatabaseAction = {
   reset: () => {
     resetMockDB();
   },
-  validateUser: (userInfo: FindIdResponse) => mockDatabaseStore.validateUser,
+  validateUser: (userInfo: FindIdResponse) => {
+    const user = mockDatabaseStore.users.find(
+      (u) => u.authId === userInfo.authId && u.studentNumber === userInfo.studentNumber,
+    );
+    return { passedUserValidation: !!user };
+  },
+
   getTakenLectures: () => mockDatabaseStore.takenLectures,
   getSearchLectures: () => mockDatabaseStore.searchLectures,
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
@@ -133,7 +128,6 @@ const initialState: MockDatabaseState = {
   users: users,
   searchLectures: searchLectures,
   userInfo: userInfo,
-  validateUser: validateUser,
 };
 
 function initStore(): MockDatabaseState {
