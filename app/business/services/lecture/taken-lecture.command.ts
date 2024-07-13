@@ -5,6 +5,9 @@ import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError } from '@/app/utils/http/http-error';
 import { revalidateTag } from 'next/cache';
 import { TAG } from '@/app/utils/http/tag';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { getToken } from '../auth';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   const parsingText = await parsePDFtoText(formData);
@@ -12,6 +15,10 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
   const res = await fetch(API_PATH.registerUserGrade, {
     method: 'POST',
     body: JSON.stringify({ parsingText }),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
   });
 
   if (!res.ok) {
@@ -22,13 +29,7 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
       message: 'fail upload grade',
     };
   }
-
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '',
-  };
+  redirect('/my');
 };
 
 export const parsePDFtoText = async (formData: FormData) => {
@@ -39,64 +40,66 @@ export const parsePDFtoText = async (formData: FormData) => {
       message: 'fail parsing to text',
     };
   }
-  return await res.json();
+  return await res.text();
 };
 
 export const deleteTakenLecture = async (lectureId: number) => {
-  try {
-    const response = await fetch(API_PATH.takenLectures, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ lectureId }),
-    });
-    const result = await response.json();
-    httpErrorHandler(response, result);
-  } catch (error) {
-    if (error instanceof BadRequestError) {
-      return {
-        isSuccess: false,
-      };
-    } else {
-      throw error;
-    }
+  // try {
+  const response = await fetch(`${API_PATH.takenLectures}/${lectureId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+  });
+  // http error handling에서 result가 필수값이므로 사용할 수 없음
+  // 하지만 fetch 가 수정되면서 바꿀 예정이므로 현재는 작동만 되도록
+  if (response.ok) {
+    revalidateTag(TAG.GET_TAKEN_LECTURES);
+    return {
+      isSuccess: true,
+    };
+  } else {
+    return {
+      isSuccess: false,
+    };
   }
-  revalidateTag(TAG.GET_TAKEN_LECTURES);
-  return {
-    isSuccess: true,
-  };
+  // } catch (error) {
+  //   if (error instanceof BadRequestError) {
+  //     return {
+  //       isSuccess: false,
+  //     };
+  //   } else {
+  //     throw error;
+  //   }
+  // }
 };
 
 export const addTakenLecture = async (lectureId: number) => {
-  try {
-    const response = await fetch(API_PATH.takenLectures, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ lectureId }),
-    });
-    const result = await response.json();
-    httpErrorHandler(response, result);
-  } catch (error) {
-    if (error instanceof BadRequestError) {
-      return {
-        isSuccess: false,
-        isFailure: true,
-        validationError: {},
-        message: '과목 추가에 실패했습니다',
-      };
-    } else {
-      throw error;
-    }
+  const token = await getToken();
+  const response = await fetch(API_PATH.takenLectures, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ lectureId }),
+  });
+  // delete taken lecture과 비슷한 이유로 코드 수정
+  if (response.ok) {
+    revalidateTag(TAG.GET_TAKEN_LECTURES);
+    return {
+      isSuccess: true,
+      isFailure: false,
+      validationError: {},
+      message: '과목 추가에 성공했습니다',
+    };
+  } else {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
+      message: '과목 추가에 실패했습니다',
+    };
   }
-
-  revalidateTag(TAG.GET_TAKEN_LECTURES);
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '과목 추가에 성공했습니다',
-  };
 };

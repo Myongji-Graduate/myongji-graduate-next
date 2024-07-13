@@ -15,8 +15,8 @@ export interface LectureInfoResponse {
 
 export interface ResultCategoryDetailLecturesResponse {
   categoryName: string;
-  totalCredits: number;
-  takenCredits: number;
+  totalCredit: number;
+  takenCredit: number;
   takenLectures: LectureInfoResponse[];
   haveToLectures: LectureInfoResponse[];
   completed: boolean;
@@ -26,7 +26,7 @@ export interface ResultCategoryDetailResponse {
   totalCredit: number;
   takenCredit: number;
   detailCategory: ResultCategoryDetailLecturesResponse[];
-  completed: boolean;
+  completed?: boolean;
 }
 
 export interface CreditResponse {
@@ -48,7 +48,7 @@ const fetchCredits = async () => {
   try {
     const { data } = await axios<CreditResponse[]>(`${API_PATH.graduations}/credits`, {
       headers: {
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     return data;
@@ -59,7 +59,7 @@ const fetchCredits = async () => {
 
 export const useFetchResultCategoryDetailInfo = (category: string) => {
   return useSuspenseQuery<ResultCategoryDetailResponse>({
-    queryKey: [QUERY_KEY.CATEGORY],
+    queryKey: [`${QUERY_KEY.CATEGORY}/${category}`],
     staleTime: Infinity,
     queryFn: () => fetchResultCategoryDetailInfo(category),
   });
@@ -67,11 +67,14 @@ export const useFetchResultCategoryDetailInfo = (category: string) => {
 
 const fetchResultCategoryDetailInfo = async (category: string) => {
   try {
-    const { data } = await axios<ResultCategoryDetailResponse>(API_PATH.resultCategoryDetailInfo, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
+    const { data } = await axios<ResultCategoryDetailResponse>(
+      `${API_PATH.graduations}/detail?graduationCategory=${category}`,
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
       },
-    });
+    );
     return data;
   } catch (error) {
     throw error;

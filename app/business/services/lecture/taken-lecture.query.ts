@@ -4,10 +4,10 @@ import { cookies } from 'next/headers';
 
 export interface TakenLecturesResponse {
   totalCredit: number;
-  takenLectures: TakenLectrueInfoResponse[];
+  takenLectures: TakenLectureInfoResponse[];
 }
 
-interface TakenLectrueInfoResponse {
+interface TakenLectureInfoResponse {
   [index: string]: string | number;
   id: number;
   year: string;

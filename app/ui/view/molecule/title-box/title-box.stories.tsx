@@ -5,6 +5,15 @@ import AnnounceMessageBox from '../announce-message-box/announce-massage-box';
 const meta = {
   title: 'ui/view/molecule/TitleBox',
   component: TitleBox,
+  tags: ['autodocs'],
+  parameters: {
+    componentSubtitle: '요소는 페이지의 대표 title을 표기하는 경우에 사용됩니다.',
+  },
+  argTypes: {
+    title: {
+      description: 'title의 내용을 설정할 수 있습니다.',
+    },
+  },
 } as Meta<typeof TitleBox>;
 
 export default meta;

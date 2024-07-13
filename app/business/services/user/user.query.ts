@@ -36,7 +36,6 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
     const result = await response.json();
 
     httpErrorHandler(response, result);
-
     if (isValidation(result, UserInfoResponseSchema || InitUserInfoResponseSchema)) {
       return result;
     } else {

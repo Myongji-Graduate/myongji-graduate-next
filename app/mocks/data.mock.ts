@@ -72,7 +72,7 @@ export const takenLectures = JSON.parse(`{
 export const userInfo = JSON.parse(`{
     "studentNumber": "60181666",
     "studentName": "장진욱",
-    "completionDivision" : [
+    "completeDivision" : [
         {
             "majorType" : "PRIMARY",
             "major": "디지털콘텐츠디자인학과"
@@ -94,8 +94,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
   "detailCategory": [
       {
           "categoryName": "공통교양(기독교)",
-          "totalCredits": 4,
-          "takenCredits": 4,
+          "totalCredit": 4,
+          "takenCredit": 4,
           "takenLectures": [
               {
                   "id": 3,
@@ -122,8 +122,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
       },
       {
           "categoryName": "공통교양(진로와 선택)",
-          "totalCredits": 2,
-          "takenCredits": 2,
+          "totalCredit": 2,
+          "takenCredit": 2,
           "takenLectures": [
               {
                   "id": 18,
@@ -137,8 +137,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
       },
       {
           "categoryName": "공통교양(사고와 표현)",
-          "totalCredits": 3,
-          "takenCredits": 3,
+          "totalCredit": 3,
+          "takenCredit": 3,
           "takenLectures": [
               {
                   "id": 9,
@@ -159,8 +159,8 @@ export const resultCategoryDetailInfo = JSON.parse(`{
       },
       {
           "categoryName": "공통교양(영어)",
-          "totalCredits": 6,
-          "takenCredits": 3,
+          "totalCredit": 6,
+          "takenCredit": 3,
           "takenLectures": [
               {
                   "id": 10,
@@ -279,41 +279,45 @@ export const credits = JSON.parse(`[
     }
 ]`);
 
-export const searchLectures = JSON.parse(`{
-	"lectures": [
-        {
-            "id": 1,
-            "lectureCode": "KMA02106",
-            "name": "영어1",
-            "credit": 2,
-            "isTaken" : false
-        },
-        {
-          "id": 2,
-          "lectureCode": "KMA02106",
-          "name": "영어2",
-          "credit": 2,
-          "isTaken" : true
-      },
-      {
-        "id": 3,
-        "lectureCode": "KMA02136",
-        "name": "영어무역이론",
-        "credit": 3,
-        "isTaken" : false
-    },
-    {
-      "id": 1,
-      "lectureCode": "KMA02106",
-      "name": "영어회화3",
-      "credit": 1,
-      "isTaken" : false
-  }, 
+export const searchLectures = [
   {
-    "id": 1,
-    "lectureCode": "KMA02106",
-    "name": "영어회화4",
-    "credit": 2,
-    "isTaken" : true
-}]
-}`);
+    id: 1,
+    lectureCode: 'KMA02106',
+    name: '영어1',
+    credit: 2,
+    taken: false,
+    revoked: true,
+  },
+  {
+    id: 2,
+    lectureCode: 'KMA02106',
+    name: '영어2',
+    credit: 2,
+    taken: true,
+    revoked: false,
+  },
+  {
+    id: 3,
+    lectureCode: 'KMA02136',
+    name: '영어무역이론',
+    credit: 3,
+    taken: false,
+    revoked: false,
+  },
+  {
+    id: 4,
+    lectureCode: 'KMA02106',
+    name: '영어회화3',
+    credit: 1,
+    taken: false,
+    revoked: false,
+  },
+  {
+    id: 6,
+    lectureCode: 'KMA02106',
+    name: '영어회화4',
+    credit: 2,
+    taken: true,
+    revoked: false,
+  },
+];

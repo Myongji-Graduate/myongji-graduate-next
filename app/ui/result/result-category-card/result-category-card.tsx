@@ -57,13 +57,13 @@ const displaySeveralMajor = (category: ResultCategoryKey) => {
 };
 
 function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCategoryCardProps) {
-  const { toggle } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
+  const { open } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
   const setIsOpenDialog = useSetAtom(isDialogOpenAtom);
 
   const percentage = getPercentage(takenCredit, totalCredit);
 
   const handleClickButton = () => {
-    toggle();
+    open();
     setIsOpenDialog(true);
   };
 
@@ -106,7 +106,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
           href={{
             pathname: '/result',
             query: {
-              category: 'COMMON_CULTURE',
+              category: category,
             },
           }}
         >
