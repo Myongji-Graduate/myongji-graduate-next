@@ -23,18 +23,21 @@ export const resultHandlers = [
       return HttpResponse.json(data);
     },
   ),
-  http.get<never, never, CreditResponse[] | ErrorResponseData>(`${API_PATH.credits}`, async ({ request }) => {
-    const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
-    if (accessToken === 'undefined' || !accessToken) {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
+  http.get<never, never, CreditResponse[] | ErrorResponseData>(
+    `${API_PATH.graduations}/credits`,
+    async ({ request }) => {
+      const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
+      if (accessToken === 'undefined' || !accessToken) {
+        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      }
 
-    const data = mockDatabase.getCredits();
-    await delay(1000);
-    if (!data) {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
-    }
+      const data = mockDatabase.getCredits();
+      await delay(1000);
+      if (!data) {
+        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      }
 
-    return HttpResponse.json(data);
-  }),
+      return HttpResponse.json(data);
+    },
+  ),
 ];

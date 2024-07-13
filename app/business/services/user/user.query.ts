@@ -28,7 +28,7 @@ export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | 
 
 export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
-    const response = await fetch(`${API_PATH.user}`, {
+    const response = await fetch(`${API_PATH.user}/me`, {
       headers: {
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
