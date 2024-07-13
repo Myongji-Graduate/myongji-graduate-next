@@ -30,7 +30,9 @@ function FindPasswordForm({ authId }: FindPasswordFormProps) {
       <div className="hidden">
         <Form.TextInput label="아이디 확인" id="authId" placeholder="" value={authId} />
       </div>
-      <Form.SubmitButton label="변경하기" position="center" variant="primary" />
+      <div className="py-6">
+        <Form.SubmitButton label="변경하기" position="center" variant="primary" />
+      </div>
     </Form>
   );
 }

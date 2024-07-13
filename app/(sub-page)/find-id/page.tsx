@@ -6,7 +6,7 @@ import FindIdFormSkeleton from '@/app/ui/user/find-id-form/find-id-form.skeleton
 
 export default function FindIdPage() {
   return (
-    <ContentContainer>
+    <ContentContainer className="p-4 pb-0">
       <TitleBox title="아이디 찾기" />
       <Suspense fallback={<FindIdFormSkeleton />}>
         <FindIdContainer />

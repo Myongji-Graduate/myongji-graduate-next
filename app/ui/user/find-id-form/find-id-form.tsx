@@ -11,7 +11,9 @@ function FindIdForm({ onNext }: SignUpFormProps) {
   return (
     <Form onSuccess={onNext} id="아이디찾기" action={findUserToStudentNumber}>
       <Form.TextInput required={true} label="학번" id="studentNumber" placeholder="ex ) 60xxxxxx" />
-      <Form.SubmitButton label="아이디찾기" position="center" variant="primary" />
+      <div className="py-6">
+        <Form.SubmitButton label="아이디찾기" position="center" variant="primary" />
+      </div>
     </Form>
   );
 }
