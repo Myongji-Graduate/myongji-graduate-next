@@ -69,6 +69,7 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
         'Content-Type': 'application/json',
       },
     });
+
     const result = await response.json();
     if (response.status === 200)
       return {

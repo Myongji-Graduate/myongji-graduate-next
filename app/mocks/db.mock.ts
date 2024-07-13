@@ -18,7 +18,6 @@ import {
   userInfo,
   users,
   resultCategoryDetailInfo,
-  findId,
   validateUser,
 } from './data.mock';
 
@@ -29,7 +28,6 @@ interface MockDatabaseState {
   users: SignUpRequestBody[];
   searchLectures: SearchLecturesResponse;
   userInfo: UserInfoResponse;
-  findId: FindIdResponse;
   validateUser: { passedUserValidation: boolean };
 
   // findPassword:FindPasswordResponse;
@@ -45,7 +43,7 @@ type MockDatabaseAction = {
   signIn: (userData: SignInRequestBody) => boolean;
   deleteUser: (authId: string, password: string) => boolean;
   getCredits: () => CreditResponse[];
-  getFindId: (studentNumber: FindIdFormSchema) => FindIdResponse;
+  getFindId: (form: FindIdFormSchema) => FindIdResponse;
   getUserInfo: (authId: string) => UserInfoResponse | InitUserInfoResponse;
   getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
   resetPassword: (request: FindPasswordFormSchema) => boolean;
@@ -87,7 +85,10 @@ export const mockDatabase: MockDatabaseAction = {
     ];
     return true;
   },
-  getFindId: () => mockDatabaseStore.findId,
+  getFindId: (form: FindIdFormSchema) => {
+    const user = mockDatabaseStore.users.find((u) => u.studentNumber === form.studentNumber);
+    return { studentNumber: user?.studentNumber ?? '', authId: user?.authId ?? '' };
+  },
   resetPassword: () => true,
   getCredits: () => mockDatabaseStore.credits,
   createUser: (user: SignUpRequestBody) => {
@@ -132,7 +133,6 @@ const initialState: MockDatabaseState = {
   users: users,
   searchLectures: searchLectures,
   userInfo: userInfo,
-  findId: findId,
   validateUser: validateUser,
 };
 

@@ -1,4 +1,3 @@
-import { express } from 'express';
 // https://stackoverflow.com/questions/76957592/error-only-async-functions-are-allowed-to-be-exported-in-a-use-server-file
 // server action 파일에서는 async function만 export 가능
 

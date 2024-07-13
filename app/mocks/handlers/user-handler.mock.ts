@@ -128,11 +128,13 @@ export const userHandlers = [
     },
   ),
 
-  http.get<never, FindIdFormSchema, FindIdResponse>(findAuthId, async ({ request }) => {
+  http.get<never, FindIdFormSchema, FindIdResponse | ErrorResponseData>(findAuthId, async ({ request }) => {
     await delay(500);
-    const DUMMY_STUDENTNUMBER = { studentNumber: '60201671' };
-    const userInfo = mockDatabase.getFindId(DUMMY_STUDENTNUMBER);
-    return HttpResponse.json(userInfo);
+    const studentNumber = request.url.split('/')[4];
+    const userInfo = mockDatabase.getFindId({ studentNumber });
+    return userInfo.studentNumber.length === 8
+      ? HttpResponse.json(userInfo)
+      : HttpResponse.json({ status: 400, message: '해당 사용자를 찾을 수 없습니다.' }, { status: 400 });
   }),
 
   http.get<never, FindIdFormSchema, never>(validateUser, async ({ request }) => {
