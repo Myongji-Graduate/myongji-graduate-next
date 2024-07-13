@@ -22,7 +22,6 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 import { auth } from './user.query';
-import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 
 export async function signOut() {
   cookies().delete('accessToken');
@@ -252,7 +251,6 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
     newPassword,
     passwordCheck,
   };
-
   try {
     const response = await fetch(`${API_PATH.user}/password`, {
       method: 'PATCH',
@@ -261,10 +259,13 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
       },
       body: JSON.stringify(body),
     });
-    toast({
-      title: '비밀번호 변경에 성공했습니다',
-    });
-    redirect('/sign-in');
+
+    return {
+      isSuccess: true,
+      isFailure: false,
+      validationError: {},
+      message: '',
+    };
   } catch (error) {
     if (error instanceof BadRequestError) {
       return {
