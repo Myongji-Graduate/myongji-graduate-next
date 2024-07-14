@@ -17,7 +17,10 @@ export default async function NavigationItems() {
         <NavigationItem href={'/sign-in'} label="로그인" />
       )}
       <NavigationItem href={'/tutorial'} label="튜토리얼" />
-      <NavigationItem href={'/'} label="팀소개" />
+      <NavigationItem
+        href={'https://soft-anorak-0ca.notion.site/e35e3b210995463fa748f35aab536f2c?pvs=74'}
+        label="팀소개"
+      />
     </div>
   );
 }
