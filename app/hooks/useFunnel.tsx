@@ -22,7 +22,6 @@ export default function useFunnel<Steps extends string>(
       const params = new URLSearchParams(searchParams.toString());
       params.delete(stepQueryKey);
       params.set(stepQueryKey, step);
-
       return `${pathname}?${params.toString()}`;
     },
     [searchParams, stepQueryKey],
@@ -30,7 +29,7 @@ export default function useFunnel<Steps extends string>(
 
   const setStep = useCallback(
     (step: Steps) => {
-      router.push(createUrl(step));
+      router.replace(createUrl(step));
     },
     [searchParams, createUrl],
   );
