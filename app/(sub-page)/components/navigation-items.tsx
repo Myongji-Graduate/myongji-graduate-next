@@ -25,10 +25,10 @@ export default async function NavigationItems() {
   );
 }
 
-type NavigationItemProps = {
+interface NavigationItemProps {
   href: string;
   label: string;
-};
+}
 
 export function NavigationItem({ href, label }: NavigationItemProps) {
   return (
