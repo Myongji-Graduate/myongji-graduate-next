@@ -145,7 +145,7 @@ export async function validateUser(prevState: FormState, formData: FormData): Pr
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: '',
+        message: error.message,
       };
     } else {
       throw error;
