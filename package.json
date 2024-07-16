@@ -51,6 +51,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^8.2.4",
     "@storybook/addon-essentials": "^8.0.6",
     "@storybook/addon-interactions": "^8.0.6",
     "@storybook/addon-links": "^8.0.6",
@@ -71,6 +72,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "axe-playwright": "^2.0.1",
     "chromatic": "^10.9.4",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
