@@ -1,10 +1,12 @@
-const BASE_URL = 'http://staging-plzgraduation-env.eba-s4bbj5cp.ap-northeast-2.elasticbeanstalk.com/api/v1';
+import { setupURL } from '../utils/api/setup-url.util';
+
+const { BASE_URL, PARSE_API_URL } = setupURL();
 
 export const API_PATH = {
   default: BASE_URL,
   revenue: `${BASE_URL}/revenue`,
   registerUserGrade: `${BASE_URL}/parsing-text`,
-  parsePDFtoText: `${BASE_URL}/parsePDFtoText`,
+  parsePDFtoText: PARSE_API_URL,
   takenLectures: `${BASE_URL}/taken-lectures`,
   user: `${BASE_URL}/users`,
   graduations: `${BASE_URL}/graduations`,
