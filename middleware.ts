@@ -1,9 +1,10 @@
-import type { NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { auth } from './app/business/services/user/user.query';
 import { isInitUser } from './app/business/services/user/user.validation';
+import { refreshToken } from './app/business/services/user/user.command';
 
 async function getAuth(request: NextRequest): Promise<{
-  role: 'guest' | 'user' | 'init';
+  role: 'guest' | 'expired' | 'user' | 'init';
 }> {
   const accessToken = request.cookies.get('accessToken')?.value;
   if (!accessToken) {
@@ -15,10 +16,8 @@ async function getAuth(request: NextRequest): Promise<{
   const user = await auth();
 
   if (!user) {
-    request.cookies.delete('accessToken');
-    request.cookies.delete('refreshToken');
     return {
-      role: 'guest',
+      role: 'expired',
     };
   }
 
@@ -42,6 +41,10 @@ function isAllowedGuestPath(path: string, strict: boolean = false) {
 export async function middleware(request: NextRequest) {
   const auth = await getAuth(request);
 
+  if (auth.role === 'expired') {
+    return await retryAuth(request);
+  }
+
   if (auth.role === 'init' && !request.nextUrl.pathname.startsWith('/grade-upload')) {
     return Response.redirect(new URL('/grade-upload', request.url));
   }
@@ -53,6 +56,22 @@ export async function middleware(request: NextRequest) {
   if (auth.role !== 'guest' && isAllowedGuestPath(request.nextUrl.pathname, true)) {
     return Response.redirect(new URL('/my', request.url));
   }
+}
+
+async function retryAuth(request: NextRequest) {
+  const response = NextResponse.redirect(request.url);
+  const result = await refreshToken();
+  if (result === false) {
+    response.cookies.delete('accessToken');
+    response.cookies.delete('refreshToken');
+  } else {
+    response.cookies.set('accessToken', result.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+    });
+  }
+  return response;
 }
 
 export const config = {
