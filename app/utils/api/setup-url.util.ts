@@ -17,7 +17,7 @@ export function setupURL() {
   }
 
   if (isClient()) {
-    if (isClientMoockingEnabled) {
+    if (isClientMockingEnabled) {
       return MOCK_API_URLS;
     } else {
       return API_URLS;
@@ -25,9 +25,9 @@ export function setupURL() {
   }
 
   // next server
-  if (isServerMoockingEnabled && isClientMoockingEnabled) {
+  if (isServerMockingEnabled && isClientMockingEnabled) {
     return MOCK_API_URLS;
-  } else if (!isServerMoockingEnabled && !isClientMoockingEnabled) {
+  } else if (!isServerMockingEnabled && !isClientMockingEnabled) {
     return API_URLS;
   } else {
     throw new Error('API_MOCKING env is not set correctly');
