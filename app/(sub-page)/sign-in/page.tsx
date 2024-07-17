@@ -7,8 +7,14 @@ import Separator from '@/app/ui/view/atom/separator';
 import Button from '@/app/ui/view/atom/button/button';
 import Responsive from '@/app/ui/responsive';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
-export default function Page() {
+export const metadata: Metadata = {
+  title: '로그인',
+  description: '졸업을 부탁해에 로그인 하고 졸업요건을 간편하게 검사해 보세요.',
+};
+
+export default function SignInPage() {
   return (
     <ContentContainer className="md:w-[768px] h-[550px] xl:w-[960px] flex p-9">
       <Responsive minWidth={767}>

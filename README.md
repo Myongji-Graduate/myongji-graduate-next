@@ -1,7 +1,13 @@
+
 <div align="center">
+  
+### [졸부서비스 바로가기](https://mju-graduate.com)
+
+[스토리북](https://65ccb85d5afe55a024495bc0-qsukhlhbnl.chromatic.com/?path=/story/ui-lecture-lecture-search--add-senario)
+
 <img width="413" alt="스크린샷 2024-02-11 오전 10 55 51" src="https://github.com/Myongji-Graduate/MyongjiGraduate-Next/assets/75975946/1f96dc0f-aa21-4503-ad77-4d2e2798f27f">
 
-### [졸부서비스 바로가기](https://mju-graduate.com)
+
 
 </div>
 
