@@ -13,13 +13,13 @@
     "mock": "npx tsx watch ./app/mocks/http.ts",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:storybook": "test-storybook",
+    "build:storybook": "storybook build",
     "prettier": "prettier --write .",
     "prepare": "husky install || true",
     "lint-staged": "lint-staged",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
     "type": "tsc --noEmit",
-    "test-storybook": "test-storybook",
     "cypress:open": "cypress open"
   },
   "dependencies": {
