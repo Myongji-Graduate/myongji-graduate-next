@@ -9,8 +9,8 @@ const MOCK_API_URLS = {
 };
 
 export function setupURL() {
-  const isServerMoockingEnabled = process.env.API_MOCKING === 'enable';
-  const isClientMoockingEnabled = process.env.NEXT_PUBLIC_API_MOCKING === 'enable';
+  const isServerMockingEnabled = process.env.API_MOCKING === 'enable';
+  const isClientMockingEnabled = process.env.NEXT_PUBLIC_API_MOCKING === 'enable';
 
   if (isMockServer()) {
     return MOCK_API_URLS;
