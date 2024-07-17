@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { UserInfoResponse, InitUserInfoResponse } from './user.type';
 
+// 동기화
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.string(),
@@ -15,29 +16,33 @@ export const UserInfoResponseSchema = z.object({
   graduated: z.boolean(),
 });
 
+// 동기화
 export const InitUserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.null(),
-  completeDivision: z.null(),
-  totalCredit: z.null(),
-  takenCredit: z.null(),
-  graduated: z.null(),
+  completeDivision: z.string().array(),
+  totalCredit: z.number(),
+  takenCredit: z.number(),
+  graduated: z.boolean(),
 });
 
 export const ValidateTokenResponseSchema = z.object({
   accessToken: z.string(),
 });
 
+// 동기화
 export const SignInFormSchema = z.object({
   authId: z.string(),
   password: z.string(),
 });
 
+// 동기화
 export const SignInResponseSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
 });
 
+// 동기화
 export const SignUpFormSchema = z
   .object({
     authId: z
@@ -59,7 +64,7 @@ export const SignUpFormSchema = z
     studentNumber: z.string().length(8, { message: '학번은 8자리여야 합니다.' }).startsWith('60', {
       message: '학번은 60으로 시작해야 합니다.',
     }),
-    engLv: z.enum(['basic', 'ENG12', 'ENG34', 'bypass'], {
+    engLv: z.enum(['BASIC', 'ENG12', 'ENG34', 'FREE'], {
       invalid_type_error: '올바른 영어 레벨을 선택해주세요.',
     }),
   })
@@ -72,6 +77,7 @@ export const SignUpFormSchema = z
       });
     }
   });
+
 export function isInitUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
-  return typeof x.studentName === null;
+  return x.studentName === null;
 }

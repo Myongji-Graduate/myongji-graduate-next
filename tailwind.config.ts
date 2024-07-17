@@ -48,7 +48,8 @@ const config: Config = {
       zIndex: {
         1: '100', // upper layout, navigation bar, main page content
         2: '200', // upper content , main page graduation cap
-        3: '300', // upper all
+        3: '300', // modal
+        4: '400', // upper all
       },
       gridTemplateColumns: {
         'render-button': 'repeat(5, 1fr) 0.6fr',

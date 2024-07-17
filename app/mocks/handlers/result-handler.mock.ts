@@ -6,7 +6,7 @@ import { CreditResponse, ResultCategoryDetailResponse } from '@/app/store/querys
 
 export const resultHandlers = [
   http.get<never, never, ResultCategoryDetailResponse | ErrorResponseData>(
-    `${API_PATH.resultCategoryDetailInfo}`,
+    `${API_PATH.graduations}`,
     async ({ request }) => {
       const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
       if (accessToken === 'undefined' || !accessToken) {

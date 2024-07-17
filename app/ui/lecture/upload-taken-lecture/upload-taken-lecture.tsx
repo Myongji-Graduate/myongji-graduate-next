@@ -8,7 +8,9 @@ function UploadTakenLecture() {
   return (
     <Form action={registerUserGrade} id="성적업로드">
       <UploadPdf />
-      <Form.SubmitButton label="결과 보러가기" position="center" size="md" />
+      <div className="py-6">
+        <Form.SubmitButton label="결과 보러가기" position="center" size="md" />
+      </div>
     </Form>
   );
 }

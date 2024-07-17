@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default function MyPage() {
   return (
     <>
-      <ContentContainer className="flex">
+      <ContentContainer className="flex pt-10 lg:pt-16">
         <Responsive minWidth={1023}>
           <div className="lg:w-[30%]">
             <Suspense fallback={<UserInfoNavigatorSkeleton />}>
@@ -43,7 +43,7 @@ export default function MyPage() {
             </Suspense>
           </div>
         </Responsive>
-        <div className="w-full lg:w-[70%] lg:px-[20px] pt-12 pb-2 flex flex-col gap-12">
+        <div className="w-full lg:w-[70%] px-7 lg:px-[20px] pt-4 pb-2 flex flex-col gap-12">
           <MyResultContainer />
           <Suspense fallback={<TakenLectureSkeleton />}>
             <TakenLecture />
