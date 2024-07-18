@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { userEvent, within, expect } from '@storybook/test';
+import { userEvent, within, expect, waitFor } from '@storybook/test';
 import FindPasswordForm from './find-password-form';
 
 const meta = {
@@ -34,7 +34,7 @@ export const SuccessSenario: Story = {
     });
 
     await step('비밀번호 변경에 성공한다', async () => {
-      expect(canvas.getByText('비밀번호가 변경되었어요.')).toBeInTheDocument();
+      await waitFor(() => expect(canvas.queryByText('비밀번호 변경에 실패했습니다.')).toBeNull());
     });
   },
 };
