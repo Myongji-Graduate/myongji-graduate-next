@@ -70,7 +70,6 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
   }
   deleteCookies();
   redirect('/sign-in');
-
 }
 
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -268,7 +267,7 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: error.message,
+        message: '비밀번호 변경에 실패했습니다.',
       };
     } else {
       throw error;
