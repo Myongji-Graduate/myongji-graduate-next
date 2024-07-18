@@ -57,7 +57,7 @@ const SignUpFormMockSchema = z
     studentNumber: z.string().length(8, { message: '학번은 8자리 입니다' }).startsWith('60', {
       message: '학번은 60으로 시작합니다',
     }),
-    engLv: z.enum(['basic', 'level12', 'level34', 'bypass']),
+    engLv: z.enum(['BASIC', 'ENG12', 'ENG34', 'FREE']),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
@@ -125,10 +125,10 @@ const SingUpFormTemplate: Story = {
           id="engLv"
           placeholder="선택하세요"
           options={[
-            { value: 'basic', placeholder: '기초영어' },
-            { value: 'level12', placeholder: 'Level12' },
-            { value: 'level34', placeholder: 'Level34' },
-            { value: 'bypass', placeholder: '면제' },
+            { value: 'BASIC', placeholder: '기초영어' },
+            { value: 'ENG12', placeholder: 'Level12' },
+            { value: 'ENG34', placeholder: 'Level34' },
+            { value: 'FREE', placeholder: '면제' },
           ]}
         />
         <Form.SubmitButton label="회원가입" position="center" variant="secondary" />

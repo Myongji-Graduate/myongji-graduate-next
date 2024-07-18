@@ -33,7 +33,7 @@ export const SuccessSenario: Story = {
       await userEvent.type(canvas.getByLabelText('비밀번호'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('비밀번호 확인'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('학번'), '60000001');
-      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'basic');
+      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'BASIC');
 
       await userEvent.click(canvas.getByText('회원가입'));
     });
@@ -54,7 +54,7 @@ export const FailureSenarioWithValidation: Story = {
       await userEvent.type(canvas.getByLabelText('비밀번호'), 'test1234');
       await userEvent.type(canvas.getByLabelText('비밀번호 확인'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('학번'), '600000');
-      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'basic');
+      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'BASIC');
 
       await userEvent.click(canvas.getByText('회원가입'));
     });
@@ -82,7 +82,7 @@ export const FailureSenarioWithDuplicatedStudentNumber: Story = {
       await userEvent.type(canvas.getByLabelText('비밀번호'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('비밀번호 확인'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('학번'), '60000000');
-      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'basic');
+      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'BASIC');
 
       await userEvent.click(canvas.getByText('회원가입'));
     });
