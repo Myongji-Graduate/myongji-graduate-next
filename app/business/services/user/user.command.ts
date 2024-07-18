@@ -10,7 +10,7 @@ import {
   ResetPasswordRequestBody,
 } from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
-import { BadRequestError } from '@/app/utils/http/http-error';
+import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import {
   SignUpFormSchema,
   SignInFormSchema,
@@ -23,9 +23,13 @@ import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 import { auth } from './user.query';
 
-export async function signOut() {
+function deleteCookies() {
   cookies().delete('accessToken');
   cookies().delete('refreshToken');
+}
+
+export async function signOut() {
+  deleteCookies();
 
   redirect('/sign-in');
 }
@@ -36,7 +40,7 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       password: formData.get('password') as string,
     };
 
-    const response = await fetch(`${API_PATH.user}/delete-me`, {
+    const response = await fetch(`${API_PATH.user}/me`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -44,10 +48,13 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       },
       body: JSON.stringify(body),
     });
-    const result = await response.json();
 
-    httpErrorHandler(response, result);
+    if (response.status !== 200) {
+      const result = await response.json();
+      httpErrorHandler(response, result);
+    }
   } catch (error) {
+    console.log(error);
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
       return {
@@ -61,44 +68,9 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       throw error;
     }
   }
+  deleteCookies();
+  redirect('/sign-in');
 
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '회원 탈퇴가 완료되었습니다.',
-  };
-}
-
-export async function validateToken(): Promise<ValidateTokenResponse | false> {
-  const accessToken = cookies().get('accessToken')?.value;
-  const refreshToken = cookies().get('refreshToken')?.value;
-  try {
-    const response = await fetch(`${API_PATH.auth}/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({ refreshToken }),
-    });
-
-    const result = await response.json();
-
-    // httpErrorHandler(response, result);
-
-    if (isValidation(result, ValidateTokenResponseSchema)) {
-      return result;
-    } else {
-      throw 'Invalid token response schema.';
-    }
-  } catch (error) {
-    if (error instanceof BadRequestError) {
-      return false;
-    } else {
-      throw error;
-    }
-  }
 }
 
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -144,11 +116,10 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
         secure: process.env.NODE_ENV === 'production',
         path: '/',
       });
-
-      redirect('/my');
     }
   } catch (error) {
-    if (error instanceof BadRequestError) {
+    // 명세와 다르게 에러가 발생할 경우 BadRequestError가 아니라 UnauthorizedError가 발생
+    if (error instanceof UnauthorizedError) {
       // 잘못된 요청 처리 로직
       return {
         isSuccess: false,
@@ -162,12 +133,36 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     }
   }
 
-  return {
-    isSuccess: true,
-    isFailure: false,
-    validationError: {},
-    message: '로그인 성공',
-  };
+  redirect('/my');
+}
+
+export async function refreshToken(): Promise<ValidateTokenResponse | false> {
+  const refreshToken = cookies().get('refreshToken')?.value;
+  try {
+    const response = await fetch(`${API_PATH.auth}/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshToken }),
+    });
+
+    const result = await response.json();
+
+    httpErrorHandler(response, result);
+
+    if (isValidation(result, ValidateTokenResponseSchema)) {
+      return result;
+    } else {
+      throw 'Invalid token response schema.';
+    }
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return false;
+    } else {
+      throw error;
+    }
+  }
 }
 
 export async function createUser(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -205,9 +200,10 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
       body: JSON.stringify(body),
     });
 
-    const result = await response.json();
-
-    httpErrorHandler(response, result);
+    if (response.status !== 200) {
+      const result = await response.json();
+      httpErrorHandler(response, result);
+    }
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직

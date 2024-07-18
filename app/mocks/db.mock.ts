@@ -101,12 +101,12 @@ export const mockDatabase: MockDatabaseAction = {
     const user = mockDatabaseStore.users.find((u) => u.authId === authId);
     if (!user) {
       return {
-        studentNumber: '',
+        studentNumber: '11111111',
         studentName: null,
-        completeDivision: null,
-        totalCredit: null,
-        takenCredit: null,
-        graduated: null,
+        completeDivision: [],
+        totalCredit: 0,
+        takenCredit: 0,
+        graduated: false,
       };
     }
     return mockDatabaseStore.userInfo;

@@ -23,7 +23,7 @@ export default function TakenLectureLabel() {
             onClick={open}
           />
           <Link href="/grade-upload">
-            <Button label="성적표 재업로드" variant="secondary" size="xs" />
+            <Button className="max-lg:text-xs" label="성적표 재업로드" variant="secondary" size="xs" />
           </Link>
         </div>
       }

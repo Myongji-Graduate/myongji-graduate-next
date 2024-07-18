@@ -4,6 +4,12 @@ import { cn } from '@/app/utils/shadcn/utils';
 import Image from 'next/image';
 import { TUTORIAL_FEATRUE, TUTORIAL_UPLOAD } from './data';
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '튜토리얼',
+  description: '서비스의 주요 정보와 사용법을 튜토리얼을 통해 확인해봐요.',
+};
 
 function TutorialPage() {
   return (
