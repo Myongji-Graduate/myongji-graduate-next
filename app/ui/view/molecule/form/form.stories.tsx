@@ -178,7 +178,7 @@ export const SignUpFormActionWithValidationError: Story = {
       delay: 100,
     });
 
-    await userEvent.selectOptions(canvas.getByLabelText('영어', { selector: 'select' }), 'level12', {
+    await userEvent.selectOptions(canvas.getByLabelText('영어', { selector: 'select' }), 'ENG12', {
       delay: 100,
     });
 
@@ -225,7 +225,7 @@ export const SignUpFormActionWithServerFailure: Story = {
       delay: 100,
     });
 
-    await userEvent.selectOptions(canvas.getByLabelText('영어', { selector: 'select' }), 'level12', {
+    await userEvent.selectOptions(canvas.getByLabelText('영어', { selector: 'select' }), 'ENG12', {
       delay: 100,
     });
 

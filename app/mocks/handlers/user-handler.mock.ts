@@ -117,8 +117,8 @@ export const userHandlers = [
 
       if (!isSuccess) {
         return HttpResponse.json(
-          { status: 400, message: '아이디 또는 비밀번호가 일치하지 않습니다.' },
-          { status: 400 },
+          { status: 401, message: '아이디 또는 비밀번호가 일치하지 않습니다.' },
+          { status: 401 },
         );
       }
 
