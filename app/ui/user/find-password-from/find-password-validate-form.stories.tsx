@@ -72,7 +72,9 @@ export const FailureSenarioWithValidation: Story = {
     });
 
     await step('유효성 검사에 실패한다', async () => {
-      expect(canvas.getByText('학번이 8글자가 맞는지 확인해주세요.')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(canvas.getByText('학번이 8글자가 맞는지 확인해주세요.')).toBeInTheDocument();
+      });
     });
   },
 };

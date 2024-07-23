@@ -51,8 +51,10 @@ export const FailureSenarioWithValidation: Story = {
     });
 
     await step('유효성 검사에 실패한다', async () => {
-      expect(canvas.getByText('비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.')).toBeInTheDocument();
-      expect(canvas.getByText('비밀번호가 일치하지 않습니다.')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(canvas.getByText('비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.')).toBeInTheDocument();
+        expect(canvas.getByText('비밀번호가 일치하지 않습니다.')).toBeInTheDocument();
+      });
     });
   },
 };
