@@ -133,6 +133,13 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
   }
 
   redirect('/my');
+
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: '로그인 완료 완료되었습니다.',
+  };
 }
 
 export async function refreshToken(): Promise<ValidateTokenResponse | false> {
