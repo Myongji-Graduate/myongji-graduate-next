@@ -2,7 +2,13 @@
 
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../../api-path';
-import { SignUpRequestBody, SignInRequestBody, ValidateTokenResponse, UserDeleteRequestBody } from './user.type';
+import {
+  SignUpRequestBody,
+  SignInRequestBody,
+  ValidateTokenResponse,
+  UserDeleteRequestBody,
+  ResetPasswordRequestBody,
+} from './user.type';
 import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import {
@@ -10,10 +16,12 @@ import {
   SignInFormSchema,
   SignInResponseSchema,
   ValidateTokenResponseSchema,
+  ResetPasswordFormSchema,
 } from './user.validation';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
+import { auth } from './user.query';
 
 function deleteCookies() {
   cookies().delete('accessToken');
@@ -60,7 +68,6 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       throw error;
     }
   }
-
   deleteCookies();
   redirect('/sign-in');
 }
@@ -126,6 +133,13 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
   }
 
   redirect('/my');
+
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: '로그인 완료 완료되었습니다.',
+  };
 }
 
 export async function refreshToken(): Promise<ValidateTokenResponse | false> {
@@ -217,4 +231,53 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
     validationError: {},
     message: '회원가입이 완료되었습니다.',
   };
+}
+
+export async function resetPassword(prevState: FormState, formData: FormData): Promise<FormState> {
+  const validatedFields = ResetPasswordFormSchema.safeParse({
+    authId: formData.get('authId'),
+    newPassword: formData.get('newPassword'),
+    passwordCheck: formData.get('passwordCheck'),
+  });
+  if (!validatedFields.success) {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: validatedFields.error.flatten().fieldErrors,
+      message: '양식에 맞춰 다시 입력해주세요.',
+    };
+  }
+  const { newPassword, passwordCheck, authId } = validatedFields.data;
+  const body: ResetPasswordRequestBody = {
+    authId,
+    newPassword,
+    passwordCheck,
+  };
+  try {
+    const response = await fetch(`${API_PATH.user}/password`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    return {
+      isSuccess: true,
+      isFailure: false,
+      validationError: {},
+      message: '',
+    };
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '비밀번호 변경에 실패했습니다.',
+      };
+    } else {
+      throw error;
+    }
+  }
 }

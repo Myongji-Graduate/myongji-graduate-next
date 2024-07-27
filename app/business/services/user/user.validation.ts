@@ -30,6 +30,27 @@ export const ValidateTokenResponseSchema = z.object({
   accessToken: z.string(),
 });
 
+export const FindIdFormSchema = z.object({
+  studentNumber: z.string().length(8),
+});
+
+export const FindPasswordFormSchema = z.object({
+  authId: z.string(),
+  newPassword: z
+    .string()
+    .min(8, { message: '비밀번호는 8자 이상이어야 합니다.' })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, {
+      message: '비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.',
+    })
+    .max(20, { message: '비밀번호는 20자 이하여야 합니다.' }),
+  passwordCheck: z.string(),
+});
+
+export const FindIdResponseSchema = z.object({
+  authId: z.string(),
+  studentNumber: z.string().length(8),
+});
+
 // 동기화
 export const SignInFormSchema = z.object({
   authId: z.string(),
@@ -41,6 +62,28 @@ export const SignInResponseSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
 });
+
+export const ResetPasswordFormSchema = z
+  .object({
+    authId: z.string(),
+    newPassword: z
+      .string()
+      .min(8, { message: '비밀번호는 8자 이상이어야 합니다.' })
+      .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, {
+        message: '비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.',
+      })
+      .max(20, { message: '비밀번호는 20자 이하여야 합니다.' }),
+    passwordCheck: z.string(),
+  })
+  .superRefine(({ newPassword, passwordCheck }, ctx) => {
+    if (newPassword !== passwordCheck) {
+      ctx.addIssue({
+        code: 'custom',
+        message: '비밀번호가 일치하지 않습니다.',
+        path: ['passwordCheck'],
+      });
+    }
+  });
 
 // 동기화
 export const SignUpFormSchema = z

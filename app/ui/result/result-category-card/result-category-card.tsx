@@ -71,6 +71,11 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
     return category === RESULT_CATEGORY.CHAPEL ? credit * 2 : credit;
   };
 
+  const filterCategoryExistStandard = (category: ResultCategoryKey) => {
+    const NONEXIST_STANDARD_CATEGORY = ['FREE_ELECTIVE', 'NORMAL_CULTURE', 'CHAPEL'];
+    return NONEXIST_STANDARD_CATEGORY.includes(category);
+  };
+
   return (
     <div
       className={cn(
@@ -102,6 +107,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
           </div>
         </div>
         <Link
+          className={`${filterCategoryExistStandard(category) && 'hidden'}`}
           data-cy={`${category}-button`}
           href={{
             pathname: '/result',

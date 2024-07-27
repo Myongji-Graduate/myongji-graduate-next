@@ -12,6 +12,7 @@ export interface FormState {
   isFailure: boolean;
   message: string | null;
   validationError: Record<string, string[] | undefined>;
+  value?: Record<string, string>;
 }
 
 const getFormSubmitButton = (children: React.ReactNode) => {
@@ -20,7 +21,7 @@ const getFormSubmitButton = (children: React.ReactNode) => {
 
 interface FormRootProps {
   id: string;
-  onSuccess?: () => void;
+  onSuccess?: (formState?: FormState) => void;
   action: (prevState: FormState, formData: FormData) => Promise<FormState> | FormState;
   failMessageControl?: 'alert' | 'toast';
   className?: string;
@@ -40,7 +41,7 @@ export function FormRoot({
 
   useEffect(() => {
     if (formState.isSuccess) {
-      onSuccess?.();
+      onSuccess?.(formState);
     }
     if (formState.isFailure && failMessageControl === 'toast') {
       toast({

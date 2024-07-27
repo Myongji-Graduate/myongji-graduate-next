@@ -5,6 +5,9 @@ import {
   SignInRequestBody,
   UserInfoResponse,
   InitUserInfoResponse,
+  FindIdResponse,
+  FindIdFormSchema,
+  FindPasswordFormSchema,
 } from '../business/services/user/user.type';
 import { takenLectures, credits, searchLectures, userInfo, users, resultCategoryDetailInfo } from './data.mock';
 import { SearchedLectureInfoResponse } from '../store/querys/lecture';
@@ -16,6 +19,7 @@ interface MockDatabaseState {
   users: SignUpRequestBody[];
   searchLectures: SearchedLectureInfoResponse[];
   userInfo: UserInfoResponse;
+  // findPassword:FindPasswordResponse;
 }
 
 type MockDatabaseAction = {
@@ -28,14 +32,24 @@ type MockDatabaseAction = {
   signIn: (userData: SignInRequestBody) => boolean;
   deleteUser: (authId: string, password: string) => boolean;
   getCredits: () => CreditResponse[];
+  getFindId: (form: FindIdFormSchema) => FindIdResponse;
   getUserInfo: (authId: string) => UserInfoResponse | InitUserInfoResponse;
   getResultCategoryDetailInfo: () => ResultCategoryDetailResponse;
+  resetPassword: (request: FindPasswordFormSchema) => boolean;
+  validateUser: (userInfo: FindIdResponse) => { passedUserValidation: boolean };
 };
 
 export const mockDatabase: MockDatabaseAction = {
   reset: () => {
     resetMockDB();
   },
+  validateUser: (userInfo: FindIdResponse) => {
+    const user = mockDatabaseStore.users.find(
+      (u) => u.authId === userInfo.authId && u.studentNumber === userInfo.studentNumber,
+    );
+    return { passedUserValidation: !!user };
+  },
+
   getTakenLectures: () => mockDatabaseStore.takenLectures,
   getSearchLectures: () => mockDatabaseStore.searchLectures,
   getResultCategoryDetailInfo: () => mockDatabaseStore.resultCategoryDetailInfo,
@@ -66,7 +80,11 @@ export const mockDatabase: MockDatabaseAction = {
     ];
     return true;
   },
-
+  getFindId: (form: FindIdFormSchema) => {
+    const user = mockDatabaseStore.users.find((u) => u.studentNumber === form.studentNumber);
+    return { studentNumber: user?.studentNumber ?? '', authId: user?.authId ?? '' };
+  },
+  resetPassword: () => true,
   getCredits: () => mockDatabaseStore.credits,
   createUser: (user: SignUpRequestBody) => {
     if (mockDatabaseStore.users.find((u) => u.authId === user.authId || u.studentNumber === user.studentNumber)) {

@@ -7,6 +7,8 @@ import { Suspense } from 'react';
 import { ResultCategoryKey } from '@/app/utils/key/result-category.key';
 
 export default function ResultCategoryDetail({ category }: { category: ResultCategoryKey }) {
+  if (!category) return;
+
   return (
     <ResultCategoryDetailDialog querystring={category}>
       <Suspense fallback={<ResultCategoryDetailContentSkeleton />}>
@@ -18,7 +20,6 @@ export default function ResultCategoryDetail({ category }: { category: ResultCat
 
 function ResultCategoryDetailInfo({ category }: { category: ResultCategoryKey }) {
   const { data } = useFetchResultCategoryDetailInfo(category);
-
   return (
     <ResultCategoryDetailContent
       takenCredit={data.takenCredit}
