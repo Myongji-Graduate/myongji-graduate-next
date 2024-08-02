@@ -21,7 +21,7 @@
 
 ### 🎃 사용자의 생생한 후기
 
-![FFD3C117-5414-436C-8C91-D45D0F236BFE jpeg](https://github.com/user-attachments/assets/1eeff796-8923-4509-80c3-364ee1c9c4e5)
+<img width="30%" height="30%" src="https://github.com/user-attachments/assets/1eeff796-8923-4509-80c3-364ee1c9c4e5">
 
 ### 🥇 교내 SW 경진대회 대상
 
