@@ -19,6 +19,10 @@
 
 <img width="80%" height="80%" src="https://github.com/Myongji-Graduate/MyongjiGraduate-BE/assets/64758861/86857528-df46-4055-b7f8-bf5cdf0865a4">
 
+### 🎃 사용자의 생생한 후기
+
+![FFD3C117-5414-436C-8C91-D45D0F236BFE jpeg](https://github.com/user-attachments/assets/1eeff796-8923-4509-80c3-364ee1c9c4e5)
+
 ### 🥇 교내 SW 경진대회 대상
 
 [명지투데이 - '제1회 ICT융합대학 SW프로그램 개발 경진대회 시상식' 열려](https://www.mju.ac.kr/mjukr/302/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGbWp1a3IlMkYxNjYlMkYxOTQzMDclMkZhcnRjbFZpZXcuZG8lM0Y%3D)
