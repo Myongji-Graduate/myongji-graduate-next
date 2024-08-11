@@ -14,7 +14,7 @@
 
 ### 기능 목록
 
-#### 졸업 요건 충족률 검사
+#### 졸업 요건 검사
 
 ![결과1](https://github.com/user-attachments/assets/474cdcd8-9d52-49ea-8476-41411884f697)
 
