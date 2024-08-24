@@ -1,6 +1,6 @@
 const API_URLS = {
-  BASE_URL: 'http://staging-plzgraduation-env.eba-s4bbj5cp.ap-northeast-2.elasticbeanstalk.com/api/v1',
-  PARSE_API_URL: 'https://ig81au5s0j.execute-api.ap-northeast-2.amazonaws.com/mju-graduate/parse',
+  BASE_URL: process.env.NEXT_PUBLIC_API_PATH,
+  PARSE_API_URL: process.env.NEXT_PUBLIC_PARSE_API_PATH
 };
 
 const MOCK_API_URLS = {
