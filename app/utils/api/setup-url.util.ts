@@ -1,6 +1,6 @@
 const API_URLS = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_PATH,
-  PARSE_API_URL: process.env.NEXT_PUBLIC_PARSE_API_PATH
+  BASE_URL: process.env.NEXT_PUBLIC_API_PATH ?? "",
+  PARSE_API_URL: process.env.NEXT_PUBLIC_PARSE_API_PATH ?? "",
 };
 
 const MOCK_API_URLS = {
