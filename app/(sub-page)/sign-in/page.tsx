@@ -29,11 +29,11 @@ export default function SignInPage() {
         </div>
         <SignInForm />
         <div className="flex mt-12 space-x-4 h-6 items-center justify-center">
-          <Link href={'/'}>
+          <Link href={'/find-id'}>
             <Button className="text-xs" label="아이디 찾기" variant={'text'} />
           </Link>
           <Separator orientation={'vertical'} />
-          <Link href={'/'}>
+          <Link href={'/find-password'}>
             <Button className="text-xs" label="비밀번호 재설정" variant={'text'} />
           </Link>
           <Separator orientation={'vertical'} />
