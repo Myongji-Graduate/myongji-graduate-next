@@ -15,12 +15,13 @@ function PieChart({ percentage }: PieChartProp) {
   return (
     <div
       className={cn(
-        'piechart relative aspect-square rounded-full w-[6.5rem] h-[6.5rem]',
-        percentage === 100 ? 'bg-light-blue-1 complete' : 'bg-etc-pink',
+        'relative aspect-square rounded-full w-[6.5rem] h-[6.5rem]',
+        filterdPercentage > 0 && 'piechart',
+        filterdPercentage === 100 ? 'bg-light-blue-1 complete' : 'bg-etc-pink',
         'md:w-[9rem] md:h-[9rem]',
       )}
       style={{
-        '--percentage': percentage,
+        '--percentage': filterdPercentage,
         '--startRadius': isDesktop ? '1.5rem' : '1.1rem',
         '--endRadius': isDesktop ? '0.74rem' : '0.50rem',
         '--pieSize': isDesktop ? '9rem' : '6.5rem',
@@ -29,7 +30,7 @@ function PieChart({ percentage }: PieChartProp) {
       <div
         className={cn(
           'absolute rounded-full bg-white text-base font-bold w-[4.5rem] h-[4.5rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center',
-          percentage === 100 ? 'text-light-blue-6' : 'text-etc-red',
+          filterdPercentage === 100 ? 'text-light-blue-6' : 'text-etc-red',
           'md:w-[6rem] md:h-[6rem] md:text-xl ',
         )}
       >
