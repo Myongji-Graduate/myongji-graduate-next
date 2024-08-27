@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ResultCategoryDetailLectureToggle } from '../result-category-detail-lecture/result-category-detail-lecture-toggle';
 import ResultCagegoryDetailLecture from '../result-category-detail-lecture/result-cagegory-detail-lecture';
 import { ResultCategoryDetailResponse } from '@/app/store/querys/result';
-import { RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
+import { RESULT_CATEGORY, RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
 
 interface ResultCategoryDetailContentProps extends ResultCategoryDetailResponse {
   category: ResultCategoryKey;
@@ -19,12 +19,14 @@ function ResultCategoryDetailContent({
 }: ResultCategoryDetailContentProps) {
   const [isTakenLecture, setIsTakenLectrue] = useState(false);
 
+  const includeChaple = (category: ResultCategoryKey) => category === RESULT_CATEGORY.COMMON_CULTURE;
+
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2 overflow-scroll">
       <div className={cn('flex justify-between mb-6', 'md:mb-10')}>
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>{RESULT_CATEGORY_KO[category]}</h1>
-          <div className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
+          <div className={cn('relative flex items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
             <span className="hidden md:block"> {RESULT_CATEGORY_KO[category]} 과목 중</span>
             <div className="w-20 h-10">
               <ResultCategoryDetailLectureToggle
@@ -37,11 +39,15 @@ function ResultCategoryDetailContent({
             </div>
             <span>과목이 표시됩니다.</span>
           </div>
+          <div className={includeChaple(category) ? 'font-light text-gray-5 text-xs my-2 md:text-sm' : 'hidden'}>
+            * 채플이 포함된 학점으로, 채플과목의 이수율은 채플 카테고리에서 확인 가능합니다.
+          </div>
         </div>
-        <div className={cn('text-2xl font-bold', 'md:text-4xl')}>
+        <div className={cn('min-w-fit text-2xl font-bold', 'md:text-4xl')}>
           <span className="text-point-blue">{takenCredit}</span> / {totalCredit}
         </div>
       </div>
+
       {detailCategory.map((categoryInfo, index) => (
         <ResultCagegoryDetailLecture isTakenLecture={isTakenLecture} detailCategory={categoryInfo} key={index} />
       ))}
