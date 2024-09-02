@@ -22,6 +22,9 @@ export default function TakenLectureList() {
       });
     }
     deleteLecture(lectureId);
+    toast({
+      title: '과목 삭제에 성공했습니다',
+    });
   };
 
   return (
