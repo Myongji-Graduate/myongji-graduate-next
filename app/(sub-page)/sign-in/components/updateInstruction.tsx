@@ -1,13 +1,13 @@
 'use client';
 import useDialog from '@/app/hooks/useDialog';
 import Button from '@/app/ui/view/atom/button/button';
-import { AlertDialog, AlertDialogContent, AlertDialogHeader } from '@/app/ui/view/molecule/alert-dialog/alert-dialog';
+import { AlertDialog, AlertDialogContent } from '@/app/ui/view/molecule/alert-dialog/alert-dialog';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function UpdateInstruction() {
+  const router = useRouter();
   const { isOpen, close } = useDialog(DIALOG_KEY.UPDATE_INSTRUCTION);
-
   return (
     <AlertDialog open={isOpen}>
       <AlertDialogContent>
@@ -26,7 +26,7 @@ export default function UpdateInstruction() {
             style={{ alignSelf: 'flex-end' }}
             onClick={() => {
               close();
-              redirect('/grade-upload');
+              router.push('/grade-upload');
             }}
           />
         </div>
