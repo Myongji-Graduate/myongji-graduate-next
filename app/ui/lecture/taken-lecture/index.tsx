@@ -7,11 +7,7 @@ import UpdateTakenLecture from './update-taken-lecture';
 const processChapel = (takenLectures: TakenLectureInfoResponse[]) => {
   return takenLectures.map((lecture) => {
     return {
-      id: lecture.id,
-      year: lecture.year,
-      semester: lecture.semester,
-      lectureCode: lecture.lectureCode,
-      lectureName: lecture.lectureName,
+      ...lecture,
       credit: lecture.lectureName === '채플' ? 0.5 : lecture.credit,
     };
   });
