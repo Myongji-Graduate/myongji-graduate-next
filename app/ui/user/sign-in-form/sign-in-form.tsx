@@ -1,5 +1,5 @@
 'use client';
-import UpdateInstruction from '@/app/(sub-page)/sign-in/components/updateInstruction';
+import UpdateInstruction from '@/app/(sub-page)/sign-in/components/update-instruction';
 import Form from '../../view/molecule/form';
 import { authenticate } from '@/app/business/services/user/user.command';
 import useDialog from '@/app/hooks/useDialog';
