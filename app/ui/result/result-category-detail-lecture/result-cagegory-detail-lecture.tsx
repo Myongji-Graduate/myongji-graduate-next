@@ -40,7 +40,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
           </div>
         }
       />
-      {!showCompleted ? (
+      {showCompleted ? (
         <AnnounceMessageBox message="해당 파트의 졸업요건을 충족하셨습니다!" background_image={CompletedImage} />
       ) : (
         <Table
