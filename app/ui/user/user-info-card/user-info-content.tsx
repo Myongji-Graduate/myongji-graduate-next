@@ -3,6 +3,7 @@ import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 import React from 'react';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import { getPercentage } from '@/app/utils/chart.util';
+import UserInfoMessage from './user-info-message';
 
 interface UserInfoContentProps {
   data: UserInfoResponse;
@@ -21,15 +22,11 @@ function UserInfoContent({ data }: UserInfoContentProps) {
     });
   };
 
+  const remainCredit = totalCredit - takenCredit;
+
   return (
     <>
-      <p className="font-bold text-sm md:text-xl">
-        졸업필요학점보다{' '}
-        <span data-cy="remain-credit" className="text-point-blue">
-          {totalCredit - takenCredit}
-        </span>
-        학점이 부족합니다.
-      </p>
+      <UserInfoMessage studentName={studentName} graduated={graduated} remainCredit={remainCredit} />
       <div className="flex border-t-2 my-4 py-4 justify-between items-center">
         <div className="flex font-medium text-xs md:text-lg gap-4 md:gap-14 ">
           <ul className="text-gray-6 flex flex-col gap-1">
