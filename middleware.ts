@@ -28,6 +28,7 @@ async function getAuth(request: NextRequest): Promise<{
 
 const allowedOnlyGuestPath = ['/sign-in', '/sign-up', '/find-password', '/find-id'];
 const allowedGuestPath = ['/tutorial', ...allowedOnlyGuestPath];
+const allowInitUserPath = ['/tutorial', '/grade-upload'];
 
 function isAllowedGuestPath(path: string, strict: boolean = false) {
   if (path === '/') {
@@ -45,7 +46,7 @@ export async function middleware(request: NextRequest) {
     return await retryAuth(request);
   }
 
-  if (auth.role === 'init' && !request.nextUrl.pathname.startsWith('/grade-upload')) {
+  if (auth.role === 'init' && !allowInitUserPath.some((path) => request.nextUrl.pathname.startsWith(path))) {
     return Response.redirect(new URL('/grade-upload', request.url));
   }
 
