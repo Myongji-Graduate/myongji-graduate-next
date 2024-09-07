@@ -8,13 +8,13 @@ import SwipeToDelete from '../swipe/swipe-to-delete';
 interface TableProps<T extends ListRow> {
   headerInfo: string[];
   data: T[];
-  renderActionButton?: (id: number) => JSX.Element;
+  renderActionButton?: (item: T) => JSX.Element;
   swipeable?: boolean;
 }
 
 interface SwipeableTableProps<T extends ListRow> extends TableProps<T> {
   swipeable: true;
-  onSwipeAction: (lectureId: number) => void;
+  onSwipeAction: (item: T) => void;
 }
 
 interface BasicTableProps<T extends ListRow> extends TableProps<T> {
@@ -46,7 +46,7 @@ export function Table<T extends ListRow>({
             if (key === 'id') return null;
             return <Grid.Column key={index}>{item[key]}</Grid.Column>;
           })}
-          {renderActionButton ? <Grid.Column>{renderActionButton(item.id)}</Grid.Column> : null}
+          {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
         </Grid>
       </List.Row>
     );
@@ -57,7 +57,7 @@ export function Table<T extends ListRow>({
       <div className="border-solid border-gray-300 border-b-[1px] last:border-b-0" key={index}>
         <SwipeToDelete
           onSwipeAction={() => {
-            onSwipeAction && onSwipeAction(item.id);
+            onSwipeAction && onSwipeAction(item);
           }}
         >
           <List.Row>

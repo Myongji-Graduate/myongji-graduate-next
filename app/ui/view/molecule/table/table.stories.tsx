@@ -105,7 +105,7 @@ export const SwipeableLectureTable: StoryObj = {
         credit: 3,
       },
     ];
-    const actionButton = () => <DeleteTakenLectureButton lectureId={3} onDelete={() => {}} />;
+    const actionButton = () => <DeleteTakenLectureButton item={lectures[0]} onDelete={() => {}} />;
     return (
       <main>
         <Table
