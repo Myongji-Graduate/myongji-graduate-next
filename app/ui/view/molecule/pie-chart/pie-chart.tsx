@@ -8,14 +8,13 @@ export interface PieChartProp {
 }
 
 function PieChart({ percentage }: PieChartProp) {
-  const filterdPercentage = percentage > 100 ? 100 : percentage;
-
   const isDesktop = useMediaQuery('(min-width: 767px)');
 
   return (
     <div
       className={cn(
-        'piechart relative aspect-square rounded-full w-[6.5rem] h-[6.5rem]',
+        'relative aspect-square rounded-full w-[6.5rem] h-[6.5rem]',
+        percentage > 0 && 'piechart',
         percentage === 100 ? 'bg-light-blue-1 complete' : 'bg-etc-pink',
         'md:w-[9rem] md:h-[9rem]',
       )}
@@ -33,7 +32,7 @@ function PieChart({ percentage }: PieChartProp) {
           'md:w-[6rem] md:h-[6rem] md:text-xl ',
         )}
       >
-        {filterdPercentage}%
+        {percentage}%
       </div>
     </div>
   );

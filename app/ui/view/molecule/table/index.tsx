@@ -4,12 +4,14 @@ import List from '../list';
 import Grid from '../grid';
 import { ListRow } from '../list/list-root';
 import SwipeToDelete from '../swipe/swipe-to-delete';
+import { ReactNode } from 'react';
 
 interface TableProps<T extends ListRow> {
   headerInfo: string[];
   data: T[];
   renderActionButton?: (id: number) => JSX.Element;
   swipeable?: boolean;
+  emptyDataRender?: () => ReactNode;
 }
 
 interface SwipeableTableProps<T extends ListRow> extends TableProps<T> {
@@ -35,6 +37,7 @@ export function Table<T extends ListRow>({
   renderActionButton,
   swipeable = false,
   onSwipeAction,
+  emptyDataRender,
 }: SwipeableTableProps<T> | BasicTableProps<T>) {
   const cols = renderActionButton && !swipeable ? 'render-button' : headerInfo.length;
 
@@ -75,7 +78,7 @@ export function Table<T extends ListRow>({
   return (
     <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
       <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
-      <List data={data} render={swipeable ? swipeableRender : render} />
+      <List data={data} render={swipeable ? swipeableRender : render} emptyDataRender={emptyDataRender} />
     </div>
   );
 }
