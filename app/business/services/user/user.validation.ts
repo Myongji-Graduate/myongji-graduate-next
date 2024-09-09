@@ -126,5 +126,6 @@ export function isInitUser(x: UserInfoResponse | InitUserInfoResponse): x is Ini
 }
 
 export function isExpiredGradeUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
-  return x.studentName !== null && x.takenCredit === 0 && x.totalCredit === 0;
+  //return x.studentName !== null && x.takenCredit === 0 && x.totalCredit === 0;
+  return false;
 }
