@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function GradeUploadPage() {
   return (
-    <ContentContainer className="flex flex-col justify-center gap-8 min-h-[70vh]">
+    <ContentContainer className="flex flex-col justify-center gap-8 min-h-[70vh] max-md:max-w-[600px]">
       <Manual />
       <UploadTakenLecture />
     </ContentContainer>
