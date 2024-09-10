@@ -4,6 +4,7 @@ export const DIALOG_KEY = {
   LECTURE_SEARCH: 'LECTURE_SEARCH',
   USER_DELETE: 'USER_DELETE',
   SIDE_NAVIGATION: 'SIDE_NAVIGATION',
+  UPDATE_INSTRUCTION: 'UPDATE_INSTRUCTION',
 } as const;
 
 export type DialogKey = (typeof DIALOG_KEY)[keyof typeof DIALOG_KEY];
