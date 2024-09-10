@@ -24,7 +24,7 @@ function ResultCategory() {
     <div
       className={cn(
         'absolute grid grid-cols-2 gap-2 top-[28rem] w-full',
-        'md:max-w-[700px] md:gap-10 md:top-[33rem] max-md:max-w-[500px] ',
+        'md:max-w-[700px] md:gap-10 md:top-[35rem] max-md:max-w-[500px] ',
       )}
     >
       {sortedCategories.map(({ category, totalCredit, takenCredit }, index) => (

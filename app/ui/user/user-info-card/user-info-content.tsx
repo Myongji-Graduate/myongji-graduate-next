@@ -27,7 +27,7 @@ function UserInfoContent({ data }: UserInfoContentProps) {
   return (
     <>
       <UserInfoMessage studentName={studentName} graduated={graduated} remainCredit={remainCredit} />
-      <div className="flex border-t-2 my-4 py-4 justify-between items-center">
+      <div className="flex border-t-2 md:my-4 mt-4 py-4 justify-between items-center">
         <div className="flex font-medium text-xs md:text-lg gap-4 md:gap-14 ">
           <ul className="text-gray-6 flex flex-col gap-1">
             <li>이름</li>
