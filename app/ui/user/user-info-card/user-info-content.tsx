@@ -11,7 +11,6 @@ interface UserInfoContentProps {
 
 function UserInfoContent({ data }: UserInfoContentProps) {
   const { studentNumber, studentName, completeDivision: majors, totalCredit, takenCredit, graduated } = data;
-
   const percentage = getPercentage(takenCredit, totalCredit);
 
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
@@ -22,11 +21,9 @@ function UserInfoContent({ data }: UserInfoContentProps) {
     });
   };
 
-  const remainCredit = totalCredit - takenCredit;
-
   return (
     <>
-      <UserInfoMessage studentName={studentName} graduated={graduated} remainCredit={remainCredit} />
+      <UserInfoMessage studentName={studentName} />
       <div className="flex border-t-2 md:my-4 mt-4 py-4 justify-between items-center">
         <div className="flex font-medium text-xs md:text-lg gap-4 md:gap-14 ">
           <ul className="text-gray-6 flex flex-col gap-1">

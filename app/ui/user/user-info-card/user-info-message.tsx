@@ -1,38 +1,33 @@
+'use client';
+import { useFetchCredits } from '@/app/store/querys/result';
+
 interface UserInfoMessageProps {
   studentName: string;
-  graduated: boolean;
-  remainCredit: number;
 }
 
-const graduateType = {
-  GRADUATED: 'GRADUATED',
-  STUDENT: 'STUDENT',
-  CANDIDATE: 'CANDIDATE',
-} as const;
+function UserInfoMessage({ studentName }: UserInfoMessageProps) {
+  const { data: categories } = useFetchCredits();
 
-function UserInfoMessage({ studentName, graduated, remainCredit }: UserInfoMessageProps) {
-  const graduateLevel = () => {
-    if (graduated) return graduateType.GRADUATED;
-    return remainCredit > 0 ? graduateType.STUDENT : graduateType.CANDIDATE;
-  };
+  const remainCredit = categories.reduce((accumulator, category) => {
+    if (category.category === 'CHAPEL') return accumulator;
 
-  const graduate_message = {
-    GRADUATED: '졸업을 축하합니다 !',
-    CANDIDATE: '모든 영역의 기준학점을 달성해주세요.',
-    STUDENT: (
-      <>
-        졸업필요학점보다
-        <span data-cy="remain-credit" className="text-point-blue ml-1">
-          {remainCredit}
-        </span>
-        학점이 부족합니다.
-      </>
-    ),
-  } as const;
+    return accumulator + (category.totalCredit - category.takenCredit);
+  }, 0);
 
   return (
     <p className="font-bold text-sm md:text-xl">
-      {studentName}님, {graduate_message[graduateLevel()]}
+      {studentName}님,
+      {remainCredit > 0 ? (
+        <>
+          졸업필요학점보다
+          <span data-cy="remain-credit" className="text-point-blue ml-1">
+            {remainCredit}
+          </span>
+          학점이 부족합니다.
+        </>
+      ) : (
+        '졸업을 축하합니다 !'
+      )}
     </p>
   );
 }
