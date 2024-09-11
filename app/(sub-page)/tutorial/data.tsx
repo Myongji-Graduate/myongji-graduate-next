@@ -10,8 +10,6 @@ import file from '../../../public/assets/file.svg';
 import dimond from '../../../public/assets/dimond.svg';
 import { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import { title } from 'process';
-import image from '@/public/assets/test.png';
 
 export interface TutorialItem {
   imageUrl: StaticImageData;
