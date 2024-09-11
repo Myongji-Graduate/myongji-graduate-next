@@ -11,7 +11,7 @@ function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | unde
   if (!userInfo) {
     return {
       name: '소중한 GUEST',
-      major: '성적표를 입력하고, 졸업 여부를 확인하세요',
+      major: '성적표 입력 후, 졸업 여부를 확인해요',
       studentNumber: '',
     };
   }
@@ -19,7 +19,7 @@ function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | unde
   if (isInitUser(userInfo)) {
     return {
       name: '명지인',
-      major: '성적표를 입력하고, 졸업 여부를 확인하세요',
+      major: '성적표 입력 후, 졸업 여부를 확인해요',
       studentNumber: userInfo.studentNumber,
     };
   }
@@ -36,7 +36,7 @@ export default async function UserInfoNavigator() {
 
   return (
     <div className="flex md:flex-col items-center md:p-4 space-x-4 md:space-x-0">
-      <Avatar className="w-20 h-20 md:w-24 md:h-24" alt="Profile picture" src={'/assets/profile-image.png'} />
+      <Avatar className="w-16 h-16 md:w-24 md:h-24" alt="Profile picture" src={'/assets/profile-image.png'} />
       <div className="flex flex-col items-start md:items-center">
         <div className="md:my-5 md:text-lg ">
           <span className="font-semibold">{userInfo.name}</span>
