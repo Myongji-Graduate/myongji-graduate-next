@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { auth } from './app/business/services/user/user.query';
-import { isInitUser } from './app/business/services/user/user.validation';
+import { isExpiredGradeUser, isInitUser } from './app/business/services/user/user.validation';
 import { refreshToken } from './app/business/services/user/user.command';
 
 async function getAuth(request: NextRequest): Promise<{
@@ -22,7 +22,7 @@ async function getAuth(request: NextRequest): Promise<{
   }
 
   return {
-    role: isInitUser(user) ? 'init' : 'user',
+    role: isInitUser(user) || isExpiredGradeUser(user) ? 'init' : 'user',
   };
 }
 

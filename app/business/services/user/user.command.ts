@@ -17,11 +17,12 @@ import {
   SignInResponseSchema,
   ValidateTokenResponseSchema,
   ResetPasswordFormSchema,
+  isExpiredGradeUser,
 } from './user.validation';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
-import { auth } from './user.query';
+import { fetchUser } from './user.query';
 
 function deleteCookies() {
   cookies().delete('accessToken');
@@ -132,8 +133,16 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     }
   }
 
+  const user = await fetchUser();
+  if (isExpiredGradeUser(user)) {
+    return {
+      isSuccess: true,
+      isFailure: false,
+      validationError: {},
+      message: '재업로드',
+    };
+  }
   redirect('/my');
-
   return {
     isSuccess: true,
     isFailure: false,
