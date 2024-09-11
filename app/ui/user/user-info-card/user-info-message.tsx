@@ -19,11 +19,11 @@ function UserInfoMessage({ studentName }: UserInfoMessageProps) {
       {studentName}님,
       {remainCredit > 0 ? (
         <>
-          졸업필요학점보다
+          졸업까지
           <span data-cy="remain-credit" className="text-point-blue ml-1">
             {remainCredit}
           </span>
-          학점이 부족합니다.
+          학점 남았어요.
         </>
       ) : (
         '졸업을 축하합니다 !'
