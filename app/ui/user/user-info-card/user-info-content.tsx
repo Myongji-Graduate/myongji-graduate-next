@@ -1,17 +1,26 @@
+'use client';
 import { UserInfoResponse } from '@/app/business/services/user/user.type';
 import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 import React from 'react';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import { getPercentage } from '@/app/utils/chart.util';
 import UserInfoMessage from './user-info-message';
+import { useFetchCredits } from '@/app/store/querys/result';
 
 interface UserInfoContentProps {
   data: UserInfoResponse;
 }
 
 function UserInfoContent({ data }: UserInfoContentProps) {
+  const { data: categories } = useFetchCredits();
   const { studentNumber, studentName, completeDivision: majors, totalCredit, takenCredit, graduated } = data;
-  const percentage = getPercentage(takenCredit, totalCredit);
+
+  const remainCredit = categories.reduce((accumulator, category) => {
+    if (category.category === 'CHAPEL') return accumulator;
+    return accumulator + (category.totalCredit - category.takenCredit);
+  }, 0);
+
+  const percentage = getPercentage(totalCredit - remainCredit, totalCredit);
 
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
     return majors.map((major, index) => {
@@ -23,7 +32,7 @@ function UserInfoContent({ data }: UserInfoContentProps) {
 
   return (
     <>
-      <UserInfoMessage studentName={studentName} />
+      <UserInfoMessage studentName={studentName} remainCredit={remainCredit} />
       <div className="flex border-t-2 md:my-4 mt-4 py-4 justify-between items-center">
         <div className="flex font-medium text-xs md:text-lg gap-4 md:gap-14 ">
           <ul className="text-gray-6 flex flex-col gap-1">

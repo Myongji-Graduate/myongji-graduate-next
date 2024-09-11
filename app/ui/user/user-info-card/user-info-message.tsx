@@ -1,19 +1,9 @@
-'use client';
-import { useFetchCredits } from '@/app/store/querys/result';
-
 interface UserInfoMessageProps {
   studentName: string;
+  remainCredit: number;
 }
 
-function UserInfoMessage({ studentName }: UserInfoMessageProps) {
-  const { data: categories } = useFetchCredits();
-
-  const remainCredit = categories.reduce((accumulator, category) => {
-    if (category.category === 'CHAPEL') return accumulator;
-
-    return accumulator + (category.totalCredit - category.takenCredit);
-  }, 0);
-
+function UserInfoMessage({ studentName, remainCredit }: UserInfoMessageProps) {
   return (
     <p className="font-bold text-sm md:text-xl">
       {studentName}님,
