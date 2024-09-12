@@ -44,7 +44,6 @@ export async function middleware(request: NextRequest) {
   }
 
   if (auth.role === 'guest' && !isAllowedGuestPath(request.nextUrl.pathname)) {
-    console.log(isAllowedGuestPath(request.nextUrl.pathname));
     return Response.redirect(new URL('/sign-in', request.url));
   }
 
