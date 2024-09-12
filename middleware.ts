@@ -27,16 +27,13 @@ async function getAuth(request: NextRequest): Promise<{
 }
 
 const allowedOnlyGuestPath = ['/sign-in', '/sign-up', '/find-password', '/find-id'];
-const allowedGuestPath = ['/tutorial', ...allowedOnlyGuestPath];
-const allowInitUserPath = ['/tutorial', '/grade-upload'];
+const allowedGuestPath = ['/', '/tutorial', ...allowedOnlyGuestPath];
+const allowInitUserPath = ['/', '/tutorial', '/grade-upload'];
 
 function isAllowedGuestPath(path: string, strict: boolean = false) {
-  if (path === '/') {
-    return true;
-  }
-
   const allowedPath = strict ? allowedOnlyGuestPath : allowedGuestPath;
-  return allowedPath.some((allowedPath) => path.startsWith(allowedPath));
+
+  return allowedPath.some((allowedPath) => path === allowedPath);
 }
 
 export async function middleware(request: NextRequest) {
@@ -46,15 +43,20 @@ export async function middleware(request: NextRequest) {
     return await retryAuth(request);
   }
 
-  if (auth.role === 'init' && !allowInitUserPath.some((path) => request.nextUrl.pathname.startsWith(path))) {
-    return Response.redirect(new URL('/grade-upload', request.url));
-  }
-
   if (auth.role === 'guest' && !isAllowedGuestPath(request.nextUrl.pathname)) {
+    console.log(isAllowedGuestPath(request.nextUrl.pathname));
     return Response.redirect(new URL('/sign-in', request.url));
   }
 
   if (auth.role !== 'guest' && isAllowedGuestPath(request.nextUrl.pathname, true)) {
+    return Response.redirect(new URL('/my', request.url));
+  }
+
+  if (auth.role === 'init' && !allowInitUserPath.some((path) => request.nextUrl.pathname === path)) {
+    return Response.redirect(new URL('/grade-upload', request.url));
+  }
+
+  if (auth.role === 'user' && request.nextUrl.pathname === '/') {
     return Response.redirect(new URL('/my', request.url));
   }
 }
