@@ -6,7 +6,7 @@ interface UserInfoMessageProps {
 function UserInfoMessage({ studentName, remainCredit }: UserInfoMessageProps) {
   return (
     <p className="font-bold text-sm md:text-xl">
-      {studentName}님,
+      <span className="mr-1">{studentName}님,</span>
       {remainCredit > 0 ? (
         <>
           졸업까지
