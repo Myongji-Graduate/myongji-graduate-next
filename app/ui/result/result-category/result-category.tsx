@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/app/utils/shadcn/utils';
 import ResultCategoryCard from '../result-category-card/result-category-card';
-import { CreditResponse, useFetchCredits } from '@/app/store/querys/result';
+import { useFetchCredits } from '@/app/store/querys/result';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import { ResultCategoryKey } from '../result-category-detail-content/result-category-detail-content.stories';
 
