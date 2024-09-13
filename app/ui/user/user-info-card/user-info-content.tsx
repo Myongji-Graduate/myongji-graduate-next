@@ -39,8 +39,8 @@ function UserInfoContent({ data }: UserInfoContentProps) {
             <li>이름</li>
             <li>학번</li>
             {displaySeveralMajor('title')}
-            <li>졸업필요학점</li>
-            <li>총 이수 학점</li>
+            <li>졸업최소학점</li>
+            <li>현재이수학점</li>
             <li>졸업가능여부</li>
           </ul>
           <ul className="flex flex-col gap-1">
