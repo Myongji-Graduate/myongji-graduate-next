@@ -16,8 +16,10 @@ function UserInfoContent({ data }: UserInfoContentProps) {
   const { studentNumber, studentName, completeDivision: majors, totalCredit, takenCredit, graduated } = data;
 
   const remainCredit = categories.reduce((accumulator, category) => {
-    if (category.category === 'CHAPEL') return accumulator;
-    return accumulator + (category.totalCredit - category.takenCredit);
+    const { category: categoryName, totalCredit, takenCredit } = category;
+    if (categoryName === 'CHAPEL') return accumulator;
+    const categoryRemainCredit = totalCredit - takenCredit < 0 ? 0 : totalCredit - takenCredit;
+    return accumulator + categoryRemainCredit;
   }, 0);
 
   const percentage = getPercentage(totalCredit - remainCredit, totalCredit);
