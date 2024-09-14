@@ -29,7 +29,7 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
       message: 'fail upload grade',
     };
   }
-  redirect('/my');
+  redirect('/result');
 };
 
 export const parsePDFtoText = async (formData: FormData) => {
