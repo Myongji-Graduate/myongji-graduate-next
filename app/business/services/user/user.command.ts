@@ -125,7 +125,15 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: error.message,
+        message: '아이디 또는 비밀번호가 일치하지 않습니다.',
+      };
+    } else if (error instanceof BadRequestError) {
+      // 잘못된 요청 처리 로직
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '존재하지 않는 계정입니다',
       };
     } else {
       // 나머지 에러는 더 상위 수준에서 처리
