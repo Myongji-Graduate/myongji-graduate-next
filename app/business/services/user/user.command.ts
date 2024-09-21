@@ -119,13 +119,13 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     }
   } catch (error) {
     // 명세와 다르게 에러가 발생할 경우 BadRequestError가 아니라 UnauthorizedError가 발생
-    if (error instanceof UnauthorizedError) {
+    if (error instanceof UnauthorizedError || error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
       return {
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: error.message,
+        message: '아이디 또는 비밀번호가 일치하지 않습니다.',
       };
     } else {
       // 나머지 에러는 더 상위 수준에서 처리
