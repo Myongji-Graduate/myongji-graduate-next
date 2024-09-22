@@ -9,7 +9,7 @@ import {
   UserDeleteRequestBody,
   ResetPasswordRequestBody,
 } from './user.type';
-import { fetchAxErrorHandler, httpErrorHandler } from '@/app/utils/http/http-error-handler';
+import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import {
   SignUpFormSchema,
@@ -21,17 +21,7 @@ import {
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
-import fetchAx, { FetchAxError } from 'fetch-ax';
-
-const instance = fetchAx.create({
-  headers: {
-    'Content-Type': 'application/json',
-    // Authorization: `Bearer ${cookies().get('accessToken')?.value}`, 서버라서 안되지 않을까? 공유 인스턴스 처럼.. 근데 그러면 기존에는 어캐 디는거야>
-  },
-  responseRejectedInterceptor: (error) => {
-    fetchAxErrorHandler(error);
-  },
-});
+import { instance } from '@/app/utils/http/instance';
 
 function deleteCookies() {
   cookies().delete('accessToken');
