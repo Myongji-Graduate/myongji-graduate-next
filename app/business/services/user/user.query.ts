@@ -1,9 +1,7 @@
 'use server';
 
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
-import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { isValidation } from '@/app/utils/zod/validation.util';
-import { cookies } from 'next/headers';
 import { API_PATH } from '../../api-path';
 import { InitUserInfoResponse, UserInfoResponse } from './user.type';
 import {
@@ -13,6 +11,7 @@ import {
   FindIdResponseSchema,
 } from './user.validation';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
+import { instance } from '@/app/utils/http/instance';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
   try {
@@ -28,17 +27,11 @@ export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | 
 
 export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
-    const response = await fetch(`${API_PATH.user}/me`, {
-      headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
-    });
-    const result = await response.json();
+    console.log(`${API_PATH.user}/me`);
+    const { data } = await instance.get(`${API_PATH.user}/me`);
 
-    httpErrorHandler(response, result);
-
-    if (isValidation(result, UserInfoResponseSchema) || isValidation(result, InitUserInfoResponseSchema)) {
-      return result;
+    if (isValidation(data, UserInfoResponseSchema) || isValidation(data, InitUserInfoResponseSchema)) {
+      return data;
     } else {
       throw 'Invalid user info response schema.';
     }
