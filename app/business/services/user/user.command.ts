@@ -9,7 +9,7 @@ import {
   UserDeleteRequestBody,
   ResetPasswordRequestBody,
 } from './user.type';
-import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
+import { fetchAxErrorHandler, httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import {
   SignUpFormSchema,
@@ -24,6 +24,7 @@ import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 import { fetchUser } from './user.query';
 import { instance } from '@/app/utils/http/instance';
+import fetchAX from 'fetch-ax';
 
 function deleteCookies() {
   cookies().delete('accessToken');
@@ -142,20 +143,18 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
 export async function refreshToken(): Promise<ValidateTokenResponse | false> {
   const refreshToken = cookies().get('refreshToken')?.value;
   try {
-    const response = await fetch(`${API_PATH.auth}/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const { data } = await fetchAX.post(
+      `${API_PATH.auth}/token`,
+      { refreshToken },
+      {
+        responseRejectedInterceptor: (error) => {
+          fetchAxErrorHandler(error);
+        },
       },
-      body: JSON.stringify({ refreshToken }),
-    });
+    );
 
-    const result = await response.json();
-
-    httpErrorHandler(response, result);
-
-    if (isValidation(result, ValidateTokenResponseSchema)) {
-      return result;
+    if (isValidation(data, ValidateTokenResponseSchema)) {
+      return data;
     } else {
       throw 'Invalid token response schema.';
     }
