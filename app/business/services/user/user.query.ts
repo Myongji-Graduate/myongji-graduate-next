@@ -27,7 +27,6 @@ export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | 
 
 export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
-    console.log(`${API_PATH.user}/me`);
     const { data } = await instance.get(`${API_PATH.user}/me`);
 
     if (isValidation(data, UserInfoResponseSchema) || isValidation(data, InitUserInfoResponseSchema)) {

@@ -1,17 +1,28 @@
+'use client';
 import { UserInfoResponse } from '@/app/business/services/user/user.type';
 import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 import React from 'react';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import { getPercentage } from '@/app/utils/chart.util';
+import UserInfoMessage from './user-info-message';
+import { useFetchCredits } from '@/app/store/querys/result';
 
 interface UserInfoContentProps {
   data: UserInfoResponse;
 }
 
 function UserInfoContent({ data }: UserInfoContentProps) {
+  const { data: categories } = useFetchCredits();
   const { studentNumber, studentName, completeDivision: majors, totalCredit, takenCredit, graduated } = data;
 
-  const percentage = getPercentage(takenCredit, totalCredit);
+  const remainCredit = categories.reduce((accumulator, category) => {
+    const { category: categoryName, totalCredit, takenCredit } = category;
+    if (categoryName === 'CHAPEL') return accumulator;
+    const categoryRemainCredit = totalCredit - takenCredit < 0 ? 0 : totalCredit - takenCredit;
+    return accumulator + categoryRemainCredit;
+  }, 0);
+
+  const percentage = getPercentage(totalCredit - remainCredit, totalCredit);
 
   const displaySeveralMajor = (notation: 'major' | 'title'): React.ReactNode => {
     return majors.map((major, index) => {
@@ -23,21 +34,15 @@ function UserInfoContent({ data }: UserInfoContentProps) {
 
   return (
     <>
-      <p className="font-bold text-sm md:text-xl">
-        졸업필요학점보다{' '}
-        <span data-cy="remain-credit" className="text-point-blue">
-          {totalCredit - takenCredit}
-        </span>
-        학점이 부족합니다.
-      </p>
-      <div className="flex border-t-2 my-4 py-4 justify-between items-center">
+      <UserInfoMessage studentName={studentName} remainCredit={remainCredit} />
+      <div className="flex border-t-2 md:my-4 mt-4 py-4 justify-between items-center">
         <div className="flex font-medium text-xs md:text-lg gap-4 md:gap-14 ">
           <ul className="text-gray-6 flex flex-col gap-1">
             <li>이름</li>
             <li>학번</li>
             {displaySeveralMajor('title')}
-            <li>졸업필요학점</li>
-            <li>총 이수 학점</li>
+            <li>졸업최소학점</li>
+            <li>현재이수학점</li>
             <li>졸업가능여부</li>
           </ul>
           <ul className="flex flex-col gap-1">

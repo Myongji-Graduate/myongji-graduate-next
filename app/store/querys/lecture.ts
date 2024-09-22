@@ -13,7 +13,7 @@ export const useFetchSearchLecture = () => {
   const searchWord = useAtomValue(searchWordAtom);
 
   return useSuspenseQuery<SearchedLectureInfoResponse[]>({
-    queryKey: [QUERY_KEY.SEARCH_LECTURE],
+    queryKey: [QUERY_KEY.SEARCH_LECTURE, searchWord.type, searchWord.keyword],
     queryFn: () => {
       return fetchSearchLectures(searchWord.type, searchWord.keyword as string);
     },

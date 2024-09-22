@@ -29,7 +29,7 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
       message: 'fail upload grade',
     };
   }
-  redirect('/my');
+  redirect('/result');
 };
 
 export const parsePDFtoText = async (formData: FormData) => {
@@ -44,35 +44,33 @@ export const parsePDFtoText = async (formData: FormData) => {
 };
 
 export const deleteTakenLecture = async (lectureId: number) => {
-  // try {
-  const response = await fetch(`${API_PATH.takenLectures}/${lectureId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-  });
-  // http error handling에서 result가 필수값이므로 사용할 수 없음
-  // 하지만 fetch 가 수정되면서 바꿀 예정이므로 현재는 작동만 되도록
-  if (response.ok) {
-    revalidateTag(TAG.GET_TAKEN_LECTURES);
-    return {
-      isSuccess: true,
-    };
-  } else {
-    return {
-      isSuccess: false,
-    };
+  try {
+    const response = await fetch(`${API_PATH.takenLectures}/${lectureId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+    });
+    if (response.ok) {
+      revalidateTag(TAG.GET_TAKEN_LECTURES);
+      return {
+        isSuccess: true,
+      };
+    } else {
+      return {
+        isSuccess: false,
+      };
+    }
+  } catch (error) {
+    if (error instanceof BadRequestError) {
+      return {
+        isSuccess: false,
+      };
+    } else {
+      throw error;
+    }
   }
-  // } catch (error) {
-  //   if (error instanceof BadRequestError) {
-  //     return {
-  //       isSuccess: false,
-  //     };
-  //   } else {
-  //     throw error;
-  //   }
-  // }
 };
 
 export const addTakenLecture = async (lectureId: number) => {

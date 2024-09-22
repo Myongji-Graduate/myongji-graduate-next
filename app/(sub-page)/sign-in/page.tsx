@@ -1,4 +1,3 @@
-import SignInForm from '@/app/ui/user/sign-in-form/sign-in-form';
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
@@ -9,6 +8,7 @@ import Button from '@/app/ui/view/atom/button/button';
 import Responsive from '@/app/ui/responsive';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import SignInFormContainer from './components/sign-in-form-container';
 
 export const metadata: Metadata = {
   title: '로그인',
@@ -27,13 +27,13 @@ export default function SignInPage() {
         <div className="pb-12">
           <TitleBox title={'로그인'} />
         </div>
-        <SignInForm />
+        <SignInFormContainer />
         <div className="flex mt-12 space-x-4 h-6 items-center justify-center">
-          <Link href={'/'}>
+          <Link href={'/find-id'}>
             <Button className="text-xs" label="아이디 찾기" variant={'text'} />
           </Link>
           <Separator orientation={'vertical'} />
-          <Link href={'/'}>
+          <Link href={'/find-password'}>
             <Button className="text-xs" label="비밀번호 재설정" variant={'text'} />
           </Link>
           <Separator orientation={'vertical'} />

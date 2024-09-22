@@ -18,6 +18,7 @@ export default async function NavigationItems() {
       )}
       <NavigationItem href={'/tutorial'} label="튜토리얼" />
       <NavigationItem
+        target="_black"
         href={'https://soft-anorak-0ca.notion.site/e35e3b210995463fa748f35aab536f2c?pvs=74'}
         label="팀소개"
       />
@@ -28,11 +29,12 @@ export default async function NavigationItems() {
 interface NavigationItemProps {
   href: string;
   label: string;
+  target?: '_black' | '_self' | '_parent' | '_top';
 }
 
-export function NavigationItem({ href, label }: NavigationItemProps) {
+export function NavigationItem({ href, label, target }: NavigationItemProps) {
   return (
-    <Link href={href} className="flex items-center justify-between">
+    <Link href={href} target={target} className="flex items-center justify-between">
       <Button
         size={'xs'}
         className="text-black lg:text-white hover:text-slate-400 lg:text-base text-lg my-1"

@@ -21,15 +21,15 @@ export default function SignUpTerm({ onNext }: SignUpTermProps) {
               검사대상인지 확인하세요!
               <ul className="list-disc ml-6 mt-2">
                 <li>
-                  대학: 경영대학, 법과대학, 사회과학대학, ICT융합대학, 인문대학,{' '}
-                  <span className="text-red-400">미래융합대학(불가)</span>
+                  대학: 경영대학, 법과대학, 사회과학대학, ICT융합대학, 인문대학,
+                  <span className="ml-1 text-red-400">미래융합대학(불가)</span>
                 </li>
                 <li>학번: 16 ~ 22학번</li>
               </ul>
             </li>
             <li>
-              교직, 다전공, 연계전공, 편입, 전과, 재외국민/외국인전형에 해당하는 사용자는 검사 기준이 따로 설정되지 않아
-              검사가 불가능합니다.
+              교직, 연계전공, 편입, 재외국민/외국인전형에 해당하는 사용자는 검사 기준이 따로 설정되지 않아 검사가
+              불가능합니다.
             </li>
             <li>검사를 위해선 성적표를 직접 업로드해야하므로 PC환경에서 진행하는 것을 권장합니다.</li>
             <li>

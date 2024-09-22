@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/app/utils/shadcn/utils';
 import ResultCategoryCard from '../result-category-card/result-category-card';
-import { CreditResponse, useFetchCredits } from '@/app/store/querys/result';
+import { useFetchCredits } from '@/app/store/querys/result';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import { ResultCategoryKey } from '../result-category-detail-content/result-category-detail-content.stories';
 
@@ -22,7 +22,10 @@ function ResultCategory() {
 
   return (
     <div
-      className={cn('absolute grid grid-cols-2 gap-2 top-[30rem] w-full', 'md:max-w-[700px] md:gap-10 md:top-[33rem]')}
+      className={cn(
+        'absolute grid grid-cols-2 gap-2 top-[28rem] w-full',
+        'md:max-w-[700px] md:gap-10 md:top-[35rem] max-md:max-w-[500px] ',
+      )}
     >
       {sortedCategories.map(({ category, totalCredit, takenCredit }, index) => (
         <ResultCategoryCard

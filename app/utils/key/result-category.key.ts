@@ -14,7 +14,7 @@ export const RESULT_CATEGORY = {
 } as const;
 
 export const RESULT_CATEGORY_KO = {
-  COMMON_CULTURE: '일반교양',
+  COMMON_CULTURE: '공통교양',
   CORE_CULTURE: '핵심교양',
   PRIMARY_MANDATORY_MAJOR: '전공필수',
   PRIMARY_ELECTIVE_MAJOR: '전공선택',

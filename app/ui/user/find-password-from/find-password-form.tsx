@@ -19,7 +19,7 @@ function FindPasswordForm({ authId }: FindPasswordFormProps) {
   };
 
   return (
-    <Form id="비밀번호 재설정" action={resetPassword} onSuccess={onSuccess}>
+    <Form id="비밀번호 재설정" action={resetPassword} onSuccess={onSuccess} className="flex flex-col gap-4">
       <Form.PasswordInput
         required={true}
         label="비밀번호"

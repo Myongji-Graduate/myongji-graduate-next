@@ -7,7 +7,7 @@ export interface TakenLecturesResponse {
   takenLectures: TakenLectureInfoResponse[];
 }
 
-interface TakenLectureInfoResponse {
+export interface TakenLectureInfoResponse {
   [index: string]: string | number;
   id: number;
   year: string;
