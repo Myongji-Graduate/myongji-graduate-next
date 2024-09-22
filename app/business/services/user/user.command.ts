@@ -194,18 +194,9 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
   };
 
   try {
-    const response = await fetch(`${API_PATH.user}/sign-up`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+    await instance.post(`${API_PATH.user}/sign-up`, body, {
+      responseType: 'text',
     });
-
-    if (response.status !== 200) {
-      const result = await response.json();
-      httpErrorHandler(response, result);
-    }
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
