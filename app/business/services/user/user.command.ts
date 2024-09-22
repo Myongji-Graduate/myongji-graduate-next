@@ -9,7 +9,7 @@ import {
   UserDeleteRequestBody,
   ResetPasswordRequestBody,
 } from './user.type';
-import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
+import { fetchAxErrorHandler, httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import {
   SignUpFormSchema,
@@ -21,7 +21,17 @@ import {
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
-import { auth } from './user.query';
+import fetchAx, { FetchAxError } from 'fetch-ax';
+
+const instance = fetchAx.create({
+  headers: {
+    'Content-Type': 'application/json',
+    // Authorization: `Bearer ${cookies().get('accessToken')?.value}`, 서버라서 안되지 않을까? 공유 인스턴스 처럼.. 근데 그러면 기존에는 어캐 디는거야>
+  },
+  responseRejectedInterceptor: (error) => {
+    fetchAxErrorHandler(error);
+  },
+});
 
 function deleteCookies() {
   cookies().delete('accessToken');
@@ -54,7 +64,6 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       httpErrorHandler(response, result);
     }
   } catch (error) {
-    console.log(error);
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
       return {
@@ -90,19 +99,8 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
   const body: SignInRequestBody = {
     ...validatedFields.data,
   };
-
   try {
-    const response = await fetch(`${API_PATH.auth}/sign-in`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-
-    const result = await response.json();
-
-    httpErrorHandler(response, result);
+    const result = await instance.post(`${API_PATH.auth}/sign-in`, body);
 
     if (isValidation(result, SignInResponseSchema)) {
       cookies().set('accessToken', result.accessToken, {
@@ -117,8 +115,7 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
       });
     }
   } catch (error) {
-    // 명세와 다르게 에러가 발생할 경우 BadRequestError가 아니라 UnauthorizedError가 발생
-    if (error instanceof UnauthorizedError) {
+    if (error instanceof UnauthorizedError || error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
       return {
         isSuccess: false,
