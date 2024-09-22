@@ -55,28 +55,22 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
 
   try {
     const { studentNumber } = validatedFields.data;
-    const response = await fetch(`${API_PATH.user}/${studentNumber}/auth-id`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await instance.get(`${API_PATH.user}/${studentNumber}/auth-id`);
 
-    const result = await response.json();
     if (response.status === 200)
       return {
         isSuccess: true,
         isFailure: false,
         validationError: {},
         message: '',
-        value: result,
+        value: response.data,
       };
     else
       return {
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: result.message,
+        message: response.data,
       };
   } catch (error) {
     if (error instanceof BadRequestError) {
