@@ -90,15 +90,15 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     ...validatedFields.data,
   };
   try {
-    const result = await instance.post(`${API_PATH.auth}/sign-in`, body);
+    const { data } = await instance.post(`${API_PATH.auth}/sign-in`, body);
 
-    if (isValidation(result, SignInResponseSchema)) {
-      cookies().set('accessToken', result.accessToken, {
+    if (isValidation(data, SignInResponseSchema)) {
+      cookies().set('accessToken', data.accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         path: '/',
       });
-      cookies().set('refreshToken', result.refreshToken, {
+      cookies().set('refreshToken', data.refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         path: '/',
