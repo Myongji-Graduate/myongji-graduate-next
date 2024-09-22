@@ -103,15 +103,9 @@ export async function validateUser(prevState: FormState, formData: FormData): Pr
   try {
     const { studentNumber, authId } = validatedFields.data;
 
-    const response = await fetch(`${API_PATH.user}/${studentNumber}/validate?auth-id=${authId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const result = await response.json();
+    const { data } = await instance.get(`${API_PATH.user}/${studentNumber}/validate?auth-id=${authId}`);
 
-    if (result.passedUserValidation)
+    if (data.passedUserValidation)
       return {
         isSuccess: true,
         isFailure: false,
