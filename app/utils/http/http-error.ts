@@ -1,7 +1,7 @@
 type ErrorConstrutor = {
   message?: string;
   statusCode?: number;
-  response?: Response;
+  response?: Partial<Response>;
 };
 
 // Refactor: fetch가 NetworkError랑 TimeoutError 또 자동으로 에러로 던져서 처리가 더 애매하다.
@@ -23,7 +23,7 @@ export class HttpError extends Error {
   constructor(
     readonly statusCode?: number,
     message?: string,
-    readonly response?: Response,
+    readonly response?: Partial<Response>,
   ) {
     super(message);
   }
