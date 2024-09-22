@@ -43,19 +43,9 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       password: formData.get('password') as string,
     };
 
-    const response = await fetch(`${API_PATH.user}/me`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
-      body: JSON.stringify(body),
+    await instance.delete(`${API_PATH.user}/me`, {
+      data: body,
     });
-
-    if (response.status !== 200) {
-      const result = await response.json();
-      httpErrorHandler(response, result);
-    }
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
@@ -241,7 +231,7 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
     passwordCheck,
   };
   try {
-    instance.patch(`${API_PATH.user}/password`, body, {
+    await instance.patch(`${API_PATH.user}/password`, body, {
       responseType: 'text',
     });
 
