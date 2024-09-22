@@ -241,12 +241,8 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
     passwordCheck,
   };
   try {
-    const response = await fetch(`${API_PATH.user}/password`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+    instance.patch(`${API_PATH.user}/password`, body, {
+      responseType: 'text',
     });
 
     return {
