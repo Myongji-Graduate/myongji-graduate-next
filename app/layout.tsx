@@ -5,6 +5,7 @@ import { CypressProvider } from './utils/provider/cypress-provider';
 import { ReactQueryProvider } from './utils/provider/react-query-provider';
 import MSWComponent from './mocks/msw-component.mock';
 import UserDeleteModal from './ui/user/user-info-navigator/user-delete-modal';
+import ChannelTalk from './channel-talk';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mju-graduate.com'),
@@ -43,6 +44,7 @@ export default function RootLayout({
         <link href="https://webfontworld.github.io/vitro/VitroCore.css" rel="stylesheet" />
       </head>
       <body>
+        <ChannelTalk />
         <div className="bg-white">
           <ReactQueryProvider>
             <CypressProvider>
