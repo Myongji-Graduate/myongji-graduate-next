@@ -20,6 +20,7 @@ export default function ResultCategoryDetail({ category }: { category: ResultCat
 
 function ResultCategoryDetailInfo({ category }: { category: ResultCategoryKey }) {
   const { data } = useFetchResultCategoryDetailInfo(category);
+
   return (
     <ResultCategoryDetailContent
       takenCredit={data.takenCredit}

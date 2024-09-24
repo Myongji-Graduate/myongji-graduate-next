@@ -4,8 +4,20 @@ import { cn } from '@/app/utils/shadcn/utils';
 import { useState } from 'react';
 import { ResultCategoryDetailLectureToggle } from '../result-category-detail-lecture/result-category-detail-lecture-toggle';
 import ResultCagegoryDetailLecture from '../result-category-detail-lecture/result-cagegory-detail-lecture';
-import { ResultCategoryDetailResponse } from '@/app/store/querys/result';
+import {
+  LectureInfoResponse,
+  ResultCategoryDetailLecturesResponse,
+  ResultCategoryDetailResponse,
+  useFetchCredits,
+} from '@/app/store/querys/result';
 import { RESULT_CATEGORY, RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
+
+const CHAPEL_LECTURE_INFO: LectureInfoResponse = {
+  id: 0,
+  lectureCode: 'KMA02101',
+  name: '채플',
+  credit: 0.5,
+};
 
 interface ResultCategoryDetailContentProps extends ResultCategoryDetailResponse {
   category: ResultCategoryKey;
@@ -18,8 +30,25 @@ function ResultCategoryDetailContent({
   category,
 }: ResultCategoryDetailContentProps) {
   const [isTakenLecture, setIsTakenLectrue] = useState(false);
-
   const includeChaple = (category: ResultCategoryKey) => category === RESULT_CATEGORY.COMMON_CULTURE;
+
+  const { data: categories } = useFetchCredits();
+  const takenChapelNumber = (categories.find((category) => category.category === 'CHAPEL')?.takenCredit ?? 0) / 0.5;
+  const haveToChapelNumber = 4 - takenChapelNumber < 0 ? 0 : 4 - takenChapelNumber;
+
+  const parsedDetailCategory: ResultCategoryDetailLecturesResponse[] = includeChaple(category)
+    ? [
+        ...detailCategory,
+        {
+          categoryName: '공통교양(채플)',
+          completed: takenChapelNumber * 0.5 === 2.0,
+          totalCredit: 2.0,
+          takenCredit: takenChapelNumber * 0.5,
+          haveToLectures: Array(haveToChapelNumber).fill(CHAPEL_LECTURE_INFO) ?? [],
+          takenLectures: Array(takenChapelNumber).fill(CHAPEL_LECTURE_INFO) ?? [],
+        },
+      ]
+    : detailCategory;
 
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2 overflow-scroll">
@@ -39,16 +68,12 @@ function ResultCategoryDetailContent({
             </div>
             <span>과목이 표시됩니다.</span>
           </div>
-          <div className={includeChaple(category) ? 'font-light text-gray-5 text-xs my-2 md:text-sm' : 'hidden'}>
-            * 채플이 포함된 학점으로, 채플과목의 이수율은 채플 카테고리에서 확인 가능합니다.
-          </div>
         </div>
         <div className={cn('min-w-fit text-2xl font-bold', 'md:text-4xl')}>
           <span className="text-point-blue">{takenCredit}</span> / {totalCredit}
         </div>
       </div>
-
-      {detailCategory.map((categoryInfo, index) => (
+      {parsedDetailCategory.map((categoryInfo, index) => (
         <ResultCagegoryDetailLecture isTakenLecture={isTakenLecture} detailCategory={categoryInfo} key={index} />
       ))}
     </div>
