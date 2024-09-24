@@ -6,7 +6,6 @@ import { ReactQueryProvider } from './utils/global/react-query-provider';
 import MSWComponent from './mocks/msw-component.mock';
 import ChannelTalk from './utils/global/channel-talk';
 import GoogleAnalytics from './google-analytics';
-import UserDeleteModal from './ui/user/user-info-navigator/user-delete-modal';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mju-graduate.com'),
@@ -55,7 +54,6 @@ export default function RootLayout({
           </ReactQueryProvider>
         </div>
         <Toaster />
-        <UserDeleteModal />
       </body>
     </html>
   );
