@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from './ui/view/molecule/toast/toaster';
-import { CypressProvider } from './utils/provider/cypress-provider';
-import { ReactQueryProvider } from './utils/provider/react-query-provider';
+import { CypressProvider } from './utils/global/cypress-provider';
+import { ReactQueryProvider } from './utils/global/react-query-provider';
 import MSWComponent from './mocks/msw-component.mock';
+import ChannelTalk from './utils/global/channel-talk';
+import GoogleAnalytics from './google-analytics';
 import UserDeleteModal from './ui/user/user-info-navigator/user-delete-modal';
-import ChannelTalk from './channel-talk';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mju-graduate.com'),
@@ -44,6 +45,7 @@ export default function RootLayout({
         <link href="https://webfontworld.github.io/vitro/VitroCore.css" rel="stylesheet" />
       </head>
       <body>
+        <GoogleAnalytics />
         <ChannelTalk />
         <div className="bg-white">
           <ReactQueryProvider>
