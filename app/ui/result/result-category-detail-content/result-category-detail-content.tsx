@@ -4,20 +4,8 @@ import { cn } from '@/app/utils/shadcn/utils';
 import { useState } from 'react';
 import { ResultCategoryDetailLectureToggle } from '../result-category-detail-lecture/result-category-detail-lecture-toggle';
 import ResultCagegoryDetailLecture from '../result-category-detail-lecture/result-cagegory-detail-lecture';
-import {
-  LectureInfoResponse,
-  ResultCategoryDetailLecturesResponse,
-  ResultCategoryDetailResponse,
-  useFetchCredits,
-} from '@/app/store/querys/result';
-import { RESULT_CATEGORY, RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
-
-const CHAPEL_LECTURE_INFO: LectureInfoResponse = {
-  id: 0,
-  lectureCode: 'KMA02101',
-  name: '채플',
-  credit: 0.5,
-};
+import { ResultCategoryDetailResponse } from '@/app/store/querys/result';
+import { RESULT_CATEGORY_KO, ResultCategoryKey } from '@/app/utils/key/result-category.key';
 
 interface ResultCategoryDetailContentProps extends ResultCategoryDetailResponse {
   category: ResultCategoryKey;
@@ -30,25 +18,6 @@ function ResultCategoryDetailContent({
   category,
 }: ResultCategoryDetailContentProps) {
   const [isTakenLecture, setIsTakenLectrue] = useState(false);
-  const includeChaple = (category: ResultCategoryKey) => category === RESULT_CATEGORY.COMMON_CULTURE;
-
-  const { data: categories } = useFetchCredits();
-  const takenChapelNumber = (categories.find((category) => category.category === 'CHAPEL')?.takenCredit ?? 0) / 0.5;
-  const haveToChapelNumber = 4 - takenChapelNumber < 0 ? 0 : 4 - takenChapelNumber;
-
-  const parsedDetailCategory: ResultCategoryDetailLecturesResponse[] = includeChaple(category)
-    ? [
-        ...detailCategory,
-        {
-          categoryName: '공통교양(채플)',
-          completed: takenChapelNumber * 0.5 === 2.0,
-          totalCredit: 2.0,
-          takenCredit: takenChapelNumber * 0.5,
-          haveToLectures: Array(haveToChapelNumber).fill(CHAPEL_LECTURE_INFO) ?? [],
-          takenLectures: Array(takenChapelNumber).fill(CHAPEL_LECTURE_INFO) ?? [],
-        },
-      ]
-    : detailCategory;
 
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2 overflow-scroll">
@@ -73,7 +42,7 @@ function ResultCategoryDetailContent({
           <span className="text-point-blue">{takenCredit}</span> / {totalCredit}
         </div>
       </div>
-      {parsedDetailCategory.map((categoryInfo, index) => (
+      {detailCategory.map((categoryInfo, index) => (
         <ResultCagegoryDetailLecture isTakenLecture={isTakenLecture} detailCategory={categoryInfo} key={index} />
       ))}
     </div>
