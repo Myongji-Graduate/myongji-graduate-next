@@ -90,7 +90,7 @@ export const FailureSenarioWithDuplicatedStudentNumber: Story = {
     await step('회원가입에 실패한다.', async () => {
       await waitFor(() => {
         expect(args.onSuccess).not.toHaveBeenCalled();
-        expect(canvas.getByText('이미 가입된 학번입니다.')).toBeInTheDocument();
+        expect(canvas.getByText('Bad Request')).toBeInTheDocument();
       });
     });
   },

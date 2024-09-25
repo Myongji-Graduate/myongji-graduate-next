@@ -78,7 +78,7 @@ export async function findUserToStudentNumber(prevState: FormState, formData: Fo
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: error.message,
+        message: '해당 사용자를 찾을 수 없습니다.',
       };
     } else {
       throw error;
