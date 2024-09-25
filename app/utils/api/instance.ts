@@ -1,6 +1,6 @@
 import fetchAx, { FetchAxError } from 'fetch-ax';
-import { fetchAxErrorHandler } from './http-error-handler';
 import { cookies } from 'next/headers';
+import { fetchAxErrorHandler } from '../http/http-error-handler';
 
 export const instance = fetchAx.create({
   headers: {

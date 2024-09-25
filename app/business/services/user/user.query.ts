@@ -11,7 +11,7 @@ import {
   FindIdResponseSchema,
 } from './user.validation';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
-import { instance } from '@/app/utils/http/instance';
+import { instance } from '@/app/utils/api/instance';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
   try {

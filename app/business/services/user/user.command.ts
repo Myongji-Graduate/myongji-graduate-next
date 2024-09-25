@@ -23,8 +23,8 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 import { fetchUser } from './user.query';
-import { instance } from '@/app/utils/http/instance';
 import fetchAX from 'fetch-ax';
+import { instance } from '@/app/utils/api/instance';
 
 function deleteCookies() {
   cookies().delete('accessToken');
