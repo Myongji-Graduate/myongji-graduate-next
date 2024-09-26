@@ -5,7 +5,7 @@ import { CypressProvider } from './utils/global/cypress-provider';
 import { ReactQueryProvider } from './utils/global/react-query-provider';
 import MSWComponent from './mocks/msw-component.mock';
 import ChannelTalk from './utils/global/channel-talk';
-import GoogleAnalytics from './google-analytics';
+import GoogleAnalytics from './utils/global/google-analytics';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mju-graduate.com'),
