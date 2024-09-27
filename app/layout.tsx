@@ -4,6 +4,7 @@ import { CypressProvider } from './utils/global/cypress-provider';
 import { ReactQueryProvider } from './utils/global/react-query-provider';
 import ChannelTalk from './utils/global/channel-talk';
 import MSWComponent from './mocks/msw-component.mock';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default function RootLayout({
         </div>
         <Toaster />
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ''} />
     </html>
   );
 }
