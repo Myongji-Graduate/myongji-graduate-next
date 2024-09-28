@@ -9,7 +9,7 @@ import {
   UserDeleteRequestBody,
   ResetPasswordRequestBody,
 } from './user.type';
-import { httpErrorHandler } from '@/app/utils/http/http-error-handler';
+import { fetchAxErrorHandler, httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
 import {
   SignUpFormSchema,
@@ -23,6 +23,8 @@ import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
 import { redirect } from 'next/navigation';
 import { fetchUser } from './user.query';
+import fetchAX from 'fetch-ax';
+import { instance } from '@/app/utils/api/instance';
 
 function deleteCookies() {
   cookies().delete('accessToken');
@@ -41,21 +43,10 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       password: formData.get('password') as string,
     };
 
-    const response = await fetch(`${API_PATH.user}/me`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
-      body: JSON.stringify(body),
+    await instance.delete(`${API_PATH.user}/me`, {
+      data: body,
     });
-
-    if (response.status !== 200) {
-      const result = await response.json();
-      httpErrorHandler(response, result);
-    }
   } catch (error) {
-    console.log(error);
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
       return {
@@ -91,27 +82,16 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
   const body: SignInRequestBody = {
     ...validatedFields.data,
   };
-
   try {
-    const response = await fetch(`${API_PATH.auth}/sign-in`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
+    const { data } = await instance.post(`${API_PATH.auth}/sign-in`, body);
 
-    const result = await response.json();
-
-    httpErrorHandler(response, result);
-
-    if (isValidation(result, SignInResponseSchema)) {
-      cookies().set('accessToken', result.accessToken, {
+    if (isValidation(data, SignInResponseSchema)) {
+      cookies().set('accessToken', data.accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         path: '/',
       });
-      cookies().set('refreshToken', result.refreshToken, {
+      cookies().set('refreshToken', data.refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         path: '/',
@@ -154,20 +134,18 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
 export async function refreshToken(): Promise<ValidateTokenResponse | false> {
   const refreshToken = cookies().get('refreshToken')?.value;
   try {
-    const response = await fetch(`${API_PATH.auth}/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const { data } = await fetchAX.post(
+      `${API_PATH.auth}/token`,
+      { refreshToken },
+      {
+        responseRejectedInterceptor: (error) => {
+          fetchAxErrorHandler(error);
+        },
       },
-      body: JSON.stringify({ refreshToken }),
-    });
+    );
 
-    const result = await response.json();
-
-    httpErrorHandler(response, result);
-
-    if (isValidation(result, ValidateTokenResponseSchema)) {
-      return result;
+    if (isValidation(data, ValidateTokenResponseSchema)) {
+      return data;
     } else {
       throw 'Invalid token response schema.';
     }
@@ -207,18 +185,9 @@ export async function createUser(prevState: FormState, formData: FormData): Prom
   };
 
   try {
-    const response = await fetch(`${API_PATH.user}/sign-up`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+    await instance.post(`${API_PATH.user}/sign-up`, body, {
+      responseType: 'text',
     });
-
-    if (response.status !== 200) {
-      const result = await response.json();
-      httpErrorHandler(response, result);
-    }
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
@@ -263,12 +232,8 @@ export async function resetPassword(prevState: FormState, formData: FormData): P
     passwordCheck,
   };
   try {
-    const response = await fetch(`${API_PATH.user}/password`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+    await instance.patch(`${API_PATH.user}/password`, body, {
+      responseType: 'text',
     });
 
     return {
