@@ -1,15 +1,16 @@
 'use client';
 import * as ChannelService from '@channel.io/channel-web-sdk-loader';
-import { useEffect } from 'react';
+
+let channelTalkDidInit = false;
 
 export default function ChannelTalk() {
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      ChannelService.loadScript();
-      ChannelService.boot({
-        pluginKey: process.env.NEXT_PUBLIC_CHANNELTALK_PLUGIN ?? '',
-      });
-    }
-  }, []);
-  return <></>;
+  if (typeof window !== 'undefined' && !channelTalkDidInit) {
+    channelTalkDidInit = true;
+    ChannelService.loadScript();
+    ChannelService.boot({
+      pluginKey: process.env.NEXT_PUBLIC_CHANNELTALK_PLUGIN ?? '',
+    });
+  }
+
+  return null;
 }
