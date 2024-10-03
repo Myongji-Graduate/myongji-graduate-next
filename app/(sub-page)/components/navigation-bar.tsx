@@ -6,6 +6,7 @@ import UserInfoNavigator from '@/app/ui/user/user-info-navigator/user-info-navig
 import SignButtonGroup from '@/app/ui/user/user-info-navigator/sign-button-group';
 import Link from 'next/link';
 import NavigationItems from './navigation-items';
+import UserDeleteModal from '@/app/ui/user/user-info-navigator/user-delete-modal';
 
 export default function NavigationBar() {
   return (
@@ -19,6 +20,7 @@ export default function NavigationBar() {
       <Responsive minWidth={1024}>
         <NavigationItems />
       </Responsive>
+      <UserDeleteModal />
     </div>
   );
 }

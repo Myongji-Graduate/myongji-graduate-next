@@ -29,7 +29,6 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
   const { categoryName, totalCredit, takenCredit, takenLectures, haveToLectures, completed } = detailCategory;
 
   const showCompleted = !isTakenLecture && completed;
-
   return (
     <div className={cn('my-4 flex flex-col gap-4 min-h-48', 'md:min-h-60')}>
       <LabelContainer

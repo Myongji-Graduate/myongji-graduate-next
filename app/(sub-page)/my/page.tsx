@@ -10,6 +10,7 @@ import SignButtonGroup from '@/app/ui/user/user-info-navigator/sign-button-group
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 import TakenLectureSkeleton from '@/app/ui/lecture/taken-lecture/taken-lecture.skeleton';
 import type { Metadata } from 'next';
+import UserDeleteModal from '@/app/ui/user/user-info-navigator/user-delete-modal';
 
 export const metadata: Metadata = {
   title: '마이페이지',
@@ -50,6 +51,7 @@ export default function MyPage() {
       <Drawer drawerKey={DIALOG_KEY.LECTURE_SEARCH}>
         <LectureSearch />
       </Drawer>
+      <UserDeleteModal />
     </>
   );
 }
