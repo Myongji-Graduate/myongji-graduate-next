@@ -1,4 +1,4 @@
-export const RESPONSE_CODE = {
+export const ERROR_CODE = {
   // USER
   UNREGISTERED_USER: '',
   INVALIDATED_STUDENT_NUMBER_TYPE: '',
