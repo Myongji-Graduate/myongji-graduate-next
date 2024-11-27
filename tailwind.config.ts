@@ -35,6 +35,7 @@ const config: Config = {
         'gray-4': '#c4c4c4',
         'gray-5': '#acacac',
         'gray-6': '#9F9F9F',
+        'gray-7': '#757575',
         'black-1': '#353535',
         'black-2': '#2F2F2F',
         'black-3': '#262626',
