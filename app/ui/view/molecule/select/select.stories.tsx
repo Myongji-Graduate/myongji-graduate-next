@@ -49,7 +49,10 @@ const meta = {
   decorators: [
     (Story) => (
       <div className="w-52">
-        <Story />
+        <label className="text-xs">
+          select:
+          <Story />
+        </label>
       </div>
     ),
   ],
