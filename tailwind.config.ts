@@ -22,6 +22,7 @@ const config: Config = {
         'light-blue-6': '#7590FF',
         'light-blue-7': '#6982e6',
         'light-blue-8': '#839BFF',
+        'light-blue-9': '#4268FF',
         'point-blue': '#3B61FF',
         'point-blue-hover': '#2F4ECC',
         primary: '#0B4093',
@@ -41,7 +42,7 @@ const config: Config = {
         etc: {
           yellow: '#FFF38B',
           pink: '#FFC8C8',
-          red: '#FF6D6D',
+          red: '#E60000',
         },
         'white-hover': '#f3f4f6',
       },
