@@ -23,7 +23,7 @@ const config: Config = {
         'light-blue-7': '#6982e6',
         'light-blue-8': '#839BFF',
         'light-blue-9': '#4268FF',
-        'point-blue': '#3B61FF',
+        'point-blue': '#2E57FF',
         'point-blue-hover': '#2F4ECC',
         primary: '#0B4093',
         'primary-hover': '#093376',
