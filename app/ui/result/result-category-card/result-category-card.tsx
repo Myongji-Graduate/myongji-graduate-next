@@ -35,10 +35,10 @@ const displaySeveralMajor = (category: ResultCategoryKey) => {
     return (
       <>
         <Responsive maxWidth={767}>
-          <Button label={majorType} variant="outlined" size="xs" role="none presentation" className="p-1 text-[10px]" />
+          <Button label={majorType} variant="outlined" size="xs" as="div" className="p-1 text-[10px]" />
         </Responsive>
         <Responsive minWidth={768}>
-          <Button label={majorType} variant="outlined" size="xs" role="none presentation" />
+          <Button label={majorType} variant="outlined" size="xs" as="div" />
         </Responsive>
       </>
     );
