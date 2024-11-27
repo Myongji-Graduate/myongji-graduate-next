@@ -3,12 +3,12 @@ import { createUser } from '@/app/business/services/user/user.command';
 import Form from '../../view/molecule/form';
 
 interface SignUpFormProps {
-  onNext?: () => void;
+  onSuccess?: () => void;
 }
 
-export default function SignUpForm({ onNext }: SignUpFormProps) {
+export default function SignUpForm({ onSuccess }: SignUpFormProps) {
   return (
-    <Form onSuccess={onNext} action={createUser} id="회원가입">
+    <Form className="space-y-6" onSuccess={onSuccess} action={createUser} id="회원가입">
       <Form.TextInput required={true} label="아이디" id="authId" placeholder="6자 이상 20자 이하" />
       <Form.PasswordInput
         required={true}
@@ -24,10 +24,10 @@ export default function SignUpForm({ onNext }: SignUpFormProps) {
         id="engLv"
         placeholder="선택하세요"
         options={[
-          { value: 'basic', placeholder: '기초영어' },
+          { value: 'BASIC', placeholder: '기초영어' },
           { value: 'ENG12', placeholder: 'Level12' },
           { value: 'ENG34', placeholder: 'Level34' },
-          { value: 'bypass', placeholder: '면제' },
+          { value: 'FREE', placeholder: '면제' },
         ]}
       />
       <Form.SubmitButton label="회원가입" position="center" variant="secondary" />

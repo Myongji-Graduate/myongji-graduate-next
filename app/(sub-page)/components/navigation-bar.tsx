@@ -5,6 +5,8 @@ import SideNavigationBar from './side-navigation-bar';
 import UserInfoNavigator from '@/app/ui/user/user-info-navigator/user-info-navigator';
 import SignButtonGroup from '@/app/ui/user/user-info-navigator/sign-button-group';
 import Link from 'next/link';
+import NavigationItems from './navigation-items';
+import UserDeleteModal from '@/app/ui/user/user-info-navigator/user-delete-modal';
 
 export default function NavigationBar() {
   return (
@@ -13,8 +15,12 @@ export default function NavigationBar() {
         <Image className="md:h-10 h-7 w-[110px] md:w-[150px]" width={150} height={100} src={logo} alt="main-logo" />
       </Link>
       <Responsive maxWidth={1023}>
-        <SideNavigationBar header={<UserInfoNavigator />} content={<div>콘텐츠</div>} footer={<SignButtonGroup />} />
+        <SideNavigationBar header={<UserInfoNavigator />} content={<NavigationItems />} footer={<SignButtonGroup />} />
       </Responsive>
+      <Responsive minWidth={1024}>
+        <NavigationItems />
+      </Responsive>
+      <UserDeleteModal />
     </div>
   );
 }

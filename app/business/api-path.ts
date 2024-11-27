@@ -1,11 +1,12 @@
-const BASE_URL = 'http://localhost:9090';
-process.env.API_MOCKING === 'enable' ? 'http://localhost:9090' : '';
+import { setupURL } from '../utils/api/setup-url.util';
+
+const { BASE_URL, PARSE_API_URL } = setupURL();
 
 export const API_PATH = {
   default: BASE_URL,
   revenue: `${BASE_URL}/revenue`,
   registerUserGrade: `${BASE_URL}/parsing-text`,
-  parsePDFtoText: `${BASE_URL}/parsePDFtoText`,
+  parsePDFtoText: PARSE_API_URL,
   takenLectures: `${BASE_URL}/taken-lectures`,
   user: `${BASE_URL}/users`,
   graduations: `${BASE_URL}/graduations`,

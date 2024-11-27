@@ -6,22 +6,26 @@ import { useToast } from '../../view/molecule/toast/use-toast';
 import Responsive from '../../responsive';
 import { TAKEN_LECTURE_TABLE_HEADER_INFO } from './taken-lecture-constant';
 import { useTakenLecture } from '@/app/business/hooks/use-taken-lecture.hook';
+import { TakenLectrueInfo } from '@/app/store/stores/custom-taken-lecture';
 
 export default function TakenLectureList() {
   const { optimisticLecture, deleteOptimisticLecture, deleteLecture } = useTakenLecture();
 
   const { toast } = useToast();
 
-  const handleDeleteTakenLecture = async (lectureId: number) => {
-    deleteOptimisticLecture(lectureId);
-    const result = await deleteTakenLecture(lectureId);
+  const handleDeleteTakenLecture = async (item: TakenLectrueInfo) => {
+    deleteOptimisticLecture(item.lectureId);
+    const result = await deleteTakenLecture(item.id);
     if (!result.isSuccess) {
       return toast({
-        title: '과목 삭제에 실패했습니다',
+        title: `${item.lectureName} 삭제에 실패했습니다.`,
         variant: 'destructive',
       });
     }
-    deleteLecture(lectureId);
+    deleteLecture(item.id);
+    toast({
+      title: `${item.lectureName} 과목을 삭제했습니다.`,
+    });
   };
 
   return (
@@ -30,8 +34,8 @@ export default function TakenLectureList() {
         <Table
           headerInfo={TAKEN_LECTURE_TABLE_HEADER_INFO}
           data={optimisticLecture}
-          renderActionButton={(id: number) => (
-            <DeleteTakenLectureButton lectureId={id} onDelete={handleDeleteTakenLecture} />
+          renderActionButton={(item: TakenLectrueInfo) => (
+            <DeleteTakenLectureButton item={item} onDelete={handleDeleteTakenLecture} />
           )}
         />
       </Responsive>

@@ -67,8 +67,14 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
     setIsOpenDialog(true);
   };
 
-  const getCategoryCredit = (category: ResultCategoryKey, credit: number): number => {
-    return category === RESULT_CATEGORY.CHAPEL ? credit * 2 : credit;
+  const getCategoryCredit = (category: ResultCategoryKey, credit: number) =>
+    category === RESULT_CATEGORY.CHAPEL ? credit * 2 : credit;
+
+  const getCategoryCountWay = (category: ResultCategoryKey) => (category === RESULT_CATEGORY.CHAPEL ? '횟수' : '학점');
+
+  const filterCategoryExistStandard = (category: ResultCategoryKey) => {
+    const NONEXIST_STANDARD_CATEGORY = ['FREE_ELECTIVE', 'NORMAL_CULTURE', 'CHAPEL'];
+    return NONEXIST_STANDARD_CATEGORY.includes(category);
   };
 
   return (
@@ -91,17 +97,18 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
       <div className={cn('w-full flex text-xs font-medium justify-between items-end', 'md:gap-4 md:text-base')}>
         <div>
           <div className="flex gap-2">
-            <span>기준학점</span>
+            <span>기준{getCategoryCountWay(category)}</span>
             <span className="font-bold">{getCategoryCredit(category, totalCredit)}</span>
           </div>
           <div className="flex gap-2">
-            <span>이수학점</span>
+            <span>이수{getCategoryCountWay(category)}</span>
             <span className={cn('font-bold', percentage === 100 ? 'text-point-blue' : 'text-etc-red')}>
               {getCategoryCredit(category, takenCredit)}
             </span>
           </div>
         </div>
         <Link
+          className={`${filterCategoryExistStandard(category) && 'hidden'}`}
           data-cy={`${category}-button`}
           href={{
             pathname: '/result',

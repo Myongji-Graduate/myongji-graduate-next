@@ -36,7 +36,9 @@ export default function useFunnel<Steps extends string>(
   );
 
   useEffect(() => {
-    setStep(step ?? defaultStep);
+    if (!step) {
+      router.replace(createUrl(defaultStep));
+    }
   }, [defaultStep, step, setStep]);
 
   const Step = ({ name, children }: React.PropsWithChildren<{ name: Steps }>) => {

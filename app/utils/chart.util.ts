@@ -1,3 +1,4 @@
 export const getPercentage = (numerator: number, denominator: number) => {
-  return Number(((numerator / denominator) * 100).toFixed(0));
+  const percentage = Number(((numerator / denominator) * 100).toFixed(0));
+  return percentage > 100 ? 100 : percentage;
 };

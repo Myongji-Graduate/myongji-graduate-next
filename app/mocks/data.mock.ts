@@ -192,7 +192,7 @@ export const resultCategoryDetailInfo = JSON.parse(`{
           "completed": false
       }
   ],
-  "completed": false
+    "completed": false
 }`);
 
 export const users = JSON.parse(`[
@@ -206,75 +206,63 @@ export const users = JSON.parse(`[
 
 export const credits = JSON.parse(`[
     {
-        "category": "COMMON_CULTURE",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
-        "completed": false
-    },
-    {
-        "category": "CORE_CULTURE",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
-        "completed": false
-    },
-    {
-        "category": "PRIMARY_MANDATORY_MAJOR",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
-        "completed": false
+        "category": "DUAL_BASIC_ACADEMICAL_CULTURE",
+        "totalCredit": 6,
+        "takenCredit": 6.0,
+        "completed": true
     },
     {
         "category": "PRIMARY_ELECTIVE_MAJOR",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
+        "totalCredit": 24,
+        "takenCredit": 21.0,
         "completed": false
     },
     {
         "category": "DUAL_MANDATORY_MAJOR",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
+        "totalCredit": 21,
+        "takenCredit": 18.0,
         "completed": false
     },
     {
+        "category": "CORE_CULTURE",
+        "totalCredit": 12,
+        "takenCredit": 12.0,
+        "completed": true
+    },
+    {
+        "category": "PRIMARY_BASIC_ACADEMICAL_CULTURE",
+        "totalCredit": 18,
+        "takenCredit": 15.0,
+        "completed": false
+    },
+    {
+        "category": "COMMON_CULTURE",
+        "totalCredit": 17,
+        "takenCredit": 16.5,
+        "completed": false
+    },
+    {
+        "category": "PRIMARY_MANDATORY_MAJOR",
+        "totalCredit": 18,
+        "takenCredit": 18.0,
+        "completed": true
+    },
+    {
         "category": "DUAL_ELECTIVE_MAJOR",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
+        "totalCredit": 24,
+        "takenCredit": 0.0,
+        "completed": false
+    },
+    {
+        "category": "CHAPEL",
+        "totalCredit": 2,
+        "takenCredit": 1.5,
         "completed": false
     },
     {
         "category": "SUB_MAJOR",
         "totalCredit" : 70,
         "takenCredit" : 40,
-        "completed": false
-    },
-    {
-        "category": "PRIMARY_BASIC_ACADEMICAL_CULTURE",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
-        "completed": false
-    },
-    {
-        "category": "DUAL_BASIC_ACADEMICAL_CULTURE",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
-        "completed": false
-    },
-    {
-        "category": "NORMAL_CULTURE",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
-        "completed": false
-    },
-    {
-        "category": "FREE_ELECTIVE",
-        "totalCredit" : 70,
-        "takenCredit" : 40,
-        "completed": false
-    },
-    {
-        "category": "CHAPEL",
-        "totalCredit" : 4,
-        "takenCredit" : 1,
         "completed": false
     }
 ]`);

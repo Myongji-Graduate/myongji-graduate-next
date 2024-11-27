@@ -9,7 +9,7 @@ import LectureSearch from '.';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Drawer from '../../view/molecule/drawer/drawer';
 import { delay } from 'msw';
-import { ReactQueryProvider } from '@/app/utils/provider/react-query-provider';
+import { ReactQueryProvider } from '@/app/utils/global/react-query-provider';
 
 const meta = {
   title: 'ui/lecture/lecture-search',

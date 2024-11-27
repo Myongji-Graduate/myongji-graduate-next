@@ -10,12 +10,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../../view/molecule/alert-dialog/alert-dialog';
+import { TakenLectrueInfo } from '@/app/store/stores/custom-taken-lecture';
 
 interface DeleteTakenLectureButtonProps {
-  lectureId: number;
-  onDelete: (lectureId: number) => void;
+  item: TakenLectrueInfo;
+  onDelete: (item: TakenLectrueInfo) => void;
 }
-export default function DeleteTakenLectureButton({ lectureId, onDelete }: DeleteTakenLectureButtonProps) {
+
+export default function DeleteTakenLectureButton({ item, onDelete }: DeleteTakenLectureButtonProps) {
   const [open, setOpen] = useState(false);
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -25,7 +27,7 @@ export default function DeleteTakenLectureButton({ lectureId, onDelete }: Delete
             label="삭제"
             variant="text"
             size="default"
-            data-cy={`taken-lecture-delete-model-trigger-${lectureId}`}
+            data-cy={`taken-lecture-delete-model-trigger-${item.id}`}
             data-testid="taken-lecture-delete-button"
           />
         </div>
@@ -38,7 +40,7 @@ export default function DeleteTakenLectureButton({ lectureId, onDelete }: Delete
           <AlertDialogCancel className="font-bold">취소</AlertDialogCancel>
           <form
             action={() => {
-              onDelete(lectureId);
+              onDelete(item);
             }}
           >
             <Button

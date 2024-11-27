@@ -24,7 +24,7 @@ function ResultCategoryDetailContent({
       <div className={cn('flex justify-between mb-6', 'md:mb-10')}>
         <div>
           <h1 className={cn('text-2xl font-bold', 'md:text-4xl')}>{RESULT_CATEGORY_KO[category]}</h1>
-          <div className={cn('relative flex  items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
+          <div className={cn('relative flex items-center gap-2 text-sm text-gray-6 font-medium my-2', 'md:text-lg')}>
             <span className="hidden md:block"> {RESULT_CATEGORY_KO[category]} 과목 중</span>
             <div className="w-20 h-10">
               <ResultCategoryDetailLectureToggle
@@ -38,7 +38,7 @@ function ResultCategoryDetailContent({
             <span>과목이 표시됩니다.</span>
           </div>
         </div>
-        <div className={cn('text-2xl font-bold', 'md:text-4xl')}>
+        <div className={cn('min-w-fit text-2xl font-bold', 'md:text-4xl')}>
           <span className="text-point-blue">{takenCredit}</span> / {totalCredit}
         </div>
       </div>

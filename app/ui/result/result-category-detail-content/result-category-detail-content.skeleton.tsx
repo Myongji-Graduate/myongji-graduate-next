@@ -11,12 +11,10 @@ export default function ResultCategoryDetailContentSkeleton() {
         </div>
         <Skeleton className="h-10 w-28" />
       </div>
-      {Array.from({ length: 3 }).map((_, index) => (
-        <div className="my-4 flex flex-col gap-4" key={index}>
-          <LabelContainerSkeleton rightElement={<Skeleton className="h-10 w-28" />} />
-          <Skeleton className="h-40 w-30" />
-        </div>
-      ))}
+      <div className="my-4 flex flex-col gap-4">
+        <LabelContainerSkeleton rightElement={<Skeleton className="h-10 w-28" />} />
+        <Skeleton className="h-40 w-30" />
+      </div>
     </div>
   );
 }

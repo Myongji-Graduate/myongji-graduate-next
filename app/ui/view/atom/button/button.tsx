@@ -21,7 +21,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
       dark: 'bg-dark rounded-[100px] text-white border-0 hover:bg-dark-hover',
       secondary: 'bg-white rounded-[100px] border-solid border-[1px] border-gray-6 hover:bg-white-hover',
       text: 'font-medium text-slate-400 text-sm hover:text-slate-600',
-      list: 'py-1 px-3 bg-blue-500 rounded-[7px] text-white leading-5 font-medium text-base hover:bg-blue-500',
+      list: 'py-1 px-3 bg-blue-500 rounded-[7px] text-white leading-5 font-medium text-base hover:bg-blue-600',
     },
     size: {
       default: '',
@@ -29,7 +29,7 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
       sm: 'px-10 py-2.5 text-xs font-medium leading-3',
       md: 'px-20 py-4 text-base font-medium leading-3',
       lg: 'px-28 py-4 text-2xl font-medium leading-9',
-      xl: 'px-36 py-5 text-3xl font-medium leading-9',
+      xl: 'px-16 py-4 text-xl md:px-36 md:py-5 md:text-3xl font-medium leading-9',
     },
   },
 });

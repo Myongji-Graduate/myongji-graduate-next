@@ -9,7 +9,7 @@ const meta = {
   title: 'ui/user/SignUpForm',
   component: SignUpForm,
   args: {
-    onNext: fn(),
+    onSuccess: fn(),
   },
   decorators: [
     (Story) => (
@@ -33,13 +33,13 @@ export const SuccessSenario: Story = {
       await userEvent.type(canvas.getByLabelText('비밀번호'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('비밀번호 확인'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('학번'), '60000001');
-      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'basic');
+      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'BASIC');
 
       await userEvent.click(canvas.getByText('회원가입'));
     });
 
     await step('회원가입에 성공한다', async () => {
-      await waitFor(() => expect(args.onNext).toHaveBeenCalled());
+      await waitFor(() => expect(args.onSuccess).toHaveBeenCalled());
     });
   },
 };
@@ -54,14 +54,14 @@ export const FailureSenarioWithValidation: Story = {
       await userEvent.type(canvas.getByLabelText('비밀번호'), 'test1234');
       await userEvent.type(canvas.getByLabelText('비밀번호 확인'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('학번'), '600000');
-      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'basic');
+      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'BASIC');
 
       await userEvent.click(canvas.getByText('회원가입'));
     });
 
     await step('유효성 검사에 실패한다.', async () => {
       await waitFor(() => {
-        expect(args.onNext).not.toHaveBeenCalled();
+        expect(args.onSuccess).not.toHaveBeenCalled();
         expect(canvas.getByText('양식에 맞춰 다시 입력해주세요.')).toBeInTheDocument();
         expect(canvas.getByText('아이디는 6자 이상 20자 이하여야 합니다.')).toBeInTheDocument();
         expect(canvas.getByText('비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.')).toBeInTheDocument();
@@ -82,15 +82,15 @@ export const FailureSenarioWithDuplicatedStudentNumber: Story = {
       await userEvent.type(canvas.getByLabelText('비밀번호'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('비밀번호 확인'), 'test1234!');
       await userEvent.type(canvas.getByLabelText('학번'), '60000000');
-      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'basic');
+      await userEvent.selectOptions(canvas.getByLabelText('영어'), 'BASIC');
 
       await userEvent.click(canvas.getByText('회원가입'));
     });
 
     await step('회원가입에 실패한다.', async () => {
       await waitFor(() => {
-        expect(args.onNext).not.toHaveBeenCalled();
-        expect(canvas.getByText('이미 가입된 학번입니다.')).toBeInTheDocument();
+        expect(args.onSuccess).not.toHaveBeenCalled();
+        expect(canvas.getByText('Bad Request')).toBeInTheDocument();
       });
     });
   },

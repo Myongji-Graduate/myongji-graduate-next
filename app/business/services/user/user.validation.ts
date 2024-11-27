@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { UserInfoResponse, InitUserInfoResponse } from './user.type';
 
+// 동기화
 export const UserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.string(),
@@ -15,29 +16,76 @@ export const UserInfoResponseSchema = z.object({
   graduated: z.boolean(),
 });
 
+// 동기화
 export const InitUserInfoResponseSchema = z.object({
   studentNumber: z.string(),
   studentName: z.null(),
-  completeDivision: z.null(),
-  totalCredit: z.null(),
-  takenCredit: z.null(),
-  graduated: z.null(),
+  completeDivision: z.string().array(),
+  totalCredit: z.number(),
+  takenCredit: z.number(),
+  graduated: z.boolean(),
 });
 
 export const ValidateTokenResponseSchema = z.object({
   accessToken: z.string(),
 });
 
+export const FindIdFormSchema = z.object({
+  studentNumber: z.string().length(8),
+});
+
+export const FindPasswordFormSchema = z.object({
+  authId: z.string(),
+  newPassword: z
+    .string()
+    .min(8, { message: '비밀번호는 8자 이상이어야 합니다.' })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, {
+      message: '비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.',
+    })
+    .max(20, { message: '비밀번호는 20자 이하여야 합니다.' }),
+  passwordCheck: z.string(),
+});
+
+export const FindIdResponseSchema = z.object({
+  authId: z.string(),
+  studentNumber: z.string().length(8),
+});
+
+// 동기화
 export const SignInFormSchema = z.object({
   authId: z.string(),
   password: z.string(),
 });
 
+// 동기화
 export const SignInResponseSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
 });
 
+export const ResetPasswordFormSchema = z
+  .object({
+    authId: z.string(),
+    newPassword: z
+      .string()
+      .min(8, { message: '비밀번호는 8자 이상이어야 합니다.' })
+      .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, {
+        message: '비밀번호는 문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.',
+      })
+      .max(20, { message: '비밀번호는 20자 이하여야 합니다.' }),
+    passwordCheck: z.string(),
+  })
+  .superRefine(({ newPassword, passwordCheck }, ctx) => {
+    if (newPassword !== passwordCheck) {
+      ctx.addIssue({
+        code: 'custom',
+        message: '비밀번호가 일치하지 않습니다.',
+        path: ['passwordCheck'],
+      });
+    }
+  });
+
+// 동기화
 export const SignUpFormSchema = z
   .object({
     authId: z
@@ -59,7 +107,7 @@ export const SignUpFormSchema = z
     studentNumber: z.string().length(8, { message: '학번은 8자리여야 합니다.' }).startsWith('60', {
       message: '학번은 60으로 시작해야 합니다.',
     }),
-    engLv: z.enum(['basic', 'ENG12', 'ENG34', 'bypass'], {
+    engLv: z.enum(['BASIC', 'ENG12', 'ENG34', 'FREE'], {
       invalid_type_error: '올바른 영어 레벨을 선택해주세요.',
     }),
   })
@@ -72,6 +120,12 @@ export const SignUpFormSchema = z
       });
     }
   });
+
 export function isInitUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
-  return typeof x.studentName === null;
+  return x.studentName === null;
+}
+
+export function isExpiredGradeUser(x: UserInfoResponse | InitUserInfoResponse): x is InitUserInfoResponse {
+  //return x.studentName !== null && x.takenCredit === 0 && x.totalCredit === 0;
+  return false;
 }

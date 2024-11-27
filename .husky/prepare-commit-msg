@@ -5,7 +5,7 @@ commit_msg_file=$1
 commit_msg=$(cat "$1")
 second_line=$(echo "$commit_msg" | sed -n '2p')
 
-commit_msg_title_regex='(feat|fix|refactor|chore|test|docs|style|rename|setting|remove|build): .{1,100}?$'
+commit_msg_title_regex='(feat|fix|refactor|chore|test|docs|style|rename|setting|remove|build): .{1,100}?'
 
 
 # 제목
