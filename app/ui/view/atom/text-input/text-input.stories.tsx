@@ -7,6 +7,14 @@ const meta = {
   title: 'ui/view/atom/TextInput',
   component: TextInput,
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <label className="text-xs">
+        text-input
+        <Story />
+      </label>
+    ),
+  ],
   argTypes: {
     type: {
       description: "Text Input의 type값으로 'text' | 'password' | 'number' 를 할당할 수 있습니다",
