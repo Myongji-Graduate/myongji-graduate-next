@@ -15,7 +15,9 @@ export default function useFunnel<Steps extends string>(
 
   const stepQueryKey = options?.stepQueryKey ?? DEFAULT_STEP_QUERY_KEY;
 
-  const step = searchParams.get(stepQueryKey) as Steps | undefined;
+  const stepQueryValue = searchParams.get(stepQueryKey) as Steps | null;
+
+  const step = (stepQueryValue ?? defaultStep) as Steps;
 
   const createUrl = useCallback(
     (step: Steps) => {
@@ -36,10 +38,10 @@ export default function useFunnel<Steps extends string>(
   );
 
   useEffect(() => {
-    if (!step) {
+    if (!stepQueryValue) {
       router.replace(createUrl(defaultStep));
     }
-  }, [defaultStep, step, setStep]);
+  }, [defaultStep, stepQueryValue, setStep]);
 
   const Step = ({ name, children }: React.PropsWithChildren<{ name: Steps }>) => {
     return <>{children}</>;
