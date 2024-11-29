@@ -7,7 +7,7 @@ import useDialog from '@/app/hooks/useDialog';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 
 export default function TakenLectureLabel() {
-  const { open } = useDialog(DIALOG_KEY.LECTURE_SEARCH);
+  const { isOpen, open } = useDialog(DIALOG_KEY.LECTURE_SEARCH);
 
   return (
     <LabelContainer
@@ -15,6 +15,7 @@ export default function TakenLectureLabel() {
       rightElement={
         <div className="flex gap-2">
           <Button
+            tabIndex={isOpen ? -1 : 0}
             data-cy="open-lecture-search-dialog-button"
             label="과목 추가"
             variant="secondary"
@@ -22,8 +23,14 @@ export default function TakenLectureLabel() {
             data-testid="toggle-lecture-search"
             onClick={open}
           />
-          <Link href="/grade-upload">
-            <Button className="max-lg:text-xs" label="성적표 재업로드" variant="secondary" size="xs" />
+          <Link tabIndex={isOpen ? -1 : 0} href="/grade-upload">
+            <Button
+              tabIndex={isOpen ? -1 : 0}
+              className="max-lg:text-xs"
+              label="성적표 재업로드"
+              variant="secondary"
+              size="xs"
+            />
           </Link>
         </div>
       }

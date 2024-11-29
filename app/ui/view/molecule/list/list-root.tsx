@@ -21,7 +21,7 @@ export function ListRoot<T extends ListRow>({ data, render, isScrollList = false
         isScrollList && 'h-72 overflow-auto',
         hasNotData && 'flex justify-center items-center',
       )}
-      tabIndex={0}
+      tabIndex={isScrollList ? 0 : -1}
     >
       {data.map((item, index) => render && render(item, index))}
       {hasNotData ? emptyDataRender() : null}
