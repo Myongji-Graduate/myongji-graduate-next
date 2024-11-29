@@ -28,7 +28,7 @@ export default function DeleteTakenLectureButton({ item, onDelete }: DeleteTaken
           size="default"
           data-cy={`taken-lecture-delete-model-trigger-${item.id}`}
           data-testid="taken-lecture-delete-button"
-          className="opacity-0 hover:opacity-100"
+          className="opacity-0 group-hover:opacity-100"
         />
       </AlertDialogTrigger>
       <AlertDialogContent>
