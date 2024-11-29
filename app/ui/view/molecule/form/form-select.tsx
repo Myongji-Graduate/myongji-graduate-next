@@ -1,17 +1,14 @@
 import Select from '../select';
+import { FormInputProps } from './form-root';
 import { FormContext } from './form.context';
 import { useContext } from 'react';
 import { useFormStatus } from 'react-dom';
 
-interface FormSelectProps {
-  label: string;
-  id: string;
+interface FormSelectProps extends FormInputProps {
   options: { value: string; placeholder: string }[];
-  placeholder: string;
-  required?: boolean;
 }
 
-export const FormSelect = ({ label, id, options, placeholder, required = true }: FormSelectProps) => {
+export const FormSelect = ({ label, id, options, placeholder, autoFocus, required = true }: FormSelectProps) => {
   const { errors } = useContext(FormContext);
   const { pending } = useFormStatus();
 
@@ -24,6 +21,7 @@ export const FormSelect = ({ label, id, options, placeholder, required = true }:
         {label}
       </label>
       <Select
+        autoFocus={autoFocus}
         required={required}
         disabled={pending}
         error={errors[id] ? true : false}

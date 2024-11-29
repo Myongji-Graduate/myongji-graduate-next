@@ -7,6 +7,14 @@ import { filterChildrenByType } from '@/app/utils/component.util';
 import AlertDestructive from '../alert-destructive/alert-destructive';
 import { useToast } from '../toast/use-toast';
 
+export interface FormInputProps {
+  label: string;
+  id: string;
+  placeholder: string;
+  required?: boolean;
+  autoFocus?: boolean;
+}
+
 export interface FormState {
   isSuccess: boolean;
   isFailure: boolean;
@@ -57,6 +65,7 @@ export function FormRoot({
     return React.Children.map(children, (child, index) => {
       if (!React.isValidElement(child) || child.type === FormSubmitButton) return null;
       if (child.type === FormSubmitButton) return child;
+
       return <div key={index}>{child}</div>;
     });
   };

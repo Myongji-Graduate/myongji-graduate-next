@@ -1,16 +1,12 @@
 import TextInput from '../../atom/text-input/text-input';
+import { FormInputProps } from './form-root';
 import { FormContext } from './form.context';
 import { useContext } from 'react';
 import { useFormStatus } from 'react-dom';
 
-interface FormNumberInputProps {
-  label: string;
-  id: string;
-  placeholder: string;
-  required?: boolean;
-}
+interface FormNumberInputProps extends FormInputProps {}
 
-export function FormNumberInput({ label, id, placeholder, required = false }: FormNumberInputProps) {
+export function FormNumberInput({ label, id, placeholder, autoFocus, required = false }: FormNumberInputProps) {
   const { errors } = useContext(FormContext);
   const { pending } = useFormStatus();
 
@@ -23,6 +19,7 @@ export function FormNumberInput({ label, id, placeholder, required = false }: Fo
         {label}
       </label>
       <TextInput
+        autoFocus={autoFocus}
         required={required}
         disabled={pending}
         error={errors[id] ? true : false}
