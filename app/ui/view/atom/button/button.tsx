@@ -5,13 +5,20 @@ import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'default' | 'xl';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps<T extends React.ElementType> = {
+  as?: T;
   label: string;
   variant?: 'primary' | 'secondary' | 'text' | 'list' | 'outlined' | 'dark';
   size?: ButtonSize;
   loading?: boolean;
   disabled?: boolean;
-}
+} & React.ComponentPropsWithoutRef<T>;
+
+type ButtonComponent = <T extends React.ElementType = 'button'>(
+  props: ButtonProps<T> & {
+    ref?: React.ComponentPropsWithRef<T>['ref'];
+  },
+) => React.ReactNode;
 
 export const ButtonVariants = cva(`flex justify-center items-center`, {
   variants: {
@@ -20,8 +27,8 @@ export const ButtonVariants = cva(`flex justify-center items-center`, {
       outlined: 'rounded-[100px] text-primary border-solid border-[1px] border-primary',
       dark: 'bg-dark rounded-[100px] text-white border-0 hover:bg-dark-hover',
       secondary: 'bg-white rounded-[100px] border-solid border-[1px] border-gray-6 hover:bg-white-hover',
-      text: 'font-medium text-slate-400 text-sm hover:text-slate-600',
-      list: 'py-1 px-3 bg-blue-500 rounded-[7px] text-white leading-5 font-medium text-base hover:bg-blue-600',
+      text: 'font-medium text-slate-500 text-sm hover:text-slate-600',
+      list: 'py-1 px-3 bg-blue-600 rounded-[7px] text-white leading-5 font-medium text-base hover:bg-blue-700',
     },
     size: {
       default: '',
@@ -47,16 +54,17 @@ export const LoadingIconVariants = cva('animate-spin shrink-0', {
   },
 });
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { className, label, variant = 'primary', size = 'default', loading, disabled, ...props },
-  ref,
+const Button: ButtonComponent = React.forwardRef(function Button<T extends React.ElementType = 'button'>(
+  { className, as, label, variant = 'primary', size = 'default', loading, disabled, ...props }: ButtonProps<T>,
+  ref: React.ComponentPropsWithRef<T>['ref'],
 ) {
+  const Element = as || 'button';
   const isDisabled = loading || disabled;
 
   return (
-    <button
+    <Element
       className={cn(isDisabled && 'opacity-50 cursor-not-allowed', ButtonVariants({ variant, size }), className)}
-      disabled={disabled}
+      disabled={isDisabled}
       {...props}
       ref={ref}
     >
@@ -64,7 +72,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         <LoadingSpinner className={cn(LoadingIconVariants({ size }))} style={{ transition: `width 150ms` }} />
       ) : null}
       {label}
-    </button>
+    </Element>
   );
 });
 

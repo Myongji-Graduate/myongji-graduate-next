@@ -34,7 +34,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
       <LabelContainer
         label={categoryName}
         rightElement={
-          <div className="text-2xl text-gray-6">
+          <div className="text-2xl text-gray-7">
             {takenCredit} / {totalCredit}
           </div>
         }

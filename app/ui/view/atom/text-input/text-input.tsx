@@ -54,11 +54,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function Te
           type={type}
           className={twMerge(
             'w-full focus:outline-none focus:ring-0 border-none bg-transparent text-sm rounded-lg transition duration-100 py-2',
-            'text-black-1',
             '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
             Icon ? 'pl-2' : 'pl-3',
             error ? 'pr-9' : 'pr-3',
-            disabled ? 'text-gray-6 placeholder:text-gray-6' : 'placeholder:text-gray-6',
+            disabled ? 'text-gray-8 placeholder:text-gray-6' : 'placeholder:text-gray-6 text-black-1',
           )}
           placeholder={placeholder}
           disabled={disabled}

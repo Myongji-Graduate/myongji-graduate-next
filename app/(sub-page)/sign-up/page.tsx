@@ -4,7 +4,6 @@ import ContentContainer from '@/app/ui/view/atom/content-container/content-conta
 import SignUpFormSkeleton from '@/app/ui/user/sign-up-form/sign-up-form.skeleton';
 import type { Metadata } from 'next';
 
-
 export const metadata: Metadata = {
   title: '회원가입',
   description: '졸업을 부탁해에 회원가입 하고 졸업요건을 간편하게 검사해 보세요.',

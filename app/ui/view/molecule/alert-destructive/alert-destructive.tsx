@@ -10,7 +10,7 @@ export default function AlertDestructive({ title, description }: AlertDestructiv
   return (
     <Alert variant="destructive">
       <ExclamationTriangleIcon className="h-4 w-4" />
-      <AlertTitle>{title}</AlertTitle>
+      {title ? <AlertTitle>{title}</AlertTitle> : null}
       <AlertDescription>{description}</AlertDescription>
     </Alert>
   );
