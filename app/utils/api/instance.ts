@@ -13,8 +13,10 @@ export const instance = fetchAX.create({
     const accessToken = cookies().get('accessToken')?.value;
 
     if (accessToken) {
-      config.headers = new Headers(config.headers);
-      config.headers?.set('Authorization', `Bearer ${accessToken}`);
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${accessToken}`,
+      };
     }
     return config;
   },
