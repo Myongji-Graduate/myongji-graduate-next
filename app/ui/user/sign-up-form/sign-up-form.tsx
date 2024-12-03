@@ -9,7 +9,7 @@ interface SignUpFormProps {
 export default function SignUpForm({ onSuccess }: SignUpFormProps) {
   return (
     <Form className="space-y-6" onSuccess={onSuccess} action={createUser} id="회원가입">
-      <Form.TextInput required={true} label="아이디" id="authId" placeholder="6자 이상 20자 이하" />
+      <Form.TextInput autoFocus={true} required={true} label="아이디" id="authId" placeholder="6자 이상 20자 이하" />
       <Form.PasswordInput
         required={true}
         label="비밀번호"

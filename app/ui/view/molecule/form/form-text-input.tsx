@@ -1,17 +1,14 @@
 import TextInput from '../../atom/text-input/text-input';
+import { FormInputProps } from './form-root';
 import { FormContext } from './form.context';
 import { useContext } from 'react';
 import { useFormStatus } from 'react-dom';
 
-interface FormTextInputProps {
-  label: string;
-  id: string;
-  placeholder: string;
-  required?: boolean;
+interface FormTextInputProps extends FormInputProps {
   value?: string;
 }
 
-export function FormTextInput({ label, id, value, placeholder, required = false }: FormTextInputProps) {
+export function FormTextInput({ label, id, value, placeholder, autoFocus, required = false }: FormTextInputProps) {
   const { errors } = useContext(FormContext);
   const { pending } = useFormStatus();
 
@@ -24,6 +21,7 @@ export function FormTextInput({ label, id, value, placeholder, required = false 
         {label}
       </label>
       <TextInput
+        autoFocus={autoFocus}
         required={required}
         disabled={pending}
         error={errors[id] ? true : false}
