@@ -26,7 +26,7 @@ type MockDatabaseAction = {
   reset: () => void;
   getTakenLectures: () => TakenLecturesResponse;
   getSearchLectures: () => SearchedLectureInfoResponse[];
-  addTakenLecture: (lectureId: number) => boolean;
+  addTakenLecture: (lectureId: string) => boolean;
   deleteTakenLecture: (lectureId: number) => boolean;
   createUser: (user: SignUpRequestBody) => boolean;
   signIn: (userData: SignInRequestBody) => boolean;
@@ -70,10 +70,10 @@ export const mockDatabase: MockDatabaseAction = {
     mockDatabaseStore.takenLectures.takenLectures = [
       ...mockDatabaseStore.takenLectures.takenLectures,
       {
-        id: lectureId,
+        id: 141,
+        lectureCode: 'KMA02106',
         year: '2023',
         semester: '2학기',
-        lectureCode: lecture.lectureCode,
         lectureName: lecture.name,
         credit: lecture.credit,
       },

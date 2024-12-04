@@ -7,8 +7,7 @@ import axios from 'axios';
 
 export interface LectureInfoResponse {
   [index: string]: string | number | boolean;
-  id: number;
-  lectureCode: string;
+  id: string;
   name: string;
   credit: number;
 }
