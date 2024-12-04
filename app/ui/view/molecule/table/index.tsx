@@ -12,6 +12,7 @@ interface TableProps<T extends ListRow> {
   renderActionButton?: (item: T) => JSX.Element;
   swipeable?: boolean;
   emptyDataRender?: () => ReactNode;
+  nonRenderableKey?: string[]; // 테이블에 렌더링 하지 않을 키 값
 }
 
 interface SwipeableTableProps<T extends ListRow> extends TableProps<T> {
@@ -38,6 +39,7 @@ export function Table<T extends ListRow>({
   swipeable = false,
   onSwipeAction,
   emptyDataRender,
+  nonRenderableKey = ['id'],
 }: SwipeableTableProps<T> | BasicTableProps<T>) {
   const cols = renderActionButton && !swipeable ? 'render-button' : headerInfo.length;
 
@@ -46,7 +48,7 @@ export function Table<T extends ListRow>({
       <List.Row key={index}>
         <Grid cols={isCol(cols) ? cols : 6}>
           {Object.keys(item).map((key, index) => {
-            if (key === 'id') return null;
+            if (nonRenderableKey.includes(key)) return null;
             return <Grid.Column key={index}>{item[key]}</Grid.Column>;
           })}
           {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
