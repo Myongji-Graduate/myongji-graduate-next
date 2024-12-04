@@ -60,7 +60,7 @@ export const deleteTakenLecture = async (lectureId: number) => {
   }
 };
 
-export const addTakenLecture = async (lectureId: number) => {
+export const addTakenLecture = async (lectureId: string) => {
   try {
     await instance.post(
       API_PATH.takenLectures,

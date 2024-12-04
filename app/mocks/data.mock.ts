@@ -269,43 +269,10 @@ export const credits = JSON.parse(`[
 
 export const searchLectures = [
   {
-    id: 1,
-    lectureCode: 'KMA02106',
+    id: 'KMA02106',
     name: '영어1',
     credit: 2,
     taken: false,
     revoked: true,
-  },
-  {
-    id: 2,
-    lectureCode: 'KMA02106',
-    name: '영어2',
-    credit: 2,
-    taken: true,
-    revoked: false,
-  },
-  {
-    id: 3,
-    lectureCode: 'KMA02136',
-    name: '영어무역이론',
-    credit: 3,
-    taken: false,
-    revoked: false,
-  },
-  {
-    id: 4,
-    lectureCode: 'KMA02106',
-    name: '영어회화3',
-    credit: 1,
-    taken: false,
-    revoked: false,
-  },
-  {
-    id: 6,
-    lectureCode: 'KMA02106',
-    name: '영어회화4',
-    credit: 2,
-    taken: true,
-    revoked: false,
   },
 ];

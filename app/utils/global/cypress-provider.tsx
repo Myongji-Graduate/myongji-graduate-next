@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 export function CypressProvider({ children }: React.PropsWithChildren) {
   useEffect(() => {
     if (window.Cypress) {
-      window.addTakenLecture = async (lectureId: number[]) => {
-        await Promise.all(lectureId.map((id) => addTakenLecture(id)));
+      window.addTakenLecture = async (lectureCode: string[]) => {
+        await Promise.all(lectureCode.map((id) => addTakenLecture(id)));
       };
 
       window.resetMockDB = async () => {
@@ -21,7 +21,7 @@ export function CypressProvider({ children }: React.PropsWithChildren) {
 
 declare global {
   interface Window {
-    addTakenLecture: (lectureId: number[]) => Promise<void>;
+    addTakenLecture: (lectureCode: string[]) => Promise<void>;
     resetMockDB: () => Promise<void>;
   }
 }

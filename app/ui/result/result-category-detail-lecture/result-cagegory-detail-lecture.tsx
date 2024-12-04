@@ -46,6 +46,7 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
           headerInfo={headerInfo}
           data={isTakenLecture ? takenLectures : haveToLectures}
           emptyDataRender={emptyDataRender}
+          nonRenderableKey={[]}
         />
       )}
     </div>

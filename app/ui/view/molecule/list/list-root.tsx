@@ -2,7 +2,7 @@ import { cn } from '@/app/utils/shadcn/utils';
 import { ReactNode } from 'react';
 
 export interface ListRow {
-  id: number;
+  id: number | string;
   [key: string]: string | number | boolean;
 }
 export interface ListRootProps<T extends ListRow> {
