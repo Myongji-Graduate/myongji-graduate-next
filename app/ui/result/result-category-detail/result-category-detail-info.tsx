@@ -1,7 +1,6 @@
 import ResultCategoryDetailContent from '@/app/ui/result/result-category-detail-content/result-category-detail-content';
 import {
   CreditResponse,
-  LectureInfoResponse,
   ResultCategoryDetailLecturesResponse,
   useFetchCredits,
   useFetchResultCategoryDetailInfo,
@@ -13,7 +12,7 @@ const CHAPEL_TOTAL_CREDIT = 2.0;
 const CHAPEL_TOTAL_COUNT = 4;
 const CHAPEL_CREDIT = CHAPEL_TOTAL_CREDIT / CHAPEL_TOTAL_COUNT;
 
-const CHAPEL_LECTURE_INFO: LectureInfoResponse = {
+const CHAPEL_LECTURE_INFO = {
   id: 0,
   lectureCode: 'KMA02101',
   name: '채플',
