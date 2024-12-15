@@ -12,7 +12,12 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
   try {
     const parsingText = await parsePDFtoText(formData);
     await instance.post(API_PATH.registerUserGrade, { parsingText });
-    redirect('/result');
+    return {
+      isSuccess: true,
+      isFailure: false,
+      validationError: {},
+      message: '',
+    };
   } catch (error) {
     if (error instanceof HttpError) {
       return {
