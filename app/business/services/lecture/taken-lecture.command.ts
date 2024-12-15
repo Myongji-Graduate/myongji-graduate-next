@@ -7,6 +7,7 @@ import { instance } from '@/app/utils/api/instance';
 import { revalidateTag } from 'next/cache';
 import { TAG } from '@/app/utils/http/tag';
 import { ERROR_CODE } from '@/app/utils/api/constant';
+import fetchAX from 'fetch-ax';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   try {
@@ -37,7 +38,10 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
 };
 
 export const parsePDFtoText = async (formData: FormData) => {
-  return (await fetch(API_PATH.parsePDFtoText, { method: 'POST', body: formData })).text();
+  const response = await fetchAX.post(API_PATH.parsePDFtoText, formData, {
+    responseType: 'text',
+  });
+  return response.data;
 };
 
 export const deleteTakenLecture = async (lectureId: number) => {
