@@ -3,8 +3,6 @@ import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../../api-path';
 import { BadRequestError, HttpError } from '@/app/utils/http/http-error';
 import { instance } from '@/app/utils/api/instance';
-import { revalidateTag } from 'next/cache';
-import { TAG } from '@/app/utils/http/tag';
 import { ERROR_CODE } from '@/app/utils/api/constant';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
@@ -44,7 +42,7 @@ export const deleteTakenLecture = async (lectureId: number) => {
     await instance.delete(`${API_PATH.takenLectures}/${lectureId}`, {
       responseType: 'text',
     });
-    revalidateTag(TAG.GET_TAKEN_LECTURES);
+
     return {
       isSuccess: true,
     };
@@ -68,7 +66,6 @@ export const addTakenLecture = async (lectureId: string) => {
         responseType: 'text',
       },
     );
-    revalidateTag(TAG.GET_TAKEN_LECTURES);
     return {
       isSuccess: true,
       isFailure: false,
