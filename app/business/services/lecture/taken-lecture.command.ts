@@ -47,7 +47,6 @@ export const deleteTakenLecture = async (lectureId: number) => {
     await instance.delete(`${API_PATH.takenLectures}/${lectureId}`, {
       responseType: 'text',
     });
-    revalidateTag(TAG.GET_TAKEN_LECTURES);
     return {
       isSuccess: true,
     };
