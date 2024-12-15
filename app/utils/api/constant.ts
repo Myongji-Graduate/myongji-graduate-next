@@ -20,7 +20,7 @@ export const ERROR_CODE = {
   UNFITTED_GRADUATION_CATEGORY: '',
 
   // LECTURE (아래 세개 모두 PDF Parsing에서 발생하는 에러)
-  INCORRECT_STUDENT_NUMBER: '',
-  NON_EXISTED_LECTURE: '',
-  UNSUPPORTED_STUDENT_CATEGORY: '',
+  INCORRECT_STUDENT_NUMBER: '학번과 일치하는 성적PDF를 입력해주세요.',
+  NON_EXISTED_LECTURE: '알수없는 수강과목이 존재해요. 채널톡으로 문의해주세요',
+  UNSUPPORTED_STUDENT_CATEGORY: '현재 지원하지않는 학번이에요.',
 } as const;
