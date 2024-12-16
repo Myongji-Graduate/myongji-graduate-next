@@ -5,6 +5,8 @@ import { BadRequestError } from '@/app/utils/http/http-error';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { instance } from '@/app/utils/api/instance';
+import { revalidateTag } from 'next/cache';
+import { TAG } from '@/app/utils/http/tag';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   const parsingText = await parsePDFtoText(formData);
@@ -45,7 +47,6 @@ export const deleteTakenLecture = async (lectureId: number) => {
     await instance.delete(`${API_PATH.takenLectures}/${lectureId}`, {
       responseType: 'text',
     });
-
     return {
       isSuccess: true,
     };
@@ -69,6 +70,7 @@ export const addTakenLecture = async (lectureId: string) => {
         responseType: 'text',
       },
     );
+    revalidateTag(TAG.GET_TAKEN_LECTURES);
     return {
       isSuccess: true,
       isFailure: false,
