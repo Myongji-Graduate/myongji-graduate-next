@@ -2,6 +2,7 @@
 import useFunnel from '@/app/hooks/useFunnel';
 import SignUpTerm from '../../sign-up/components/sign-up-terms';
 import { useState } from 'react';
+import UploadTakenLecture from './upload-taken-lecture';
 
 export default function AnonymousContainer() {
   const { Funnel, setStep } = useFunnel<'terms' | 'form' | 'result'>('terms');
@@ -17,12 +18,12 @@ export default function AnonymousContainer() {
         />
       </Funnel.Step>
       <Funnel.Step name="form">
-        {/* <UploadTakenLecture
+        <UploadTakenLecture
           onNext={(data: any) => {
             setStep('result');
             setResult(data.value);
           }}
-        /> */}
+        />
       </Funnel.Step>
       <Funnel.Step name="result">{/* <AnonymousResult data={result} /> */}</Funnel.Step>
     </Funnel>

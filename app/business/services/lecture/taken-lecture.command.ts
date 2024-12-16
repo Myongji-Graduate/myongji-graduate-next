@@ -29,6 +29,47 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
   redirect('/result');
 };
 
+export const registerAnonymousGrade = async (prevState: FormState, formData: FormData) => {
+  const engLv = formData.get('engLv');
+  const file = formData.get('file');
+  if (!(file instanceof File)) {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
+      message: '등록할 수 없는 파일입니다.',
+    };
+  }
+
+  const gradePDF = new FormData();
+  gradePDF.append('file', file);
+
+  const parsingText = await parsePDFtoText(gradePDF);
+  const res = await fetch(`${API_PATH.graduations}/check`, {
+    method: 'POST',
+    body: JSON.stringify({ engLv, parsingText }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!res.ok) {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
+      message: 'fail upload grade',
+    };
+  }
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: 'success upload grade',
+    value: await res.json(),
+  };
+};
+
 export const parsePDFtoText = async (formData: FormData) => {
   const res = await fetch(API_PATH.parsePDFtoText, { method: 'POST', body: formData });
   if (!res.ok) {
