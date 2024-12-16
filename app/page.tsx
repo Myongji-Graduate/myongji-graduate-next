@@ -42,9 +42,19 @@ export default function HomePage() {
           </div>
           <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
         </p>
-        <Link href="/result">
-          <Button label="검사 시작" variant="dark" size="xl" />
-        </Link>
+        <div className="flex flex-col gap-2 md:gap-4">
+          <Link href="/result">
+            <Button label="검사 시작" variant="dark" size="xl" />
+          </Link>
+          <Link href="/anonymous">
+            <Button
+              label="비회원으로 시작하기"
+              variant="outlined"
+              size="xl"
+              className="px-6 md:px-20 bg-white opacity-90 hover:opacity-100"
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );
