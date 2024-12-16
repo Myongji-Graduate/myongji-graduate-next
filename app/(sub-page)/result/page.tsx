@@ -1,5 +1,4 @@
 import UserInfoCard from '@/app/ui/user/user-info-card/user-info-card';
-import ResultCategoryDetail from '@/app/ui/result/result-category-detail/result-category-detail';
 import { Suspense } from 'react';
 import UserInfoCardSkeleton from '@/app/ui/user/user-info-card/user-info-card.skeleton';
 import ResultCategory from '@/app/ui/result/result-category/result-category';
@@ -7,6 +6,7 @@ import ResultCategorySkeleton from '@/app/ui/result/result-category/result-categ
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 import { ResultCategoryKey } from '@/app/utils/key/result-category.key';
 import type { Metadata } from 'next';
+import ResultCategoryDetailContainer from '@/app/(sub-page)/result/components/result-category-detail-container';
 
 export const metadata: Metadata = {
   title: '졸업 요건 검사 결과',
@@ -42,7 +42,7 @@ function ResultPage({ searchParams }: ResultPageProp) {
       <Suspense fallback={<ResultCategorySkeleton />}>
         <ResultCategory />
       </Suspense>
-      <ResultCategoryDetail category={category} />
+      <ResultCategoryDetailContainer category={category} />
     </div>
   );
 }
