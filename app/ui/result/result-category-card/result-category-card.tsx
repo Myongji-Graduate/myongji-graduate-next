@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useSetAtom } from 'jotai';
 import { isDialogOpenAtom } from '@/app/store/stores/dialog';
 import Button from '../../view/atom/button/button';
-import { getPercentage } from '@/app/utils/chart.util';
+import { getPercentage } from '@/app/utils/calculate.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Responsive from '../../responsive';
 

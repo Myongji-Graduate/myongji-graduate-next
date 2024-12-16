@@ -1,6 +1,6 @@
 import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/user/user.type';
 import InitUserAnnounce from './init-user-announce';
-import UserInfoContent from './user-info-content';
+import UserInfoContent from './user-info-content/user-info-content';
 import { fetchUser } from '@/app/business/services/user/user.query';
 
 async function UserInfoCard() {
