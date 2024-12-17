@@ -27,6 +27,7 @@ export default function HomePage() {
             fill={true}
             className="absolute object-contain z-0"
             quality={50}
+            priority={true}
           />
         </div>
       </Responsive>
