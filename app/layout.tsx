@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     '명지대학교 졸업사정결과 조회서비스 "졸업을 부탁해"는 미이수 / 이수 과목정보 및 잔여학점 조회, 졸업사정예측 서비스를 원클릭으로 제공합니다.',
   icons: {
-    icon: 'https://github.com/Myongji-Graduate/MyongjiGraduate-BE/assets/75975946/2a7354ae-dffe-4250-8b83-a211a07ff5d2',
+    icon: '/assets/favicon.png',
   },
   openGraph: {
     siteName: '졸업을 부탁해',
