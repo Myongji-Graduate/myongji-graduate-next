@@ -23,7 +23,7 @@ export default function SideNavigationBar({ header, content, footer }: SideNavig
 
   return (
     <Sheet open={isOpen} onOpenChange={handleSideNavOpen}>
-      <SheetTrigger className="h-6">
+      <SheetTrigger aria-label="menu-button" className="h-6">
         <HamburgerMenuIcon className="w-6 h-6 text-white" />
       </SheetTrigger>
       <SheetContent className="z-3">

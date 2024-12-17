@@ -37,7 +37,7 @@ export function NavigationItem({ href, label, target }: NavigationItemProps) {
     <Link href={href} target={target} className="flex items-center justify-between">
       <Button
         size={'xs'}
-        className="text-black lg:text-white hover:text-slate-400 lg:text-base text-lg my-1"
+        className="text-black lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg "
         variant={'text'}
         label={label}
       />
