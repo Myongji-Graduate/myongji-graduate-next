@@ -1,18 +1,19 @@
-'use client';
 import { UserInfoResponse } from '@/app/business/services/user/user.type';
 import { MAJOR_NOTATION } from '@/app/utils/key/result-category.key';
 import React from 'react';
-import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import { getPercentage } from '@/app/utils/chart.util';
 import UserInfoMessage from './user-info-message';
-import { useFetchCredits } from '@/app/store/querys/result';
+import { CreditResponse } from '@/app/store/querys/result';
+import dynamic from 'next/dynamic';
+
+const PieChart = dynamic(() => import('../../view/molecule/pie-chart/pie-chart'), { ssr: false });
 
 interface UserInfoContentProps {
   data: UserInfoResponse;
+  categories: CreditResponse[];
 }
 
-function UserInfoContent({ data }: UserInfoContentProps) {
-  const { data: categories } = useFetchCredits();
+async function UserInfoContent({ data, categories }: UserInfoContentProps) {
   const { studentNumber, studentName, completeDivision: majors, totalCredit, takenCredit, graduated } = data;
 
   const remainCredit = categories.reduce((accumulator, category) => {

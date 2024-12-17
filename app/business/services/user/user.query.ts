@@ -12,6 +12,7 @@ import {
 } from './user.validation';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { instance } from '@/app/utils/api/instance';
+import { CreditResponse } from '@/app/store/querys/result';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
   try {
@@ -34,6 +35,16 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
     } else {
       throw 'Invalid user info response schema.';
     }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchCredits(): Promise<CreditResponse[]> {
+  try {
+    const { data } = await instance.get<CreditResponse[]>(`${API_PATH.graduations}/credits`);
+
+    return data;
   } catch (error) {
     throw error;
   }
