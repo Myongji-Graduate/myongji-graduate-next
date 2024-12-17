@@ -26,6 +26,7 @@ export default function HomePage() {
             alt="main-book-background"
             fill={true}
             className="absolute object-contain z-0"
+            quality={60}
           />
         </div>
       </Responsive>
