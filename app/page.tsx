@@ -45,6 +45,7 @@ export default function HomePage() {
               src={graduationCap}
               alt="graduation-cap"
               className="absolute bottom-2 left-8 sm:bottom-10 sm:left-[-24px] sm:w-[52px] sm:h-[52px] w-[36px] h-[36px]"
+              sizes="(min-width: 640px) 52px, 36px"
             />
           </div>
           <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
