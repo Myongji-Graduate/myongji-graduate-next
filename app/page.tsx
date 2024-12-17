@@ -38,7 +38,7 @@ export default function HomePage() {
         className="absolute top-24 right-4"
       />
       <div className="relative h-full flex flex-col items-center justify-center gap-6 z-1">
-        <p className="text-center flex flex-col gap-4">
+        <div className="text-center flex flex-col gap-4">
           <div className="relative">
             <div
               className="z-2 text-3xl font-bold sm:text-7xl relative text-white"
@@ -56,12 +56,13 @@ export default function HomePage() {
             <Image
               src={graduationCap}
               alt="graduation-cap"
-              className="absolute bottom-2 left-8 sm:bottom-10 sm:left-[-24px] sm:w-[52px] sm:h-[52px] w-[36px] h-[36px]"
+              className="absolute object-contain bottom-2 left-8 sm:bottom-10 sm:left-[-24px] sm:w-[52px] w-[36px]"
               sizes="(min-width: 640px) 52px, 36px"
+              quality={100}
             />
           </div>
           <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
-        </p>
+        </div>
         <Link href="/result">
           <Button label="검사 시작" variant="dark" size="xl" />
         </Link>
