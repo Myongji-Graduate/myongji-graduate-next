@@ -6,10 +6,18 @@ import Responsive from './ui/responsive';
 import NavigationBar from './(sub-page)/components/navigation-bar';
 import Button from './ui/view/atom/button/button';
 import Link from 'next/link';
+import localFont from 'next/font/local';
+
+const vitroFont = localFont({
+  src: '../public/assets/font/vitro.woff2',
+  variable: '--font-vitro',
+  weight: '700',
+  display: 'swap',
+});
 
 export default function HomePage() {
   return (
-    <div className="bg-primary w-[100vw] h-[100vh] overflow-hidden relative">
+    <div className={`bg-primary w-[100vw] h-[100vh] overflow-hidden relative ${vitroFont.variable}`}>
       <NavigationBar />
       <Responsive minWidth={768}>
         <div className="fixed h-[100vh] right-0 w-[60%]">
@@ -31,12 +39,15 @@ export default function HomePage() {
       <div className="relative h-full flex flex-col items-center justify-center gap-6 z-1">
         <p className="text-center flex flex-col gap-4">
           <div className="relative">
-            <div className="z-2 text-3xl font-bold sm:text-7xl relative text-white" style={{ fontFamily: 'VitroCore' }}>
-              <span className="text-etc-yellow" style={{ fontFamily: 'VitroCore' }}>
+            <div
+              className="z-2 text-3xl font-bold sm:text-7xl relative text-white"
+              style={{ fontFamily: 'var(--font-vitro)' }}
+            >
+              <span className="text-etc-yellow" style={{ fontFamily: 'var(--font-vitro)' }}>
                 졸
               </span>
               업을&nbsp;
-              <span className="text-etc-yellow" style={{ fontFamily: 'VitroCore' }}>
+              <span className="text-etc-yellow" style={{ fontFamily: 'var(--font-vitro)' }}>
                 부
               </span>
               탁해
