@@ -10,7 +10,9 @@ function SubPageLayout({ children }: LayoutProps) {
   return (
     <>
       <NavigationBar />
-      <Image src={background} width={800} height={288} className="w-full bg-white h-[18rem]" alt="background" />
+      <div className="relative bg-primary h-[18rem]">
+        <Image src={background} sizes="100vw" className="absolute bottom-0 bg-white" alt="background" />
+      </div>
       <div className="flex justify-center">{children}</div>
     </>
   );
