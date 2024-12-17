@@ -12,7 +12,14 @@ export default function HomePage() {
     <div className="bg-primary w-[100vw] h-[100vh] overflow-hidden relative">
       <NavigationBar />
       <Responsive minWidth={768}>
-        <Image src={mainBookBackground} alt="main-book-background" className="fixed right-0 w-[60%] z-0" />
+        <div className="fixed h-[100vh] right-0 w-[60%]">
+          <Image
+            src={mainBookBackground}
+            alt="main-book-background"
+            fill={true}
+            className="absolute object-contain z-0"
+          />
+        </div>
       </Responsive>
       <Image
         src={mainMyongjiLogo}
