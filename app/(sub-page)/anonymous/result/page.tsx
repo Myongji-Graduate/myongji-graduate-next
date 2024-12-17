@@ -1,5 +1,6 @@
 import { Metadata } from 'next/types';
-import AnonymousResult from '../components/anonymous-result';
+import AnonymousResult from './component/anonymous-result';
+import { ResultCategoryKey } from '@/app/utils/key/result-category.key';
 
 export const metadata: Metadata = {
   title: '졸업 요건 검사 결과',
@@ -18,8 +19,18 @@ export const metadata: Metadata = {
   },
 };
 
-function AnonymousResultPage() {
-  return <AnonymousResult />;
+interface AnonymousResultPageProp {
+  searchParams: { category: ResultCategoryKey };
+}
+
+function AnonymousResultPage({ searchParams }: AnonymousResultPageProp) {
+  const { category } = searchParams;
+
+  return (
+    <>
+      <AnonymousResult category={category} />
+    </>
+  );
 }
 
 export default AnonymousResultPage;
