@@ -17,16 +17,16 @@ const vitroFont = localFont({
 
 export default function HomePage() {
   return (
-    <div className={`bg-primary w-[100vw] h-[100vh] overflow-hidden relative ${vitroFont.variable}`}>
+    <div className={`bg-primary w-screen h-screen overflow-hidden relative ${vitroFont.variable}`}>
       <NavigationBar />
       <Responsive minWidth={768}>
-        <div className="fixed h-[100vh] right-0 w-[60%]">
+        <div className="fixed h-screen right-0 w-7/12">
           <Image
             src={mainBookBackground}
             alt="main-book-background"
             fill={true}
             className="absolute object-contain z-0"
-            quality={60}
+            quality={50}
           />
         </div>
       </Responsive>
