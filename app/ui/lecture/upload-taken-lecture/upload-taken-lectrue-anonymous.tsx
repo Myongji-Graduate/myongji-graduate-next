@@ -1,16 +1,16 @@
 'use client';
+import Manual from '@/app/(sub-page)/grade-upload/components/manual';
 import { registerAnonymousGrade } from '@/app/business/services/lecture/taken-lecture.command';
 import Form from '@/app/ui/view/molecule/form';
 import UploadPdf from '@/app/ui/view/molecule/upload-pdf/upload-pdf';
-import Manual from '../../grade-upload/components/manual';
 
-interface UploadTakenLectureProp {
-  onNext?: (data: any) => void;
+interface UploadTakenLectureAnonymousProp {
+  onSuccess?: (data: any) => void;
 }
 
-function UploadTakenLecture({ onNext }: UploadTakenLectureProp) {
+function UploadTakenLectureAnonymous({ onSuccess }: UploadTakenLectureAnonymousProp) {
   const handleSuccess = (data: any) => {
-    onNext?.(data);
+    onSuccess?.(data);
   };
 
   return (
@@ -38,4 +38,4 @@ function UploadTakenLecture({ onNext }: UploadTakenLectureProp) {
   );
 }
 
-export default UploadTakenLecture;
+export default UploadTakenLectureAnonymous;
