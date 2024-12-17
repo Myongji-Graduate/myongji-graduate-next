@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 import AnonymousContainer from './components/anonymous-container';
 
 export const metadata: Metadata = {
@@ -8,9 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function AnonymousPage() {
-  return (
-    <ContentContainer className="max-md:max-w-[500px] md:w-[700px] p-4 py-6 md:p-8">
-      <AnonymousContainer />
-    </ContentContainer>
-  );
+  return <AnonymousContainer />;
 }
