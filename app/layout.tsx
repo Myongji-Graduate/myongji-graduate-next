@@ -38,7 +38,8 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <link
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+          as="style"
           rel="stylesheet"
         />
       </head>
