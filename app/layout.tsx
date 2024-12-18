@@ -9,7 +9,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mju-graduate.com'),
-  title: { default: '졸업을 부탁해', template: '%s | 졸업을 부탁해' },
+  title: { default: '명지대학교 졸업사정결과 조회', template: '%s | 졸업을 부탁해' },
   description:
     '명지대학교 졸업사정결과 조회서비스 "졸업을 부탁해"는 미이수 / 이수 과목정보 및 잔여학점 조회, 졸업사정예측 서비스를 원클릭으로 제공합니다.',
   icons: {
@@ -27,6 +27,8 @@ export const metadata: Metadata = {
       },
     ],
   },
+  keywords: ['명지대학교 졸업', '졸업을 부탁해', '명지대학교', '졸업사정'],
+  robots: 'index, follow',
 };
 
 export default function RootLayout({
