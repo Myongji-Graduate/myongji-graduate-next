@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /my/
+Disallow: /result/
+Allow: /
+
+Sitemap: https://mju-graduate.com/sitemap.xml
