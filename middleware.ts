@@ -77,5 +77,5 @@ async function retryAuth(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|mockServiceWorker|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/((?!api|sitemap|mockServiceWorker|_next/static|_next/image|.*\\.png$).*)'],
 };
