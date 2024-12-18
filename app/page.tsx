@@ -38,10 +38,10 @@ export default function HomePage() {
         height={120}
         className="absolute top-24 right-4"
       />
-      <div className="relative h-full flex flex-col items-center justify-center gap-6 z-1">
-        <div className="text-center flex flex-col gap-4">
+      <main className="relative h-full flex flex-col items-center justify-center gap-6 z-1">
+        <section className="text-center flex flex-col gap-4">
           <div className="relative">
-            <div
+            <h1
               className="z-2 text-3xl font-bold sm:text-7xl relative text-white"
               style={{ fontFamily: 'var(--font-vitro)' }}
             >
@@ -53,7 +53,7 @@ export default function HomePage() {
                 부
               </span>
               탁해
-            </div>
+            </h1>
             <Image
               src={graduationCap}
               alt="graduation-cap"
@@ -62,12 +62,12 @@ export default function HomePage() {
               quality={100}
             />
           </div>
-          <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
-        </div>
+          <h2 className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</h2>
+        </section>
         <Link href="/result">
           <Button label="검사 시작" variant="dark" size="xl" />
         </Link>
-      </div>
+      </main>
     </div>
   );
 }
