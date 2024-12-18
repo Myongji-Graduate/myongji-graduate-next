@@ -31,6 +31,54 @@ export const metadata: Metadata = {
   robots: 'index, follow',
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: 'https://mju-graduate.com',
+  name: '명지대학교 졸업을 부탁해',
+  description:
+    "명지대학교 졸업사정결과 조회서비스 '졸업을 부탁해'는 미이수 / 이수 과목정보 및 잔여학점 조회, 졸업사정예측 서비스를 원클릭으로 제공합니다.",
+  publisher: {
+    '@type': 'Organization',
+    name: '명지대학교 졸업을 부탁해 팀',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://github.com/Myongji-Graduate/MyongjiGraduate-FE/assets/75975946/79eb6efd-9def-4a95-9c75-367a81ea3474',
+      width: 1200,
+      height: 630,
+    },
+  },
+  potentialAction: [
+    {
+      '@type': 'LoginAction',
+      target: 'https://mju-graduate.com/sign-in',
+    },
+    {
+      '@type': 'SearchAction',
+      name: '과목 검색',
+      description: '유저가 과목을 검색할 수 있습니다.',
+      target: 'https://prod.mju-graduate.com/api/v1/lectures?type=lectureName&&keyword={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+    {
+      '@type': 'ReadAction',
+      target: 'https://mju-graduate.com/result',
+      name: '졸업사정 결과 조회',
+      description: '유저가 졸업사정 결과를 조회할 수 있습니다.',
+      agent: {
+        '@type': 'Person',
+        name: 'User',
+      },
+      object: {
+        '@type': 'WebPage',
+        name: '졸업사정 결과 페이지',
+        url: 'https://mju-graduate.com/result',
+      },
+    },
+  ],
+  inLanguage: 'ko',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,6 +92,7 @@ export default function RootLayout({
           as="style"
           rel="stylesheet"
         />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>
         <ChannelTalk />
