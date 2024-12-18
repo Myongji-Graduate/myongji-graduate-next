@@ -50,10 +50,6 @@ const jsonLd = {
   },
   potentialAction: [
     {
-      '@type': 'LoginAction',
-      target: 'https://mju-graduate.com/sign-in',
-    },
-    {
       '@type': 'SearchAction',
       name: '과목 검색',
       description: '유저가 과목을 검색할 수 있습니다.',
