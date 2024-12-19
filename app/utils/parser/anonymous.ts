@@ -1,5 +1,9 @@
 import { UserInfoResponse } from '@/app/business/services/user/user.type';
-import { CreditResponse } from '@/app/store/querys/result';
+import {
+  CreditResponse,
+  ResultCategoryDetailLecturesResponse,
+  ResultCategoryDetailResponse,
+} from '@/app/store/querys/result';
 import { RESULT_CATEGORY } from '../key/result-category.key';
 
 interface AreaType {
@@ -15,7 +19,7 @@ interface AreaType {
 interface DetailCategoryType {
   totalCredits: number;
   takenCredits: number;
-  takenLectrues: LectureType[];
+  takenLectures: LectureType[];
   haveToLectures: LectureType[];
   detailCategoryName: string;
   normalLeftCredit: number;
@@ -66,7 +70,7 @@ export const parseUserInfo = (data: AnonymousResultType): UserInfoResponse => {
   };
 };
 
-export const parseCredit = ({ graduationResult }: AnonymousResult): CreditResponse[] => {
+export const parseCredit = ({ graduationResult }: AnonymousResultType): CreditResponse[] => {
   const detailCredits = graduationResult.detailGraduationResults.map(
     (item): CreditResponse => ({
       category: item.graduationCategory,
@@ -98,4 +102,38 @@ export const parseCredit = ({ graduationResult }: AnonymousResult): CreditRespon
   ];
 
   return [...detailCredits, ...additionalCredits];
+};
+
+export const parseCreditDetailInfo = (result: AnonymousResultType, category: string): ResultCategoryDetailResponse => {
+  const item = result.graduationResult.detailGraduationResults.filter((value) => {
+    return category === value.graduationCategory;
+  })[0];
+
+  return {
+    detailCategory: item.detailCategory.map((detailItem): ResultCategoryDetailLecturesResponse => {
+      return {
+        categoryName: detailItem.detailCategoryName,
+        totalCredit: detailItem.totalCredits,
+        takenCredit: detailItem.takenCredits,
+        completed: detailItem.completed,
+        takenLectures: detailItem.takenLectures.map((lecture) => {
+          return {
+            id: lecture.id,
+            name: lecture.name,
+            credit: lecture.credit,
+          };
+        }),
+        haveToLectures: detailItem.haveToLectures.map((lecture) => {
+          return {
+            id: lecture.id,
+            name: lecture.name,
+            credit: lecture.credit,
+          };
+        }),
+      };
+    }),
+    totalCredit: item.totalCredit,
+    takenCredit: item.takenCredit,
+    completed: item.completed,
+  };
 };

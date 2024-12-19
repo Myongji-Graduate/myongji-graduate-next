@@ -1,7 +1,7 @@
 'use client';
 import { ResultCategoryViewer } from '@/app/ui/result/result-category/result-category';
 import UserInfoContentViewer from '@/app/ui/user/user-info-card/user-info-content/user-info-content-viewer';
-import { AnonymousResultType, parseCredit, parseUserInfo } from '@/app/utils/parser/anonymous';
+import { AnonymousResultType, parseCredit, parseCreditDetailInfo, parseUserInfo } from '@/app/utils/parser/anonymous';
 import { useAnonymousContext } from '../provider';
 import { useRouter } from 'next/navigation';
 import ResultCategoryDetailDialog from '@/app/ui/result/result-category-detail/result-category-detail-dialog';
@@ -15,7 +15,6 @@ interface AnonymousResultProp {
 const AnonymousResult = ({ category }: AnonymousResultProp) => {
   const { result } = useAnonymousContext();
   const router = useRouter();
-
   if (!result) {
     router.back();
     return <></>;
@@ -27,9 +26,15 @@ const AnonymousResult = ({ category }: AnonymousResultProp) => {
         <UserInfoContentViewer data={parseUserInfo(result)} categories={parseCredit(result)} />
       </div>
       <ResultCategoryViewer categories={parseCredit(result)} className="top-[20rem] md:top-[27rem]" />
-      <ResultCategoryDetailDialog querystring={category}>
-        <ResultCategoryDetailInfoViewer category={category} categories={parseCredit(result)} categoryInfo={undefined} />
-      </ResultCategoryDetailDialog>
+      {category ? (
+        <ResultCategoryDetailDialog querystring={category}>
+          <ResultCategoryDetailInfoViewer
+            category={category}
+            categories={parseCredit(result)}
+            categoryInfo={parseCreditDetailInfo(result, category)}
+          />
+        </ResultCategoryDetailDialog>
+      ) : null}
     </div>
   );
 };
