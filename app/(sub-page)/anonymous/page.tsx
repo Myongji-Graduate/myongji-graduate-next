@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import AnonymousContainer from './components/anonymous-container';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: '비회원으로 검사하기',
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function AnonymousPage() {
-  return <AnonymousContainer />;
+  return (
+    <Suspense>
+      <AnonymousContainer />
+    </Suspense>
+  );
 }
