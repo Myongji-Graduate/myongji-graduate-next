@@ -1,6 +1,7 @@
 import { Metadata } from 'next/types';
 import AnonymousResult from './component/anonymous-result';
 import { ResultCategoryKey } from '@/app/utils/key/result-category.key';
+import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 
 export const metadata: Metadata = {
   title: '졸업 요건 검사 결과',
@@ -27,9 +28,9 @@ function AnonymousResultPage({ searchParams }: AnonymousResultPageProp) {
   const { category } = searchParams;
 
   return (
-    <>
+    <ContentContainer className="max-md:max-w-[500px] md:w-[700px] p-4 py-6 md:p-8">
       <AnonymousResult category={category} />
-    </>
+    </ContentContainer>
   );
 }
 
