@@ -50,10 +50,6 @@
 - 성적표 기반의 맞춤형 졸업 요건 검사 결과를 제공합니다.
 
 
-### 🎃 조회수 & 사용자 통계
-
-<img width="80%" height="80%" src="https://github.com/Myongji-Graduate/MyongjiGraduate-BE/assets/64758861/86857528-df46-4055-b7f8-bf5cdf0865a4">
-
 ### 🎃 사용자 후기
 
 <img width="30%" height="30%" src="https://github.com/user-attachments/assets/1eeff796-8923-4509-80c3-364ee1c9c4e5">
