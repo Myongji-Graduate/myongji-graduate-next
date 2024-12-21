@@ -2,6 +2,7 @@ import ResultCategoryDetailContent from '@/app/ui/result/result-category-detail-
 import {
   CreditResponse,
   ResultCategoryDetailLecturesResponse,
+  ResultCategoryDetailResponse,
   useFetchCredits,
   useFetchResultCategoryDetailInfo,
 } from '@/app/store/querys/result';
@@ -40,10 +41,20 @@ function addChapelToCommonCulture(
   ];
 }
 
-export default function ResultCategoryDetailInfo({ category }: { category: ResultCategoryKey }) {
-  const { data: categoryInfo } = useFetchResultCategoryDetailInfo(category);
-  const { data: categories } = useFetchCredits();
+interface ResultCategoryDetailInfoProp {
+  category: ResultCategoryKey;
+}
 
+interface ResultCategoryDetailInfoViewerProps extends ResultCategoryDetailInfoProp {
+  categories: CreditResponse[];
+  categoryInfo: ResultCategoryDetailResponse;
+}
+
+export function ResultCategoryDetailInfoViewer({
+  categories,
+  categoryInfo,
+  category,
+}: ResultCategoryDetailInfoViewerProps) {
   const chapel = categories.find(({ category }) => category === 'CHAPEL');
   const isCommonCulture = category === RESULT_CATEGORY.COMMON_CULTURE;
   const detailCategory = isCommonCulture
@@ -58,4 +69,11 @@ export default function ResultCategoryDetailInfo({ category }: { category: Resul
       category={category}
     />
   );
+}
+
+export default function ResultCategoryDetailInfo({ category }: ResultCategoryDetailInfoProp) {
+  const { data: categoryInfo } = useFetchResultCategoryDetailInfo(category);
+  const { data: categories } = useFetchCredits();
+
+  return <ResultCategoryDetailInfoViewer category={category} categories={categories} categoryInfo={categoryInfo} />;
 }

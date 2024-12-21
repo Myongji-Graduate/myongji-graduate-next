@@ -1,9 +1,13 @@
 'use client';
 import { cn } from '@/app/utils/shadcn/utils';
-import ResultCategoryCard from '../result-category-card/result-category-card';
-import { useFetchCredits } from '@/app/store/querys/result';
-import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
-import { ResultCategoryKey } from '../result-category-detail-content/result-category-detail-content.stories';
+import { CreditResponse, useFetchCredits } from '@/app/store/querys/result';
+import { RESULT_CATEGORY, ResultCategoryKey } from '@/app/utils/key/result-category.key';
+import ResultCategoryCard from '@/app/ui/result/result-category-card/result-category-card';
+
+interface ResultCategoryViewerProp {
+  categories: CreditResponse[];
+  className?: string;
+}
 
 const getPriority = (category: ResultCategoryKey) => {
   return [
@@ -15,16 +19,14 @@ const getPriority = (category: ResultCategoryKey) => {
   }, 0);
 };
 
-function ResultCategory() {
-  const { data: categories } = useFetchCredits();
-
+export function ResultCategoryViewer({ categories, className }: ResultCategoryViewerProp) {
   const sortedCategories = categories.sort((a, b) => getPriority(a.category) - getPriority(b.category));
-
   return (
     <div
       className={cn(
         'absolute grid grid-cols-2 gap-2 top-[28rem] w-full',
         'md:max-w-[700px] md:gap-10 md:top-[35rem] max-md:max-w-[500px] ',
+        className,
       )}
     >
       {sortedCategories.map(({ category, totalCredit, takenCredit }, index) => (
@@ -38,4 +40,8 @@ function ResultCategory() {
     </div>
   );
 }
-export default ResultCategory;
+
+export default function ResultCategory() {
+  const { data } = useFetchCredits();
+  return <ResultCategoryViewer categories={data} />;
+}
