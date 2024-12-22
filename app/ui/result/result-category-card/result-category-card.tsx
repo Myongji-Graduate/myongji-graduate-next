@@ -75,7 +75,13 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
   const getCategoryCountWay = (category: ResultCategoryKey) => (category === RESULT_CATEGORY.CHAPEL ? '횟수' : '학점');
 
   const filterCategoryExistStandard = (category: ResultCategoryKey) => {
-    const NONEXIST_STANDARD_CATEGORY = ['FREE_ELECTIVE', 'NORMAL_CULTURE', 'CHAPEL'];
+    const NONEXIST_STANDARD_CATEGORY = [
+      'FREE_ELECTIVE',
+      'NORMAL_CULTURE',
+      'CHAPEL',
+      'TRANSFER_COMBINED_CULTURE',
+      'TRANSFER_CHRISTIAN',
+    ];
     return NONEXIST_STANDARD_CATEGORY.includes(category);
   };
 

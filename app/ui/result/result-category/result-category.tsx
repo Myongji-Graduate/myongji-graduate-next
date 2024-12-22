@@ -33,7 +33,7 @@ export function ResultCategoryViewer({ categories, className }: ResultCategoryVi
         <ResultCategoryCard
           key={index}
           category={RESULT_CATEGORY[category]}
-          totalCredit={totalCredit}
+          totalCredit={category === 'CHAPEL' ? totalCredit : Math.floor(totalCredit)} // 편입 API는 totalCredit이 소수점으로 오기에 적용
           takenCredit={takenCredit}
         />
       ))}
