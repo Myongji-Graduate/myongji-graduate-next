@@ -6,6 +6,10 @@ import {
 } from '@/app/store/querys/result';
 import { RESULT_CATEGORY } from '../key/result-category.key';
 
+const isZero = (num: number) => {
+  if (Math.floor(num) === 0) return true;
+  return false;
+};
 interface AreaType {
   totalCredit: number;
   detailCategory: DetailCategoryType[];
@@ -71,14 +75,16 @@ export const parseUserInfo = (data: AnonymousResultType): UserInfoResponse => {
 };
 
 export const parseCredit = ({ graduationResult }: AnonymousResultType): CreditResponse[] => {
-  const detailCredits = graduationResult.detailGraduationResults.map(
-    (item): CreditResponse => ({
-      category: item.graduationCategory,
-      totalCredit: item.totalCredit,
-      takenCredit: item.takenCredit,
-      completed: item.completed,
-    }),
-  );
+  const detailCredits = graduationResult.detailGraduationResults
+    .filter((item) => !isZero(item.totalCredit)) // 편입 시에는 COMMON_CULTURE 등이 totalCredit 0으로 옴 추후 API 변경에 따른 수정 필요
+    .map(
+      (item): CreditResponse => ({
+        category: item.graduationCategory,
+        totalCredit: item.totalCredit,
+        takenCredit: item.takenCredit,
+        completed: item.completed,
+      }),
+    );
 
   const additionalCredits: CreditResponse[] = [
     {
@@ -88,12 +94,6 @@ export const parseCredit = ({ graduationResult }: AnonymousResultType): CreditRe
       completed: graduationResult.chapelResult.takenCount * 0.5 >= 2.0,
     },
     {
-      category: 'NORMAL_CULTURE',
-      totalCredit: graduationResult.normalCultureGraduationResult.totalCredit,
-      takenCredit: graduationResult.normalCultureGraduationResult.takenCredit,
-      completed: graduationResult.normalCultureGraduationResult.completed,
-    },
-    {
       category: 'FREE_ELECTIVE',
       totalCredit: graduationResult.freeElectiveGraduationResult.totalCredit,
       takenCredit: graduationResult.freeElectiveGraduationResult.takenCredit,
@@ -101,6 +101,14 @@ export const parseCredit = ({ graduationResult }: AnonymousResultType): CreditRe
     },
   ];
 
+  if (isZero(graduationResult.normalCultureGraduationResult.totalCredit)) {
+    additionalCredits.splice(1, 0, {
+      category: 'NORMAL_CULTURE',
+      totalCredit: graduationResult.normalCultureGraduationResult.totalCredit,
+      takenCredit: graduationResult.normalCultureGraduationResult.takenCredit,
+      completed: graduationResult.normalCultureGraduationResult.completed,
+    });
+  }
   return [...detailCredits, ...additionalCredits];
 };
 
