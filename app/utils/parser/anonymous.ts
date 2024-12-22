@@ -50,7 +50,7 @@ export interface AnonymousResultType {
   graduationResult: {
     chapelResult: {
       takenCount: number;
-      complted: boolean;
+      completed: boolean;
       takenChapelCredit: number;
     };
     detailGraduationResults: AreaType[];
@@ -83,9 +83,9 @@ export const parseCredit = ({ graduationResult }: AnonymousResultType): CreditRe
   const additionalCredits: CreditResponse[] = [
     {
       category: 'CHAPEL',
-      totalCredit: 2,
-      takenCredit: graduationResult.chapelResult.takenCount * 0.5,
-      completed: graduationResult.chapelResult.takenCount * 0.5 >= 2.0,
+      totalCredit: graduationResult.chapelResult.takenCount * 0.5,
+      takenCredit: graduationResult.chapelResult.takenChapelCredit,
+      completed: graduationResult.chapelResult.completed,
     },
     {
       category: 'NORMAL_CULTURE',
