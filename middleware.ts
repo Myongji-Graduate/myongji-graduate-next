@@ -27,8 +27,8 @@ async function getAuth(request: NextRequest): Promise<{
 }
 
 const allowedOnlyGuestPath = ['/sign-in', '/sign-up', '/find-password', '/find-id'];
-const allowedGuestPath = ['/', '/tutorial', ...allowedOnlyGuestPath];
-const allowInitUserPath = ['/', '/tutorial', '/grade-upload'];
+const allowedGuestPath = ['/', '/tutorial', '/anonymous', '/anonymous/result', ...allowedOnlyGuestPath];
+const allowInitUserPath = ['/', '/tutorial', '/grade-upload', '/anonymous', '/anonymous/result'];
 
 function isAllowedGuestPath(path: string, strict: boolean = false) {
   const allowedPath = strict ? allowedOnlyGuestPath : allowedGuestPath;
