@@ -10,7 +10,7 @@ export default function ResultCategoryDetail({ category }: { category: ResultCat
   if (!category) return;
 
   return (
-    <ResultCategoryDetailDialog querystring={category}>
+    <ResultCategoryDetailDialog>
       <Suspense fallback={<ResultCategoryDetailContentSkeleton />}>
         <ResultCategoryDetailInfo category={category} />
       </Suspense>

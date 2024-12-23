@@ -3,24 +3,17 @@ import Modal from '../../view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Drawer from '../../view/molecule/drawer/drawer';
 import Responsive from '@/app/ui/responsive';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAtomValue } from 'jotai';
 import { isDialogOpenAtom } from '@/app/store/stores/dialog';
-import useDialog from '@/app/hooks/useDialog';
 
 interface ResultCategoryDetailDialogProp {
   children: React.ReactNode;
   querystring?: string;
 }
 
-export default function ResultCategoryDetailDialog({ children, querystring }: ResultCategoryDetailDialogProp) {
+export default function ResultCategoryDetailDialog({ children }: ResultCategoryDetailDialogProp) {
   const isOpenDialog = useAtomValue(isDialogOpenAtom);
-
-  const { isOpen, open } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
-
-  useEffect(() => {
-    if (querystring && !isOpen) open();
-  }, []);
 
   const handleCloseDialog = () => {
     if (isOpenDialog) window.history.go(-1);
