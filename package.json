@@ -20,7 +20,8 @@
     "lint-staged": "lint-staged",
     "storybook": "storybook dev -p 6006",
     "type": "tsc --noEmit",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "@channel.io/channel-web-sdk-loader": "^2.0.0",
@@ -28,6 +29,7 @@
     "@headlessui/tailwindcss": "^0.2.0",
     "@heroicons/react": "^2.1.1",
     "@mswjs/http-middleware": "^0.9.2",
+    "@next/bundle-analyzer": "^15.1.0",
     "@next/third-parties": "^14.2.13",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -38,7 +40,6 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.5",
     "@tanstack/react-query": "^5.32.0",
-    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "express": "^4.18.2",

@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 export default function SignInPage() {
   return (
     <ContentContainer className="md:w-[768px] h-[550px] xl:w-[960px] flex p-9">
-      <Responsive minWidth={767}>
-        <div className="w-2/4">
-          <Image className="object-cover h-full" src={MaruImage} alt="마루" />
-        </div>
-      </Responsive>
+      <div className="hidden md:w-2/4 md:block relative ">
+        <Responsive minWidth={767}>
+          <Image fill={true} className="object-cover" src={MaruImage} alt="마루" />
+        </Responsive>
+      </div>
       <div className="w-full md:w-2/4 md:pl-7 ">
         <div className="pb-12">
           <TitleBox title={'로그인'} />

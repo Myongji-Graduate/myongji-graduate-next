@@ -24,7 +24,7 @@
 
 *,
 a {
-  font-family: 'Pretendard';
+  font-family: 'Pretendard Variable';
 }
 
 ::-webkit-scrollbar {
@@ -39,15 +39,4 @@ a {
 ::-webkit-scrollbar-thumb {
   background: #c4c4c4;
   border-radius: 5px;
-}
-
-@font-face {
-  font-family: 'VitroCore';
-  src:
-    local('vitro'),
-    url('../public/assets/font/vitro.woff2') format('woff2'),
-    url('../public/assets/font/vitro.woff') format('woff'),
-    url('../public/assets/font/vitro.ttf') format('truetype');
-  font-weight: 700;
-  font-display: swap;
 }

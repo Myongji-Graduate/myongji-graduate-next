@@ -3,7 +3,7 @@ import { getToken } from '@/app/business/services/auth';
 import { RESULT_CATEGORY } from '@/app/utils/key/result-category.key';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import fetchAX from 'fetch-ax';
 
 export interface LectureInfoResponse {
   [index: string]: string | number | boolean;
@@ -45,7 +45,7 @@ export const useFetchCredits = () => {
 
 const fetchCredits = async () => {
   try {
-    const { data } = await axios<CreditResponse[]>(`${API_PATH.graduations}/credits`, {
+    const { data } = await fetchAX.get<CreditResponse[]>(`${API_PATH.graduations}/credits`, {
       headers: {
         Authorization: `Bearer ${await getToken()}`,
       },
@@ -66,7 +66,7 @@ export const useFetchResultCategoryDetailInfo = (category: string) => {
 
 const fetchResultCategoryDetailInfo = async (category: string) => {
   try {
-    const { data } = await axios<ResultCategoryDetailResponse>(
+    const { data } = await fetchAX.get<ResultCategoryDetailResponse>(
       `${API_PATH.graduations}/detail?graduationCategory=${category}`,
       {
         headers: {

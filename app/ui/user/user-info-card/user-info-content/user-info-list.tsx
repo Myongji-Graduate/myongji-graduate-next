@@ -18,7 +18,7 @@ function UserInfoList({ data }: UserInfoListProps) {
 
   return (
     <div className="flex font-medium text-xs md:text-lg gap-4 md:gap-14 ">
-      <ul className="text-gray-6 flex flex-col gap-1">
+      <ul className="text-gray-7 flex flex-col gap-1">
         <li>이름</li>
         <li>학번</li>
         {displaySeveralMajor('title')}

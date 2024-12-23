@@ -1,10 +1,13 @@
 import { UserInfoResponse } from '@/app/business/services/user/user.type';
 import React from 'react';
-import PieChart from '../../../view/molecule/pie-chart/pie-chart';
+// import PieChart from '../../../view/molecule/pie-chart/pie-chart';
 import { getPercentage } from '@/app/utils/calculate.util';
 import UserInfoMessage from './user-info-message';
 import { CreditResponse } from '@/app/store/querys/result';
 import UserInfoList from './user-info-list';
+import dynamic from 'next/dynamic';
+
+const PieChart = dynamic(() => import('../../../view/molecule/pie-chart/pie-chart'), { ssr: false });
 
 interface UserInfoContentViewerProps {
   data: UserInfoResponse;
@@ -35,7 +38,7 @@ function UserInfoContentViewer({ data, categories }: UserInfoContentViewerProps)
           <PieChart percentage={percentage} />
         </div>
       </div>
-      <p className="text-gray-6 md:text-xs text-[10px]">
+      <p className="text-gray-7 md:text-xs text-[10px]">
         * 서비스의 결과는 공식적인 효력을 갖지 않습니다. 정확한 졸업사정결과는 소속 단과대 교학팀에서의 확인을
         권장합니다.
       </p>
