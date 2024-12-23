@@ -1,34 +1,38 @@
 'use server';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { API_PATH } from '../../api-path';
-import { BadRequestError } from '@/app/utils/http/http-error';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { BadRequestError, HttpError } from '@/app/utils/http/http-error';
 import { instance } from '@/app/utils/api/instance';
+import { ERROR_CODE } from '@/app/utils/api/constant';
 import { revalidateTag } from 'next/cache';
 import { TAG } from '@/app/utils/http/tag';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
-  const parsingText = await parsePDFtoText(formData);
-
-  const res = await fetch(API_PATH.registerUserGrade, {
-    method: 'POST',
-    body: JSON.stringify({ parsingText }),
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-  });
-
-  if (!res.ok) {
+  try {
+    const parsingText = await parsePDFtoText(formData);
+    await instance.post(API_PATH.registerUserGrade, { parsingText });
+    return {
+      isSuccess: true,
+      isFailure: false,
+      validationError: {},
+      message: '',
+    };
+  } catch (error) {
+    if (error instanceof HttpError) {
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: error.getErrorMessage() ?? '',
+      };
+    }
     return {
       isSuccess: false,
       isFailure: true,
       validationError: {},
-      message: 'fail upload grade',
+      message: ERROR_CODE.INTERNAL_SEVER_ERROR,
     };
   }
-  redirect('/result');
 };
 
 export const registerAnonymousGrade = async (prevState: FormState, formData: FormData) => {
@@ -73,14 +77,7 @@ export const registerAnonymousGrade = async (prevState: FormState, formData: For
 };
 
 export const parsePDFtoText = async (formData: FormData) => {
-  const res = await fetch(API_PATH.parsePDFtoText, { method: 'POST', body: formData });
-  if (!res.ok) {
-    return {
-      errors: {},
-      message: 'fail parsing to text',
-    };
-  }
-  return await res.text();
+  return (await fetch(API_PATH.parsePDFtoText, { method: 'POST', body: formData })).text();
 };
 
 export const deleteTakenLecture = async (lectureId: number) => {
