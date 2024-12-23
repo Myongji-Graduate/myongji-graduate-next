@@ -4,6 +4,8 @@ import { API_PATH } from '../../api-path';
 import { BadRequestError, HttpError } from '@/app/utils/http/http-error';
 import { instance } from '@/app/utils/api/instance';
 import { ERROR_CODE } from '@/app/utils/api/constant';
+import { revalidateTag } from 'next/cache';
+import { TAG } from '@/app/utils/http/tag';
 
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   try {
@@ -33,6 +35,47 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
   }
 };
 
+export const registerAnonymousGrade = async (prevState: FormState, formData: FormData) => {
+  const engLv = formData.get('engLv');
+  const file = formData.get('file');
+  if (!(file instanceof File)) {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
+      message: '등록할 수 없는 파일입니다.',
+    };
+  }
+
+  const gradePDF = new FormData();
+  gradePDF.append('file', file);
+
+  const parsingText = await parsePDFtoText(gradePDF);
+  const res = await fetch(`${API_PATH.graduations}/check`, {
+    method: 'POST',
+    body: JSON.stringify({ engLv, parsingText }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!res.ok) {
+    return {
+      isSuccess: false,
+      isFailure: true,
+      validationError: {},
+      message: 'fail upload grade',
+    };
+  }
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: 'success upload grade',
+    value: await res.json(),
+  };
+};
+
 export const parsePDFtoText = async (formData: FormData) => {
   return (await fetch(API_PATH.parsePDFtoText, { method: 'POST', body: formData })).text();
 };
@@ -42,7 +85,6 @@ export const deleteTakenLecture = async (lectureId: number) => {
     await instance.delete(`${API_PATH.takenLectures}/${lectureId}`, {
       responseType: 'text',
     });
-
     return {
       isSuccess: true,
     };
@@ -66,6 +108,7 @@ export const addTakenLecture = async (lectureId: string) => {
         responseType: 'text',
       },
     );
+    revalidateTag(TAG.GET_TAKEN_LECTURES);
     return {
       isSuccess: true,
       isFailure: false,

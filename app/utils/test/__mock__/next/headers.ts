@@ -5,7 +5,6 @@ export function cookies() {
       store[key] = {
         value,
       };
-      console.log(store[key]);
     },
     get: (key: string) => {
       return store[key];

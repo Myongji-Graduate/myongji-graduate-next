@@ -11,6 +11,7 @@ export const RESULT_CATEGORY = {
   NORMAL_CULTURE: 'NORMAL_CULTURE',
   FREE_ELECTIVE: 'FREE_ELECTIVE',
   CHAPEL: 'CHAPEL',
+  TRANSFER_CHRISTIAN: 'TRANSFER_CHRISTIAN',
 } as const;
 
 export const RESULT_CATEGORY_KO = {
@@ -26,6 +27,7 @@ export const RESULT_CATEGORY_KO = {
   NORMAL_CULTURE: '일반교양',
   FREE_ELECTIVE: '자유선택',
   CHAPEL: '채플',
+  TRANSFER_CHRISTIAN: '편입 기독교',
 } as const;
 
 export type ResultCategoryKey = (typeof RESULT_CATEGORY)[keyof typeof RESULT_CATEGORY];
