@@ -14,7 +14,10 @@ export default async function NavigationItems() {
           <NavigationItem href={'/result'} label="결과확인" />
         </>
       ) : (
-        <NavigationItem href={'/sign-in'} label="로그인" />
+        <>
+          <NavigationItem href={'/sign-in'} label="로그인" />
+          <NavigationItem href={'/anonymous'} label="비회원 검사" />
+        </>
       )}
       <NavigationItem href={'/tutorial'} label="튜토리얼" />
       <NavigationItem

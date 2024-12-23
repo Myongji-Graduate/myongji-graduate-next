@@ -16,9 +16,10 @@ import Link from 'next/link';
 import { useSetAtom } from 'jotai';
 import { isDialogOpenAtom } from '@/app/store/stores/dialog';
 import Button from '../../view/atom/button/button';
-import { getPercentage } from '@/app/utils/chart.util';
+import { getPercentage } from '@/app/utils/calculate.util';
 import PieChart from '../../view/molecule/pie-chart/pie-chart';
 import Responsive from '../../responsive';
+import { usePathname } from 'next/navigation';
 
 interface ResultCategoryCardProps {
   category: ResultCategoryKey;
@@ -59,6 +60,7 @@ const displaySeveralMajor = (category: ResultCategoryKey) => {
 function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCategoryCardProps) {
   const { open } = useDialog(DIALOG_KEY.RESULT_CATEGORY);
   const setIsOpenDialog = useSetAtom(isDialogOpenAtom);
+  const pathname = usePathname();
 
   const percentage = getPercentage(takenCredit, totalCredit);
 
@@ -73,7 +75,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
   const getCategoryCountWay = (category: ResultCategoryKey) => (category === RESULT_CATEGORY.CHAPEL ? '횟수' : '학점');
 
   const filterCategoryExistStandard = (category: ResultCategoryKey) => {
-    const NONEXIST_STANDARD_CATEGORY = ['FREE_ELECTIVE', 'NORMAL_CULTURE', 'CHAPEL'];
+    const NONEXIST_STANDARD_CATEGORY = ['FREE_ELECTIVE', 'NORMAL_CULTURE', 'CHAPEL', 'TRANSFER_CHRISTIAN'];
     return NONEXIST_STANDARD_CATEGORY.includes(category);
   };
 
@@ -111,7 +113,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
           className={`${filterCategoryExistStandard(category) && 'hidden'}`}
           data-cy={`${category}-button`}
           href={{
-            pathname: '/result',
+            pathname: pathname,
             query: {
               category: category,
             },
