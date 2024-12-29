@@ -1,8 +1,14 @@
+import { ERROR_CODE } from '../api/constant';
+
 type ErrorConstrutor = {
   message?: string;
   statusCode?: number;
   response?: Partial<Response>;
 };
+
+interface HttpResponse extends Response {
+  data: { errorCode: keyof typeof ERROR_CODE | string };
+}
 
 // Refactor: fetch가 NetworkError랑 TimeoutError 또 자동으로 에러로 던져서 처리가 더 애매하다.
 // export class NetworkError extends Error {
@@ -23,9 +29,15 @@ export class HttpError extends Error {
   constructor(
     readonly statusCode?: number,
     message?: string,
-    readonly response?: Partial<Response>,
+    readonly response?: Partial<HttpResponse>,
   ) {
     super(message);
+  }
+
+  getErrorMessage(): string {
+    const errorCode = this.response?.data?.errorCode;
+    if (!errorCode) return ERROR_CODE.INTERNAL_SEVER_ERROR;
+    return errorCode in ERROR_CODE ? ERROR_CODE[errorCode as keyof typeof ERROR_CODE] : errorCode;
   }
 }
 
