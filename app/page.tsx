@@ -39,7 +39,17 @@ export default function HomePage() {
         className="absolute top-24 right-4"
       />
       <div className="relative h-full flex flex-col items-center justify-center gap-6 z-1">
-        <div className="text-center flex flex-col gap-4">
+        {/* 공사중 UI */}
+        <div
+          className="z-2 text-2xl font-bold sm:text-5xl relative text-white"
+          style={{ fontFamily: 'var(--font-vitro)' }}
+        >
+          홈페이지 서버 점검 중입니다🥹
+        </div>
+        <div className="text-md sm:text-lg text-gray-400 font-medium">빠른 시일 내 찾아뵙겠습니다.</div>
+
+        {/* TODO 공사중 이후에 주석 해제 필요 */}
+        {/* <div className="text-center flex flex-col gap-4">
           <div className="relative">
             <div
               className="z-2 text-3xl font-bold sm:text-7xl relative text-white"
@@ -63,12 +73,13 @@ export default function HomePage() {
             />
           </div>
           <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
-        </div>
+        </div> 
         <div className="flex flex-col gap-2 md:gap-4">
           <Link href="/result">
             <Button label="검사 시작" variant="dark" size="xl" />
           </Link>
         </div>
+        */}
       </div>
     </div>
   );

@@ -37,6 +37,15 @@ function isAllowedGuestPath(path: string, strict: boolean = false) {
 }
 
 export async function middleware(request: NextRequest) {
+  const url = request.nextUrl.clone();
+
+  // 현재 경로가 메인 페이지가 아니면 메인 페이지로 redirect
+  // TODO: 서버 점검 이후 제거
+  if (url.pathname !== '/') {
+    url.pathname = '/';
+    return NextResponse.redirect(url);
+  }
+
   const auth = await getAuth(request);
 
   if (auth.role === 'expired') {
