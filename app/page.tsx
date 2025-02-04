@@ -18,7 +18,7 @@ const vitroFont = localFont({
 export default function HomePage() {
   return (
     <div className={`bg-primary w-screen h-screen overflow-hidden relative ${vitroFont.variable}`}>
-      <NavigationBar />
+      {/* <NavigationBar /> */}
       <Responsive minWidth={768}>
         <div className="fixed h-screen right-0 w-7/12">
           <Image
