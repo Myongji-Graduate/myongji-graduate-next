@@ -53,7 +53,7 @@ export const registerAnonymousGrade = async (prevState: FormState, formData: For
   const parsingText = await parsePDFtoText(gradePDF);
   const res = await fetch(`${API_PATH.graduations}/check`, {
     method: 'POST',
-    body: JSON.stringify({ engLv, parsingText }),
+    body: JSON.stringify({ engLv, korLv: 'FREE', parsingText }),
     headers: {
       'Content-Type': 'application/json',
     },
