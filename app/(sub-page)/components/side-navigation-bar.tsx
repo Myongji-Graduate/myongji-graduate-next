@@ -30,7 +30,9 @@ export default function SideNavigationBar({ header, content, footer }: SideNavig
         <div className="flex h-full flex-col justify-between">
           <SheetHeader>{header}</SheetHeader>
           <div className="w-full h-1 rounded-full my-4 bg-gray-200" />
-          <div className="h-full">{content}</div>
+          <div className="h-full" onClick={() => close()}>
+            {content}
+          </div>
           <SheetFooter>{footer}</SheetFooter>
         </div>
       </SheetContent>
