@@ -44,7 +44,7 @@ export function NavigationItem({ href, label, target }: NavigationItemProps) {
         <Button
           type="submit"
           size={'xs'}
-          className="text-black lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg "
+          className="text-black w-full lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg justify-start"
           variant={'text'}
           label={label}
         >
