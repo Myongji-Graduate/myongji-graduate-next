@@ -11,7 +11,7 @@ import { auth } from '@/app/business/services/user/user.query';
 import UserDeleteButton from '@/app/ui/user/user-info-navigator/user-delete-button';
 
 export default async function NavigationBar() {
-  const userInfo = auth();
+  const userInfo = await auth();
 
   return (
     <div className="absolute flex justify-between items-center p-2.5 border-b-[1px] w-full z-2">
@@ -22,7 +22,7 @@ export default async function NavigationBar() {
         <SideNavigationBar
           header={<UserInfoNavigator />}
           content={<NavigationItems />}
-          footer={(await userInfo) ? <UserDeleteButton /> : <></>}
+          footer={userInfo ? <UserDeleteButton /> : <></>}
         />
       </Responsive>
       <Responsive minWidth={1024}>
