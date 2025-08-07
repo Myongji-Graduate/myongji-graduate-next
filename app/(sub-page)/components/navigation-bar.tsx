@@ -3,7 +3,6 @@ import logo from '../../../public/assets/logo.svg';
 import Responsive from '../../ui/responsive';
 import SideNavigationBar from './side-navigation-bar';
 import UserInfoNavigator from '@/app/ui/user/user-info-navigator/user-info-navigator';
-import SignButtonGroup from '@/app/ui/user/user-info-navigator/sign-button-group';
 import Link from 'next/link';
 import NavigationItems from './navigation-items';
 import UserDeleteModal from '@/app/ui/user/user-info-navigator/user-delete-modal';
