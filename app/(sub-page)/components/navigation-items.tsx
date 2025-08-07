@@ -38,30 +38,21 @@ interface NavigationItemProps {
 }
 
 export function NavigationItem({ href, label, target }: NavigationItemProps) {
-  if (label === '로그아웃') {
-    return (
-      <form action={signOut}>
-        <Button
-          type="submit"
-          size={'xs'}
-          className="text-black w-full lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg justify-start"
-          variant={'text'}
-          label={label}
-        >
-          {label}
-        </Button>
-      </form>
-    );
-  }
+  const isLogout = label === '로그아웃';
+  const button = (
+    <Button
+      size={'xs'}
+      className="text-black lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg "
+      variant={'text'}
+      label={label}
+    />
+  );
 
-  return (
+  return isLogout ? (
+    <form action={signOut}>{button}</form>
+  ) : (
     <Link href={href} target={target} className="flex items-center justify-between">
-      <Button
-        size={'xs'}
-        className="text-black lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg "
-        variant={'text'}
-        label={label}
-      />
+      {button}
       <ChevronRightIcon className="h-4 w-4 lg:hidden text-black" />
     </Link>
   );
