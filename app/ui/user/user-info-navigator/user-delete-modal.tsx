@@ -4,8 +4,11 @@ import Form from '../../view/molecule/form';
 import { deleteUser } from '@/app/business/services/user/user.command';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import TitleBox from '../../view/molecule/title-box/title-box';
+import { useDeleteUserSuccess } from '@/app/business/hooks/use-delete-user-success';
 
 export default function UserDeleteModal() {
+  const onSuccess = useDeleteUserSuccess();
+
   return (
     <Modal modalKey={DIALOG_KEY.USER_DELETE}>
       <div className="max-lg:w-72 lg:p-6">
@@ -15,7 +18,13 @@ export default function UserDeleteModal() {
             <p>탈퇴를 진행하려면 비밀번호 입력이 필요합니다.</p>
           </div>
           <div className="w-full">
-            <Form className="space-y-4" failMessageControl={'toast'} action={deleteUser} id={'user-delete'}>
+            <Form
+              className="space-y-4"
+              failMessageControl={'toast'}
+              action={deleteUser}
+              id={'user-delete'}
+              onSuccess={onSuccess}
+            >
               <Form.PasswordInput label="비밀번호" id="password" placeholder="비밀번호를 입력하세요" required={true} />
               <Form.SubmitButton label="탈퇴하기" position="center" variant="primary" />
             </Form>
