@@ -35,7 +35,7 @@ export default async function UserInfoNavigator() {
   const userInfo = formatUserInfo(await auth());
 
   return (
-    <div className="flex md:flex-col items-center md:p-4 space-x-4 md:space-x-0">
+    <div className="flex md:flex-col items-center md:p-4 border-b-4 md:border-b-0 pb-6 space-x-4 md:space-x-0">
       <Avatar className="w-16 h-16 md:w-24 md:h-24" alt="Profile picture" src={'/assets/profile-image.png'} />
       <div className="flex flex-col items-start md:items-center">
         <div className="md:my-5 md:text-lg ">

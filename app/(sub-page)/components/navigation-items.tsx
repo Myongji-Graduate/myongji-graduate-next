@@ -2,6 +2,7 @@ import { auth } from '@/app/business/services/user/user.query';
 import Button from '@/app/ui/view/atom/button/button';
 import Link from 'next/link';
 import { ChevronRightIcon } from 'lucide-react';
+import { signOut } from '@/app/business/services/user/user.command';
 
 export default async function NavigationItems() {
   const userInfo = await auth();
@@ -10,6 +11,7 @@ export default async function NavigationItems() {
     <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 ">
       {userInfo ? (
         <>
+          <NavigationItem href={'/sign-in'} label="로그아웃" />
           <NavigationItem href={'/my'} label="마이페이지" />
           <NavigationItem href={'/result'} label="결과확인" />
         </>
@@ -36,14 +38,21 @@ interface NavigationItemProps {
 }
 
 export function NavigationItem({ href, label, target }: NavigationItemProps) {
-  return (
+  const isLogout = label === '로그아웃';
+  const button = (
+    <Button
+      size={'xs'}
+      className="text-black lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg "
+      variant={'text'}
+      label={label}
+    />
+  );
+
+  return isLogout ? (
+    <form action={signOut}>{button}</form>
+  ) : (
     <Link href={href} target={target} className="flex items-center justify-between">
-      <Button
-        size={'xs'}
-        className="text-black lg:text-white hover:text-slate-400 py-5 lg:text-base text-lg "
-        variant={'text'}
-        label={label}
-      />
+      {button}
       <ChevronRightIcon className="h-4 w-4 lg:hidden text-black" />
     </Link>
   );
