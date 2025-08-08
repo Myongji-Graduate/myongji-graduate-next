@@ -43,9 +43,7 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       password: formData.get('password') as string,
     };
 
-    await instance.delete(`${API_PATH.user}/me`, {
-      data: body,
-    });
+    await instance.post(`${API_PATH.user}/me/withdraw`, body);
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
@@ -61,7 +59,13 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
     }
   }
   deleteCookies();
-  redirect('/sign-in');
+
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: '탈퇴가 완료되었습니다.',
+  };
 }
 
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
