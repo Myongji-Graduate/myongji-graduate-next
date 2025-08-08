@@ -51,7 +51,7 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: error.message,
+        message: '비밀번호가 일치하지 않습니다.',
       };
     } else {
       // 나머지 에러는 더 상위 수준에서 처리
