@@ -57,7 +57,7 @@ export default function HomePage() {
             <Image
               src={graduationCap}
               alt="graduation-cap"
-              className="absolute object-contain bottom-2 left-8 sm:bottom-10 sm:left-[-24px] sm:w-[52px] w-[36px]"
+              className="absolute object-contain bottom-[14px] left-3 sm:bottom-10 sm:left-[-24px] sm:w-[52px] w-[36px]"
               sizes="(min-width: 640px) 52px, 36px"
               quality={100}
             />
