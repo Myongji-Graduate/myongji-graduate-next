@@ -13,7 +13,12 @@ function TutorialContent({ data }: TestContentProps) {
 
   return (
     <div className="flex flex-col gap-2 mx-[5%] lg:flex-row">
-      <Image alt="tutorial-image" width={1000} src={item.imageUrl} className="rounded-2xl" />
+      <Image
+        alt="tutorial-image"
+        width={1000}
+        src={item.imageUrl}
+        className="rounded-2xl max-w-[500px] max-h-[500px]"
+      />
       <ul className="flex flex-col w-full gap-1 md:py-2">
         {Object.values(data).map((tutorial, index) => {
           const { icon, content } = tutorial;

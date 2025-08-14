@@ -25,7 +25,7 @@ export function ResultCategoryViewer({ categories, className }: ResultCategoryVi
     <div
       className={cn(
         'absolute grid grid-cols-2 gap-2 top-[28rem] w-full',
-        'md:max-w-[700px] md:gap-10 md:top-[35rem] max-md:max-w-[500px] ',
+        'md:max-w-[700px] md:gap-10 md:top-[35rem] max-md:max-w-[500px]',
         className,
       )}
     >
