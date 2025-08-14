@@ -25,7 +25,7 @@ const AnonymousResult = ({ category }: AnonymousResultProp) => {
       <div className="w-full">
         <UserInfoContentViewer data={parseUserInfo(result)} categories={parseCredit(result)} />
       </div>
-      <ResultCategoryViewer categories={parseCredit(result)} className="top-[20rem] md:top-[27rem]" />
+      <ResultCategoryViewer categories={parseCredit(result)} className="top-[27rem] md:top-[35rem]" />
       {category ? (
         <ResultCategoryDetailDialog querystring={category}>
           <ResultCategoryDetailInfoViewer
