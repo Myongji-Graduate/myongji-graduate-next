@@ -10,7 +10,7 @@ export default function ContentContainer({ children, size = 'md', className }: C
   return (
     <div
       className={twMerge(
-        'absolute bg-white top-[7rem] z-1 rounded-xl shadow-lg max-md:w-full',
+        'bg-white -mt-[11rem] rounded-xl shadow-lg max-md:w-full z-10 pb-5 mb-12',
         size === 'md' ? 'md:w-[70%]' : 'md:w-[80%]',
         className,
       )}
