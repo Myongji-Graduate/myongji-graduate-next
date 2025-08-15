@@ -48,12 +48,12 @@ export function FormRoot({
   const { toast } = useToast();
 
   useEffect(() => {
-    if (formState.isSuccess) {
+    if (formState?.isSuccess) {
       onSuccess?.(formState);
     }
-    if (formState.isFailure && failMessageControl === 'toast') {
+    if (formState?.isFailure && failMessageControl === 'toast') {
       toast({
-        title: formState.message ? formState.message : '',
+        title: formState?.message ? formState?.message : '',
         variant: 'destructive',
       });
     }
@@ -71,10 +71,10 @@ export function FormRoot({
   };
 
   return (
-    <FormContext.Provider value={{ errors: formState.validationError, formId: id }}>
-      {formState.isFailure && failMessageControl === 'alert' ? (
+    <FormContext.Provider value={{ errors: formState?.validationError ?? {}, formId: id }}>
+      {formState?.isFailure && failMessageControl === 'alert' ? (
         <div className="mb-4">
-          <AlertDestructive description={formState.message!} />
+          <AlertDestructive description={formState?.message!} />
         </div>
       ) : null}
       <form className={className} id={id} action={dispatch}>
