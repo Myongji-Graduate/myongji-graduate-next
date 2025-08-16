@@ -34,7 +34,7 @@ export const SuccessSenario: Story = {
       await userEvent.type(canvas.getByLabelText('아이디'), 'admin');
       await userEvent.type(canvas.getByLabelText('학번'), '60000000');
 
-      await userEvent.click(canvas.getByText('검사하기'));
+      await userEvent.click(canvas.getByText('다음'));
     });
 
     await step('사용자 인증에 성공한다', async () => {
@@ -51,7 +51,7 @@ export const FailureScenarioWithoutUser: Story = {
       await userEvent.type(canvas.getByLabelText('아이디'), 'testtest');
       await userEvent.type(canvas.getByLabelText('학번'), '60000200');
 
-      await userEvent.click(canvas.getByText('검사하기'));
+      await userEvent.click(canvas.getByText('다음'));
     });
 
     await step('사용자 인증에 실패한다', async () => {
@@ -68,7 +68,7 @@ export const FailureSenarioWithValidation: Story = {
       await userEvent.type(canvas.getByLabelText('아이디'), 'testtest');
       await userEvent.type(canvas.getByLabelText('학번'), '6000200');
 
-      await userEvent.click(canvas.getByText('검사하기'));
+      await userEvent.click(canvas.getByText('다음'));
     });
 
     await step('유효성 검사에 실패한다', async () => {
