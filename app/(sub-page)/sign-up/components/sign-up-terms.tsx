@@ -17,7 +17,7 @@ export default function SignUpTerm({ onNext }: SignUpTermProps) {
         <div className="border p-6 pl-8 rounded-lg">
           <ul className="list-disc space-y-4 text-sm ">
             <li>
-              현재 검사 가능한 학과-학번은 아래과 같습니다. 검사대상에 속하지 않는다면 검사가 불가능합니다. 꼭
+              현재 검사 가능한 학과-학번은 아래와 같습니다. 검사대상에 속하지 않는다면 검사가 불가능합니다. 꼭
               검사대상인지 확인하세요!
               <ul className="list-disc ml-6 mt-2">
                 <li>
