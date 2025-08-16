@@ -17,7 +17,7 @@ function FindPasswordValidateForm({ onNext }: FindPasswordValidateFormProps) {
       />
       <Form.TextInput required={true} label="학번" id="studentNumber" placeholder="ex ) 60xxxxxx" />
       <div className="py-6">
-        <Form.SubmitButton label="검사하기" position="center" variant="primary" />
+        <Form.SubmitButton label="다음" position="center" variant="primary" />
       </div>
     </Form>
   );
