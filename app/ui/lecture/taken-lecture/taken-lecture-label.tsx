@@ -24,13 +24,7 @@ export default function TakenLectureLabel() {
             onClick={open}
           />
           <Link tabIndex={isOpen ? -1 : 0} href="/grade-upload">
-            <Button
-              tabIndex={isOpen ? -1 : 0}
-              className="max-lg:text-xs"
-              label="성적표 재업로드"
-              variant="secondary"
-              size="xs"
-            />
+            <Button tabIndex={isOpen ? -1 : 0} label="성적표 재업로드" variant="secondary" size="xs" />
           </Link>
         </div>
       }
