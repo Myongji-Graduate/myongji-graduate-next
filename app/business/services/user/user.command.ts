@@ -53,6 +53,14 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
         validationError: {},
         message: '비밀번호가 일치하지 않습니다.',
       };
+    } else if (error instanceof UnauthorizedError) {
+      // 인증 실패 처리 로직
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '인증이 만료되었습니다. 다시 로그인해주세요.',
+      };
     } else {
       // 나머지 에러는 더 상위 수준에서 처리
       throw error;
