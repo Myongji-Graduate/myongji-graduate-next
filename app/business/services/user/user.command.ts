@@ -154,7 +154,7 @@ export async function refreshToken(): Promise<ValidateTokenResponse | false> {
       throw 'Invalid token response schema.';
     }
   } catch (error) {
-    if (error instanceof BadRequestError) {
+    if (error instanceof BadRequestError || error instanceof UnauthorizedError) {
       return false;
     } else {
       throw error;
