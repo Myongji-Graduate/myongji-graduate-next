@@ -60,7 +60,7 @@ export const userHandlers = [
     });
   }),
 
-  http.delete<never, UserDeleteRequestBody, never>(`${API_PATH.user}/delete-me`, async ({ request }) => {
+  http.post<never, UserDeleteRequestBody, never>(`${API_PATH.user}/me/withdraw`, async ({ request }) => {
     try {
       const { authId } = devModeAuthGuard(request);
       const { password } = await request.json();
@@ -70,10 +70,24 @@ export const userHandlers = [
       if (result) {
         return HttpResponse.json({ status: 200 });
       } else {
-        return HttpResponse.json({ status: 401, message: '비밀번호가 일치하지 않습니다' }, { status: 401 });
+        return HttpResponse.json(
+          {
+            status: 401,
+            message: '비밀번호가 일치하지 않습니다',
+            errorCode: 'INCORRECT_PASSWORD',
+          },
+          { status: 401 },
+        );
       }
     } catch {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      return HttpResponse.json(
+        {
+          status: 401,
+          message: 'Unauthorized',
+          errorCode: 'INVALIDATED_AUTH_TOKEN',
+        },
+        { status: 401 },
+      );
     }
   }),
 
@@ -82,13 +96,27 @@ export const userHandlers = [
     async ({ request }) => {
       const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
       if (accessToken === 'undefined' || !accessToken) {
-        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+        return HttpResponse.json(
+          {
+            status: 401,
+            message: 'Unauthorized',
+            errorCode: 'INVALIDATED_AUTH_TOKEN',
+          },
+          { status: 401 },
+        );
       }
       const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
       await delay(500);
 
       if (!userInfo) {
-        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+        return HttpResponse.json(
+          {
+            status: 401,
+            message: 'Unauthorized',
+            errorCode: 'INVALIDATED_AUTH_TOKEN',
+          },
+          { status: 401 },
+        );
       }
 
       return HttpResponse.json(userInfo);
@@ -117,7 +145,11 @@ export const userHandlers = [
 
       if (!isSuccess) {
         return HttpResponse.json(
-          { status: 401, message: '아이디 또는 비밀번호가 일치하지 않습니다.' },
+          {
+            status: 401,
+            message: '아이디 또는 비밀번호가 일치하지 않습니다.',
+            errorCode: 'INCORRECT_PASSWORD',
+          },
           { status: 401 },
         );
       }
