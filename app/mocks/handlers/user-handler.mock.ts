@@ -130,7 +130,7 @@ export const userHandlers = [
 
     if (!isSuccess) {
       return HttpResponse.json(
-        { status: 400, message: '이미 가입된 학번입니다.', errorCode: 'DUPLICATED_STUDENT_NUMBER' },
+        { status: 400, message: '이미 가입된 학번입니다.', errorCode: 'Bad Request' },
         { status: 400 },
       );
     }
