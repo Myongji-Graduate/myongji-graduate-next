@@ -129,7 +129,10 @@ export const userHandlers = [
     await delay(500);
 
     if (!isSuccess) {
-      return HttpResponse.json({ status: 400, message: '이미 가입된 학번입니다.' }, { status: 400 });
+      return HttpResponse.json(
+        { status: 400, message: '이미 가입된 학번입니다.', errorCode: 'DUPLICATED_STUDENT_NUMBER' },
+        { status: 400 },
+      );
     }
 
     return HttpResponse.json({ status: 200 });
@@ -167,7 +170,10 @@ export const userHandlers = [
     const userInfo = mockDatabase.getFindId({ studentNumber });
     return userInfo.studentNumber.length === 8
       ? HttpResponse.json(userInfo)
-      : HttpResponse.json({ status: 400, message: '해당 사용자를 찾을 수 없습니다.' }, { status: 400 });
+      : HttpResponse.json(
+          { status: 400, message: '해당 사용자를 찾을 수 없습니다.', errorCode: 'UNREGISTERED_USER' }, // 학번이 8글자가 맞는지 확인해주세요.의 의미로 추정되나 추후 추가적인 확인 필요
+          { status: 400 },
+        );
   }),
 
   http.get<never, FindIdFormSchema, never>(validateUser, async ({ request }) => {
@@ -177,7 +183,10 @@ export const userHandlers = [
     const response = mockDatabase.validateUser({ authId, studentNumber });
     return response.passedUserValidation
       ? HttpResponse.json(response)
-      : HttpResponse.json({ status: 400, message: '해당 사용자를 찾을 수 없습니다.' }, { status: 400 });
+      : HttpResponse.json(
+          { status: 400, message: '해당 사용자를 찾을 수 없습니다.', errorCode: 'UNREGISTERED_USER' },
+          { status: 400 },
+        );
   }),
 
   http.patch<never, FindPasswordFormSchema, never>(`${API_PATH.user}/password`, async ({ request }) => {
