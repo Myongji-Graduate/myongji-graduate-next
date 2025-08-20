@@ -38,36 +38,44 @@ export default function HomePage() {
         height={120}
         className="absolute top-24 right-4"
       />
-      <div className="relative h-full flex flex-col items-center justify-center gap-6 z-1">
-        <div className="text-center flex flex-col gap-4">
-          <div className="relative">
-            <div
-              className="z-2 text-3xl font-bold sm:text-7xl relative text-white"
-              style={{ fontFamily: 'var(--font-vitro)' }}
-            >
-              <span className="text-etc-yellow" style={{ fontFamily: 'var(--font-vitro)' }}>
-                졸
-              </span>
-              업을&nbsp;
-              <span className="text-etc-yellow" style={{ fontFamily: 'var(--font-vitro)' }}>
-                부
-              </span>
-              탁해
+      <div className="relative h-full flex flex-col items-center justify-center gap-2 z-1">
+        <div className="flex flex-col items-center justify-center gap-8">
+          <div className="text-center flex flex-col gap-4">
+            <div className="relative">
+              <div
+                className="relative z-2 text-3xl font-bold sm:text-7xl text-white"
+                style={{ fontFamily: 'var(--font-vitro)' }}
+              >
+                <span className="text-etc-yellow" style={{ fontFamily: 'var(--font-vitro)' }}>
+                  졸
+                </span>
+                업을&nbsp;
+                <span className="text-etc-yellow" style={{ fontFamily: 'var(--font-vitro)' }}>
+                  부
+                </span>
+                탁해
+              </div>
+              <Image
+                src={graduationCap}
+                alt="graduation-cap"
+                className="absolute object-contain bottom-[14px] left-3 sm:bottom-10 sm:left-[-24px] sm:w-[52px] w-[36px]"
+                sizes="(min-width: 640px) 52px, 36px"
+                quality={100}
+              />
             </div>
-            <Image
-              src={graduationCap}
-              alt="graduation-cap"
-              className="absolute object-contain bottom-[14px] left-3 sm:bottom-10 sm:left-[-24px] sm:w-[52px] w-[36px]"
-              sizes="(min-width: 640px) 52px, 36px"
-              quality={100}
-            />
+            <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
           </div>
-          <div className="text-md sm:text-lg text-gray-400 font-medium">명지인을 위한 간편 졸업요건 검사 사이트</div>
+          <div className="flex flex-col gap-2 md:gap-4">
+            <Link href="/result">
+              <Button label="회원 검사" variant="dark" size="xl" className="md:w-[430px] w-[220px]" />
+            </Link>
+            <Link href="/anonymous">
+              <Button label="비회원 검사" variant="dark" size="xl" className="md:w-[430px] w-[220px]" />
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-2 md:gap-4">
-          <Link href="/result">
-            <Button label="검사 시작" variant="dark" size="xl" />
-          </Link>
+        <div className="text-sm font-medium text-gray-300 px-4 py-3 rounded-md">
+          회원으로 검사하면 결과가 저장되어 언제든지 바로 확인할 수 있어요!
         </div>
       </div>
     </div>
