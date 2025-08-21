@@ -4,6 +4,7 @@ import Form from '../../view/molecule/form';
 import { addTakenLecture } from '@/app/business/services/lecture/taken-lecture.command';
 import { useToast } from '../../view/molecule/toast/use-toast';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface AddTakenLectureButtonProps {
   lectureItem: LectureInfoResponse;
@@ -12,9 +13,11 @@ interface AddTakenLectureButtonProps {
 export default function AddTakenLectureButton({ lectureItem, isTaken }: AddTakenLectureButtonProps) {
   const { toast } = useToast();
   const [disabled, setDisabled] = useState(isTaken);
+  const router = useRouter();
 
   const handleSuccessOfAdditionTakenLecture = () => {
     setDisabled(true);
+    router.refresh();
     return toast({
       title: '과목 추가에 성공했습니다',
     });
