@@ -5,6 +5,7 @@ import pencil from '@/public/assets/pencil.png';
 import Image from 'next/image';
 
 export default async function UserCreditResult() {
+  //userInfo로만 가져올 수 있을 것 같음. 추후 확인 필요
   const [userInfo, taken] = await Promise.all([fetchUser(), fetchTakenLectures()]);
 
   return (
