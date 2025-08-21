@@ -66,13 +66,15 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       throw error;
     }
   }
+
   deleteCookies();
+  redirect('/sign-in');
 
   return {
     isSuccess: true,
     isFailure: false,
     validationError: {},
-    message: '탈퇴가 완료되었습니다.',
+    message: '회원 탈퇴가 완료되었습니다.',
   };
 }
 
