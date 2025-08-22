@@ -14,8 +14,7 @@ const CHAPEL_TOTAL_COUNT = 4;
 const CHAPEL_CREDIT = CHAPEL_TOTAL_CREDIT / CHAPEL_TOTAL_COUNT;
 
 const CHAPEL_LECTURE_INFO = {
-  id: 0,
-  lectureCode: 'KMA02101',
+  id: 'KMA02101',
   name: '채플',
   credit: CHAPEL_CREDIT,
 };
