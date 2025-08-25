@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 export default async function UserCreditResult() {
   const userInfo = await fetchUser();
+
   return (
     <div className="flex justify-between items-center bg-zinc-100 min-h-20 rounded-lg py-1 px-8 gap-3">
       <div className="relative sm:h-20 sm:w-20 h-14 w-14">

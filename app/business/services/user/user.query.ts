@@ -13,6 +13,7 @@ import {
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { instance } from '@/app/utils/api/instance';
 import { CreditResponse } from '@/app/store/querys/result';
+import { TAG } from '@/app/utils/http/tag';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
   try {
@@ -28,7 +29,11 @@ export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | 
 
 export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
-    const { data } = await instance.get(`${API_PATH.user}/me`);
+    const { data } = await instance.get(`${API_PATH.user}/me`, {
+      next: {
+        tags: [TAG.GET_USER_INFO],
+      },
+    });
 
     if (isValidation(data, UserInfoResponseSchema) || isValidation(data, InitUserInfoResponseSchema)) {
       return data;
