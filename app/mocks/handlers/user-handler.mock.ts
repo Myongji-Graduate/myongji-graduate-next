@@ -60,7 +60,7 @@ export const userHandlers = [
     });
   }),
 
-  http.delete<never, UserDeleteRequestBody, never>(`${API_PATH.user}/delete-me`, async ({ request }) => {
+  http.post<never, UserDeleteRequestBody, never>(`${API_PATH.user}/me/withdraw`, async ({ request }) => {
     try {
       const { authId } = devModeAuthGuard(request);
       const { password } = await request.json();
@@ -70,10 +70,24 @@ export const userHandlers = [
       if (result) {
         return HttpResponse.json({ status: 200 });
       } else {
-        return HttpResponse.json({ status: 401, message: '비밀번호가 일치하지 않습니다' }, { status: 401 });
+        return HttpResponse.json(
+          {
+            status: 401,
+            message: '비밀번호가 일치하지 않습니다',
+            errorCode: 'INCORRECT_PASSWORD',
+          },
+          { status: 401 },
+        );
       }
     } catch {
-      return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+      return HttpResponse.json(
+        {
+          status: 401,
+          message: 'Unauthorized',
+          errorCode: 'INVALIDATED_AUTH_TOKEN',
+        },
+        { status: 401 },
+      );
     }
   }),
 
@@ -82,13 +96,27 @@ export const userHandlers = [
     async ({ request }) => {
       const accessToken = request.headers.get('Authorization')?.replace('Bearer ', '');
       if (accessToken === 'undefined' || !accessToken) {
-        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+        return HttpResponse.json(
+          {
+            status: 401,
+            message: 'Unauthorized',
+            errorCode: 'INVALIDATED_AUTH_TOKEN',
+          },
+          { status: 401 },
+        );
       }
       const userInfo = mockDatabase.getUserInfo(mockDecryptToken(accessToken).authId);
       await delay(500);
 
       if (!userInfo) {
-        return HttpResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
+        return HttpResponse.json(
+          {
+            status: 401,
+            message: 'Unauthorized',
+            errorCode: 'INVALIDATED_AUTH_TOKEN',
+          },
+          { status: 401 },
+        );
       }
 
       return HttpResponse.json(userInfo);
@@ -101,7 +129,10 @@ export const userHandlers = [
     await delay(500);
 
     if (!isSuccess) {
-      return HttpResponse.json({ status: 400, message: '이미 가입된 학번입니다.' }, { status: 400 });
+      return HttpResponse.json(
+        { status: 400, message: '이미 가입된 학번입니다.', errorCode: 'Bad Request' },
+        { status: 400 },
+      );
     }
 
     return HttpResponse.json({ status: 200 });
@@ -117,7 +148,11 @@ export const userHandlers = [
 
       if (!isSuccess) {
         return HttpResponse.json(
-          { status: 401, message: '아이디 또는 비밀번호가 일치하지 않습니다.' },
+          {
+            status: 401,
+            message: '아이디 또는 비밀번호가 일치하지 않습니다.',
+            errorCode: 'INCORRECT_PASSWORD',
+          },
           { status: 401 },
         );
       }
@@ -135,7 +170,10 @@ export const userHandlers = [
     const userInfo = mockDatabase.getFindId({ studentNumber });
     return userInfo.studentNumber.length === 8
       ? HttpResponse.json(userInfo)
-      : HttpResponse.json({ status: 400, message: '해당 사용자를 찾을 수 없습니다.' }, { status: 400 });
+      : HttpResponse.json(
+          { status: 400, message: '해당 사용자를 찾을 수 없습니다.', errorCode: 'UNREGISTERED_USER' }, // 학번이 8글자가 맞는지 확인해주세요.의 의미로 추정되나 추후 추가적인 확인 필요
+          { status: 400 },
+        );
   }),
 
   http.get<never, FindIdFormSchema, never>(validateUser, async ({ request }) => {
@@ -145,7 +183,10 @@ export const userHandlers = [
     const response = mockDatabase.validateUser({ authId, studentNumber });
     return response.passedUserValidation
       ? HttpResponse.json(response)
-      : HttpResponse.json({ status: 400, message: '해당 사용자를 찾을 수 없습니다.' }, { status: 400 });
+      : HttpResponse.json(
+          { status: 400, message: '해당 사용자를 찾을 수 없습니다.', errorCode: 'UNREGISTERED_USER' },
+          { status: 400 },
+        );
   }),
 
   http.patch<never, FindPasswordFormSchema, never>(`${API_PATH.user}/password`, async ({ request }) => {

@@ -43,9 +43,7 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
       password: formData.get('password') as string,
     };
 
-    await instance.delete(`${API_PATH.user}/me`, {
-      data: body,
-    });
+    await instance.post(`${API_PATH.user}/me/withdraw`, body);
   } catch (error) {
     if (error instanceof BadRequestError) {
       // 잘못된 요청 처리 로직
@@ -53,15 +51,31 @@ export async function deleteUser(prevState: FormState, formData: FormData): Prom
         isSuccess: false,
         isFailure: true,
         validationError: {},
-        message: error.message,
+        message: '비밀번호가 일치하지 않습니다.',
+      };
+    } else if (error instanceof UnauthorizedError) {
+      // 인증 실패 처리 로직
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '인증이 만료되었습니다. 다시 로그인해주세요.',
       };
     } else {
       // 나머지 에러는 더 상위 수준에서 처리
       throw error;
     }
   }
+
   deleteCookies();
   redirect('/sign-in');
+
+  return {
+    isSuccess: true,
+    isFailure: false,
+    validationError: {},
+    message: '회원 탈퇴가 완료되었습니다.',
+  };
 }
 
 export async function authenticate(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -150,7 +164,7 @@ export async function refreshToken(): Promise<ValidateTokenResponse | false> {
       throw 'Invalid token response schema.';
     }
   } catch (error) {
-    if (error instanceof BadRequestError) {
+    if (error instanceof BadRequestError || error instanceof UnauthorizedError) {
       return false;
     } else {
       throw error;
