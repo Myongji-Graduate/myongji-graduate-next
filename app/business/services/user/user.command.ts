@@ -18,6 +18,7 @@ import {
   ValidateTokenResponseSchema,
   ResetPasswordFormSchema,
   isExpiredGradeUser,
+  isInitUser,
 } from './user.validation';
 import { cookies } from 'next/headers';
 import { isValidation } from '@/app/utils/zod/validation.util';
@@ -136,6 +137,11 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
       message: '재업로드',
     };
   }
+
+  if (isInitUser(user)) {
+    redirect('/grade-upload');
+  }
+
   redirect('/my');
   return {
     isSuccess: true,
