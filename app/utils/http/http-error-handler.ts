@@ -8,6 +8,7 @@ import {
   InternetServerError,
 } from './http-error';
 import { FetchAxError } from 'fetch-ax';
+import { ERROR_CODE } from '../api/constant';
 
 export interface ErrorResponseData {
   status: number;
@@ -62,7 +63,8 @@ interface ErrorData {
 
 export const fetchAxErrorHandler = (error: FetchAxError<ErrorData>) => {
   const status = error.statusCode;
-  const message = error.response.data.errorCode; // 여기서 errorcode를 message로 변환 필요
+  const errorCode = error.response.data.errorCode;
+  const message = errorCode in ERROR_CODE ? ERROR_CODE[errorCode as keyof typeof ERROR_CODE] : errorCode;
   const response = error.response;
 
   switch (status) {
