@@ -17,7 +17,7 @@ function TimetablePage() {
     <ContentContainer className={cn('flex flex-col gap-2 py-10 px-7', 'md:gap-6 max-md:max-w-[600px]')} size="lg">
       <div className="flex flex-col gap-5 md:gap-6 border-b-2 pb-4 md:pb-6">
         <div className="flex flex-col gap-1">
-          <p className="font-bold sm:text-3xl text-2xl sm:ml-0">시간표 과목 추천</p>
+          <p className="font-bold sm:text-3xl text-2xl sm:ml-0">학기별 시간표 과목 추천</p>
           <p className="text-gray-400">아직 듣지 않은 과목으로 남은 학기별 시간표를 자동으로 추천해드려요.</p>
         </div>
         <p className="text-lg md:text-xl font-bold text-gray-500">
