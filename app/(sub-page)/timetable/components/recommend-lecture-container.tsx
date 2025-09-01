@@ -13,7 +13,7 @@ const recommendLectureList = [
   {
     semester: '4-2',
     credit: 10,
-    lectures: [{ id: '3', code: 'CSE1002', name: '운영체제', credit: 3, type: '전공필수' }],
+    lectures: [{ id: '3', code: 'CSE1002', name: '운영체제', type: '전공필수', credit: 3 }],
   },
 ];
 
