@@ -24,11 +24,12 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Publish to Chromatic
+      - name: Publish to Chromatic (upload only)
         id: chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitOnceUploaded: true
 
       - name: comment PR
         uses: thollander/actions-comment-pull-request@v1
