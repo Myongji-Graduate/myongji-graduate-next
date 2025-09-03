@@ -1,0 +1,23 @@
+import React from 'react';
+import type { Metadata } from 'next';
+import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
+
+import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
+import SubjectsContents from './components/subjects-contents';
+
+export const metadata: Metadata = {
+  title: '필수 과목 조회',
+  description: '학과별 필수 과목을 조회하고 인기순으로 확인해보세요',
+};
+
+export default function page() {
+  return (
+    <ContentContainer className="md:w-[768px] xl:w-[960px] py-7 px-5 flex flex-col ">
+      <TitleBox title="필수 과목 조회">
+        <p>학과별 필수 과목을 조회하고 인기순으로 확인해보세요!</p>
+      </TitleBox>
+
+      <SubjectsContents />
+    </ContentContainer>
+  );
+}
