@@ -1,5 +1,4 @@
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
-import { cn } from '@/app/utils/shadcn/utils';
 import { Metadata } from 'next';
 import RecommendLecture from './components/recommend-lecture/recommend-lecture';
 
