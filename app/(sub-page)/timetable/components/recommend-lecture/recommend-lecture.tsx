@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import RecommendLectureContainer from './recommend-lecture-container';
-import InitUser from '../init-user/init-user';
+import EmptyGradeState from '../empty-grade-state/empty-grade-state';
 import { auth } from '@/app/business/services/user/user.query';
 import { isInitUser } from '@/app/business/services/user/user.validation';
 import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/user/user.type';
@@ -18,7 +18,7 @@ async function RecommendLecture() {
         <p className="text-gray-400">아직 듣지 않은 과목으로 남은 학기별 시간표를 자동으로 추천해드려요.</p>
       </div>
       {isInit ? (
-        <InitUser />
+        <EmptyGradeState />
       ) : (
         <>
           <p className="text-lg md:text-xl font-bold text-gray-500">

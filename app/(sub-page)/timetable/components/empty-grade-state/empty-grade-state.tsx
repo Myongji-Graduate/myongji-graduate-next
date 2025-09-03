@@ -2,7 +2,7 @@ import Button from '@/app/ui/view/atom/button/button';
 import Image from 'next/image';
 import Link from 'next/link';
 
-function InitUser() {
+function EmptyGradeState() {
   return (
     <div className="flex flex-col items-center justify-center py-10">
       <Image src="/assets/embarrassing-maru.png" alt="당황스러워하는 마루 이미지" width={400} height={400} />
@@ -14,4 +14,4 @@ function InitUser() {
   );
 }
 
-export default InitUser;
+export default EmptyGradeState;
