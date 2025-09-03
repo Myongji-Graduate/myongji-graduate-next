@@ -1,6 +1,7 @@
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 import { Metadata } from 'next';
 import RecommendLecture from './components/recommend-lecture/recommend-lecture';
+import CreateTimetable from './components/create-timetable/create-timetable';
 
 export const metadata: Metadata = {
   title: '시간표',
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 function TimetablePage() {
   return (
     <ContentContainer className="flex flex-col gap-2 py-10 px-7 md:gap-6">
-      <RecommendLecture />
+      {/*<RecommendLecture />*/}
+      <CreateTimetable />
     </ContentContainer>
   );
 }
