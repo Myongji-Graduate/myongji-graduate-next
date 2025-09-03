@@ -21,6 +21,7 @@ export default async function NavigationItems() {
           <NavigationItem href={'/anonymous'} label="비회원 검사" />
         </>
       )}
+      <NavigationItem href={'/subjects'} label="필수 과목 조회" />
       <NavigationItem href={'/tutorial'} label="튜토리얼" />
       <NavigationItem
         target="_black"
