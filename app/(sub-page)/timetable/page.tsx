@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 function TimetablePage() {
   return (
-    <ContentContainer className={cn('flex flex-col gap-2 py-10 px-7', 'md:gap-6 max-md:max-w-[600px]')} size="lg">
+    <ContentContainer className="flex flex-col gap-2 py-10 px-7 md:gap-6">
       <RecommendLecture />
     </ContentContainer>
   );
