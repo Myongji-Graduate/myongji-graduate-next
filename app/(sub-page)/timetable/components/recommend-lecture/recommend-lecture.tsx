@@ -25,13 +25,13 @@ async function RecommendLecture() {
             {user.studentName}님, 앞으로 {remainSemester}학기 남았습니다!
           </p>
           {remainSemester === 0 ? (
-            <div className="flex flex-col items-center justify-center py-10">
+            <div className="flex flex-col items-center justify-center">
               <Image
                 src="/assets/graduate-maru.png"
                 alt="학사모 마루 이미지"
                 className="mb-4"
-                width={400}
-                height={400}
+                width={250}
+                height={250}
               />
             </div>
           ) : (
