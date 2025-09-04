@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: '학과별 필수 과목을 조회하고 인기순으로 확인해보세요',
 };
 
-export default function page() {
+export default function LecturePage() {
   return (
     <ContentContainer className="md:w-[768px] xl:w-[960px] py-7 px-5 flex flex-col ">
       <TitleBox title="필수 과목 조회">
