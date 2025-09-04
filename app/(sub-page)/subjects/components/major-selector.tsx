@@ -5,14 +5,14 @@ import { major } from '@/app/utils/majors/major';
 interface MajorSelectorProps {
   majorType: string;
   singleMajor: string;
-  major1: string;
-  major2: string;
+  firstMajor: string;
+  secondMajor: string;
   mainMajor: string;
   subMajor: string;
   onMajorTypeChange: (value: string) => void;
   onSingleMajorChange: (value: string) => void;
-  onMajor1Change: (value: string) => void;
-  onMajor2Change: (value: string) => void;
+  onFirstMajorChange: (value: string) => void;
+  onSecondMajorChange: (value: string) => void;
   onMainMajorChange: (value: string) => void;
   onSubMajorChange: (value: string) => void;
 }
@@ -28,14 +28,14 @@ const MajorOptions = () => (
 export default function MajorSelector({
   majorType,
   singleMajor,
-  major1,
-  major2,
+  firstMajor,
+  secondMajor,
   mainMajor,
   subMajor,
   onMajorTypeChange,
   onSingleMajorChange,
-  onMajor1Change,
-  onMajor2Change,
+  onFirstMajorChange,
+  onSecondMajorChange,
   onMainMajorChange,
   onSubMajorChange,
 }: MajorSelectorProps) {
@@ -64,18 +64,18 @@ export default function MajorSelector({
       {majorType === '복수 전공' && (
         <>
           <SelectRoot
-            placeholder={major1}
-            defaultValue={major1}
-            onValueChange={(value) => onMajor1Change(value as string)}
+            placeholder={firstMajor}
+            defaultValue={firstMajor}
+            onValueChange={(value) => onFirstMajorChange(value as string)}
             className="w-40"
             required
           >
             <MajorOptions />
           </SelectRoot>
           <SelectRoot
-            placeholder={major2}
-            defaultValue={major2}
-            onValueChange={(value) => onMajor2Change(value as string)}
+            placeholder={secondMajor}
+            defaultValue={secondMajor}
+            onValueChange={(value) => onSecondMajorChange(value as string)}
             className="w-40"
             required
           >
