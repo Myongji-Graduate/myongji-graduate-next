@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from '@/app/ui/view/molecule/table';
 import { RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
 
-type SubjectsTableProps = {
+type LectureTableProps = {
   isAll: boolean;
 };
 
@@ -16,7 +16,7 @@ interface Lecture {
   [key: string]: string | number;
 }
 
-export default function SubjectsTable({ isAll }: SubjectsTableProps) {
+function LectureTable({ isAll }: LectureTableProps) {
   const headerInfo = ['과목명', '교수명', '별점', '수강 횟수', '이수 구분'];
 
   // 카테고리별 강의 데이터
@@ -118,3 +118,5 @@ export default function SubjectsTable({ isAll }: SubjectsTableProps) {
     </div>
   );
 }
+
+export default LectureTable;

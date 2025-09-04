@@ -1,9 +1,8 @@
-import React from 'react';
 import type { Metadata } from 'next';
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
-import SubjectsContents from './components/subjects-contents';
+import LectureContents from './components/lecture-contents';
 
 export const metadata: Metadata = {
   title: '필수 과목 조회',
@@ -17,7 +16,7 @@ export default function page() {
         <p>학과별 필수 과목을 조회하고 인기순으로 확인해보세요!</p>
       </TitleBox>
 
-      <SubjectsContents />
+      <LectureContents />
     </ContentContainer>
   );
 }

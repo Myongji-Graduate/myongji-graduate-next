@@ -5,11 +5,11 @@ import Button from '@/app/ui/view/atom/button/button';
 import { RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
 import MajorSelector from './major-selector';
 
-export default function SubjectsFilter() {
+function LectureFilter() {
   const [majorType, setMajorType] = useState<string>('단일 전공');
   const [singleMajor, setSingleMajor] = useState<string>('전공명');
-  const [major1, setMajor1] = useState<string>('전공명1');
-  const [major2, setMajor2] = useState<string>('전공명2');
+  const [firstMajor, setfirstMajor] = useState<string>('전공명1');
+  const [secondMajor, setsecondMajor] = useState<string>('전공명2');
   const [mainMajor, setMainMajor] = useState<string>('주전공명');
   const [subMajor, setSubMajor] = useState<string>('부전공명');
 
@@ -18,14 +18,14 @@ export default function SubjectsFilter() {
       <MajorSelector
         majorType={majorType}
         singleMajor={singleMajor}
-        major1={major1}
-        major2={major2}
+        firstMajor={firstMajor}
+        secondMajor={secondMajor}
         mainMajor={mainMajor}
         subMajor={subMajor}
         onMajorTypeChange={(value) => setMajorType(value)}
         onSingleMajorChange={(value) => setSingleMajor(value)}
-        onMajor1Change={(value) => setMajor1(value)}
-        onMajor2Change={(value) => setMajor2(value)}
+        onFirstMajorChange={(value) => setfirstMajor(value)}
+        onSecondMajorChange={(value) => setsecondMajor(value)}
         onMainMajorChange={(value) => setMainMajor(value)}
         onSubMajorChange={(value) => setSubMajor(value)}
       />
@@ -54,3 +54,5 @@ export default function SubjectsFilter() {
     </div>
   );
 }
+
+export default LectureFilter;
