@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from '@/app/ui/view/molecule/table';
 import { RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
+import { REQUIRED_LECTURE_TABLE_HEADER_INFO } from '@/app/ui/lecture/required-lecture/required-lecture-constant';
 
 type LectureTableProps = {
   isAll: boolean;
@@ -17,8 +18,6 @@ interface Lecture {
 }
 
 function LectureTable({ isAll }: LectureTableProps) {
-  const headerInfo = ['과목명', '교수명', '별점', '수강 횟수', '이수 구분'];
-
   // 카테고리별 강의 데이터
   const lecturesByCategory = {
     [RESULT_CATEGORY_KO.PRIMARY_BASIC_ACADEMICAL_CULTURE]: [
@@ -109,11 +108,11 @@ function LectureTable({ isAll }: LectureTableProps) {
         categories.map((category, index) => (
           <div key={index} className="flex flex-col gap-2">
             <p className="font-semibold px-2">{category}</p>
-            <Table headerInfo={headerInfo} data={lecturesByCategory[category]} />
+            <Table headerInfo={REQUIRED_LECTURE_TABLE_HEADER_INFO} data={lecturesByCategory[category]} />
           </div>
         ))
       ) : (
-        <Table headerInfo={headerInfo} data={lectures} />
+        <Table headerInfo={REQUIRED_LECTURE_TABLE_HEADER_INFO} data={lectures} />
       )}
     </div>
   );
