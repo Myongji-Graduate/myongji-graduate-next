@@ -1,4 +1,3 @@
-import React from 'react';
 import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import { major } from '@/app/utils/majors/major';
@@ -43,7 +42,7 @@ export default function MajorSelector({
   return (
     <div className="flex gap-2">
       <div className="md:w-80 w-60">
-        <SelectRoot onValueChange={(value) => onMajorTypeChange(value as string)} placeholder="단일 전공" required>
+        <SelectRoot onValueChange={(value) => onMajorTypeChange(value as string)} placeholder={majorType} required>
           <SelectItem placeholder="단일 전공" value="단일 전공" />
           <SelectItem placeholder="복수 전공" value="복수 전공" />
           <SelectItem placeholder="부전공" value="부전공" />
