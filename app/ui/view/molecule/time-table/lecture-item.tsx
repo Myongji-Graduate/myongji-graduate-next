@@ -11,8 +11,8 @@ interface LectureItemProps {
 export function LectureItem({ item, isEditable, onRemove }: LectureItemProps) {
   return (
     <div
-      className={`group absolute left-1 right-1 md:text-xs text-[8px] p-1 overflow-hidden rounded-none py-2 px-1.5 bg-light-blue-1 ${
-        isEditable ? 'hover:bg-gray-200' : ''
+      className={`group absolute left-1 right-1 md:text-xs text-[8px] p-1 overflow-hidden rounded-lg py-2 px-1.5 bg-light-blue-1 ${
+        isEditable ? 'hover:bg-light-blue-2' : ''
       }`}
       style={{ top: `${item.topPct}%`, height: `${item.heightPct}%` }}
     >
@@ -34,8 +34,8 @@ export function LectureItem({ item, isEditable, onRemove }: LectureItemProps) {
         </button>
       )}
 
-      <div className="truncate font-semibold">{item.name}</div>
-      <div className="opacity-70 whitespace-nowrap text-gray-500 tabular-nums">
+      <div className="truncate font-semibold text-gray-700">{item.name}</div>
+      <div className="opacity-70 md:text-[10px] text-[6px] whitespace-nowrap text-gray-500 tabular-nums">
         {formatRangeHHMM(item.start, item.end)}
       </div>
     </div>

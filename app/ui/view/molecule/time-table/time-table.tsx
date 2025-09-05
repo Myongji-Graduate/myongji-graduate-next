@@ -38,7 +38,13 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
             <div className="absolute inset-0 pointer-events-none">
               {hours.map((m, idx) => {
                 const topPct = ((m - DAY_START) / DAY_RANGE) * 100;
-                return <div key={idx} className="absolute left-0 right-0" style={{ top: `${topPct}%` }} />;
+                return (
+                  <div
+                    key={idx}
+                    className="absolute left-0 right-0 border-t border-gray-100 py-2"
+                    style={{ top: `${topPct}%` }}
+                  />
+                );
               })}
             </div>
 
@@ -48,7 +54,7 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
 
                 return (
                   <Grid.Column key={col}>
-                    <div className="relative overflow-hidden my-1.5 h-[350px] md:w-[170px] w-[70px] sm:w-[120px]">
+                    <div className="relative overflow-hidden h-[350px] md:w-[170px] w-[70px] sm:w-[120px]">
                       {colItems.map((item) => (
                         <LectureItem key={item.id} item={item} isEditable={isEditable} onRemove={hideBlock} />
                       ))}
