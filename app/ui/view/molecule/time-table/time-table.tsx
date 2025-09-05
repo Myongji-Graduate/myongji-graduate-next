@@ -6,6 +6,7 @@ import { TimeDisplay } from './time-display';
 import { LectureItem } from './lecture-item';
 import { normalizeLectures } from './utils';
 import { DAY_START, DAY_END, DAY_RANGE, DAYS } from './constants';
+import { cn } from '@/app/utils/shadcn/utils';
 import type { TimeTableProps } from './types';
 import type { ListRow } from '../list/list-root';
 
@@ -54,7 +55,7 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
 
                 return (
                   <Grid.Column key={col}>
-                    <div className="relative overflow-hidden h-[350px] md:w-[170px] w-[70px] sm:w-[120px]">
+                    <div className={cn('relative overflow-hidden h-[350px]', 'md:w-[170px] w-[70px] sm:w-[120px]')}>
                       {colItems.map((item) => (
                         <LectureItem key={item.id} item={item} isEditable={isEditable} onRemove={hideBlock} />
                       ))}

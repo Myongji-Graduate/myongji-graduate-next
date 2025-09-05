@@ -1,4 +1,4 @@
-import { DAY_START, DAY_END, DAY_RANGE, TIMETABLE_CONFIG } from './constants';
+import { DAY_START, DAY_RANGE } from './constants';
 
 interface TimeDisplayProps {
   hours: number[];

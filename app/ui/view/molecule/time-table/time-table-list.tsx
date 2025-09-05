@@ -24,9 +24,8 @@ export function TimeTableList<T extends ListRow>({
   return (
     <div
       className={cn(
-        'rounded-xl py-2 w-full',
+        'rounded-xl border border-gray-100 py-2 w-full',
         'h-[350px] overflow-y-scroll',
-
         hasNotData && 'flex justify-center items-center',
       )}
     >
