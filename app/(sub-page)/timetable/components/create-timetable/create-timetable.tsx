@@ -1,5 +1,5 @@
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
-import NotCompletedLectureContainer from './not-completed-lecture/not-completed-lecture-container';
+import ControlButtons from './ControlButtons';
 
 function CreateTimetable() {
   return (
@@ -7,7 +7,8 @@ function CreateTimetable() {
       <TitleBox title="시간표 생성">
         <p>미이수 과목들로 시간표를 만들고 관리해보세요!</p>
       </TitleBox>
-      <NotCompletedLectureContainer />
+      <ControlButtons />
+      <div>시간표</div> {/* 추후 시간표 컴포넌트 추가 */}
     </div>
   );
 }
