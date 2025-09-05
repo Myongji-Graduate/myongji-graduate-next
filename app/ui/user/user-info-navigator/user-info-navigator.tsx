@@ -35,7 +35,7 @@ interface UserInfoNavigatorProps {
   variant?: 'small' | 'large';
 }
 
-export default async function UserInfoNavigator({ variant }: UserInfoNavigatorProps) {
+export default async function UserInfoNavigator({ variant = 'small' }: UserInfoNavigatorProps) {
   const userInfo = formatUserInfo(await auth());
 
   if (variant === 'large') {
