@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { TimeTable } from './time-table';
+import { TimeTable } from './index';
 import type { ListRow } from '../list/list-root';
 
 const meta = {
