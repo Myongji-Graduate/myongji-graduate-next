@@ -138,8 +138,12 @@ function TimetableLectureSearch() {
             <Grid.Column>{item.credit}학점</Grid.Column>
             <Grid.Column>
               {item.day1} {item.time1}
-              <br />
-              {item.day2} {item.time2}
+              {item.day2 && item.time2 && (
+                <>
+                  <br />
+                  {item.day2} {item.time2}
+                </>
+              )}
             </Grid.Column>
             <Grid.Column>{item.lectureRoom}</Grid.Column>
             <Grid.Column>{item.note}</Grid.Column>
