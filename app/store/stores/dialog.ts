@@ -8,6 +8,7 @@ const initialState = {
   [DIALOG_KEY.USER_DELETE]: false,
   [DIALOG_KEY.SIDE_NAVIGATION]: false,
   [DIALOG_KEY.UPDATE_INSTRUCTION]: false,
+  [DIALOG_KEY.TIMETABLE_LECTURE_SEARCH]: false,
 };
 
 const dialogAtom = atom(initialState);
