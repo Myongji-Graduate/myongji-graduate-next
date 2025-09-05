@@ -35,15 +35,15 @@ export default async function UserInfoNavigator() {
   const userInfo = formatUserInfo(await auth());
 
   return (
-    <div className="flex md:flex-col items-center md:p-4 border-b-4 md:border-b-0 pb-6 space-x-4 md:space-x-0">
-      <Avatar className="w-16 h-16 md:w-24 md:h-24" alt="Profile picture" src={'/assets/profile-image.png'} />
-      <div className="flex flex-col items-start md:items-center">
-        <div className="md:my-5 md:text-lg ">
+    <div className="flex items-center border-b-4 pb-6 space-x-4">
+      <Avatar className="w-16 h-16" alt="Profile picture" src={'/assets/profile-image.png'} />
+      <div className="flex flex-col items-start">
+        <div>
           <span className="font-semibold">{userInfo.name}</span>
           <span>님</span>
         </div>
-        <div className="mb-3 md:text-sm text-xs truncate">{userInfo.major}</div>
-        <div className="md:text-sm text-xs text-gray-400">{userInfo.studentNumber}</div>
+        <div className="text-xs truncate">{userInfo.major}</div>
+        <div className="text-xs text-gray-400">{userInfo.studentNumber}</div>
       </div>
     </div>
   );
