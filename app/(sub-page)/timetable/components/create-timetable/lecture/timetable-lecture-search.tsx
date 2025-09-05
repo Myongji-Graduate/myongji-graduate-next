@@ -148,8 +148,8 @@ function TimetableLectureSearch() {
         <Responsive maxWidth={999}>
           <div className="flex flex-col gap-1 p-3 border-b-gray-200">
             <div className="flex gap-1">
-              <div className="text-sm text-gray-600">[{item.lectureCode}]</div>
-              <div className="font-semibold">{item.name}</div>
+              <p className="text-sm text-gray-600">[{item.lectureCode}]</p>
+              <p className="font-semibold">{item.name}</p>
             </div>
             <p className="text-sm">
               {item.professor} · {item.credit}학점
