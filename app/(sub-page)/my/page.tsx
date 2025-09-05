@@ -35,7 +35,7 @@ export default function MyPage() {
       <ContentContainer className="flex pt-10 lg:pt-16">
         <div className="lg:w-[30%] lg:block hidden">
           <Suspense fallback={<UserInfoNavigatorSkeleton />}>
-            <UserInfoNavigator />
+            <UserInfoNavigator variant="large" />
             <div className="mt-9">
               <SignButtonGroup />
             </div>
