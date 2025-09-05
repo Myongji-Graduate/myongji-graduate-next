@@ -52,7 +52,7 @@ export const mockLectureData: ListRow[] = [
     startMinute2: 540,
     endMinute2: 615,
     lectureRoom: 'L201',
-    note: '',
+    note: null,
   },
   {
     id: '7431',
@@ -93,6 +93,8 @@ export const mockLectureData: ListRow[] = [
     professor: '이수현',
     day1: '금요일',
     time1: '10:00 - 12:45',
+    day2: null,
+    time2: null,
     startMinute1: 600,
     endMinute1: 765,
     lectureRoom: 'B402',
@@ -146,7 +148,7 @@ function TimetableLectureSearch() {
               )}
             </Grid.Column>
             <Grid.Column>{item.lectureRoom}</Grid.Column>
-            <Grid.Column>{item.note}</Grid.Column>
+            {item.note && <Grid.Column>{item.note}</Grid.Column>}
           </Grid>
         </Responsive>
         <Responsive maxWidth={999}>
@@ -162,7 +164,7 @@ function TimetableLectureSearch() {
               <p>
                 {item.day1} {item.time1}
               </p>
-              {item.day2 && (
+              {item.day2 && item.time2 && (
                 <p>
                   {item.day2} {item.time2}
                 </p>
