@@ -21,13 +21,11 @@ function TimetableLectureFilters() {
           <SelectItem placeholder="전체" value="전체" />
         </SelectRoot>
       </div>
-      <div>
-        <TextInput
-          placeholder="과목명·교수명으로 검색"
-          icon={MagnifyingGlassIcon}
-          className="h-[42px] rounded-xl w-[270px]"
-        />
-      </div>
+      <TextInput
+        placeholder="과목명·교수명으로 검색"
+        icon={MagnifyingGlassIcon}
+        className="h-[42px] rounded-xl w-[270px]"
+      />
     </div>
   );
 }
