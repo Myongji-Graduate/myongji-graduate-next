@@ -2,6 +2,9 @@ import ContentContainer from '@/app/ui/view/atom/content-container/content-conta
 import { Metadata } from 'next';
 import RecommendLecture from './components/recommend-lecture/recommend-lecture';
 import CreateTimetable from './components/create-timetable/create-timetable';
+import Drawer from '@/app/ui/view/molecule/drawer/drawer';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
+import TimetableLectureSearch from './components/create-timetable/lecture/timetable-lecture-search';
 
 export const metadata: Metadata = {
   title: '시간표',
@@ -10,10 +13,15 @@ export const metadata: Metadata = {
 
 function TimetablePage() {
   return (
-    <ContentContainer className="flex flex-col gap-2 py-10 px-7 md:gap-6">
-      {/*<RecommendLecture />*/}
-      <CreateTimetable />
-    </ContentContainer>
+    <>
+      <ContentContainer className="flex flex-col gap-2 py-10 px-7 md:gap-6">
+        {/*<RecommendLecture />*/}
+        <CreateTimetable />
+      </ContentContainer>
+      <Drawer drawerKey={DIALOG_KEY.TIMETABLE_LECTURE_SEARCH}>
+        <TimetableLectureSearch />
+      </Drawer>
+    </>
   );
 }
 
