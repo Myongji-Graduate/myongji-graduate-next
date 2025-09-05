@@ -127,7 +127,7 @@ export const mockLectureData: ListRow[] = [
 function TimetableLectureSearch() {
   const render = (item: ListRow, index: number) => {
     return (
-      <List.Row data-cy={`lecture-${item.lectureName}`} key={index}>
+      <List.Row data-cy={`timetable-lecture-${item.name}`} key={item.id ?? index}>
         <Responsive minWidth={1000}>
           <Grid cols={9}>
             <Grid.Column>{item.lectureCode}</Grid.Column>
