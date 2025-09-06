@@ -4,7 +4,7 @@ import useDialog from '@/app/hooks/useDialog';
 import Button from '@/app/ui/view/atom/button/button';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 
-function ControlButtons() {
+function ControlButtonGroup() {
   const { isOpen, open } = useDialog(DIALOG_KEY.TIMETABLE_LECTURE_SEARCH);
 
   return (
@@ -19,4 +19,4 @@ function ControlButtons() {
   );
 }
 
-export default ControlButtons;
+export default ControlButtonGroup;
