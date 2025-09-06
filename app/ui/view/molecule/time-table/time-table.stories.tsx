@@ -82,7 +82,7 @@ export const Default: Story = {
   },
 };
 
-export const isEditable: Story = {
+export const IsEditable: Story = {
   args: {
     data: sampleData,
     isEditable: true,
