@@ -26,7 +26,7 @@ interface BasicTableProps<T extends ListRow> extends TableProps<T> {
 }
 
 function isCol(cols: number | string): cols is ColType {
-  if (cols === 3 || cols === 4 || cols === 5 || cols === 6 || cols === 'render-button') {
+  if (cols === 3 || cols === 4 || cols === 5 || cols === 6 || cols === 9 || cols === 'render-button') {
     return true;
   }
   return false;

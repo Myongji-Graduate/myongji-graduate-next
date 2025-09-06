@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export interface ListRow {
   id: number | string;
-  [key: string]: string | number | boolean;
+  [key: string]: string | number | boolean | null;
 }
 export interface ListRootProps<T extends ListRow> {
   data: T[];

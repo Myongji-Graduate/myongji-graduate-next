@@ -1,0 +1,46 @@
+'use client';
+
+import useDialog from '@/app/hooks/useDialog';
+import Button from '@/app/ui/view/atom/button/button';
+import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
+import Responsive from '@/app/ui/responsive';
+
+function ControlButtonGroup() {
+  const { isOpen, open } = useDialog(DIALOG_KEY.TIMETABLE_LECTURE_SEARCH);
+
+  return (
+    <div>
+      {/* 395px 이상*/}
+      <Responsive minWidth={396}>
+        <div className="flex justify-between">
+          <Button label="과목 추가" size="xs" tabIndex={isOpen ? -1 : 0} onClick={open} />
+          <div className="flex gap-2">
+            <Button label="초기화" size="xs" variant="outlined" />
+            <Button label="저장" size="xs" variant="outlined" />
+            <Button label="삭제" size="xs" variant="outlined" />
+          </div>
+        </div>
+      </Responsive>
+
+      {/* 395px 이하*/}
+      <Responsive maxWidth={395}>
+        <div className="flex flex-col gap-2">
+          <Button
+            label="과목 추가"
+            size="xs"
+            className="w-[100px] h-[42px]"
+            tabIndex={isOpen ? -1 : 0}
+            onClick={open}
+          />
+          <div className="flex gap-2 ">
+            <Button label="초기화" size="xs" variant="outlined" />
+            <Button label="저장" size="xs" variant="outlined" />
+            <Button label="삭제" size="xs" variant="outlined" />
+          </div>
+        </div>
+      </Responsive>
+    </div>
+  );
+}
+
+export default ControlButtonGroup;

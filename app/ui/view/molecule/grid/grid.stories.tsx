@@ -23,7 +23,7 @@ const meta = {
         type: { summary: 'GridCols' },
         defaultValue: { summary: 3 },
       },
-      options: [3, 4, 5, 6, 'render-button'],
+      options: [3, 4, 5, 6, 9, 'render-button'],
       control: {
         type: 'radio',
       },
