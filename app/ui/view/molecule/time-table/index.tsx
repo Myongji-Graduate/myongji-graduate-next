@@ -18,7 +18,6 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
     return arr;
   }, []);
 
-  const rightRef = useRef<HTMLDivElement>(null);
   const [hiddenCodes, setHiddenCodes] = useState<Set<string>>(new Set());
   const hideBlock = (code: string) => setHiddenCodes((prev) => new Set(prev).add(code));
 
@@ -35,7 +34,7 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
         <div className="flex w-full overflow-hidden">
           <TimeDisplay hours={hours} />
 
-          <div ref={rightRef} className="flex-1 relative">
+          <div className="flex-1 relative">
             <div className="absolute inset-0 pointer-events-none">
               {hours.map((m, idx) => {
                 const topPct = ((m - DAY_START) / DAY_RANGE) * 100;
