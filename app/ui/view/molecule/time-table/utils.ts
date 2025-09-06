@@ -1,4 +1,4 @@
-import { DAY_TO_COL, DAY_START, DAY_END, DAY_RANGE } from './constants';
+import { DAY_TO_COL, DAY_START, DAY_END, DAY_RANGE, TIMETABLE_ITEM_COLORS } from './constants';
 import type { TimetableItem, TimeSlot, TimeRange } from './types';
 
 export function parseHHMM(str: string): TimeSlot {
@@ -50,3 +50,11 @@ export function normalizeLectures(raw: any[]): TimetableItem[] {
 export const toHHMM = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '0')}${String(m % 60).padStart(2, '0')}`;
 
 export const formatRangeHHMM = (start: number, end: number) => `${toHHMM(start)} ~ ${toHHMM(end)}`;
+
+export function colorClassByKey(key: string | number) {
+  const s = String(key);
+  let hash = 0;
+  for (let i = 0; i < s.length; i++) hash = (hash * 31 + s.charCodeAt(i)) >>> 0;
+  const idx = hash % TIMETABLE_ITEM_COLORS.length;
+  return TIMETABLE_ITEM_COLORS[idx];
+}

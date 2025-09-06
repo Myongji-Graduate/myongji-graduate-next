@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { colorClassByKey } from './utils';
 import { formatRangeHHMM } from './utils';
 import { cn } from '@/app/utils/shadcn/utils';
 import type { TimetableItem } from './types';
@@ -7,16 +8,19 @@ interface LectureItemProps {
   item: TimetableItem;
   isEditable: boolean;
   onRemove: (lectureCode: string) => void;
+  colorKey?: string | number;
 }
 
-export function LectureItem({ item, isEditable, onRemove }: LectureItemProps) {
+export function LectureItem({ item, isEditable, onRemove, colorKey }: LectureItemProps) {
+  const colorClass = colorClassByKey(colorKey ?? item.lectureCode);
   return (
     <div
       className={cn(
-        'group absolute left-1 right-1 p-1 overflow-hidden rounded-lg py-2 px-1.5 bg-light-blue-1 md:text-xs text-[8px]',
-        isEditable && 'hover:bg-light-blue-2',
+        'group absolute left-1 right-1 p-1 overflow-hidden rounded-lg py-2 px-1.5 md:text-xs text-[8px]',
+        colorClass,
       )}
       style={{ top: `${item.topPct}%`, height: `${item.heightPct}%` }}
+      data-cy={`timetable-lecture-${item.lectureCode}`}
     >
       {isEditable && (
         <button

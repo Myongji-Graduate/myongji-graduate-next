@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { TableHeader } from '../table/table-header';
 import Grid from '../grid';
 import { TimeTableList } from './time-table-list';
@@ -61,7 +61,13 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
                       )}
                     >
                       {colItems.map((item) => (
-                        <LectureItem key={item.id} item={item} isEditable={isEditable} onRemove={hideBlock} />
+                        <LectureItem
+                          colorKey={item.lectureCode}
+                          key={col}
+                          item={item}
+                          isEditable={isEditable}
+                          onRemove={hideBlock}
+                        />
                       ))}
                     </div>
                   </Grid.Column>
