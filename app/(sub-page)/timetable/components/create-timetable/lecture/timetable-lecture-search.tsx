@@ -180,7 +180,7 @@ function TimetableLectureSearch() {
 
   return (
     <div className="flex flex-col gap-4 pt-6">
-      <div className="pl-2">
+      <div className="px-2">
         <TimetableLectureFilters />
       </div>
       <List data={mockLectureData} render={render} isScrollList={true} />
