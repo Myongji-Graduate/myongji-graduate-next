@@ -138,3 +138,9 @@ export const IsEditable: Story = {
     isEditable: true,
   },
 };
+
+export const EmptyDataRender: Story = {
+  args: {
+    data: [],
+  },
+};

@@ -33,7 +33,12 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
         </div>
       </div>
 
-      <TimeTableList data={data}>
+      <TimeTableList
+        data={data}
+        emptyDataRender={() => (
+          <div className="text-gray-400 absolute items-center">시간표에 추가된 강의가 없습니다.</div>
+        )}
+      >
         <div className="flex w-full overflow-hidden">
           <TimeDisplay hours={hours} />
 
