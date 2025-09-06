@@ -9,14 +9,30 @@ interface LectureItemProps {
   isEditable: boolean;
   onRemove: (lectureCode: string) => void;
   colorKey?: string | number;
+  isHovered?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
-export function LectureItem({ item, isEditable, onRemove, colorKey }: LectureItemProps) {
-  const colorClass = colorClassByKey(colorKey ?? item.lectureCode);
+export function LectureItem({
+  item,
+  isEditable,
+  onRemove,
+  colorKey,
+  isHovered,
+  onMouseEnter,
+  onMouseLeave,
+}: LectureItemProps) {
+  const keyForColor = colorKey ?? item.lectureCode;
+  const variant = isHovered ? 'active' : 'base';
+  const colorClass = colorClassByKey(keyForColor, variant);
+
   return (
     <div
+      onMouseEnter={isEditable ? onMouseEnter : undefined}
+      onMouseLeave={isEditable ? onMouseLeave : undefined}
       className={cn(
-        'group absolute left-1 right-1 p-1 overflow-hidden rounded-lg py-2 px-1.5 md:text-xs text-[8px]',
+        'group absolute left-1 right-1 overflow-hidden rounded-lg py-2 px-1.5 md:text-xs text-[8px] transition-colors',
         colorClass,
       )}
       style={{ top: `${item.topPct}%`, height: `${item.heightPct}%` }}

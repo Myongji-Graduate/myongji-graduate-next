@@ -12,6 +12,7 @@ import type { ListRow } from '../list/list-root';
 
 export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTableProps<T>) {
   const items = useMemo(() => normalizeLectures(data), [data]);
+
   const hours = useMemo(() => {
     const arr: number[] = [];
     for (let m = DAY_START; m <= DAY_END; m += 60) arr.push(m);
@@ -20,6 +21,8 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
 
   const [hiddenCodes, setHiddenCodes] = useState<Set<string>>(new Set());
   const hideBlock = (code: string) => setHiddenCodes((prev) => new Set(prev).add(code));
+
+  const [hoverCode, setHoverCode] = useState<string | null>(null);
 
   return (
     <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
@@ -60,15 +63,22 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
                         'w-[50px] min-[380px]:w-[80px] sm:w-[120px] md:w-[170px]',
                       )}
                     >
-                      {colItems.map((item) => (
-                        <LectureItem
-                          colorKey={item.lectureCode}
-                          key={col}
-                          item={item}
-                          isEditable={isEditable}
-                          onRemove={hideBlock}
-                        />
-                      ))}
+                      {colItems.map((item) => {
+                        const isHovered = hoverCode === item.lectureCode;
+
+                        return (
+                          <LectureItem
+                            key={item.id}
+                            item={item}
+                            isEditable={isEditable}
+                            onRemove={hideBlock}
+                            colorKey={item.lectureCode}
+                            isHovered={isHovered}
+                            onMouseEnter={() => setHoverCode(item.lectureCode)}
+                            onMouseLeave={() => setHoverCode(null)}
+                          />
+                        );
+                      })}
                     </div>
                   </Grid.Column>
                 );

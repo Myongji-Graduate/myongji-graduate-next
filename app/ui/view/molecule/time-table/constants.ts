@@ -17,14 +17,26 @@ export const TIMETABLE_CONFIG = {
   timeSlotHeight: 60,
 } as const;
 
-export const TIMETABLE_ITEM_COLORS = [
-  'bg-blue-100 text-blue-800 hover:bg-blue-200',
-  'bg-green-100 text-green-800 hover:bg-green-200',
-  'bg-yellow-100 text-yellow-800 hover:bg-yellow-200',
-  'bg-purple-100 text-purple-800 hover:bg-purple-200',
-  'bg-pink-100 text-pink-800 hover:bg-pink-200',
-  'bg-red-100 text-red-800 hover:bg-red-200',
-  'bg-indigo-100 text-indigo-800 hover:bg-indigo-200',
-  'bg-teal-100 text-teal-800 hover:bg-teal-200',
-  'bg-gray-100 text-gray-800 hover:bg-gray-200',
+export const TIMETABLE_ITEM_COLORS_BASE = [
+  'bg-blue-100 text-blue-800',
+  'bg-green-100 text-green-800',
+  'bg-yellow-100 text-yellow-800',
+  'bg-purple-100 text-purple-800',
+  'bg-pink-100 text-pink-800',
+  'bg-red-100 text-red-800',
+  'bg-indigo-100 text-indigo-800',
+  'bg-teal-100 text-teal-800',
+  'bg-gray-100 text-gray-800',
+] as const;
+
+export const TIMETABLE_ITEM_COLORS_ACTIVE = [
+  'bg-blue-200 text-blue-900',
+  'bg-green-200 text-green-900',
+  'bg-yellow-200 text-yellow-900',
+  'bg-purple-200 text-purple-900',
+  'bg-pink-200 text-pink-900',
+  'bg-red-200 text-red-900',
+  'bg-indigo-200 text-indigo-900',
+  'bg-teal-200 text-teal-900',
+  'bg-gray-200 text-gray-900',
 ] as const;

@@ -1,4 +1,11 @@
-import { DAY_TO_COL, DAY_START, DAY_END, DAY_RANGE, TIMETABLE_ITEM_COLORS } from './constants';
+import {
+  DAY_TO_COL,
+  DAY_START,
+  DAY_END,
+  DAY_RANGE,
+  TIMETABLE_ITEM_COLORS_ACTIVE,
+  TIMETABLE_ITEM_COLORS_BASE,
+} from './constants';
 import type { TimetableItem, TimeSlot, TimeRange } from './types';
 
 export function parseHHMM(str: string): TimeSlot {
@@ -51,10 +58,14 @@ export const toHHMM = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '
 
 export const formatRangeHHMM = (start: number, end: number) => `${toHHMM(start)} ~ ${toHHMM(end)}`;
 
-export function colorClassByKey(key: string | number) {
+type Variant = 'base' | 'active' | 'muted';
+
+export function colorClassByKey(key: string | number, variant: Variant = 'base') {
   const s = String(key);
   let hash = 0;
   for (let i = 0; i < s.length; i++) hash = (hash * 31 + s.charCodeAt(i)) >>> 0;
-  const idx = hash % TIMETABLE_ITEM_COLORS.length;
-  return TIMETABLE_ITEM_COLORS[idx];
+  const idx = hash % TIMETABLE_ITEM_COLORS_BASE.length;
+
+  if (variant === 'active') return TIMETABLE_ITEM_COLORS_ACTIVE[idx];
+  return TIMETABLE_ITEM_COLORS_BASE[idx];
 }
