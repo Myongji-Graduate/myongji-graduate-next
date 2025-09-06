@@ -55,7 +55,12 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
 
                 return (
                   <Grid.Column key={col}>
-                    <div className={cn('relative overflow-hidden h-[350px]', 'md:w-[170px] w-[70px] sm:w-[120px]')}>
+                    <div
+                      className={cn(
+                        'relative overflow-hidden h-[350px]',
+                        'w-[50px] min-[380px]:w-[80px] sm:w-[120px] md:w-[170px]',
+                      )}
+                    >
                       {colItems.map((item) => (
                         <LectureItem key={item.id} item={item} isEditable={isEditable} onRemove={hideBlock} />
                       ))}
