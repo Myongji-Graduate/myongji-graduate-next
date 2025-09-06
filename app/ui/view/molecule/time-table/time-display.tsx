@@ -1,4 +1,5 @@
 import { DAY_START, DAY_RANGE } from './constants';
+import { TIMETABLE_CONFIG } from './constants';
 
 interface TimeDisplayProps {
   hours: number[];
@@ -7,7 +8,7 @@ interface TimeDisplayProps {
 export function TimeDisplay({ hours }: TimeDisplayProps) {
   return (
     <div className="w-16 shrink-0 relative">
-      <div className="h-[350px] relative">
+      <div className="relative" style={{ height: TIMETABLE_CONFIG.height }}>
         {hours.map((m, idx) => {
           const topPct = ((m - DAY_START) / DAY_RANGE) * 100;
           const hh = String(Math.floor(m / 60)).padStart(2, '0');

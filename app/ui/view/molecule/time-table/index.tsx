@@ -5,7 +5,7 @@ import { TimeTableList } from './time-table-list';
 import { TimeDisplay } from './time-display';
 import { LectureItem } from './lecture-item';
 import { normalizeLectures } from './utils';
-import { DAY_START, DAY_END, DAY_RANGE, DAYS } from './constants';
+import { DAY_START, DAY_END, DAY_RANGE, DAYS, TIMETABLE_CONFIG } from './constants';
 import { cn } from '@/app/utils/shadcn/utils';
 import type { TimeTableProps } from './types';
 import type { ListRow } from '../list/list-root';
@@ -59,9 +59,10 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
                   <Grid.Column key={col}>
                     <div
                       className={cn(
-                        'relative overflow-hidden h-[350px]',
+                        'relative overflow-hidden',
                         'w-[50px] min-[380px]:w-[80px] sm:w-[120px] md:w-[170px]',
                       )}
+                      style={{ height: TIMETABLE_CONFIG.height }}
                     >
                       {colItems.map((item) => {
                         const isHovered = hoverCode === item.lectureCode;
