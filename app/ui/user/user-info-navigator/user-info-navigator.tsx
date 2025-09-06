@@ -31,18 +31,38 @@ function formatUserInfo(userInfo: InitUserInfoResponse | UserInfoResponse | unde
   };
 }
 
-export default async function UserInfoNavigator() {
+interface UserInfoNavigatorProps {
+  variant?: 'small' | 'large';
+}
+
+export default async function UserInfoNavigator({ variant = 'small' }: UserInfoNavigatorProps) {
   const userInfo = formatUserInfo(await auth());
 
+  if (variant === 'large') {
+    return (
+      <div className="flex flex-col items-center p-4 pb-6">
+        <Avatar className="w-24 h-24" alt="Profile picture" src="/assets/profile-image.png" />
+        <div className="flex flex-col items-center mt-5">
+          <div className="text-lg font-semibold">
+            {userInfo.name}
+            <span>님</span>
+          </div>
+          <div className="mb-3 text-sm truncate">{userInfo.major}</div>
+          <div className="text-sm text-gray-400">{userInfo.studentNumber}</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex items-center border-b-4 pb-6 space-x-4">
-      <Avatar className="w-16 h-16" alt="Profile picture" src={'/assets/profile-image.png'} />
+    <div className="flex flex-row items-center p-4 pb-6 border-b-4 space-x-4">
+      <Avatar className="w-16 h-16" alt="Profile picture" src="/assets/profile-image.png" />
       <div className="flex flex-col items-start">
-        <div>
-          <span className="font-semibold">{userInfo.name}</span>
+        <div className="text-md font-semibold">
+          {userInfo.name}
           <span>님</span>
         </div>
-        <div className="text-xs truncate">{userInfo.major}</div>
+        <div className="mb-2 text-xs truncate">{userInfo.major}</div>
         <div className="text-xs text-gray-400">{userInfo.studentNumber}</div>
       </div>
     </div>
