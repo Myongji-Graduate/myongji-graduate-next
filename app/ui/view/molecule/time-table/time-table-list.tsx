@@ -1,10 +1,6 @@
 import { cn } from '@/app/utils/shadcn/utils';
 import { ReactNode } from 'react';
-
-export interface ListRow {
-  id: number | string;
-  [key: string]: string | number | boolean;
-}
+import type { ListRow } from '../list/list-root';
 
 export interface TimeTableListProps<T extends ListRow> {
   data: T[];
