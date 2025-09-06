@@ -22,7 +22,7 @@ function TimetableLectureFilters() {
         </SelectRoot>
       </div>
       <TextInput
-        placeholder="과목명·교수명으로 검색"
+        placeholder="과목명·교수명 검색"
         icon={MagnifyingGlassIcon}
         className="h-[42px] rounded-xl w-[270px]"
       />
