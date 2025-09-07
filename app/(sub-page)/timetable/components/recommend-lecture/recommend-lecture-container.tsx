@@ -19,10 +19,10 @@ const recommendLectureList = [
 
 function RecommendLectureContainer() {
   return (
-    <div className="p-4">
+    <div className="py-2">
       {recommendLectureList.map((semester) => (
-        <div key={semester.semester} className="mb-6 p-4 flex flex-col gap-3">
-          <p className="font-bold text-lg">
+        <div key={semester.semester} className="mb-6 flex flex-col gap-3">
+          <p className="font-bold text-base md:text-lg">
             {semester.semester} [총 {semester.credit}학점]
           </p>
           <RecommendLectureList lectures={semester.lectures} />
