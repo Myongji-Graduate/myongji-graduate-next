@@ -7,13 +7,13 @@ export const DAY_TO_COL: Record<string, number> = {
 };
 
 export const DAY_START = 8 * 60;
-export const DAY_END = 15 * 60;
+export const DAY_END = 22 * 60;
 export const DAY_RANGE = DAY_END - DAY_START;
 
 export const DAYS = ['월', '화', '수', '목', '금'];
 
 export const TIMETABLE_CONFIG = {
-  height: 350,
+  height: 650,
   timeSlotHeight: 60,
 } as const;
 
