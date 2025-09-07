@@ -4,6 +4,7 @@ import EmptyGradeState from '../empty-grade-state/empty-grade-state';
 import { auth } from '@/app/business/services/user/user.query';
 import { isInitUser } from '@/app/business/services/user/user.validation';
 import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/user/user.type';
+import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 
 async function RecommendLecture() {
   const remainSemester: number = 2; // 추후 API에서 받아오기
@@ -13,15 +14,14 @@ async function RecommendLecture() {
 
   return (
     <div className="flex flex-col gap-5 md:gap-6  pb-4 md:pb-6">
-      <div className="flex flex-col gap-1 border-b-2 pb-4 ">
-        <p className="font-bold sm:text-3xl text-2xl sm:ml-0">학기별 시간표 과목 추천</p>
-        <p className="text-gray-400">아직 듣지 않은 과목으로 남은 학기별 시간표를 자동으로 추천해드려요.</p>
-      </div>
+      <TitleBox title="학기별 시간표 과목 추천">
+        <p>아직 듣지 않은 과목으로 남은 학기별 시간표를 자동으로 추천해드려요.</p>
+      </TitleBox>
       {isInit ? (
         <EmptyGradeState />
       ) : (
         <>
-          <p className="text-lg md:text-xl font-bold text-gray-500">
+          <p className="text-lg md:text-xl text-center font-bold text-gray-500">
             {user.studentName}님, 앞으로 {remainSemester}학기 남았습니다!
           </p>
           {remainSemester === 0 ? (
