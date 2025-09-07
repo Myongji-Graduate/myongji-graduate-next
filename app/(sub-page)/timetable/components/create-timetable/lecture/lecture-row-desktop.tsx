@@ -1,12 +1,9 @@
-'use client';
-
-import Responsive from '@/app/ui/responsive';
 import Grid from '@/app/ui/view/molecule/grid';
 import { ListRow } from '@/app/ui/view/molecule/list/list-root';
 
 function LectureRowDesktop({ item }: { item: ListRow }) {
   return (
-    <Responsive minWidth={1000}>
+    <>
       <Grid cols={9}>
         <Grid.Column>{item.lectureCode}</Grid.Column>
         <Grid.Column>{item.name}</Grid.Column>
@@ -26,7 +23,7 @@ function LectureRowDesktop({ item }: { item: ListRow }) {
         <Grid.Column>{item.lectureRoom}</Grid.Column>
         {item.note && <Grid.Column>{item.note}</Grid.Column>}
       </Grid>
-    </Responsive>
+    </>
   );
 }
 

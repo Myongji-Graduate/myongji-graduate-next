@@ -3,6 +3,7 @@ import { ListRow } from '@/app/ui/view/molecule/list/list-root';
 import TimetableLectureFilters from './timetable-lecture-filters';
 import LectureRowDesktop from './lecture-row-desktop';
 import LectureRowMobile from './lecture-row-mobile';
+import Responsive from '@/app/ui/responsive';
 
 export const mockLectureData: ListRow[] = [
   //추후 api로 받아오기
@@ -129,8 +130,12 @@ export const mockLectureData: ListRow[] = [
 function TimetableLectureSearch() {
   const render = (item: ListRow, index: number) => (
     <List.Row data-cy={`timetable-lecture-${item.id}`} key={item.id ?? index}>
-      <LectureRowDesktop item={item} />
-      <LectureRowMobile item={item} />
+      <Responsive minWidth={1000}>
+        <LectureRowDesktop item={item} />
+      </Responsive>
+      <Responsive maxWidth={999}>
+        <LectureRowMobile item={item} />
+      </Responsive>
     </List.Row>
   );
 
