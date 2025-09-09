@@ -117,7 +117,7 @@ export const mockLectureData: ListRow[] = [
     startMinute1: 1800,
     endMinute1: 2015,
     startMinute2: null,
-    endMinuite2: null,
+    endMinute2: null,
     lectureRoom: 'B402',
     note: null,
   },
