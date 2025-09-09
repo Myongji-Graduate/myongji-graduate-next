@@ -6,7 +6,7 @@ import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import Responsive from '@/app/ui/responsive';
 import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable-constants';
-import { RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
+import { SIMPLE_RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
 
 function TimetableLectureFilters() {
   const CampusSelect = (
@@ -28,23 +28,11 @@ function TimetableLectureFilters() {
     </div>
   );
 
-  const categories = [
-    RESULT_CATEGORY_KO.COMMON_CULTURE,
-    RESULT_CATEGORY_KO.CORE_CULTURE,
-    RESULT_CATEGORY_KO.PRIMARY_MANDATORY_MAJOR,
-    RESULT_CATEGORY_KO.PRIMARY_ELECTIVE_MAJOR,
-    RESULT_CATEGORY_KO.PRIMARY_BASIC_ACADEMICAL_CULTURE,
-    RESULT_CATEGORY_KO.NORMAL_CULTURE,
-    RESULT_CATEGORY_KO.FREE_ELECTIVE,
-    RESULT_CATEGORY_KO.CHAPEL,
-    RESULT_CATEGORY_KO.TRANSFER_CHRISTIAN,
-  ];
-
   const CategorySelect = (
     <div className="w-[120px] min-w-[120px]">
       <SelectRoot placeholder="이수구분">
         <SelectItem placeholder="전체" value="all" />
-        {categories.map((category, index) => (
+        {Object.values(SIMPLE_RESULT_CATEGORY_KO).map((category, index) => (
           <SelectItem key={index} placeholder={category} value={category} />
         ))}
       </SelectRoot>
