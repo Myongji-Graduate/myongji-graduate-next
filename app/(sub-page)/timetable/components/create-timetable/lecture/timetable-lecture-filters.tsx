@@ -6,7 +6,7 @@ import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import Responsive from '@/app/ui/responsive';
 import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable-constants';
-import { SIMPLE_RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
+import { SIMPLE_LECTURE_CATEGORY_KO } from '@/app/utils/key/common.key';
 
 function TimetableLectureFilters() {
   const CampusSelect = (
@@ -32,7 +32,7 @@ function TimetableLectureFilters() {
     <div className="w-[120px] min-w-[120px]">
       <SelectRoot placeholder="이수구분">
         <SelectItem placeholder="전체" value="all" />
-        {Object.values(SIMPLE_RESULT_CATEGORY_KO).map((category, index) => (
+        {Object.values(SIMPLE_LECTURE_CATEGORY_KO).map((category, index) => (
           <SelectItem key={index} placeholder={category} value={category} />
         ))}
       </SelectRoot>
