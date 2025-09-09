@@ -8,7 +8,6 @@ export const mockLectureData: ListRow[] = [
   //추후 api로 받아오기
   {
     id: '5976',
-    classDivision: '5976',
     lectureCode: 'HEF01102',
     name: '기초프로그래밍2',
     credit: 3,
@@ -32,7 +31,6 @@ export const mockLectureData: ListRow[] = [
   },
   {
     id: '6123',
-    classDivision: '6123',
     lectureCode: 'LAW20103',
     name: '헌법개론',
     credit: 3,
@@ -56,7 +54,6 @@ export const mockLectureData: ListRow[] = [
   },
   {
     id: '7431',
-    classDivision: '7431',
     lectureCode: 'ENG10201',
     name: 'Academic English',
     credit: 2,
@@ -80,7 +77,6 @@ export const mockLectureData: ListRow[] = [
   },
   {
     id: '8295',
-    classDivision: '8295',
     lectureCode: 'BUS30110',
     name: '재무관리',
     credit: 3,
@@ -102,7 +98,6 @@ export const mockLectureData: ListRow[] = [
   },
   {
     id: '9102',
-    classDivision: '9102',
     lectureCode: 'MED11005',
     name: '의학통계학',
     credit: 3,
