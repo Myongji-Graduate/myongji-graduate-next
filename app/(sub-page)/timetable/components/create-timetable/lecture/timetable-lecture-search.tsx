@@ -1,8 +1,9 @@
-import Responsive from '@/app/ui/responsive';
-import Grid from '@/app/ui/view/molecule/grid';
 import List from '@/app/ui/view/molecule/list';
 import { ListRow } from '@/app/ui/view/molecule/list/list-root';
 import TimetableLectureFilters from './timetable-lecture-filters';
+import LectureRowDesktop from './lecture-row-desktop';
+import LectureRowMobile from './lecture-row-mobile';
+import Responsive from '@/app/ui/responsive';
 
 export const mockLectureData: ListRow[] = [
   //추후 api로 받아오기
@@ -147,56 +148,16 @@ export const mockLectureData: ListRow[] = [
 ];
 
 function TimetableLectureSearch() {
-  const render = (item: ListRow, index: number) => {
-    return (
-      <List.Row data-cy={`timetable-lecture-${item.id}`} key={item.id ?? index}>
-        <Responsive minWidth={1000}>
-          <Grid cols={9}>
-            <Grid.Column>{item.lectureCode}</Grid.Column>
-            <Grid.Column>{item.name}</Grid.Column>
-            <Grid.Column>{item.campus}</Grid.Column>
-            <Grid.Column>{item.department}</Grid.Column>
-            <Grid.Column>{item.professor}</Grid.Column>
-            <Grid.Column>{item.credit}학점</Grid.Column>
-            <Grid.Column>
-              {item.day1} {item.time1}
-              {item.day2 && item.time2 && (
-                <>
-                  <br />
-                  {item.day2} {item.time2}
-                </>
-              )}
-            </Grid.Column>
-            <Grid.Column>{item.lectureRoom}</Grid.Column>
-            {item.note && <Grid.Column>{item.note}</Grid.Column>}
-          </Grid>
-        </Responsive>
-        <Responsive maxWidth={999}>
-          <div className="flex flex-col gap-1 p-3 border-b-gray-200">
-            <div className="flex gap-1">
-              <p className="text-sm text-gray-600">[{item.lectureCode}]</p>
-              <p className="font-semibold">{item.name}</p>
-            </div>
-            <p className="text-sm">
-              {item.professor} · {item.credit}학점
-            </p>
-            <div className="text-sm flex gap-3">
-              <p>
-                {item.day1} {item.time1}
-              </p>
-              {item.day2 && item.time2 && (
-                <p>
-                  {item.day2} {item.time2}
-                </p>
-              )}
-            </div>
-            <p className="text-sm text-gray-500">{item.lectureRoom}</p>
-            {item.note && <p className="text-xs text-blue-600">{item.note}</p>}
-          </div>
-        </Responsive>
-      </List.Row>
-    );
-  };
+  const render = (item: ListRow, index: number) => (
+    <List.Row data-cy={`timetable-lecture-${item.id}`} key={item.id ?? index}>
+      <Responsive minWidth={1000}>
+        <LectureRowDesktop item={item} />
+      </Responsive>
+      <Responsive maxWidth={999}>
+        <LectureRowMobile item={item} />
+      </Responsive>
+    </List.Row>
+  );
 
   return (
     <div className="flex flex-col gap-4 pt-6">
