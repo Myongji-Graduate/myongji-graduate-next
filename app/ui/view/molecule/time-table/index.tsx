@@ -65,7 +65,11 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
                     <div
                       className={cn(
                         'relative overflow-hidden',
-                        'w-[50px] min-[380px]:w-[80px] sm:w-[120px] md:w-[170px]',
+                        'w-[50px]',
+                        'min-[380px]:w-[80px]',
+                        'min-[770px]:w-[85px]',
+                        'min-[930px]:w-[115px]',
+                        'min-[1180px]:w-[150px]',
                       )}
                       style={{ height: TIMETABLE_CONFIG.height }}
                     >

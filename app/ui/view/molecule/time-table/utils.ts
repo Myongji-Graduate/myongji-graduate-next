@@ -9,7 +9,7 @@ import {
 import type { TimetableItem, TimeSlot, TimeRange } from './types';
 
 export function parseHHMM(str: string): TimeSlot {
-  return { h: Number(str.slice(0, 2)), m: Number(str.slice(2, 4)) };
+  return { h: Number(str.slice(0, 2)), m: Number(str.slice(3, 5)) };
 }
 
 export function parseTimeRange(timeStr: string): TimeRange {
@@ -56,7 +56,7 @@ export function normalizeLectures(raw: any[]): TimetableItem[] {
 
 export const toHHMM = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '0')}${String(m % 60).padStart(2, '0')}`;
 
-export const formatRangeHHMM = (start: number, end: number) => `${toHHMM(start)} ~ ${toHHMM(end)}`;
+export const formatRangeHHMM = (start: number, end: number) => `${toHHMM(start)} - ${toHHMM(end)}`;
 
 type Variant = 'base' | 'active' | 'muted';
 
