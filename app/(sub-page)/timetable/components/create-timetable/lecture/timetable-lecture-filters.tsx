@@ -32,8 +32,8 @@ function TimetableLectureFilters() {
     <div className="w-[120px] min-w-[120px]">
       <SelectRoot placeholder="이수구분">
         <SelectItem placeholder="전체" value="all" />
-        {Object.values(SIMPLE_LECTURE_CATEGORY_KO).map((category, index) => (
-          <SelectItem key={index} placeholder={category} value={category} />
+        {Object.entries(SIMPLE_LECTURE_CATEGORY_KO).map(([key, label]) => (
+          <SelectItem key={key} placeholder={label} value={key} />
         ))}
       </SelectRoot>
     </div>
