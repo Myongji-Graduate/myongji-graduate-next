@@ -13,7 +13,7 @@ function SearchInput() {
       className="h-[42px] rounded-xl w-[270px] flex items-center gap-2 text-gray-400 hover:bg-gray-100 text-base pl-3 border-gray-200 border-[1px]"
     >
       <MagnifyingGlassIcon />
-      <p>과목명·교수명 검색</p>
+      <p>과목명·교수명</p>
     </button>
   );
 }

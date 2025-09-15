@@ -29,7 +29,7 @@ function TimetableLectureFilters() {
   );
 
   const CategorySelect = (
-    <div className="w-[120px] min-w-[120px]">
+    <div className="w-[145px] min-w-[145px]">
       <SelectRoot placeholder="이수구분">
         <SelectItem placeholder="전체" value="all" />
         {Object.entries(SIMPLE_LECTURE_CATEGORY_KO).map(([key, label]) => (
@@ -60,7 +60,7 @@ function TimetableLectureFilters() {
       {/* 395px 이하 */}
       <Responsive maxWidth={MAX_WIDTH}>
         <div className="flex flex-col gap-3">
-          <div className="flex gap-3 items-center">{Filters}</div>
+          <div className="flex gap-2 items-center">{Filters}</div>
           {<SearchInput />}
         </div>
       </Responsive>
