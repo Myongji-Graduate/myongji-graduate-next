@@ -5,8 +5,8 @@ import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import Responsive from '@/app/ui/responsive';
-import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable-constants';
 import { SIMPLE_LECTURE_CATEGORY_KO } from '@/app/utils/key/common.key';
+import { MAX_WIDTH, MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
 
 function TimetableLectureFilters() {
   const CampusSelect = (

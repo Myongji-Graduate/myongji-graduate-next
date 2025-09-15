@@ -4,7 +4,7 @@ import useDialog from '@/app/hooks/useDialog';
 import Button from '@/app/ui/view/atom/button/button';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
-import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable-constants';
+import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
 
 function ControlButtonGroup() {
   const { isOpen, open } = useDialog(DIALOG_KEY.TIMETABLE_LECTURE_SEARCH);
