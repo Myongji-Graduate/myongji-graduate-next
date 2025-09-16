@@ -39,7 +39,7 @@ export function normalizeLectures(raw: any[]): TimetableItem[] {
       const heightPct = Math.max(2, ((end - start) / DAY_RANGE) * 100);
 
       items.push({
-        id: `${lec.lectureCode}-${idx}-${sIdx}`,
+        id: lec.id,
         day: slot.day,
         col,
         start,
