@@ -1,7 +1,7 @@
 import type { ListRow } from '../list/list-root';
 
 export interface TimetableItem {
-  id: string;
+  id: number;
   day: string;
   col: number;
   start: number;
@@ -17,6 +17,7 @@ export interface TimetableItem {
 export interface TimeTableProps<T extends ListRow> {
   data: T[];
   isEditable?: boolean;
+  onRemove?: (lectureId: number) => void;
 }
 
 export interface TimeSlot {
