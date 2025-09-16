@@ -41,7 +41,7 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true, onRemove
       <TimeTableList
         data={data}
         emptyDataRender={() => (
-          <div className="text-gray-400 absolute items-center">시간표에 추가된 강의가 없습니다.</div>
+          <div className="text-gray-400 absolute items-center z-1 bg-white p-2">시간표에 추가된 강의가 없습니다.</div>
         )}
       >
         <div className="flex w-full overflow-hidden">
