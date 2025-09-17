@@ -1,6 +1,5 @@
 import React from 'react';
 import StarRating from '../star-rating';
-import SourceBadge from './source-badge';
 import { LectureData } from '../type';
 
 interface LectureHeaderProps {
@@ -15,7 +14,6 @@ export default function LectureHeader({ course }: LectureHeaderProps) {
       <div className="min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <h3 className="font-semibold text-xl md:text-2xl">{courseName}</h3>
-          <SourceBadge />
         </div>
         <p className="text-xs md:text-sm text-gray-500 mt-1">강의 코드: {courseId}</p>
       </div>

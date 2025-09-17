@@ -3,8 +3,8 @@ import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
 import LectureHeader from './lecture-header';
-import ProfessorSelector from '../lecture-contents/professor-selector';
-import LectureInfo from './lecture-info';
+import LectureInsightModalMobile from './lecture-insight-modal-mobile';
+import LectureInsightModalDesktop from './lecture-insight-modal-desktop';
 import { LectureData } from '../type';
 
 export default function LectureInsightModal() {
@@ -50,45 +50,29 @@ export default function LectureInsightModal() {
 
   const current = data.lectures.find((l) => l.professor === focusProfessor);
 
-  return (
-    <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-      <div className="w-full max-w-[720px] px-4 md:px-0">
-        <LectureHeader course={data} />
+  const render = () => (
+    <div className="w-full max-w-[720px] px-4 md:px-0">
+      <LectureHeader course={data} />
 
-        <Responsive maxWidth={767}>
-          <div className="mt-4 w-60 space-y-4">
-            <ProfessorSelector
-              professors={data.lectures}
-              selectedProfessor={focusProfessor}
-              onSelectProfessor={setProfessor}
-              isMobile={true}
-            />
-            <div>
-              <div className="text-base font-semibold mb-2">강의 정보</div>
-              <div className="max-h-[50vh] overflow-y-auto scrollbar-hide">
-                <LectureInfo lecture={current} isMobile={true} />
-              </div>
-            </div>
-          </div>
-        </Responsive>
+      <Responsive maxWidth={767}>
+        <LectureInsightModalMobile
+          data={data}
+          focusProfessor={focusProfessor}
+          onSelectProfessor={setProfessor}
+          current={current}
+        />
+      </Responsive>
 
-        <Responsive minWidth={768}>
-          <div className="mt-4 grid grid-cols-[210px_1fr] gap-6">
-            <ProfessorSelector
-              professors={data.lectures}
-              selectedProfessor={focusProfessor}
-              onSelectProfessor={setProfessor}
-              isMobile={false}
-            />
-            <div>
-              <div className="text-lg font-semibold mb-2">강의 정보</div>
-              <div className="max-h-60 overflow-y-auto scrollbar-hide">
-                <LectureInfo lecture={current} isMobile={false} />
-              </div>
-            </div>
-          </div>
-        </Responsive>
-      </div>
-    </Modal>
+      <Responsive minWidth={768}>
+        <LectureInsightModalDesktop
+          data={data}
+          focusProfessor={focusProfessor}
+          onSelectProfessor={setProfessor}
+          current={current}
+        />
+      </Responsive>
+    </div>
   );
+
+  return <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>{render()}</Modal>;
 }
