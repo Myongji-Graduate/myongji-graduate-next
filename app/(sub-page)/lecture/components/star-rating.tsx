@@ -1,7 +1,7 @@
 import React from 'react';
 import { Star, StarHalf, StarOff } from 'lucide-react';
 
-type Rating = number | null;
+type Rating = number | string | null;
 
 interface StarRatingProps {
   value: Rating;
@@ -13,7 +13,8 @@ interface StarRatingProps {
 export default function StarRating({ value, size = 18, showValue = false, ariaLabel }: StarRatingProps) {
   if (value == null) return <span className="text-gray-400">평가 없음</span>;
 
-  const rounded = Math.round(value * 2) / 2;
+  const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+  const rounded = Math.round(numericValue * 2) / 2;
   const full = Math.floor(rounded);
   const hasHalf = rounded - full === 0.5;
   const empty = 5 - full - (hasHalf ? 1 : 0);

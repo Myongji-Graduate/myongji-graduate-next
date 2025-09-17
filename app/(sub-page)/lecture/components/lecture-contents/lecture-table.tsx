@@ -2,13 +2,12 @@ import React from 'react';
 import { Table } from '@/app/ui/view/molecule/table';
 import { RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
 import { REQUIRED_LECTURE_TABLE_HEADER_INFO } from '@/app/ui/lecture/required-lecture/required-lecture-constant';
-import LectureInsightModal from './lecture-insight-modal';
-
-type LectureTableProps = {
+import LectureInsightModal from '../lecture-insight-modal/lecture-insight-modal';
+interface LectureTableProps {
   isAll: boolean;
-};
+}
 
-interface Lecture {
+interface LectureTableData {
   id: number;
   lectureName: string;
   rating: string;
@@ -72,7 +71,7 @@ function LectureTable({ isAll }: LectureTableProps) {
   };
 
   // 카테고리로 분류되지 않은 일반 강의 데이터
-  const lectures: Lecture[] = [
+  const lectures: LectureTableData[] = [
     {
       id: 140,
       lectureName: '딥러닝',

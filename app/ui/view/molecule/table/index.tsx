@@ -6,6 +6,7 @@ import { ListRow } from '../list/list-root';
 import SwipeToDelete from '../swipe/swipe-to-delete';
 import { ReactNode } from 'react';
 import TableWithModal from './table-with-modal';
+import { DialogKey } from '@/app/utils/key/dialog-key.util';
 
 interface TableProps<T extends ListRow> {
   headerInfo: string[];
@@ -31,7 +32,7 @@ interface ModalableTableProps<T extends ListRow> extends TableProps<T> {
   swipeable?: false;
   renderModal: (item: T, close: () => void) => ReactNode;
   onSwipeAction?: never;
-  modalKey?: string;
+  modalKey?: DialogKey;
 }
 
 function isCol(cols: number | string): cols is ColType {

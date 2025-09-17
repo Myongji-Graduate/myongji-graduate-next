@@ -3,37 +3,9 @@ import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
 import LectureHeader from './lecture-header';
-import ProfessorSelector from './professor-selector';
+import ProfessorSelector from '../lecture-contents/professor-selector';
 import LectureInfo from './lecture-info';
-
-interface Review {
-  author: string;
-  content: string;
-  rating: number;
-}
-
-interface Lecture {
-  professor: string;
-  assignment: string;
-  grading: string;
-  attendance: string;
-  exam: string;
-  rating: number | null;
-  reviews: Review[];
-}
-
-interface LectureData {
-  courseName: string;
-  averageRating: number;
-  courseId: number;
-  source: {
-    name: string;
-    url: string;
-    note: string;
-    lastCrawledAt?: string;
-  };
-  lectures: Lecture[];
-}
+import { LectureData } from '../type';
 
 export default function LectureInsightModal() {
   const [focusProfessor, setProfessor] = React.useState('김상균');
@@ -42,12 +14,6 @@ export default function LectureInsightModal() {
     courseName: '기초프로그래밍',
     averageRating: 4.6,
     courseId: 21232,
-    source: {
-      name: '에브리타임',
-      url: 'https://everytime.kr/',
-      note: '크롤링 기반',
-      lastCrawledAt: '2025-09-16 23:00',
-    },
     lectures: [
       {
         professor: '김상균',
@@ -87,12 +53,7 @@ export default function LectureInsightModal() {
   return (
     <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
       <div className="w-full max-w-[720px] px-4 md:px-0">
-        <LectureHeader
-          courseName={data.courseName}
-          courseId={data.courseId}
-          averageRating={data.averageRating}
-          source={data.source}
-        />
+        <LectureHeader course={data} />
 
         <Responsive maxWidth={767}>
           <div className="mt-4 w-60 space-y-4">

@@ -1,21 +1,6 @@
 import React from 'react';
-import StarRating from './star-rating';
-
-interface Review {
-  author: string;
-  content: string;
-  rating: number;
-}
-
-interface Lecture {
-  professor: string;
-  assignment: string;
-  grading: string;
-  attendance: string;
-  exam: string;
-  rating: number | null;
-  reviews: Review[];
-}
+import StarRating from '../star-rating';
+import { Lecture } from '../type';
 
 interface LectureInfoProps {
   lecture: Lecture | undefined;
