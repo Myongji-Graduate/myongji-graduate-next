@@ -31,7 +31,7 @@ const RadioGroup = ({ options, value, onChange, name, className }: RadioGroupPro
             id={option.value}
             className={cn(
               'h-4 w-4 rounded-full border border-gray-400',
-              'data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600',
+              'data-[state=checked]:border-primary data-[state=checked]:bg-primary',
             )}
             aria-label={option.value}
           >
