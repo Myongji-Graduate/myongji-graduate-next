@@ -57,10 +57,7 @@ export function useTimetableLecture() {
 
   /** 모든 과목 초기화 */
   const clearLectures = () => {
-    const confirmed = window.confirm('모든 과목을 초기화할까요?');
-    if (confirmed) {
-      setLectures([]);
-    }
+    setLectures([]);
   };
 
   /** 과목 전체 초기화 + 새 데이터로 설정 */
