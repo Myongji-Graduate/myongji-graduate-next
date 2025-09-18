@@ -11,7 +11,7 @@ function SearchModal() {
 
   return (
     <Modal
-      modalKey={DIALOG_KEY.LECTURE_NAME_OR_PROFESSOR_SEARCH}
+      modalKey={DIALOG_KEY.LECTURE_NAME_OR_PROF_SEARCH}
       onClose={() => {
         setTimeout(() => {
           setValue(DEFAULT_SEARCH_OPTION);

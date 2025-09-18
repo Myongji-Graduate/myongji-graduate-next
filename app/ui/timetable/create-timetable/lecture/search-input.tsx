@@ -5,7 +5,7 @@ import useDialog from '@/app/hooks/useDialog';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 
 function SearchInput() {
-  const { open: searchDialogOpen } = useDialog(DIALOG_KEY.LECTURE_NAME_OR_PROFESSOR_SEARCH);
+  const { open: searchDialogOpen } = useDialog(DIALOG_KEY.LECTURE_NAME_OR_PROF_SEARCH);
 
   return (
     <button
