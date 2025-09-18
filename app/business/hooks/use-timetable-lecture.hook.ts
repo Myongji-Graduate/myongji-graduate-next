@@ -3,15 +3,18 @@
 import { useAtom } from 'jotai';
 import { timeTableLectureAtom } from '@/app/store/stores/timetable-lecture';
 import { TimetableLectureRow } from '@/app/store/stores/timetable-lecture';
+import { useToast } from '@/app/ui/view/molecule/toast/use-toast';
 
 export function useTimetableLecture() {
   const [lectures, setLectures] = useAtom(timeTableLectureAtom);
+
+  const { toast } = useToast();
 
   /**과목 추가 */
   const addLecture = (item: TimetableLectureRow) => {
     const isAlreadyAdded = lectures.some((lec) => lec.id === item.id);
     if (isAlreadyAdded) {
-      alert('이미 추가한 과목입니다.');
+      toast({ title: '이미 추가한 과목입니다.', variant: 'destructive' });
       return;
     }
 
@@ -40,7 +43,7 @@ export function useTimetableLecture() {
     });
 
     if (hasTimeConflict) {
-      alert('같은 시간에 이미 수업이 있습니다.');
+      toast({ title: '같은 시간에 이미 수업이 있습니다.', variant: 'destructive' });
       return;
     }
 
