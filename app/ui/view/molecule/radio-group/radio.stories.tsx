@@ -5,6 +5,7 @@ import RadioGroup from './radio-group';
 const meta: Meta<typeof RadioGroup> = {
   title: 'ui/view/molecule/RadioGroup',
   component: RadioGroup,
+  tags: ['autodocs'],
 };
 
 export default meta;
