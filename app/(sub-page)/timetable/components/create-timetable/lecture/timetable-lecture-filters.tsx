@@ -1,12 +1,12 @@
 'use client';
 
-import TextInput from '@/app/ui/view/atom/text-input/text-input';
 import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+
 import Responsive from '@/app/ui/responsive';
-import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable-constants';
 import { SIMPLE_LECTURE_CATEGORY_KO } from '@/app/utils/key/common.key';
+import { MAX_WIDTH, MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
+import SearchInput from '@/app/ui/timetable/create-timetable/lecture/search-input';
 
 function TimetableLectureFilters() {
   const CampusSelect = (
@@ -29,7 +29,7 @@ function TimetableLectureFilters() {
   );
 
   const CategorySelect = (
-    <div className="w-[120px] min-w-[120px]">
+    <div className="w-[145px] min-w-[145px]">
       <SelectRoot placeholder="이수구분">
         <SelectItem placeholder="전체" value="all" />
         {Object.entries(SIMPLE_LECTURE_CATEGORY_KO).map(([key, label]) => (
@@ -37,10 +37,6 @@ function TimetableLectureFilters() {
         ))}
       </SelectRoot>
     </div>
-  );
-
-  const SearchInput = (
-    <TextInput placeholder="과목명·교수명 검색" icon={MagnifyingGlassIcon} className="h-[42px] rounded-xl w-[270px]" />
   );
 
   const Filters = (
@@ -57,15 +53,15 @@ function TimetableLectureFilters() {
       <Responsive minWidth={MIN_WIDTH}>
         <div className="flex gap-3 items-center">
           {Filters}
-          {SearchInput}
+          {<SearchInput />}
         </div>
       </Responsive>
 
       {/* 395px 이하 */}
       <Responsive maxWidth={MAX_WIDTH}>
         <div className="flex flex-col gap-3">
-          <div className="flex gap-3 items-center">{Filters}</div>
-          {SearchInput}
+          <div className="flex gap-2 items-center">{Filters}</div>
+          {<SearchInput />}
         </div>
       </Responsive>
     </div>
