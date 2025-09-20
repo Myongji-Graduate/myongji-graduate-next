@@ -4,7 +4,8 @@ import useDialog from '@/app/hooks/useDialog';
 import Button from '@/app/ui/view/atom/button/button';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
-import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
+import { MIN_WIDTH, MAX_WIDTH } from '@/app/ui/timetable/create-timetable-constants';
+import ClearTimetableButton from './clear-timetable-button';
 
 function ControlButtonGroup() {
   const { isOpen, open } = useDialog(DIALOG_KEY.TIMETABLE_LECTURE_SEARCH);
@@ -15,7 +16,7 @@ function ControlButtonGroup() {
 
   const ActionButtons = (
     <div className="flex gap-2">
-      <Button label="초기화" size="xs" variant="outlined" />
+      <ClearTimetableButton />
       <Button label="저장" size="xs" variant="outlined" />
       <Button label="삭제" size="xs" variant="outlined" />
     </div>

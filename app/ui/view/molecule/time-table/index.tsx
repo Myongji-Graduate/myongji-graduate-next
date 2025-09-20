@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useMemo, useState } from 'react';
 import { TableHeader } from '../table/table-header';
 import Grid from '../grid';
@@ -10,7 +12,7 @@ import { cn } from '@/app/utils/shadcn/utils';
 import type { TimeTableProps } from './types';
 import type { ListRow } from '../list/list-root';
 
-export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTableProps<T>) {
+export function TimeTable<T extends ListRow>({ data, isEditable = true, onRemove }: TimeTableProps<T>) {
   const items = useMemo(() => normalizeLectures(data), [data]);
 
   const hours = useMemo(() => {
@@ -19,10 +21,13 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
     return arr;
   }, []);
 
-  const [hiddenCodes, setHiddenCodes] = useState<Set<string>>(new Set());
-  const hideBlock = (code: string) => setHiddenCodes((prev) => new Set(prev).add(code));
-
   const [hoverCode, setHoverCode] = useState<string | null>(null);
+
+  const handleRemove = (lectureId: number) => {
+    if (onRemove) {
+      onRemove(lectureId);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
@@ -36,7 +41,7 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
       <TimeTableList
         data={data}
         emptyDataRender={() => (
-          <div className="text-gray-400 absolute items-center">시간표에 추가된 강의가 없습니다.</div>
+          <div className="text-gray-400 absolute items-center z-1 bg-white p-2">시간표에 추가된 강의가 없습니다.</div>
         )}
       >
         <div className="flex w-full overflow-hidden">
@@ -58,7 +63,7 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
 
             <Grid cols={5}>
               {DAYS.map((_, col) => {
-                const colItems = items.filter((i) => i.col === col && !hiddenCodes.has(i.lectureCode));
+                const colItems = items.filter((i) => i.col === col);
 
                 return (
                   <Grid.Column key={col}>
@@ -81,7 +86,7 @@ export function TimeTable<T extends ListRow>({ data, isEditable = true }: TimeTa
                             key={item.id}
                             item={item}
                             isEditable={isEditable}
-                            onRemove={hideBlock}
+                            onRemove={() => handleRemove(item.id)}
                             colorKey={item.lectureCode}
                             isHovered={isHovered}
                             onMouseEnter={() => setHoverCode(item.lectureCode)}

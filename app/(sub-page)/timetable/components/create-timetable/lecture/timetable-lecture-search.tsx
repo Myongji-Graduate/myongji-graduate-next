@@ -1,11 +1,15 @@
+'use client';
+
 import List from '@/app/ui/view/molecule/list';
 import { ListRow } from '@/app/ui/view/molecule/list/list-root';
 import TimetableLectureFilters from './timetable-lecture-filters';
 import LectureRowDesktop from './lecture-row-desktop';
 import LectureRowMobile from './lecture-row-mobile';
 import Responsive from '@/app/ui/responsive';
+import { TimetableLectureRow } from '@/app/store/stores/timetable-lecture';
+import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
 
-export const mockLectureData: ListRow[] = [
+export const mockLectureData: TimetableLectureRow[] = [
   //추후 api로 받아오기
   {
     id: '5976',
@@ -49,6 +53,29 @@ export const mockLectureData: ListRow[] = [
     day2: '수요일',
     time2: '09:00 - 10:15',
     startMinute2: 900,
+    endMinute2: 1015,
+    lectureRoom: 'L201',
+    note: null,
+  },
+  {
+    id: '6124',
+    lectureCode: 'LAW20103',
+    name: '헌법개론2',
+    credit: 3,
+    campus: '자연',
+    year: 2025,
+    semester: 2,
+    maxStudent: '80',
+    koreanCode: '법학201',
+    department: '법학대학',
+    professor: '김민수',
+    day1: '수요일',
+    time1: '09:30 - 10:15',
+    startMinute1: 930,
+    endMinute1: 1015,
+    day2: '금요일',
+    time2: '09:30 - 10:15',
+    startMinute2: 930,
     endMinute2: 1015,
     lectureRoom: 'L201',
     note: null,
@@ -148,8 +175,14 @@ export const mockLectureData: ListRow[] = [
 ];
 
 function TimetableLectureSearch() {
+  const { addLecture } = useTimetableLecture();
+
   const render = (item: ListRow, index: number) => (
-    <List.Row data-cy={`timetable-lecture-${item.id}`} key={item.id ?? index}>
+    <List.Row
+      data-cy={`timetable-lecture-${item.id}`}
+      key={item.id ?? index}
+      onClick={() => addLecture(item as TimetableLectureRow)}
+    >
       <Responsive minWidth={1000}>
         <LectureRowDesktop item={item} />
       </Responsive>
