@@ -9,6 +9,7 @@ const initialState = {
   [DIALOG_KEY.SIDE_NAVIGATION]: false,
   [DIALOG_KEY.UPDATE_INSTRUCTION]: false,
   [DIALOG_KEY.TIMETABLE_LECTURE_SEARCH]: false,
+  [DIALOG_KEY.LECTURE_INSIGHT]: false,
 };
 
 const dialogAtom = atom(initialState);

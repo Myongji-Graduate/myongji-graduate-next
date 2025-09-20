@@ -1,7 +1,6 @@
 import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import { major } from '@/app/utils/majors/major';
-
 interface MajorSelectorProps {
   majorType: string;
   singleMajor: string;

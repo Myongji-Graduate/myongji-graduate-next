@@ -5,6 +5,8 @@ import Grid from '../grid';
 import { ListRow } from '../list/list-root';
 import SwipeToDelete from '../swipe/swipe-to-delete';
 import { ReactNode } from 'react';
+import TableWithModal from './table-with-modal';
+import { DialogKey } from '@/app/utils/key/dialog-key.util';
 
 interface TableProps<T extends ListRow> {
   headerInfo: string[];
@@ -25,6 +27,14 @@ interface BasicTableProps<T extends ListRow> extends TableProps<T> {
   onSwipeAction?: never;
 }
 
+interface ModalableTableProps<T extends ListRow> extends TableProps<T> {
+  onClick?: (item: T) => void;
+  swipeable?: false;
+  renderModal: (item: T, close: () => void) => ReactNode;
+  onSwipeAction?: never;
+  modalKey?: DialogKey;
+}
+
 function isCol(cols: number | string): cols is ColType {
   if (cols === 3 || cols === 4 || cols === 5 || cols === 6 || cols === 9 || cols === 'render-button') {
     return true;
@@ -40,8 +50,10 @@ export function Table<T extends ListRow>({
   onSwipeAction,
   emptyDataRender,
   nonRenderableKey = ['id'],
-}: SwipeableTableProps<T> | BasicTableProps<T>) {
+  ...rest
+}: SwipeableTableProps<T> | BasicTableProps<T> | ModalableTableProps<T>) {
   const cols = renderActionButton && !swipeable ? 'render-button' : headerInfo.length;
+  const isModalMode = 'renderModal' in rest;
 
   const render = (item: T, index: number) => {
     return (
@@ -77,10 +89,46 @@ export function Table<T extends ListRow>({
       </div>
     );
   };
-  return (
-    <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
-      <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
-      <List data={data} render={swipeable ? swipeableRender : render} emptyDataRender={emptyDataRender} />
+
+  const modalableRender = (item: T, index: number) => (
+    <div
+      key={index}
+      data-item={JSON.stringify(item)}
+      className="border-solid border-gray-300 border-b-[1px] last:border-b-0 first:rounded-b-0"
+    >
+      <List.Row>
+        <Grid cols={isCol(cols) ? cols : 6}>
+          {Object.keys(item).map((key, i) => {
+            if (nonRenderableKey.includes(key)) return null;
+            return <Grid.Column key={i}>{item[key]}</Grid.Column>;
+          })}
+          {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
+        </Grid>
+      </List.Row>
     </div>
   );
+  const tableContent = (
+    <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
+      <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
+      <List
+        data={data}
+        render={isModalMode ? modalableRender : swipeable ? swipeableRender : render}
+        emptyDataRender={emptyDataRender}
+      />
+    </div>
+  );
+
+  if (isModalMode) {
+    return (
+      <TableWithModal
+        modalKey={(rest as ModalableTableProps<T>).modalKey}
+        onClick={(rest as ModalableTableProps<T>).onClick}
+        renderModal={(rest as ModalableTableProps<T>).renderModal}
+      >
+        {tableContent}
+      </TableWithModal>
+    );
+  }
+
+  return tableContent;
 }
