@@ -5,6 +5,7 @@ import ControlButtonGroup from './control-button-group';
 import { TimeTable } from '@/app/ui/view/molecule/time-table';
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
 import { calculateCurrentCredit } from '@/app/utils/timetable/timetable.util';
+import SearchModal from '@/app/ui/timetable/create-timetable/lecture/search-modal';
 
 function CreateTimetable() {
   const { lectures, removeLecture } = useTimetableLecture();
@@ -18,6 +19,7 @@ function CreateTimetable() {
       <ControlButtonGroup />
       <p className="text-gray-400">총 학점: {totalCredit} 학점</p>
       <TimeTable data={lectures} onRemove={removeLecture} />
+      <SearchModal />
     </div>
   );
 }
