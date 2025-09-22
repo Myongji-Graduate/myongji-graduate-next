@@ -12,29 +12,9 @@ import { Suspense } from 'react';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { useFetchSearchTimetableLecture } from '@/app/store/querys/timetable-lecture';
 
-function TimetableLectureSearch() {
-  const { addLecture } = useTimetableLecture();
-
-  const handleAddLecture = (item: TimetableLectureRow) => {
-    addLecture(item);
-  };
-
+function LectureList() {
   const { data } = useFetchSearchTimetableLecture();
-
-  const render = (item: ListRow, index: number) => (
-    <List.Row
-      data-cy={`timetable-lecture-${item.id}`}
-      key={item.id ?? index}
-      onClick={() => handleAddLecture(item as TimetableLectureRow)}
-    >
-      <Responsive minWidth={1000}>
-        <LectureRowDesktop item={item} />
-      </Responsive>
-      <Responsive maxWidth={999}>
-        <LectureRowMobile item={item} />
-      </Responsive>
-    </List.Row>
-  );
+  const { addLecture } = useTimetableLecture();
 
   const EmptyDataRender = () => {
     return (
@@ -44,6 +24,21 @@ function TimetableLectureSearch() {
     );
   };
 
+  const render = (item: ListRow, index: number) => (
+    <List.Row key={item.id ?? index} onClick={() => addLecture(item as TimetableLectureRow)}>
+      <Responsive minWidth={1000}>
+        <LectureRowDesktop item={item} />
+      </Responsive>
+      <Responsive maxWidth={999}>
+        <LectureRowMobile item={item} />
+      </Responsive>
+    </List.Row>
+  );
+
+  return <List data={data} render={render} isScrollList emptyDataRender={EmptyDataRender} />;
+}
+
+function TimetableLectureSearch() {
   return (
     <div className="flex flex-col gap-4 pt-6">
       <div className="px-2">
@@ -59,7 +54,7 @@ function TimetableLectureSearch() {
           </div>
         }
       >
-        <List data={data} render={render} isScrollList={true} emptyDataRender={EmptyDataRender} />
+        <LectureList />
       </Suspense>
     </div>
   );
