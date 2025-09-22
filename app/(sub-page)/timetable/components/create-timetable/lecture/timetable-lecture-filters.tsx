@@ -36,7 +36,11 @@ function TimetableLectureFilters() {
 
   const CategorySelect = (
     <div className="w-[145px] min-w-[145px]">
-      <SelectRoot placeholder="전체" defaultValue="all" onValueChange={(v) => setRecommendedCategory(v as string)}>
+      <SelectRoot
+        placeholder="전체"
+        defaultValue="all"
+        onValueChange={(v) => setRecommendedCategory(v === 'all' ? '' : (v as string))}
+      >
         <SelectItem placeholder="전체" value="all" />
         {Object.entries(currentCategory).map(([key, label]) => (
           <SelectItem key={key} placeholder={label} value={key} />
