@@ -4,8 +4,8 @@ export const MIN_WIDTH = 396;
 
 /**과목명, 교수명 라디오버튼 옵션 */
 export const SEARCH_OPTIONS = [
-  { label: '과목명', value: '과목명' },
-  { label: '교수명', value: '교수명' },
+  { label: '과목명', value: 'subject' },
+  { label: '교수명', value: 'professor' },
 ];
 
 export const DEFAULT_SEARCH_OPTION = SEARCH_OPTIONS[0].value;
