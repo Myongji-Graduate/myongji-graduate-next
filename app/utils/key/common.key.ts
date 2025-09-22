@@ -9,3 +9,28 @@ export const SIMPLE_LECTURE_CATEGORY_KO = {
   CHAPEL: '채플',
   TRANSFER_CHRISTIAN: '편입 기독교',
 } as const;
+
+/**시간표 생성 관련 이수구분 객체 */
+
+//PRIMARY
+export const PRIMARY_LECTURE_CATEGORY_KO = {
+  COMMON_CULTURE: '공통교양',
+  CORE_CULTURE: '핵심교양',
+  PRIMARY_MANDATORY_MAJOR: '전공필수',
+  PRIMARY_ELECTIVE_MAJOR: '전공선택',
+  PRIMARY_BASIC_ACADEMICAL_CULTURE: '학문기초교양',
+};
+
+//DUAL
+export const DUAL_LECTURE_CATEGORY_KO = {
+  ...PRIMARY_LECTURE_CATEGORY_KO,
+  DUAL_MANDATORY_MAJOR: '복수전공필수',
+  DUAL_ELECTIVE_MAJOR: '복수전공선택',
+  DUAL_BASIC_ACADEMICAL_CULTURE: '복수학문기초교양',
+};
+
+//SUB
+export const SUB_LECTURE_CATEGORY_KO = {
+  ...PRIMARY_LECTURE_CATEGORY_KO,
+  SUB_MAJOR: '부전공',
+};
