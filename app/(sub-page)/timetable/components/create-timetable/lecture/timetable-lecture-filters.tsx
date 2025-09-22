@@ -13,7 +13,12 @@ function TimetableLectureFilters() {
 
   const CampusSelect = (
     <div className="w-[90px]">
-      <SelectRoot placeholder="인문" defaultValue={filters.campus} onValueChange={(v) => setCampus(v as string)}>
+      <SelectRoot
+        placeholder="인문"
+        key={`campus-${filters.campus}`}
+        defaultValue={filters.campus}
+        onValueChange={(v) => setCampus(v as string)}
+      >
         <SelectItem placeholder="인문" value="인문" />
         <SelectItem placeholder="자연" value="자연" />
       </SelectRoot>
@@ -23,6 +28,7 @@ function TimetableLectureFilters() {
   const CompletionSelect = (
     <div className="w-[110px]">
       <SelectRoot
+        key={`filter-${filters.filter}`}
         placeholder="미이수"
         defaultValue={filters.filter}
         onValueChange={(v) => setFilterType(v as 'TAKEN' | 'NOT_TAKEN' | 'ALL')}
@@ -37,6 +43,7 @@ function TimetableLectureFilters() {
   const CategorySelect = (
     <div className="w-[145px] min-w-[145px]">
       <SelectRoot
+        key={`categorySelect-${filters.recommendedCategory}`}
         placeholder="전체"
         defaultValue="all"
         onValueChange={(v) => setRecommendedCategory(v === 'all' ? '' : (v as string))}
