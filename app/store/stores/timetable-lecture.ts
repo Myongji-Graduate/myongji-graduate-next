@@ -22,3 +22,11 @@ export const timetableLectureFilterAtom = atom<timetableLectureFilter>({
   professor: '',
   recommendedCategory: '',
 });
+
+interface timetableLectureSearchWord {
+  input: string;
+}
+
+export const timetableLectureSearchWordAtom = atom<timetableLectureSearchWord>({
+  input: '',
+});

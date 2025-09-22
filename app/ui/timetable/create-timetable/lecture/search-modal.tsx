@@ -7,20 +7,26 @@ import { useState } from 'react';
 import { DEFAULT_SEARCH_OPTION, SEARCH_OPTIONS } from '../create-timetable-constants';
 import { useTimetableLectureFilter } from '@/app/business/hooks/use-timetable-lecture-filter.hook';
 import useDialog from '@/app/hooks/useDialog';
+import { useSetAtom } from 'jotai';
+import { timetableLectureSearchWordAtom } from '@/app/store/stores/timetable-lecture';
 
 function SearchModal() {
   const [value, setValue] = useState<string>(DEFAULT_SEARCH_OPTION);
+  const setSearchWord = useSetAtom(timetableLectureSearchWordAtom);
   const [input, setInput] = useState<string>('');
+
   const { setKeyword, setProfessor } = useTimetableLectureFilter();
   const { close } = useDialog(DIALOG_KEY.LECTURE_NAME_OR_PROF_SEARCH);
 
   const handleSearch = () => {
-    if (input.length < 2) return; // 두 글자 이상만 검색 가능
     if (value === 'subject') {
       setKeyword(input);
+      setProfessor('');
     } else if (value === 'professor') {
       setProfessor(input);
+      setKeyword('');
     }
+    setSearchWord({ input });
     close();
     setValue(DEFAULT_SEARCH_OPTION);
     setInput('');
