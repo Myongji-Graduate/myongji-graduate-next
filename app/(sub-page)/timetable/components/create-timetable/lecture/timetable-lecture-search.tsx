@@ -6,182 +6,26 @@ import TimetableLectureFilters from './timetable-lecture-filters';
 import LectureRowDesktop from './lecture-row-desktop';
 import LectureRowMobile from './lecture-row-mobile';
 import Responsive from '@/app/ui/responsive';
-import { TimetableLectureRow } from '@/app/store/stores/timetable-lecture';
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
-
-export const mockLectureData: TimetableLectureRow[] = [
-  //추후 api로 받아오기
-  {
-    id: '5976',
-    lectureCode: 'HEF01102',
-    name: '기초프로그래밍2',
-    credit: 3,
-    campus: '인문',
-    year: 2025,
-    semester: 2,
-    maxStudent: '50',
-    koreanCode: '인소102',
-    department: '인공지능·소프트웨어융합대학',
-    professor: '정재희',
-    day1: '화요일',
-    time1: '10:30 - 11:45',
-    startMinute1: 1030,
-    endMinute1: 1145,
-    day2: '목요일',
-    time2: '10:30 - 11:45',
-    startMinute2: 1030,
-    endMinute2: 1145,
-    lectureRoom: 'S1558',
-    note: '*인공지능·소프트웨어융합대학 전공이해기초교과',
-  },
-  {
-    id: '6123',
-    lectureCode: 'LAW20103',
-    name: '헌법개론',
-    credit: 3,
-    campus: '자연',
-    year: 2025,
-    semester: 2,
-    maxStudent: '80',
-    koreanCode: '법학201',
-    department: '법학대학',
-    professor: '김민수',
-    day1: '월요일',
-    time1: '09:00 - 10:15',
-    startMinute1: 900,
-    endMinute1: 1015,
-    day2: '수요일',
-    time2: '09:00 - 10:15',
-    startMinute2: 900,
-    endMinute2: 1015,
-    lectureRoom: 'L201',
-    note: null,
-  },
-  {
-    id: '6124',
-    lectureCode: 'LAW20103',
-    name: '헌법개론2',
-    credit: 3,
-    campus: '자연',
-    year: 2025,
-    semester: 2,
-    maxStudent: '80',
-    koreanCode: '법학201',
-    department: '법학대학',
-    professor: '김민수',
-    day1: '수요일',
-    time1: '09:30 - 10:15',
-    startMinute1: 930,
-    endMinute1: 1015,
-    day2: '금요일',
-    time2: '09:30 - 10:15',
-    startMinute2: 930,
-    endMinute2: 1015,
-    lectureRoom: 'L201',
-    note: null,
-  },
-  {
-    id: '7431',
-    lectureCode: 'ENG10201',
-    name: 'Academic English',
-    credit: 2,
-    campus: '인문',
-    year: 2025,
-    semester: 1,
-    maxStudent: '40',
-    koreanCode: '교양102',
-    department: '교양교육원',
-    professor: 'Alice Johnson',
-    day1: '월요일',
-    time1: '14:00 - 15:15',
-    startMinute1: 1400,
-    endMinute1: 1515,
-    day2: '수요일',
-    time2: '14:00 - 15:15',
-    startMinute2: 1400,
-    endMinute2: 1515,
-    lectureRoom: 'E103',
-    note: '국제교양필수',
-  },
-  {
-    id: '8295',
-    lectureCode: 'BUS30110',
-    name: '재무관리',
-    credit: 3,
-    campus: '인문',
-    year: 2025,
-    semester: 1,
-    maxStudent: '60',
-    koreanCode: '경영301',
-    department: '경영대학',
-    professor: '이수현',
-    day1: '금요일',
-    time1: '10:00 - 12:45',
-    day2: null,
-    time2: null,
-    startMinute1: 1000,
-    endMinute1: 1245,
-    startMinute2: null,
-    endMinute2: null,
-    lectureRoom: 'B402',
-    note: '경영학과 전공선택',
-  },
-  {
-    id: '8296',
-    lectureCode: 'BUS30111',
-    name: 'ERP개론',
-    credit: 3,
-    campus: '인문',
-    year: 2025,
-    semester: 1,
-    maxStudent: '60',
-    koreanCode: '경영301',
-    department: '경영대학',
-    professor: '신현진',
-    day1: '화요일',
-    time1: '18:00 - 20:15',
-    day2: null,
-    time2: null,
-    startMinute1: 1800,
-    endMinute1: 2015,
-    startMinute2: null,
-    endMinute2: null,
-    lectureRoom: 'B402',
-    note: null,
-  },
-  {
-    id: '9102',
-    lectureCode: 'MED11005',
-    name: '의학통계학',
-    credit: 3,
-    campus: '자연',
-    year: 2025,
-    semester: 1,
-    maxStudent: '70',
-    koreanCode: '의학110',
-    department: '의과대학',
-    professor: '박지현',
-    day1: '화요일',
-    time1: '13:00 - 14:15',
-    startMinute1: 1300,
-    endMinute1: 1415,
-    day2: '목요일',
-    time2: '13:00 - 14:15',
-    startMinute2: 1300,
-    endMinute2: 1415,
-    lectureRoom: 'M302',
-    note: '의학통계 기초필수',
-  },
-];
+import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
+import { Suspense } from 'react';
+import { TimetableLectureRow } from '@/app/type/timetable/types';
+import { useFetchSearchTimetableLecture } from '@/app/store/querys/timetable-lecture';
 
 function TimetableLectureSearch() {
   const { addLecture } = useTimetableLecture();
+
+  const handleAddLecture = (item: TimetableLectureRow) => {
+    addLecture(item);
+  };
+
+  const { data } = useFetchSearchTimetableLecture();
 
   const render = (item: ListRow, index: number) => (
     <List.Row
       data-cy={`timetable-lecture-${item.id}`}
       key={item.id ?? index}
-      onClick={() => addLecture(item as TimetableLectureRow)}
+      onClick={() => handleAddLecture(item as TimetableLectureRow)}
     >
       <Responsive minWidth={1000}>
         <LectureRowDesktop item={item} />
@@ -192,12 +36,31 @@ function TimetableLectureSearch() {
     </List.Row>
   );
 
+  const EmptyDataRender = () => {
+    return (
+      <div>
+        <p className="text-gray-400">해당 데이터가 존재하지 않습니다.</p>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4 pt-6">
       <div className="px-2">
         <TimetableLectureFilters />
       </div>
-      <List data={mockLectureData} render={render} isScrollList={true} />
+      <Suspense
+        fallback={
+          <div className="rounded-xl border-[1px] border-gray-300 w-full h-72 overflow-auto flex justify-center items-center">
+            <LoadingSpinner
+              className={'animate-spin shrink-0 h-12 w-12 mr-1.5 -ml-1 fill-gray-400'}
+              style={{ transition: `width 150ms` }}
+            />
+          </div>
+        }
+      >
+        <List data={data} render={render} isScrollList={true} emptyDataRender={EmptyDataRender} />
+      </Suspense>
     </div>
   );
 }
