@@ -9,11 +9,11 @@ import SearchInput from '@/app/ui/timetable/create-timetable/lecture/search-inpu
 import { useTimetableLectureFilter } from '@/app/business/hooks/use-timetable-lecture-filter.hook';
 
 function TimetableLectureFilters() {
-  const { setCampus, setFilterType, setRecommendedCategory, currentCategory } = useTimetableLectureFilter();
+  const { filters, setCampus, setFilterType, setRecommendedCategory, currentCategory } = useTimetableLectureFilter();
 
   const CampusSelect = (
     <div className="w-[90px]">
-      <SelectRoot placeholder="인문" onValueChange={(v) => setCampus(v as string)}>
+      <SelectRoot placeholder="인문" defaultValue={filters.campus} onValueChange={(v) => setCampus(v as string)}>
         <SelectItem placeholder="인문" value="인문" />
         <SelectItem placeholder="자연" value="자연" />
       </SelectRoot>
@@ -22,7 +22,11 @@ function TimetableLectureFilters() {
 
   const CompletionSelect = (
     <div className="w-[110px]">
-      <SelectRoot placeholder="미이수" onValueChange={(v) => setFilterType(v as 'TAKEN' | 'NOT_TAKEN' | 'ALL')}>
+      <SelectRoot
+        placeholder="미이수"
+        defaultValue={filters.filter}
+        onValueChange={(v) => setFilterType(v as 'TAKEN' | 'NOT_TAKEN' | 'ALL')}
+      >
         <SelectItem placeholder="미이수" value="NOT_TAKEN" />
         <SelectItem placeholder="이수" value="TAKEN" />
         <SelectItem placeholder="전체" value="ALL" />
@@ -32,7 +36,7 @@ function TimetableLectureFilters() {
 
   const CategorySelect = (
     <div className="w-[145px] min-w-[145px]">
-      <SelectRoot placeholder="전체" onValueChange={(v) => setRecommendedCategory(v as string)}>
+      <SelectRoot placeholder="전체" defaultValue="all" onValueChange={(v) => setRecommendedCategory(v as string)}>
         <SelectItem placeholder="전체" value="all" />
         {Object.entries(currentCategory).map(([key, label]) => (
           <SelectItem key={key} placeholder={label} value={key} />

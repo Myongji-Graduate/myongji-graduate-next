@@ -1,6 +1,6 @@
 'use client';
 
-import { useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { useQuery } from '@tanstack/react-query';
 import { timetableLectureFilterAtom } from '@/app/store/stores/timetable-lecture';
 import {
@@ -12,7 +12,7 @@ import { fetchUser } from '../services/user/user.query';
 import { InitUserInfoResponse, UserInfoResponse } from '../services/user/user.type';
 
 export function useTimetableLectureFilter() {
-  const setFilters = useSetAtom(timetableLectureFilterAtom);
+  const [filters, setFilters] = useAtom(timetableLectureFilterAtom);
 
   const { data: userInfo } = useQuery<InitUserInfoResponse | UserInfoResponse>({
     queryKey: ['userInfo'],
@@ -38,6 +38,7 @@ export function useTimetableLectureFilter() {
     setFilters((prev) => ({ ...prev, recommendedCategory: categoryKey }));
 
   return {
+    filters,
     setFilters,
     setCampus,
     setFilterType,
