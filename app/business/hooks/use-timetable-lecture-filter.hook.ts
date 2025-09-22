@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { useQuery } from '@tanstack/react-query';
 import { timetableLectureFilterAtom } from '@/app/store/stores/timetable-lecture';
 import {
@@ -12,7 +12,7 @@ import { fetchUser } from '../services/user/user.query';
 import { InitUserInfoResponse, UserInfoResponse } from '../services/user/user.type';
 
 export function useTimetableLectureFilter() {
-  const [filters, setFilters] = useAtom(timetableLectureFilterAtom);
+  const setFilters = useSetAtom(timetableLectureFilterAtom);
 
   const { data: userInfo } = useQuery<InitUserInfoResponse | UserInfoResponse>({
     queryKey: ['userInfo'],
@@ -30,11 +30,12 @@ export function useTimetableLectureFilter() {
 
   const currentCategory = categoryMap[majorType];
 
-  const setCampus = (campus: string) => setFilters({ ...filters, campus });
-  const setFilterType = (filter: 'TAKEN' | 'NOT_TAKEN' | 'ALL') => setFilters({ ...filters, filter });
-  const setKeyword = (keyword: string) => setFilters({ ...filters, keyword });
-  const setProfessor = (professor: string) => setFilters({ ...filters, professor });
-  const setRecommendedCategory = (categoryKey: string) => setFilters({ ...filters, recommendedCategory: categoryKey });
+  const setCampus = (campus: string) => setFilters((prev) => ({ ...prev, campus }));
+  const setFilterType = (filter: 'TAKEN' | 'NOT_TAKEN' | 'ALL') => setFilters((prev) => ({ ...prev, filter }));
+  const setKeyword = (keyword: string) => setFilters((prev) => ({ ...prev, keyword }));
+  const setProfessor = (professor: string) => setFilters((prev) => ({ ...prev, professor }));
+  const setRecommendedCategory = (categoryKey: string) =>
+    setFilters((prev) => ({ ...prev, recommendedCategory: categoryKey }));
 
   return {
     setFilters,
