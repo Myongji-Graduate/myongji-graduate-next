@@ -1,4 +1,4 @@
-import { TimetableLectureRow } from '@/app/store/stores/timetable-lecture';
+import { TimetableLectureRow } from '@/app/type/timetable/types';
 
 export const calculateCurrentCredit = (lectures: TimetableLectureRow[]) => {
   const totalCredit = lectures.reduce((sum, lecture) => sum + lecture.credit, 0);
