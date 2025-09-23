@@ -4,7 +4,7 @@ import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 
 import Responsive from '@/app/ui/responsive';
-import { MAX_WIDTH, MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
+import { FILTERS_MAX_WIDTH, FILTERS_MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
 import SearchInput from '@/app/ui/timetable/create-timetable/lecture/search-input';
 import { useTimetableLectureFilter } from '@/app/business/hooks/use-timetable-lecture-filter.hook';
 
@@ -66,16 +66,16 @@ function TimetableLectureFilters() {
 
   return (
     <div className="flex flex-col gap-3">
-      {/* 395px 이상 */}
-      <Responsive minWidth={MIN_WIDTH}>
+      {/* 430px 이상 */}
+      <Responsive minWidth={FILTERS_MIN_WIDTH}>
         <div className="flex gap-3 items-center">
           {Filters}
           <SearchInput />
         </div>
       </Responsive>
 
-      {/* 395px 이하 */}
-      <Responsive maxWidth={MAX_WIDTH}>
+      {/* 431px 이하 */}
+      <Responsive maxWidth={FILTERS_MAX_WIDTH}>
         <div className="flex flex-col gap-3">
           <div className="flex gap-2 items-center">{Filters}</div>
           <SearchInput />
