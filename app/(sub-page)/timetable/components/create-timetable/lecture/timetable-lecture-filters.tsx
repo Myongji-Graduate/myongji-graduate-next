@@ -45,7 +45,7 @@ function TimetableLectureFilters() {
       <SelectRoot
         key={`categorySelect-${filters.recommendedCategory}`}
         placeholder="전체"
-        defaultValue="all"
+        defaultValue={filters.recommendedCategory || 'all'}
         onValueChange={(v) => setRecommendedCategory(v === 'all' ? '' : (v as string))}
       >
         <SelectItem placeholder="전체" value="all" />
