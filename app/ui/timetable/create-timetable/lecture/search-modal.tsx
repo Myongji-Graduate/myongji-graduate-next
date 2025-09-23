@@ -22,10 +22,17 @@ function SearchModal() {
     if (value === 'subject') {
       setKeyword(input);
       setProfessor('');
+      finalize();
+      return;
     } else if (value === 'professor') {
       setProfessor(input);
       setKeyword('');
+      finalize();
+      return;
     }
+  };
+
+  const finalize = () => {
     setSearchWord({ input });
     close();
     setValue(DEFAULT_SEARCH_OPTION);
