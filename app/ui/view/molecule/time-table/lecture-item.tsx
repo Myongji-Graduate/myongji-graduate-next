@@ -1,6 +1,5 @@
 import { X } from 'lucide-react';
 import { colorClassByKey } from './utils';
-import { formatRangeHHMM } from './utils';
 import { cn } from '@/app/utils/shadcn/utils';
 import type { TimetableItem } from './types';
 
@@ -54,7 +53,7 @@ export function LectureItem({
 
       <div className="truncate font-semibold text-gray-700">{item.name}</div>
       <div className="opacity-70 whitespace-nowrap text-gray-500 tabular-nums md:text-[10px] text-[6px]">
-        {formatRangeHHMM(item.start, item.end)}
+        {item.time}
       </div>
     </div>
   );

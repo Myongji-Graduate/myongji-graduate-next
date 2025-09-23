@@ -48,6 +48,7 @@ export function normalizeLectures(raw: any[]): TimetableItem[] {
         end,
         topPct,
         heightPct,
+        time: slot.startMinute === lec.startMinute1 ? lec.time1 : lec.time2,
         name: lec.name,
         lectureCode: lec.lectureCode,
       });
