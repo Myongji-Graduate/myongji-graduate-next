@@ -26,15 +26,17 @@ export function normalizeLectures(raw: any[]): TimetableItem[] {
   raw.forEach((lec, idx) => {
     (
       [
-        { day: lec.day1, time: lec.time1 },
-        { day: lec.day2, time: lec.time2 },
+        { day: lec.day1, startMinute: lec.startMinute1, endMinute: lec.endMinute1 },
+        { day: lec.day2, startMinute: lec.startMinute2, endMinute: lec.endMinute2 },
       ] as const
     ).forEach((slot, sIdx) => {
-      if (!slot.day || !slot.time) return;
+      if (!slot.day || !slot.startMinute || !slot.endMinute) return;
       const col = DAY_TO_COL[slot.day] ?? -1;
       if (col < 0) return;
 
-      const { start, end } = parseTimeRange(slot.time);
+      const start = slot.startMinute;
+      const end = slot.endMinute;
+
       const topPct = Math.max(0, ((start - DAY_START) / DAY_RANGE) * 100);
       const heightPct = Math.max(2, ((end - start) / DAY_RANGE) * 100);
 
