@@ -66,15 +66,12 @@ function TimetableLectureFilters() {
 
   return (
     <div className="flex flex-col gap-3">
-      {/* 430px 이상 */}
       <Responsive minWidth={FILTERS_MIN_WIDTH}>
         <div className="flex gap-3 items-center">
           {Filters}
           <SearchInput />
         </div>
       </Responsive>
-
-      {/* 431px 이하 */}
       <Responsive maxWidth={FILTERS_MAX_WIDTH}>
         <div className="flex flex-col gap-3">
           <div className="flex gap-2 items-center">{Filters}</div>
