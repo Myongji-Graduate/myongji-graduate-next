@@ -1,7 +1,7 @@
 import type { ListRow } from '../list/list-root';
 
 export interface TimetableItem {
-  id: number;
+  id: string;
   day: string;
   col: number;
   start: number;
