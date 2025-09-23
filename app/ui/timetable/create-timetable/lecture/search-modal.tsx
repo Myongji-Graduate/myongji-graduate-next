@@ -24,12 +24,14 @@ function SearchModal() {
       setProfessor('');
       finalize();
       return;
-    } else if (value === 'professor') {
+    }
+    if (value === 'professor') {
       setProfessor(input);
       setKeyword('');
       finalize();
       return;
     }
+    finalize();
   };
 
   const finalize = () => {
