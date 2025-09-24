@@ -9,6 +9,7 @@ export interface TimetableItem {
   topPct: number;
   heightPct: number;
   name: string;
+  time: string;
   lectureCode: string;
   nonRenderableKey?: string[];
   isEditable?: boolean;

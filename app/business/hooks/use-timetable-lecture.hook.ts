@@ -2,8 +2,8 @@
 
 import { useAtom } from 'jotai';
 import { timeTableLectureAtom } from '@/app/store/stores/timetable-lecture';
-import { TimetableLectureRow } from '@/app/store/stores/timetable-lecture';
 import { useToast } from '@/app/ui/view/molecule/toast/use-toast';
+import { TimetableLectureRow } from '@/app/type/timetable/types';
 
 export function useTimetableLecture() {
   const [lectures, setLectures] = useAtom(timeTableLectureAtom);
@@ -51,7 +51,7 @@ export function useTimetableLecture() {
   };
 
   /** 과목 삭제 */
-  const removeLecture = (lectureId: number) => {
+  const removeLecture = (lectureId: TimetableLectureRow['id']) => {
     setLectures(lectures.filter((lec) => lec.id !== lectureId));
   };
 

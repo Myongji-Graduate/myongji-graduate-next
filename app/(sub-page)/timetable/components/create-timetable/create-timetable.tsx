@@ -6,10 +6,14 @@ import { TimeTable } from '@/app/ui/view/molecule/time-table';
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
 import { calculateCurrentCredit } from '@/app/utils/timetable/timetable.util';
 import SearchModal from '@/app/ui/timetable/create-timetable/lecture/search-modal';
+import UnscheduledLectureList from './lecture/unscheduled-lecture-list';
+import { TimetableLectureRow } from '@/app/type/timetable/types';
 
 function CreateTimetable() {
   const { lectures, removeLecture } = useTimetableLecture();
   const totalCredit = calculateCurrentCredit(lectures);
+
+  const unscheduledLectures: TimetableLectureRow[] = lectures.filter((lecture) => !lecture.day1 && !lecture.day2);
 
   return (
     <div className="flex flex-col gap-6 pb-4 md:pb-6">
@@ -19,6 +23,7 @@ function CreateTimetable() {
       <ControlButtonGroup />
       <p className="text-gray-400">총 학점: {totalCredit} 학점</p>
       <TimeTable data={lectures} onRemove={removeLecture} />
+      {unscheduledLectures.length > 0 && <UnscheduledLectureList data={unscheduledLectures} />}
       <SearchModal />
     </div>
   );
