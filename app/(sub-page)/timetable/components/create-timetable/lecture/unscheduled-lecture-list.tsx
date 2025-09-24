@@ -17,7 +17,7 @@ function UnscheduledLectureList({ data }: UnscheduledLectureListProps) {
             lectureName={lecture.name}
             lectureCredit={lecture.credit}
             lectureNote={lecture.note}
-            handleDelete={() => removeLecture(lecture.id as number)}
+            handleDelete={() => removeLecture(lecture.id)}
           />
         </div>
       ))}

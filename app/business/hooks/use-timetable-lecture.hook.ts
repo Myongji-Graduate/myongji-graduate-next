@@ -51,7 +51,7 @@ export function useTimetableLecture() {
   };
 
   /** 과목 삭제 */
-  const removeLecture = (lectureId: number) => {
+  const removeLecture = (lectureId: TimetableLectureRow['id']) => {
     setLectures(lectures.filter((lec) => lec.id !== lectureId));
   };
 
