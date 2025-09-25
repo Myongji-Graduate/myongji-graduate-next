@@ -41,8 +41,9 @@ function LectureList() {
 function TimetableLectureSearch() {
   return (
     <div className="flex flex-col gap-4 pt-6">
-      <div className="px-2">
+      <div className="px-2 flex flex-col gap-2">
         <TimetableLectureFilters />
+        <p className="text-gray-400 text-sm">※ 해당 학기에 개설되는 강의만 보여집니다.</p>
       </div>
       <Suspense
         fallback={
