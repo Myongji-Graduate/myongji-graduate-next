@@ -67,8 +67,12 @@ export function useTimetableLecture() {
     setLectures(data);
   };
 
+  /** 과목 id 배열 */
+  const lecturesIds = lectures.map((lec) => lec.id as number);
+
   return {
     lectures,
+    lecturesIds,
     addLecture,
     removeLecture,
     clearLectures,
