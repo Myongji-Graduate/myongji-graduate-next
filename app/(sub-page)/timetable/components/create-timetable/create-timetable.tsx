@@ -9,19 +9,20 @@ import UnscheduledLectureList from './lecture/unscheduled-lecture-list';
 import { useFetchTimetable } from '@/app/store/querys/timetable/timetable';
 import { Suspense, useEffect } from 'react';
 import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
-import { useAtomValue } from 'jotai';
-import { clearTimetableAtom } from '@/app/store/stores/timetable-lecture';
+import { useAtom } from 'jotai';
+import { timeTableHydratedAtom } from '@/app/store/stores/timetable-lecture';
 
 function TimetableContent() {
   const { lectures, removeLecture, initializeLectures, unscheduledLectures } = useTimetableLecture();
   const { data: fetchLectures } = useFetchTimetable();
-  const isTimetableCleared = useAtomValue(clearTimetableAtom);
+  const [isHydrated, setIsHydrated] = useAtom(timeTableHydratedAtom);
 
   useEffect(() => {
-    if (fetchLectures && lectures.length === 0 && !isTimetableCleared) {
+    if (!isHydrated && fetchLectures.length > 0) {
       initializeLectures(fetchLectures);
+      setIsHydrated(true);
     }
-  }, [fetchLectures, initializeLectures, lectures.length, isTimetableCleared]);
+  }, [fetchLectures, initializeLectures, isHydrated, setIsHydrated]);
 
   return (
     <>

@@ -1,14 +1,12 @@
 'use client';
 
-import { useAtom, useSetAtom } from 'jotai';
-import { clearTimetableAtom, timeTableLectureAtom } from '@/app/store/stores/timetable-lecture';
+import { useAtom } from 'jotai';
+import { timeTableLectureAtom } from '@/app/store/stores/timetable-lecture';
 import { useToast } from '@/app/ui/view/molecule/toast/use-toast';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
-import { useState } from 'react';
 
 export function useTimetableLecture() {
   const [lectures, setLectures] = useAtom(timeTableLectureAtom);
-  const setIsTimetableCleared = useSetAtom(clearTimetableAtom);
 
   const { toast } = useToast();
 
@@ -62,7 +60,6 @@ export function useTimetableLecture() {
   /** 모든 과목 초기화 */
   const clearLectures = () => {
     setLectures([]);
-    setIsTimetableCleared(true);
   };
 
   /** 과목 전체 초기화 + 새 데이터로 설정 */

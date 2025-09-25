@@ -5,6 +5,9 @@ import { atom } from 'jotai';
 
 export const timeTableLectureAtom = atom<TimetableLectureRow[]>([]);
 
+/** 서버 시간표 데이터로 최초 1회만 동기화 되었는지 여부 */
+export const timeTableHydratedAtom = atom<boolean>(false);
+
 /** 과목 필터링 */
 
 interface timetableLectureFilter {
@@ -30,5 +33,3 @@ interface timetableLectureSearchWord {
 export const timetableLectureSearchWordAtom = atom<timetableLectureSearchWord>({
   input: '',
 });
-
-export const clearTimetableAtom = atom(false);
