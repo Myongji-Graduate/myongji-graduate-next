@@ -6,11 +6,11 @@ import { TimeTable } from '@/app/ui/view/molecule/time-table';
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
 import SearchModal from '@/app/ui/timetable/create-timetable/lecture/search-modal';
 import UnscheduledLectureList from './lecture/unscheduled-lecture-list';
-import { useFetchTimetable } from '@/app/store/querys/timetable/timetable';
 import { Suspense, useEffect } from 'react';
 import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 import { useAtom } from 'jotai';
 import { timeTableHydratedAtom } from '@/app/store/stores/timetable-lecture';
+import { useFetchTimetable } from '@/app/business/services/timetable/timetable.query';
 
 function TimetableContent() {
   const { lectures, removeLecture, initializeLectures, unscheduledLectures } = useTimetableLecture();

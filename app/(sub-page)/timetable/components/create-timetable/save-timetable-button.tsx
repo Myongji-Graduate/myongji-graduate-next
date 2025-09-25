@@ -1,7 +1,7 @@
 'use client';
 
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
-import { usePostTimetable } from '@/app/store/querys/timetable/timetable';
+import { usePostTimetable } from '@/app/business/services/timetable/timetable.query';
 import Button from '@/app/ui/view/atom/button/button';
 import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 

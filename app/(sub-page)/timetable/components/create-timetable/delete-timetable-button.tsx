@@ -1,7 +1,7 @@
 'use client';
 
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
-import { useDeleteTimetable } from '@/app/store/querys/timetable/timetable';
+import { useDeleteTimetable } from '@/app/business/services/timetable/timetable.query';
 import Button from '@/app/ui/view/atom/button/button';
 import {
   AlertDialogHeader,
