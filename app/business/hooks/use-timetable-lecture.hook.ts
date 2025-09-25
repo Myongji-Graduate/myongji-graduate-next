@@ -70,9 +70,17 @@ export function useTimetableLecture() {
   /** 과목 id 배열 */
   const lecturesIds = lectures.map((lec) => lec.id as number);
 
+  /** 요일이 없는 강의 */
+  const unscheduledLectures: TimetableLectureRow[] = lectures.filter((lecture) => !lecture.day1 && !lecture.day2);
+
+  /** 시간표에 담긴 강의들의 총 학점 */
+  const totalCredit = lectures.length > 0 ? lectures.reduce((sum, lec) => sum + lec.credit, 0) : 0;
+
   return {
     lectures,
     lecturesIds,
+    unscheduledLectures,
+    totalCredit,
     addLecture,
     removeLecture,
     clearLectures,
