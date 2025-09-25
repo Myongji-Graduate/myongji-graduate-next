@@ -30,3 +30,5 @@ interface timetableLectureSearchWord {
 export const timetableLectureSearchWordAtom = atom<timetableLectureSearchWord>({
   input: '',
 });
+
+export const clearTimetableAtom = atom(false);
