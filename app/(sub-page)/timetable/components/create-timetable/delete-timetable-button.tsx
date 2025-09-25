@@ -25,13 +25,13 @@ function DeleteTimetableButton() {
       onSuccess: (data) => {
         clearLectures();
         toast({ title: '시간표를 삭제했습니다.' });
+        setOpen(false);
       },
       onError: (error) => {
         toast({ title: '시간표 삭제에 실패했습니다.', variant: 'destructive' });
         console.error(error);
       },
     });
-    setOpen(false);
   };
 
   return (
