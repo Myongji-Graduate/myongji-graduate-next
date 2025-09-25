@@ -28,18 +28,26 @@ export function useTimetableLecture() {
         const day2Conflict =
           lec.day2 &&
           item.day2 &&
+          lec.startMinute2 != null &&
+          lec.endMinute2 != null &&
+          item.startMinute2 != null &&
+          item.endMinute2 != null &&
           lec.day2 === item.day2 &&
-          Math.max(lec.startMinute2!, item.startMinute2!) < Math.min(lec.endMinute2!, item.endMinute2!);
+          Math.max(lec.startMinute2, item.startMinute2) < Math.min(lec.endMinute2, item.endMinute2);
 
         const crossConflict1 =
           lec.day1 === item.day2 &&
-          item.day2 !== null &&
-          Math.max(lec.startMinute1, item.startMinute2!) < Math.min(lec.endMinute1, item.endMinute2!);
+          item.day2 != null &&
+          item.startMinute2 != null &&
+          item.endMinute2 != null &&
+          Math.max(lec.startMinute1, item.startMinute2) < Math.min(lec.endMinute1, item.endMinute2);
 
         const crossConflict2 =
           lec.day2 === item.day1 &&
-          lec.day2 !== null &&
-          Math.max(lec.startMinute2!, item.startMinute1) < Math.min(lec.endMinute2!, item.endMinute1);
+          lec.day2 != null &&
+          lec.startMinute2 != null &&
+          lec.endMinute2 != null &&
+          Math.max(lec.startMinute2, item.startMinute1) < Math.min(lec.endMinute2, item.endMinute1);
 
         return day1Conflict || day2Conflict || crossConflict1 || crossConflict2;
       });
