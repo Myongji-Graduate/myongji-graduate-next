@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 import { timeTableLectureAtom } from '@/app/store/stores/timetable-lecture';
 import { useToast } from '@/app/ui/view/molecule/toast/use-toast';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
+import { useMemo } from 'react';
 
 export function useTimetableLecture() {
   const [lectures, setLectures] = useAtom(timeTableLectureAtom);
@@ -68,13 +69,16 @@ export function useTimetableLecture() {
   };
 
   /** 과목 id 배열 */
-  const lecturesIds = lectures.map((lec) => Number(lec.id));
+  const lecturesIds = useMemo(() => lectures.map((lec) => Number(lec.id)), [lectures]);
 
   /** 요일이 없는 강의 */
-  const unscheduledLectures: TimetableLectureRow[] = lectures.filter((lecture) => !lecture.day1 && !lecture.day2);
+  const unscheduledLectures: TimetableLectureRow[] = useMemo(
+    () => lectures.filter((lecture) => !lecture.day1 && !lecture.day2),
+    [lectures],
+  );
 
   /** 시간표에 담긴 강의들의 총 학점 */
-  const totalCredit = lectures.reduce((sum, lec) => sum + lec.credit, 0);
+  const totalCredit = useMemo(() => lectures.reduce((sum, lec) => sum + lec.credit, 0), [lectures]);
 
   return {
     lectures,
