@@ -4,7 +4,7 @@ import { useAtomValue } from 'jotai';
 import { API_PATH } from '@/app/business/api-path';
 import { getToken } from '@/app/business/services/auth';
 import fetchAX from 'fetch-ax';
-import { timetableLectureFilterAtom } from '../stores/timetable-lecture';
+import { timetableLectureFilterAtom } from '../../stores/timetable-lecture';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { CURRENT_SEMESTER, CURRENT_YEAR } from '@/app/utils/timetable/constants';
 
