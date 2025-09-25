@@ -29,7 +29,7 @@ function ClearTimetableButton() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>모든 과목을 초기화할까요?</AlertDialogTitle>
+          <AlertDialogTitle>현재 시간표를 초기화할까요?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex gap-6">
           <AlertDialogCancel>취소</AlertDialogCancel>
