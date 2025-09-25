@@ -1,3 +1,5 @@
+'use client';
+
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
 import { usePostTimetable } from '@/app/store/querys/timetable/timetable';
 import Button from '@/app/ui/view/atom/button/button';
