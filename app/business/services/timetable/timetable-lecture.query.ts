@@ -1,3 +1,5 @@
+'use client';
+
 import { timetableLectureFilterAtom } from '@/app/store/stores/timetable-lecture';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
