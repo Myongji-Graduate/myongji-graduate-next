@@ -15,8 +15,21 @@ export const fetchSearchTimetableLectures = async (
   recommendedCategory?: string,
 ) => {
   const token = await getToken();
+  const searchParams = new URLSearchParams({
+    year: String(year),
+    semester: String(semester),
+    campus,
+    filter,
+    keyword,
+    professor,
+  });
+
+  if (recommendedCategory !== undefined) {
+    searchParams.set('recommendedCategory', recommendedCategory);
+  }
+
   const response = await fetchAX.get<TimetableLectureRow[]>(
-    `${API_PATH.timetableLectures}/filter?year=${year}&semester=${semester}&campus=${campus}&filter=${filter}&keyword=${keyword}&professor=${professor}&recommendedCategory=${recommendedCategory}`,
+    `${API_PATH.timetableLectures}/filter?${searchParams.toString()}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
