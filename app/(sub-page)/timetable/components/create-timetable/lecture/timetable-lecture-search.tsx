@@ -10,7 +10,7 @@ import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.
 import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 import { Suspense } from 'react';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
-import { useFetchSearchTimetableLecture } from '@/app/store/querys/timetable/lecture';
+import { useFetchSearchTimetableLecture } from '@/app/business/services/timetable/timetable-lecture.query';
 
 function LectureList() {
   const { data } = useFetchSearchTimetableLecture();
