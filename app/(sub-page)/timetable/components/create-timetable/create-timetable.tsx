@@ -21,7 +21,7 @@ function TimetableContent() {
     if (fetchLectures && lectures.length === 0 && !isTimetableCleared) {
       initializeLectures(fetchLectures);
     }
-  }, [fetchLectures, initializeLectures, lectures.length]);
+  }, [fetchLectures, initializeLectures, lectures.length, isTimetableCleared]);
 
   return (
     <>
