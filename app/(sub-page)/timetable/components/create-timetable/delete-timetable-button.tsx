@@ -18,10 +18,12 @@ import { useState } from 'react';
 function DeleteTimetableButton() {
   const { mutate: deleteTimetable } = useDeleteTimetable();
   const [open, setOpen] = useState(false);
+  const { clearLectures } = useTimetableLecture();
 
   const handleConfirmButton = () => {
     deleteTimetable(undefined, {
       onSuccess: (data) => {
+        clearLectures();
         toast({ title: '시간표를 삭제했습니다.' });
       },
       onError: (error) => {
