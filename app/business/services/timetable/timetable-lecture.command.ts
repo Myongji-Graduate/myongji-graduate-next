@@ -1,9 +1,8 @@
 'use server';
 
 import { TimetableLectureRow } from '@/app/type/timetable/types';
-import fetchAX from 'fetch-ax';
 import { API_PATH } from '../../api-path';
-import { getToken } from '../auth';
+import { instance } from '@/app/utils/api/instance';
 
 export const fetchSearchTimetableLectures = async (
   year: number,
@@ -14,7 +13,6 @@ export const fetchSearchTimetableLectures = async (
   professor: string,
   recommendedCategory?: string,
 ) => {
-  const token = await getToken();
   const searchParams = new URLSearchParams({
     year: String(year),
     semester: String(semester),
@@ -28,13 +26,8 @@ export const fetchSearchTimetableLectures = async (
     searchParams.set('recommendedCategory', recommendedCategory);
   }
 
-  const response = await fetchAX.get<TimetableLectureRow[]>(
+  const response = await instance.get<TimetableLectureRow[]>(
     `${API_PATH.timetableLectures}/filter?${searchParams.toString()}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
   );
   return response.data;
 };
