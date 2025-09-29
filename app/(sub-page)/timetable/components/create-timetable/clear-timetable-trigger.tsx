@@ -30,6 +30,7 @@ function ClearTimetableTrigger() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>현재 시간표를 초기화할까요?</AlertDialogTitle>
+          <p className="text-sm text-gray-400">초기화된 시간표는 저장되지 않습니다.</p>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex gap-6">
           <AlertDialogCancel>취소</AlertDialogCancel>
