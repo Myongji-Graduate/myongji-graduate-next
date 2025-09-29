@@ -29,7 +29,6 @@ function DeleteTimetableTrigger() {
       },
       onError: (error) => {
         toast({ title: '시간표 삭제에 실패했습니다.', variant: 'destructive' });
-        console.error(error);
       },
     });
   };
