@@ -16,11 +16,13 @@ import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 import { useState } from 'react';
 
 function DeleteTimetableTrigger() {
-  const { mutate: deleteTimetable } = useDeleteTimetable();
+  const { mutate: deleteTimetable, isPending } = useDeleteTimetable();
   const [open, setOpen] = useState(false);
   const { clearLectures } = useTimetableLecture();
 
   const handleConfirmButton = () => {
+    if (isPending) return;
+
     deleteTimetable(undefined, {
       onSuccess: (data) => {
         clearLectures();
@@ -48,6 +50,7 @@ function DeleteTimetableTrigger() {
             label="확인"
             className="text-primary font-bold bg-white hover:bg-white"
             onClick={handleConfirmButton}
+            disabled={isPending}
           />
         </AlertDialogFooter>
       </AlertDialogContent>
