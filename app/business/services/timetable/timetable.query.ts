@@ -17,7 +17,7 @@ export const usePostTimetable = ({ lecturesIds }: usePostTimetableProps) => {
   return useMutation({
     mutationFn: () => uploadTimetable(CURRENT_YEAR, CURRENT_SEMESTER, lecturesIds),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.FETCH_TIMETABLE] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TIMETABLE] });
     },
   });
 };
@@ -25,7 +25,7 @@ export const usePostTimetable = ({ lecturesIds }: usePostTimetableProps) => {
 /**시간표 fetch */
 export const useFetchTimetable = () => {
   return useSuspenseQuery<TimetableLectureRow[]>({
-    queryKey: [QUERY_KEY.FETCH_TIMETABLE],
+    queryKey: [QUERY_KEY.TIMETABLE],
     queryFn: () => {
       return fetchTimetable(CURRENT_YEAR, CURRENT_SEMESTER);
     },
@@ -39,7 +39,7 @@ export const useDeleteTimetable = () => {
   return useMutation({
     mutationFn: () => deleteTimetable(CURRENT_YEAR, CURRENT_SEMESTER),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.FETCH_TIMETABLE] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TIMETABLE] });
     },
   });
 };
