@@ -9,15 +9,15 @@ export const uploadTimetable = async (year: number, semester: number, lecturesId
     semester,
     timetableIds: lecturesIds,
   });
-  return JSON.parse(JSON.stringify(response.data));
+  return response.data;
 };
 
 export const fetchTimetable = async (year: number, semester: number) => {
   const response = await instance.get(`${API_PATH.timetable}/my?year=${year}&semester=${semester}`, {});
-  return JSON.parse(JSON.stringify(response.data));
+  return response.data;
 };
 
 export const deleteTimetable = async (year: number, semester: number) => {
   const response = await instance.post(`${API_PATH.timetable}/my/delete`, { year, semester });
-  return JSON.parse(JSON.stringify(response.data));
+  return response.data;
 };
