@@ -4,10 +4,10 @@ import useDialog from '@/app/hooks/useDialog';
 import Button from '@/app/ui/view/atom/button/button';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
-import ClearTimetableButton from './clear-timetable-button';
 import { MAX_WIDTH, MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
-import DeleteTimetableButton from './delete-timetable-button';
 import SaveTimetableButton from './save-timetable-button';
+import DeleteTimetableTrigger from './delete-timetable-\btrigger';
+import ClearTimetableTrigger from './clear-timetable-trigger';
 
 function ControlButtonGroup() {
   const { isOpen, open } = useDialog(DIALOG_KEY.TIMETABLE_LECTURE_SEARCH);
@@ -18,9 +18,9 @@ function ControlButtonGroup() {
 
   const ActionButtons = (
     <div className="flex gap-2">
-      <ClearTimetableButton />
+      <ClearTimetableTrigger />
       <SaveTimetableButton />
-      <DeleteTimetableButton />
+      <DeleteTimetableTrigger />
     </div>
   );
 

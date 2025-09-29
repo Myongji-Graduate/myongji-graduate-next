@@ -13,7 +13,7 @@ import {
 } from '@/app/ui/view/molecule/alert-dialog/alert-dialog';
 import { useState } from 'react';
 
-function ClearTimetableButton() {
+function ClearTimetableTrigger() {
   const { clearLectures } = useTimetableLecture();
   const [open, setOpen] = useState(false);
 
@@ -44,4 +44,4 @@ function ClearTimetableButton() {
   );
 }
 
-export default ClearTimetableButton;
+export default ClearTimetableTrigger;

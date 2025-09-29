@@ -15,7 +15,7 @@ import {
 import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 import { useState } from 'react';
 
-function DeleteTimetableButton() {
+function DeleteTimetableTrigger() {
   const { mutate: deleteTimetable } = useDeleteTimetable();
   const [open, setOpen] = useState(false);
   const { clearLectures } = useTimetableLecture();
@@ -56,4 +56,4 @@ function DeleteTimetableButton() {
   );
 }
 
-export default DeleteTimetableButton;
+export default DeleteTimetableTrigger;
