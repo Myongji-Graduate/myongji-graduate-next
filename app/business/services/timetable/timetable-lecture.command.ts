@@ -4,15 +4,25 @@ import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { API_PATH } from '../../api-path';
 import { instance } from '@/app/utils/api/instance';
 
-export const fetchSearchTimetableLectures = async (
-  year: number,
-  semester: number,
-  campus: string,
-  filter: string,
-  keyword: string,
-  professor: string,
-  recommendedCategory?: string,
-) => {
+export interface TimetableLectureQuery {
+  year: number;
+  semester: number;
+  campus?: string;
+  filter?: string;
+  keyword?: string;
+  professor?: string;
+  recommendedCategory?: string;
+}
+
+export const fetchSearchTimetableLectures = async ({
+  year,
+  semester,
+  campus = '',
+  filter = '',
+  keyword = '',
+  professor = '',
+  recommendedCategory,
+}: TimetableLectureQuery): Promise<TimetableLectureRow[]> => {
   const searchParams = new URLSearchParams({
     year: String(year),
     semester: String(semester),
@@ -22,7 +32,7 @@ export const fetchSearchTimetableLectures = async (
     professor,
   });
 
-  if (recommendedCategory !== undefined) {
+  if (recommendedCategory) {
     searchParams.set('recommendedCategory', recommendedCategory);
   }
 
