@@ -6,7 +6,7 @@ import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/utils/timetable/constants';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
-import { fetchSearchTimetableLectures } from './timetable-lecture.command';
+import { fetchSearchTimetableLecturesClient } from './timetable-lecture.client';
 
 export const useFetchSearchTimetableLecture = () => {
   const filters = useAtomValue(timetableLectureFilterAtom);
@@ -20,16 +20,15 @@ export const useFetchSearchTimetableLecture = () => {
       filters.professor,
       filters.recommendedCategory,
     ],
-    queryFn: () => {
-      return fetchSearchTimetableLectures(
-        CURRENT_YEAR,
-        CURRENT_SEMESTER,
-        filters.campus,
-        filters.filter,
-        filters.keyword,
-        filters.professor,
-        filters.recommendedCategory,
-      );
-    },
+    queryFn: () =>
+      fetchSearchTimetableLecturesClient({
+        year: CURRENT_YEAR,
+        semester: CURRENT_SEMESTER,
+        campus: filters.campus,
+        filter: filters.filter,
+        keyword: filters.keyword,
+        professor: filters.professor,
+        recommendedCategory: filters.recommendedCategory,
+      }),
   });
 };
