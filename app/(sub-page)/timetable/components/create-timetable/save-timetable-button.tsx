@@ -8,7 +8,7 @@ import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 function SaveTimetableButton() {
   const { lecturesIds } = useTimetableLecture();
 
-  const { mutate: uploadTimetable } = usePostTimetable({ lecturesIds });
+  const { mutate: uploadTimetable } = usePostTimetable(lecturesIds);
 
   const handleSaveButton = () => {
     uploadTimetable(undefined, {
