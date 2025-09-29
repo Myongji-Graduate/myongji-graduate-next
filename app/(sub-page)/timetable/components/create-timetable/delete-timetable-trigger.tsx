@@ -1,6 +1,7 @@
 'use client';
 
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
+import { useDeleteTimetable } from '@/app/business/services/timetable/timetable.query';
 import Button from '@/app/ui/view/atom/button/button';
 import {
   AlertDialogHeader,
@@ -11,25 +12,37 @@ import {
   AlertDialogTitle,
   AlertDialogCancel,
 } from '@/app/ui/view/molecule/alert-dialog/alert-dialog';
+import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 import { useState } from 'react';
 
-function ClearTimetableButton() {
-  const { clearLectures } = useTimetableLecture();
+function DeleteTimetableTrigger() {
+  const { mutate: deleteTimetable, isPending } = useDeleteTimetable();
   const [open, setOpen] = useState(false);
+  const { clearLectures } = useTimetableLecture();
 
   const handleConfirmButton = () => {
-    clearLectures();
-    setOpen(false);
+    if (isPending) return;
+
+    deleteTimetable(undefined, {
+      onSuccess: (data) => {
+        clearLectures();
+        toast({ title: '시간표를 삭제했습니다.' });
+        setOpen(false);
+      },
+      onError: (error) => {
+        toast({ title: '시간표 삭제에 실패했습니다.', variant: 'destructive' });
+      },
+    });
   };
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button label="초기화" variant="outlined" size="xs" />
+        <Button label="삭제" variant="outlined" size="xs" />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>모든 과목을 초기화할까요?</AlertDialogTitle>
+          <AlertDialogTitle>현재 저장된 시간표를 삭제할까요?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex gap-6">
           <AlertDialogCancel>취소</AlertDialogCancel>
@@ -37,6 +50,7 @@ function ClearTimetableButton() {
             label="확인"
             className="text-primary font-bold bg-white hover:bg-white"
             onClick={handleConfirmButton}
+            disabled={isPending}
           />
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -44,4 +58,4 @@ function ClearTimetableButton() {
   );
 }
 
-export default ClearTimetableButton;
+export default DeleteTimetableTrigger;
