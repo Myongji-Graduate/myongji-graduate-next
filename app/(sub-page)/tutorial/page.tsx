@@ -3,7 +3,8 @@ import { TUTORIAL_FEATRUE, TUTORIAL_UPLOAD } from './data';
 import ContentContainer from '@/app/ui/view/atom/content-container/content-container';
 import type { Metadata } from 'next';
 import TutorialContent from './components/TutorialContent';
-import Link from 'next/link';
+import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
+import { CheckIcon } from '@heroicons/react/16/solid';
 
 export const metadata: Metadata = {
   title: '튜토리얼',
@@ -12,25 +13,25 @@ export const metadata: Metadata = {
 
 function TutorialPage() {
   return (
-    <ContentContainer className={cn('flex flex-col gap-6 p-1 py-10', 'md:gap-20 max-md:max-w-[600px]')} size="lg">
-      <h1 className={cn('text-center text-xl font-bold', 'md:text-3xl')}>튜토리얼</h1>
-      <section>
-        <div className="text-xl mx-[5%] py-4 font-bold text-gray-4 md:text-2xl md:py-8">
-          졸업 요건 충족도 확인 서비스
-          <br />
-          졸업을 부탁해의&nbsp;
-          <span className="max-sm:block md:hidden"></span>
-          <span className="text-primary">주요 기능과 사용법</span>을 소개해요
+    <ContentContainer className={cn('flex flex-col gap-2 p-1 py-10', 'max-md:max-w-[600px]')} size="lg">
+      <TitleBox title="튜토리얼"></TitleBox>
+      <section className="mx-[5%] py-6 overflow-hidden flex flex-col gap-4">
+        <div className="text-md font-semibold text-gray-600 md:text-xl flex flex-col gap-1">
+          <div className="flex items-center">
+            <CheckIcon className="md:w-6 md:h-6 w-5 h-5 text-primary" />
+            <span>졸업 요건 충족도 확인 서비스</span>
+          </div>
+          <span className="md:ml-6 ml-5">
+            졸업을 부탁해의&nbsp;
+            <span className="text-primary font-bold">주요 기능과 사용법</span>을 소개해요
+          </span>
         </div>
         <TutorialContent data={TUTORIAL_FEATRUE} />
       </section>
-      <section>
-        <div className="text-xl mx-[5%] py-4 font-bold text-gray-4 md:text-2xl md:py-8">
-          <Link href="https://msi.mju.ac.kr/servlet/security/MySecurityStart" target="_blank">
-            <span className="text-primary">MYIWEB 성적표</span>
-          </Link>
-          를 통해 <br />
-          나만의 졸업사정결과를 확인해요
+      <section className="mx-[5%] py-6 overflow-hidden flex flex-col gap-4">
+        <div className="text-md font-semibold text-gray-600 md:text-xl flex items-center">
+          <CheckIcon className="md:w-6 md:h-6 h-5 w-5 text-primary" />
+          <span className="text-primary font-bold">MyiWeb 성적표</span>를 통해 나만의 졸업사정결과를 확인해요
         </div>
         <TutorialContent data={TUTORIAL_UPLOAD} />
       </section>
