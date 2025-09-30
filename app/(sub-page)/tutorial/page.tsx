@@ -29,9 +29,12 @@ function TutorialPage() {
         <TutorialContent data={TUTORIAL_FEATRUE} />
       </section>
       <section className="mx-[5%] py-6 overflow-hidden flex flex-col gap-4">
-        <div className="text-md font-semibold text-gray-600 md:text-xl flex items-center">
-          <CheckIcon className="md:w-6 md:h-6 h-5 w-5 text-primary" />
-          <span className="text-primary font-bold">MyiWeb 성적표</span>를 통해 나만의 졸업사정결과를 확인해요
+        <div className="text-md font-semibold text-gray-600 md:text-xl flex flex-col">
+          <div className="flex items-center">
+            <CheckIcon className="md:w-6 md:h-6 h-5 w-5 text-primary" />
+            <span className="text-primary font-bold">MyiWeb 성적표</span>를 통해&nbsp;
+          </div>
+          <span className="md:ml-6 ml-5">나만의 졸업사정결과를 확인해요</span>
         </div>
         <TutorialContent data={TUTORIAL_UPLOAD} />
       </section>
