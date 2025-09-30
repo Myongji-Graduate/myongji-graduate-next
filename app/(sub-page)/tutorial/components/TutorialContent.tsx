@@ -12,9 +12,9 @@ function TutorialContent({ data }: TestContentProps) {
   const [item, setItem] = useState<TutorialItem>(data[0]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 p-6 rounded-2xl bg-gray-50">
-      <div className="flex items-center justify-center lg:justify-start w-full lg:w-[420px]">
-        <div className="relative w-64 md:w-80 lg:w-[420px] h-64 md:h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-lg">
+    <div className="flex flex-col lg:flex-row lg:items-center gap-6 p-6 rounded-2xl bg-gray-50">
+      <div className="w-full lg:w-[70%] max-w-[650px] mx-auto lg:mx-0">
+        <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-lg">
           <Image alt="tutorial-image" src={item.imageUrl} fill className="object-cover" />
         </div>
       </div>
