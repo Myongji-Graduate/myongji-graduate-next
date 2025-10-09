@@ -57,6 +57,7 @@ export function useTimetableLecture() {
         return prev;
       }
 
+      toast({ title: `${item.name} 과목을 시간표에 추가했습니다.`, variant: 'default' });
       return [...prev, item];
     });
   };
