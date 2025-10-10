@@ -6,8 +6,6 @@ import uploadImage1 from '@/public/assets/tutorial/tutorial1.png';
 import uploadImage2 from '@/public/assets/tutorial/tutorial2.png';
 import uploadImage3 from '@/public/assets/tutorial/tutorial3.png';
 import uploadImage4 from '@/public/assets/tutorial/tutorial4.png';
-import file from '../../../public/assets/file.svg';
-import dimond from '../../../public/assets/dimond.svg';
 import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
@@ -20,18 +18,23 @@ export interface TutorialItem {
 export const TUTORIAL_FEATRUE: TutorialItem[] = [
   {
     imageUrl: featureImage1,
-    icon: file,
     content: '강의 커스텀을 통한 졸업 사정 예측',
   },
   {
     imageUrl: featureImage2,
     content: '영역(공통교양 등)별 수강 현황 조회',
-    icon: dimond,
   },
   {
     imageUrl: featureImage3,
-    icon: dimond,
-    content: '카테고리(사고와 표현 등)별 기이수/미이수 과목 정보 및 학점 조회',
+    content: '카테고리별 기이수/미이수 과목 정보 및 학점 조회',
+  },
+  {
+    imageUrl: featureImage3,
+    content: '학기 전·후 상태에 맞춘 시간표 생성/과목 추천',
+  },
+  {
+    imageUrl: featureImage3,
+    content: '학과 필수 과목과 인기 강의 탐색',
   },
 ];
 
@@ -41,7 +44,7 @@ export const TUTORIAL_UPLOAD: TutorialItem[] = [
     content: (
       <>
         <Link href="https://msi.mju.ac.kr/servlet/security/MySecurityStart" target="_blank">
-          1. <span className="text-primary">MyiWeb MSI</span>
+          1. <span className="text-primary underline">MyiWeb MSI</span>
         </Link>
         에 접속 후 로그인(PC환경)
       </>
@@ -53,7 +56,7 @@ export const TUTORIAL_UPLOAD: TutorialItem[] = [
   },
   {
     imageUrl: uploadImage2,
-    content: '3. 우측 상단 조회버튼 → 프린트 아이콘 (모바일 지원 X)',
+    content: '3. 우측 상단 조회버튼 → 프린트 아이콘',
   },
   {
     imageUrl: uploadImage3,
