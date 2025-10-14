@@ -8,11 +8,11 @@ import Responsive from '@/app/ui/responsive';
 import { FILTERS_MAX_WIDTH, FILTERS_MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
 import RadioGroup from '@/app/ui/view/molecule/radio-group/radio-group';
 
-import { RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
+import { PRIMARY_LECTURE_CATEGORY_KO } from '@/app/utils/key/common.key';
 import { major as MAJORS } from '@/app/utils/majors/major';
 
 type SortKey = 'popular' | 'mostTaken' | null;
-type CategoryKey = keyof typeof RESULT_CATEGORY_KO | 'all';
+type CategoryKey = keyof typeof PRIMARY_LECTURE_CATEGORY_KO | 'all';
 type Year = '16' | '17' | '18' | '19' | '20' | '21' | '22' | '23' | '24';
 
 const YEARS: Year[] = ['16', '17', '18', '19', '20', '21', '22', '23', '24'];
@@ -23,7 +23,7 @@ function LectureFilters() {
   const [category, setCategory] = useState<CategoryKey>('all');
   const [sort, setSort] = useState<SortKey>(null);
 
-  const categoryEntries = useMemo(() => Object.entries(RESULT_CATEGORY_KO) as [CategoryKey, string][], []);
+  const categoryEntries = useMemo(() => Object.entries(PRIMARY_LECTURE_CATEGORY_KO) as [CategoryKey, string][], []);
 
   const sortOptions = useMemo(
     () => [
