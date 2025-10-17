@@ -2,25 +2,28 @@
 
 import { API_PATH } from '../../api-path';
 import type {
-  LectureRowsResponse,
+  PopularApiResponse,
+  NormalizedPage,
   PopularInitQuery,
   PopularByCategoryQuery,
-  PopularApiResponse,
 } from './lecture-finder.types';
+import { normalizePopular } from './lecture-finder.types';
 
-export async function fetchPopularInit(query: PopularInitQuery): Promise<LectureRowsResponse> {
+type PageParam = { cursor?: string; limit?: number };
+
+export async function fetchPopularInitPaged(query: PopularInitQuery & PageParam): Promise<NormalizedPage> {
   const params = new URLSearchParams();
   if (typeof query.limit === 'number') params.set('limit', String(query.limit));
   if (query.cursor) params.set('cursor', query.cursor);
 
   const res = await fetch(`${API_PATH.lectures}/popular?${params.toString()}`);
-  if (!res.ok) throw new Error(`fetchPopularInit failed: ${res.status}`);
+  if (!res.ok) throw new Error(`popularInit failed: ${res.status}`);
 
   const json = (await res.json()) as PopularApiResponse;
-  return Array.isArray(json) ? json : json.lectures ?? [];
+  return normalizePopular(json);
 }
 
-export async function fetchPopularByCategory(query: PopularByCategoryQuery): Promise<LectureRowsResponse> {
+export async function fetchPopularByCategoryPaged(query: PopularByCategoryQuery & PageParam): Promise<NormalizedPage> {
   const params = new URLSearchParams();
   params.set('major', String(query.major));
   params.set('entryYear', String(query.entryYear));
@@ -29,11 +32,8 @@ export async function fetchPopularByCategory(query: PopularByCategoryQuery): Pro
   if (query.cursor) params.set('cursor', query.cursor);
 
   const res = await fetch(`${API_PATH.lectures}/popular/by-category?${params.toString()}`);
-  if (!res.ok) throw new Error(`fetchPopularByCategory failed: ${res.status}`);
+  if (!res.ok) throw new Error(`popularByCategory failed: ${res.status}`);
 
   const json = (await res.json()) as PopularApiResponse;
-  return Array.isArray(json) ? json : json.lectures ?? [];
+  return normalizePopular(json);
 }
-
-export { fetchPopularInit as fetchFindLectures };
-export { fetchPopularByCategory as fetchPopularLectures };

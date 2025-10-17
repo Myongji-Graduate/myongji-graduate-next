@@ -22,3 +22,26 @@ export interface PopularByCategoryQuery {
 export type PopularApiResponse =
   | { lectures: TimetableLectureRow[]; pageInfo?: { nextCursor?: string; hasMore?: boolean; pageSize?: number } }
   | TimetableLectureRow[];
+
+export type NormalizedPage = {
+  items: LectureRowsResponse;
+  pageInfo: {
+    nextCursor?: string;
+    hasMore: boolean;
+    pageSize?: number;
+  };
+};
+
+export function normalizePopular(res: PopularApiResponse): NormalizedPage {
+  if (Array.isArray(res)) {
+    return { items: res, pageInfo: { hasMore: false } };
+  }
+  return {
+    items: res.lectures ?? [],
+    pageInfo: {
+      nextCursor: res.pageInfo?.nextCursor,
+      hasMore: !!res.pageInfo?.hasMore || !!res.pageInfo?.nextCursor,
+      pageSize: res.pageInfo?.pageSize,
+    },
+  };
+}
