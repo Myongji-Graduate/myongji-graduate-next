@@ -1,127 +1,92 @@
-import React from 'react';
+'use client';
+
+import React, { useMemo } from 'react';
 import { Table } from '@/app/ui/view/molecule/table';
-import { RESULT_CATEGORY_KO } from '@/app/utils/key/result-category.key';
 import { REQUIRED_LECTURE_TABLE_HEADER_INFO } from '@/app/ui/lecture/required-lecture/required-lecture-constant';
 import LectureInsightModal from '../lecture-insight-modal/lecture-insight-modal';
+import { LECTURE_FINDER_CATEGORY_KO } from '../type';
+import type { TimetableLectureRow } from '@/app/type/timetable/types';
+
 interface LectureTableProps {
   isAll: boolean;
+  popularData?: TimetableLectureRow[];
+  findData?: TimetableLectureRow[];
+  isLoading?: boolean;
+  error?: Error | null;
 }
 
 interface LectureTableData {
-  id: number;
+  id: string;
   lectureName: string;
+  credit: number;
   rating: string;
   enrollmentCount: number;
-  completionType: string;
-  [key: string]: string | number;
+  category: string | null;
+  [key: string]: string | number | boolean | null;
 }
 
-function LectureTable({ isAll }: LectureTableProps) {
-  // 카테고리별 강의 데이터
+function toRow(r: TimetableLectureRow): LectureTableData {
+  const id = String((r as any).id ?? '');
+  const lectureName = (r as any).name ?? '강의명';
+  const credit = Number((r as any).credit ?? 0) || 0;
+  const rating =
+    (r as any).averageRating !== undefined && (r as any).averageRating !== null
+      ? String((r as any).averageRating)
+      : '-';
+  const enrollmentCount = Number((r as any).totalCount ?? 0) || 0;
+  const category =
+    LECTURE_FINDER_CATEGORY_KO[(r as any).categoryName as keyof typeof LECTURE_FINDER_CATEGORY_KO] ?? null;
 
-  const lecturesByCategory = {
-    [RESULT_CATEGORY_KO.PRIMARY_BASIC_ACADEMICAL_CULTURE]: [
-      {
-        id: 140,
-        lectureName: '딥러닝',
-        rating: '4.5',
-        enrollmentCount: 33231,
-        completionType: '전공필수',
-      },
-      {
-        id: 143,
-        lectureName: '인공지능',
-        rating: '5',
-        enrollmentCount: 23312,
-        completionType: '전공필수',
-      },
-    ],
-    [RESULT_CATEGORY_KO.PRIMARY_MANDATORY_MAJOR]: [
-      {
-        id: 144,
-        lectureName: '머신러닝',
-        rating: '4.2',
-        enrollmentCount: 28901,
-        completionType: '전공선택',
-      },
-      {
-        id: 145,
-        lectureName: '데이터베이스',
-        rating: '4.8',
-        enrollmentCount: 25678,
-        completionType: '전공필수',
-      },
-    ],
-    [RESULT_CATEGORY_KO.CORE_CULTURE]: [
-      {
-        id: 146,
-        lectureName: '컴퓨터구조',
-        rating: '4.3',
-        enrollmentCount: 19876,
-        completionType: '전공필수',
-      },
-      {
-        id: 147,
-        lectureName: '알고리즘',
-        rating: '4.7',
-        enrollmentCount: 22345,
-        completionType: '전공선택',
-      },
-    ],
-  };
+  return { id, lectureName, credit, enrollmentCount, category, rating };
+}
 
-  // 카테고리로 분류되지 않은 일반 강의 데이터
-  const lectures: LectureTableData[] = [
-    {
-      id: 140,
-      lectureName: '딥러닝',
-      rating: '4.5',
-      enrollmentCount: 33231,
-      completionType: '전공필수',
-    },
-    {
-      id: 143,
-      lectureName: '인공지능',
-      rating: '5',
-      enrollmentCount: 23312,
-      completionType: '전공필수',
-    },
-  ];
+function groupByCategory(rows: LectureTableData[]) {
+  return rows.reduce<Record<string, LectureTableData[]>>((acc, cur) => {
+    const key = cur.category ?? '기타';
+    (acc[key] ??= []).push(cur);
+    return acc;
+  }, {});
+}
 
-  const categories = [
-    RESULT_CATEGORY_KO.PRIMARY_BASIC_ACADEMICAL_CULTURE,
-    RESULT_CATEGORY_KO.PRIMARY_MANDATORY_MAJOR,
-    RESULT_CATEGORY_KO.CORE_CULTURE,
-  ];
+export default function LectureTable({ isAll, popularData, findData }: LectureTableProps) {
+  const rows = useMemo(() => {
+    const raw = popularData ?? findData ?? [];
+    return raw.map(toRow);
+  }, [popularData, findData]);
 
   const renderLectureModal = () => <LectureInsightModal />;
 
-  return (
-    <div className="flex flex-col gap-4 py-3">
-      {!isAll ? (
-        categories.map((category, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            <p className="font-semibold px-2">{category}</p>
-            <Table
-              headerInfo={REQUIRED_LECTURE_TABLE_HEADER_INFO}
-              data={lecturesByCategory[category]}
-              nonRenderableKey={['id']}
-              renderModal={renderLectureModal}
-              modalKey="LECTURE_INSIGHT"
-            />
-          </div>
-        ))
-      ) : (
+  if (popularData || isAll) {
+    return (
+      <div className="flex flex-col gap-4 py-3">
         <Table
           headerInfo={REQUIRED_LECTURE_TABLE_HEADER_INFO}
-          data={lectures}
+          data={rows}
           nonRenderableKey={['id']}
           renderModal={renderLectureModal}
           modalKey="LECTURE_INSIGHT"
         />
-      )}
+      </div>
+    );
+  }
+
+  const grouped = groupByCategory(rows);
+  const categories = Object.keys(grouped);
+
+  return (
+    <div className="flex flex-col gap-4 py-3">
+      {categories.map((cat) => (
+        <div key={cat} className="flex flex-col gap-2">
+          <p className="px-2 font-semibold">{cat || '기타'}</p>
+          <Table
+            headerInfo={REQUIRED_LECTURE_TABLE_HEADER_INFO}
+            data={grouped[cat]}
+            nonRenderableKey={['id', 'category']}
+            renderModal={renderLectureModal}
+            modalKey="LECTURE_INSIGHT"
+          />
+        </div>
+      ))}
     </div>
   );
 }
-
-export default LectureTable;

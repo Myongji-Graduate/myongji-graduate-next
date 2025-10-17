@@ -1,29 +1,34 @@
 'use client';
 
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import Button from '@/app/ui/view/atom/button/button';
 import Responsive from '@/app/ui/responsive';
 import { FILTERS_MAX_WIDTH, FILTERS_MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
 import RadioGroup from '@/app/ui/view/molecule/radio-group/radio-group';
-
-import { PRIMARY_LECTURE_CATEGORY_KO } from '@/app/utils/key/common.key';
+import { LECTURE_FINDER_CATEGORY_KO } from '../type';
 import { major as MAJORS } from '@/app/utils/majors/major';
+import type { PendingFilters, CategoryKey, Year } from '../type';
+import { YEARS } from '../type';
 
-type SortKey = 'popular' | 'mostTaken' | null;
-type CategoryKey = keyof typeof PRIMARY_LECTURE_CATEGORY_KO | 'all';
-type Year = '16' | '17' | '18' | '19' | '20' | '21' | '22' | '23' | '24';
+const PLACEHOLDER = {
+  major: '전공명',
+  year: '학번',
+  categoryAll: '전체',
+} as const;
 
-const YEARS: Year[] = ['16', '17', '18', '19', '20', '21', '22', '23', '24'];
+type Props = {
+  value: PendingFilters;
+  onChange: (next: PendingFilters) => void;
+  onSearch: () => void;
+};
 
-function LectureFilters() {
-  const [major, setMajor] = useState<string>('전공명');
-  const [year, setYear] = useState<Year | ''>('');
-  const [category, setCategory] = useState<CategoryKey>('all');
-  const [sort, setSort] = useState<SortKey>(null);
+function LectureFilters({ value, onChange, onSearch }: Props) {
+  const { major, year, category, sort } = value;
+  const set = useCallback((patch: Partial<PendingFilters>) => onChange({ ...value, ...patch }), [value, onChange]);
 
-  const categoryEntries = useMemo(() => Object.entries(PRIMARY_LECTURE_CATEGORY_KO) as [CategoryKey, string][], []);
+  const categoryEntries = useMemo(() => Object.entries(LECTURE_FINDER_CATEGORY_KO) as [CategoryKey, string][], []);
 
   const sortOptions = useMemo(
     () => [
@@ -33,20 +38,15 @@ function LectureFilters() {
     [],
   );
 
-  const handleSearch = useCallback(() => {}, [major, year, category, sort]);
-
-  const handleSortChange = useCallback((v: string) => {
-    setSort(v as SortKey);
-  }, []);
+  const handleSortChange = useCallback((v: string) => set({ sort: (v || null) as PendingFilters['sort'] }), [set]);
 
   const MajorSelect = (
     <div className="w-1/2">
       <SelectRoot
-        key={`major-${major}`}
-        placeholder="전공명"
+        key={`major-${major || 'none'}`}
+        placeholder={PLACEHOLDER.major}
         defaultValue={major}
-        onValueChange={(v) => setMajor(v as string)}
-        required
+        onValueChange={(v) => set({ major: String(v) })}
       >
         {MAJORS.map((m) => (
           <SelectItem key={m} value={m} placeholder={m} />
@@ -59,10 +59,9 @@ function LectureFilters() {
     <div className="w-1/3">
       <SelectRoot
         key={`year-${year || 'none'}`}
-        placeholder="학번"
+        placeholder={PLACEHOLDER.year}
         defaultValue={year}
-        onValueChange={(v) => setYear(v as Year)}
-        required
+        onValueChange={(v) => set({ year: v as Year })}
       >
         {YEARS.map((y) => (
           <SelectItem key={y} value={y} placeholder={y} />
@@ -75,11 +74,11 @@ function LectureFilters() {
     <div className="w-1/3">
       <SelectRoot
         key={`category-${category}`}
-        placeholder="전체"
+        placeholder={PLACEHOLDER.categoryAll}
         defaultValue={category}
-        onValueChange={(v) => setCategory(v as CategoryKey)}
+        onValueChange={(v) => set({ category: v as CategoryKey })}
       >
-        <SelectItem value="all" placeholder="전체" />
+        <SelectItem value="all" placeholder={PLACEHOLDER.categoryAll} />
         {categoryEntries.map(([key, label]) => (
           <SelectItem key={key} value={key} placeholder={label} />
         ))}
@@ -97,7 +96,7 @@ function LectureFilters() {
     />
   );
 
-  const SearchButton = <Button label="검색" size="sm" variant="primary" onClick={handleSearch} />;
+  const SearchButton = <Button label="검색" size="sm" variant="primary" onClick={onSearch} />;
 
   const Filters = (
     <>
@@ -112,7 +111,7 @@ function LectureFilters() {
       <Responsive minWidth={FILTERS_MIN_WIDTH}>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">{Filters}</div>
-          <div className="flex items-center justify-between px-1 gap-3">
+          <div className="flex items-center justify-between gap-3 px-1">
             {SortRadios}
             {SearchButton}
           </div>
@@ -121,7 +120,7 @@ function LectureFilters() {
 
       <Responsive maxWidth={FILTERS_MAX_WIDTH}>
         <div className="flex flex-col gap-5">
-          <div className="flex items-center w-full gap-2">{Filters}</div>
+          <div className="flex w-full items-center gap-2">{Filters}</div>
           <div className="flex items-center justify-between gap-3">
             {SortRadios}
             {SearchButton}
