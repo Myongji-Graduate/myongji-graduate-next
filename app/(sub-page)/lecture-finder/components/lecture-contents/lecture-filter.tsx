@@ -1,16 +1,24 @@
 'use client';
 
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import Button from '@/app/ui/view/atom/button/button';
 import Responsive from '@/app/ui/responsive';
 import { FILTERS_MAX_WIDTH, FILTERS_MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
 import RadioGroup from '@/app/ui/view/molecule/radio-group/radio-group';
-import { LECTURE_FINDER_CATEGORY_KO } from '../type';
+import { LECTURE_FINDER_CATEGORY_KO, YEARS } from '../type';
 import { major as MAJORS } from '@/app/utils/majors/major';
-import type { PendingFilters, CategoryKey, Year } from '../type';
-import { YEARS } from '../type';
+import type { CategoryKey, PendingFilters } from '../type';
+
+type Props = {
+  value: PendingFilters;
+  onMajorChange: (v: unknown) => void;
+  onYearChange: (v: unknown) => void;
+  onCategoryChange: (v: unknown) => void;
+  onSortChange: (v: string) => void;
+  onSearch: () => void;
+};
 
 const PLACEHOLDER = {
   major: '전공명',
@@ -18,27 +26,15 @@ const PLACEHOLDER = {
   categoryAll: '전체',
 } as const;
 
-type Props = {
-  value: PendingFilters;
-  onChange: (next: PendingFilters) => void;
-  onSearch: () => void;
-};
-
-function LectureFilters({ value, onChange, onSearch }: Props) {
+function LectureFilters({ value, onMajorChange, onYearChange, onCategoryChange, onSortChange, onSearch }: Props) {
   const { major, year, category, sort } = value;
-  const set = useCallback((patch: Partial<PendingFilters>) => onChange({ ...value, ...patch }), [value, onChange]);
 
   const categoryEntries = useMemo(() => Object.entries(LECTURE_FINDER_CATEGORY_KO) as [CategoryKey, string][], []);
 
-  const sortOptions = useMemo(
-    () => [
-      { label: '인기순', value: 'popular' },
-      { label: '많이 들은 순', value: 'mostTaken' },
-    ],
-    [],
-  );
-
-  const handleSortChange = useCallback((v: string) => set({ sort: (v || null) as PendingFilters['sort'] }), [set]);
+  const sortOptions = [
+    { label: '인기순', value: 'popular' },
+    { label: '많이 들은 순', value: 'mostTaken' },
+  ] as const;
 
   const MajorSelect = (
     <div className="w-1/2">
@@ -46,7 +42,7 @@ function LectureFilters({ value, onChange, onSearch }: Props) {
         key={`major-${major || 'none'}`}
         placeholder={PLACEHOLDER.major}
         defaultValue={major}
-        onValueChange={(v) => set({ major: String(v) })}
+        onValueChange={onMajorChange}
       >
         {MAJORS.map((m) => (
           <SelectItem key={m} value={m} placeholder={m} />
@@ -61,7 +57,7 @@ function LectureFilters({ value, onChange, onSearch }: Props) {
         key={`year-${year || 'none'}`}
         placeholder={PLACEHOLDER.year}
         defaultValue={year}
-        onValueChange={(v) => set({ year: v as Year })}
+        onValueChange={onYearChange}
       >
         {YEARS.map((y) => (
           <SelectItem key={y} value={y} placeholder={y} />
@@ -76,7 +72,7 @@ function LectureFilters({ value, onChange, onSearch }: Props) {
         key={`category-${category}`}
         placeholder={PLACEHOLDER.categoryAll}
         defaultValue={category}
-        onValueChange={(v) => set({ category: v as CategoryKey })}
+        onValueChange={onCategoryChange}
       >
         <SelectItem value="all" placeholder={PLACEHOLDER.categoryAll} />
         {categoryEntries.map(([key, label]) => (
@@ -89,41 +85,39 @@ function LectureFilters({ value, onChange, onSearch }: Props) {
   const SortRadios = (
     <RadioGroup
       name="lecture-sort"
-      options={sortOptions}
+      options={sortOptions as any}
       value={sort ?? ''}
-      onChange={handleSortChange}
+      onChange={onSortChange}
       className="flex gap-3"
     />
-  );
-
-  const SearchButton = <Button label="검색" size="sm" variant="primary" onClick={onSearch} />;
-
-  const Filters = (
-    <>
-      {MajorSelect}
-      {YearSelect}
-      {CategorySelect}
-    </>
   );
 
   return (
     <div className="flex flex-col gap-3">
       <Responsive minWidth={FILTERS_MIN_WIDTH}>
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">{Filters}</div>
+          <div className="flex items-center gap-3">
+            {MajorSelect}
+            {YearSelect}
+            {CategorySelect}
+          </div>
           <div className="flex items-center justify-between gap-3 px-1">
             {SortRadios}
-            {SearchButton}
+            <Button label="검색" size="sm" variant="primary" onClick={onSearch} />
           </div>
         </div>
       </Responsive>
 
       <Responsive maxWidth={FILTERS_MAX_WIDTH}>
         <div className="flex flex-col gap-5">
-          <div className="flex w-full items-center gap-2">{Filters}</div>
+          <div className="flex w-full items-center gap-2">
+            {MajorSelect}
+            {YearSelect}
+            {CategorySelect}
+          </div>
           <div className="flex items-center justify-between gap-3">
             {SortRadios}
-            {SearchButton}
+            <Button label="검색" size="sm" variant="primary" onClick={onSearch} />
           </div>
         </div>
       </Responsive>
