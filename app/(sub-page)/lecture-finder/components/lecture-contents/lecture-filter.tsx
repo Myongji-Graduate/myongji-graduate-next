@@ -4,9 +4,6 @@ import React, { useMemo } from 'react';
 import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import Button from '@/app/ui/view/atom/button/button';
-import Responsive from '@/app/ui/responsive';
-import { FILTERS_MAX_WIDTH, FILTERS_MIN_WIDTH } from '@/app/ui/timetable/create-timetable/create-timetable-constants';
-import RadioGroup from '@/app/ui/view/molecule/radio-group/radio-group';
 import { LECTURE_FINDER_CATEGORY_KO, YEARS } from '../type';
 import { major as MAJORS } from '@/app/utils/majors/major';
 import type { CategoryKey, PendingFilters } from '../type';
@@ -27,14 +24,9 @@ const PLACEHOLDER = {
 } as const;
 
 function LectureFilters({ value, onMajorChange, onYearChange, onCategoryChange, onSortChange, onSearch }: Props) {
-  const { major, year, category, sort } = value;
+  const { major, year, category } = value;
 
   const categoryEntries = useMemo(() => Object.entries(LECTURE_FINDER_CATEGORY_KO) as [CategoryKey, string][], []);
-
-  const sortOptions = [
-    { label: '인기순', value: 'popular' },
-    { label: '많이 들은 순', value: 'mostTaken' },
-  ] as const;
 
   const MajorSelect = (
     <div className="w-1/2">
@@ -82,45 +74,18 @@ function LectureFilters({ value, onMajorChange, onYearChange, onCategoryChange, 
     </div>
   );
 
-  const SortRadios = (
-    <RadioGroup
-      name="lecture-sort"
-      options={sortOptions as any}
-      value={sort ?? ''}
-      onChange={onSortChange}
-      className="flex gap-3"
-    />
-  );
-
   return (
     <div className="flex flex-col gap-3">
-      <Responsive minWidth={FILTERS_MIN_WIDTH}>
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            {MajorSelect}
-            {YearSelect}
-            {CategorySelect}
-          </div>
-          <div className="flex items-center justify-between gap-3 px-1">
-            {SortRadios}
-            <Button label="검색" size="sm" variant="primary" onClick={onSearch} />
-          </div>
+      <div className="flex flex-col gap-5">
+        <div className="flex w-full items-center gap-2">
+          {MajorSelect}
+          {YearSelect}
+          {CategorySelect}
         </div>
-      </Responsive>
-
-      <Responsive maxWidth={FILTERS_MAX_WIDTH}>
-        <div className="flex flex-col gap-5">
-          <div className="flex w-full items-center gap-2">
-            {MajorSelect}
-            {YearSelect}
-            {CategorySelect}
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            {SortRadios}
-            <Button label="검색" size="sm" variant="primary" onClick={onSearch} />
-          </div>
+        <div className="flex items-center justify-end gap-3">
+          <Button label="검색" size="sm" variant="primary" onClick={onSearch} />
         </div>
-      </Responsive>
+      </div>
     </div>
   );
 }
