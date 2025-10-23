@@ -6,12 +6,10 @@ export async function GET() {
     const user = await fetchUser();
     return NextResponse.json(user);
   } catch (error: any) {
-    const status = error?.response?.status ?? 500;
-
-    if (status === 401) {
-      return Response.json({ message: '인증이 필요합니다.' }, { status: 401 });
+    if (error?.response?.status === 401) {
+      return NextResponse.json({ message: '인증이 필요합니다.' }, { status: 401 });
     }
 
-    return Response.json({ message: '서버 오류가 발생했습니다.' }, { status: 500 });
+    return NextResponse.json({ message: '서버 오류가 발생했습니다.' }, { status: error?.response?.status ?? 500 });
   }
 }
