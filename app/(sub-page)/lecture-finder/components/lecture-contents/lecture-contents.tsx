@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
-import LectureFilter from './lecture-filter';
+import LectureFilters from './lecture-filters';
 import LectureTable from './lecture-table';
 import { useLectureFinderForm } from '@/app/business/hooks/use-lecture-finder-form.hook';
 import {
@@ -62,7 +62,7 @@ export default function LectureContents() {
 
   return (
     <div className="flex h-50 flex-col gap-4 px-3 py-5">
-      <LectureFilter
+      <LectureFilters
         value={pending}
         onMajorChange={handleMajorChange}
         onYearChange={handleYearChange}
