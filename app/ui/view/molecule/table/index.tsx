@@ -102,7 +102,7 @@ export function Table<T extends ListRow>({
       <div
         key={item['id'] ?? index}
         data-item={JSON.stringify(item)}
-        className="border-solid border-gray-300 border-b-[1px] last:border-b-0 first:rounded-b-0"
+        className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0 first:rounded-b-0"
         ref={isLast ? lastContentRef : undefined}
       >
         <List.Row>
