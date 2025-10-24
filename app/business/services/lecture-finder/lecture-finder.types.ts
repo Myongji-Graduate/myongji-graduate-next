@@ -1,23 +1,12 @@
 import type { TimetableLectureRow } from '@/app/type/timetable/types';
 import { major as MAJORS } from '@/app/utils/majors/major';
-import { LECTURE_FINDER_CATEGORY_KO } from '@/app/(sub-page)/lecture-finder/components/type'; // or move this const here
+import { LECTURE_FINDER_CATEGORY_KO } from '@/app/(sub-page)/lecture-finder/components/type';
+import { PopularInitQuery, PopularByCategoryQuery } from '@/app/(sub-page)/lecture-finder/components/type';
 
 export type Major = (typeof MAJORS)[number];
 export type CategoryKey = keyof typeof LECTURE_FINDER_CATEGORY_KO | 'all';
 export type LectureRowsResponse = TimetableLectureRow[];
-
-export interface PopularInitQuery {
-  limit?: number;
-  cursor?: string;
-}
-
-export interface PopularByCategoryQuery {
-  major: Major;
-  entryYear: number | string;
-  category: Exclude<CategoryKey, 'all'>;
-  limit?: number;
-  cursor?: string;
-}
+export type { PopularInitQuery, PopularByCategoryQuery };
 
 export type PopularApiResponse =
   | { lectures: TimetableLectureRow[]; pageInfo?: { nextCursor?: string; hasMore?: boolean; pageSize?: number } }
@@ -31,17 +20,3 @@ export type NormalizedPage = {
     pageSize?: number;
   };
 };
-
-export function normalizePopular(res: PopularApiResponse): NormalizedPage {
-  if (Array.isArray(res)) {
-    return { items: res, pageInfo: { hasMore: false } };
-  }
-  return {
-    items: res.lectures ?? [],
-    pageInfo: {
-      nextCursor: res.pageInfo?.nextCursor,
-      hasMore: !!res.pageInfo?.hasMore || !!res.pageInfo?.nextCursor,
-      pageSize: res.pageInfo?.pageSize,
-    },
-  };
-}
