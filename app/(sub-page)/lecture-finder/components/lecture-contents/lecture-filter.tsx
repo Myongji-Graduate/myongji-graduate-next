@@ -23,7 +23,7 @@ const PLACEHOLDER = {
   categoryAll: '전체',
 } as const;
 
-function LectureFilters({ value, onMajorChange, onYearChange, onCategoryChange, onSortChange, onSearch }: Props) {
+function LectureFilters({ value, onMajorChange, onYearChange, onCategoryChange, onSearch }: Props) {
   const { major, year, category } = value;
 
   const categoryEntries = useMemo(() => Object.entries(LECTURE_FINDER_CATEGORY_KO) as [CategoryKey, string][], []);
