@@ -21,19 +21,18 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
   const [didSearch, setDidSearch] = useState(false);
 
   const handleMajorChange = useCallback((v: unknown) => {
-    setPending((p) => ({ ...p, major: String(v) as Major | '' }));
+    const next = v == null ? '' : String(v);
+    setPending((p) => ({ ...p, major: next as Major | '' }));
   }, []);
 
   const handleYearChange = useCallback((v: unknown) => {
-    setPending((p) => ({ ...p, year: String(v) as Year | '' }));
+    const next = v == null ? '' : String(v);
+    setPending((p) => ({ ...p, year: next as Year | '' }));
   }, []);
 
   const handleCategoryChange = useCallback((v: unknown) => {
-    setPending((p) => ({ ...p, category: String(v) as CategoryKey }));
-  }, []);
-
-  const handleSortChange = useCallback((v: string) => {
-    setPending((p) => ({ ...p, sort: (v || null) as PendingFilters['sort'] }));
+    const next = v == null ? 'all' : String(v);
+    setPending((p) => ({ ...p, category: next as CategoryKey }));
   }, []);
 
   const handleSearch = useCallback(() => {
@@ -54,7 +53,6 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
     handleMajorChange,
     handleYearChange,
     handleCategoryChange,
-    handleSortChange,
     handleSearch,
   };
 }
