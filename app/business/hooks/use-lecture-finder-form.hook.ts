@@ -8,7 +8,6 @@ const DEFAULT_PENDING: PendingFilters = {
   major: '' as '' | Major,
   year: '' as '' | Year,
   category: 'all',
-  sort: null,
 };
 
 type UseLectureFinderFormParams = {

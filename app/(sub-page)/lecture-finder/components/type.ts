@@ -40,17 +40,13 @@ export const LECTURE_FINDER_CATEGORY_KO = {
 
 export type CategoryKey = keyof typeof LECTURE_FINDER_CATEGORY_KO | 'all';
 
-// 아직 미사용
-export type SortKey = 'popular' | 'mostTaken' | null;
-
-export type Year = '16' | '17' | '18' | '19' | '20' | '21' | '22' | '23' | '24';
-export const YEARS: readonly Year[] = ['16', '17', '18', '19', '20', '21', '22', '23', '24'] as const;
+export const YEARS = ['16', '17', '18', '19', '20', '21', '22', '23', '24'] as const;
+export type Year = (typeof YEARS)[number];
 
 export interface PendingFilters {
   major: Major | '';
   year: Year | '';
   category: CategoryKey;
-  sort: SortKey;
 }
 
 export type LectureRowsResponse = TimetableLectureRow[];

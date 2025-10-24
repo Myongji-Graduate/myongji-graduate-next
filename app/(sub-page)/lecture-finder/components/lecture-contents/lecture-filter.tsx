@@ -13,7 +13,6 @@ type Props = {
   onMajorChange: (v: unknown) => void;
   onYearChange: (v: unknown) => void;
   onCategoryChange: (v: unknown) => void;
-  onSortChange: (v: string) => void;
   onSearch: () => void;
 };
 
