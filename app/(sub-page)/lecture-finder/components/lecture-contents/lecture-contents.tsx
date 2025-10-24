@@ -63,7 +63,7 @@ export default function LectureContents() {
   return (
     <div className="flex h-50 flex-col gap-4 px-3 py-5">
       <LectureFilters
-        value={pending}
+        filters={pending}
         onMajorChange={handleMajorChange}
         onYearChange={handleYearChange}
         onCategoryChange={handleCategoryChange}

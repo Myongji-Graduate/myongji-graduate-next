@@ -9,7 +9,7 @@ import { major as MAJORS } from '@/app/utils/majors/major';
 import type { CategoryKey, PendingFilters } from '../type';
 
 type Props = {
-  value: PendingFilters;
+  filters: PendingFilters;
   onMajorChange: (v: unknown) => void;
   onYearChange: (v: unknown) => void;
   onCategoryChange: (v: unknown) => void;
@@ -22,8 +22,8 @@ const PLACEHOLDER = {
   categoryAll: '전체',
 } as const;
 
-function LectureFilters({ value, onMajorChange, onYearChange, onCategoryChange, onSearch }: Props) {
-  const { major, year, category } = value;
+function LectureFilters({ filters, onMajorChange, onYearChange, onCategoryChange, onSearch }: Props) {
+  const { major, year, category } = filters;
 
   const categoryEntries = useMemo(() => Object.entries(LECTURE_FINDER_CATEGORY_KO) as [CategoryKey, string][], []);
 
