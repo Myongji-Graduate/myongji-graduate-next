@@ -1,15 +1,17 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import LectureFilter from './lecture-filter';
 import LectureTable from './lecture-table';
 import { useLectureFinderForm } from '@/app/business/hooks/use-lecture-finder-form.hook';
-import { useLectureFinderData } from '@/app/business/hooks/use-lecture-finder-data.hook';
-import { useToast } from '@/app/ui/view/molecule/toast/use-toast';
-import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
+import {
+  useFetchInfiniteLectures,
+  useFetchInfiniteLecturesByCategory,
+} from '@/app/business/services/lecture-finder/lecture-finder-query';
+import { useInView } from 'react-intersection-observer';
+import type { TimetableLectureRow } from '@/app/type/timetable/types';
 
 export default function LectureContents() {
-  const { toast } = useToast();
   const {
     pending,
     committed,
@@ -19,22 +21,52 @@ export default function LectureContents() {
     handleCategoryChange,
     handleSortChange,
     handleSearch,
-  } = useLectureFinderForm({ onInvalid: (m) => toast({ title: m, variant: 'destructive' }) });
+  } = useLectureFinderForm({});
 
-  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const { ref, inView } = useInView();
+  const [showLectureMode, setShowLectureMode] = useState<'default' | 'category'>('default');
 
   const {
-    isAll,
-    usingPopular,
-    popularRows,
-    initRows,
-    loadingPopular,
-    errorPopular,
-    loadingInit,
-    errorInit,
-    sentinelRef,
-    isFetchingNext,
-  } = useLectureFinderData({ committed, didSearch, limit: 10, rootRef: scrollRef, rootMargin: '400px 0px' });
+    data: defaultData,
+    fetchNextPage: fetchNextDefaultPage,
+    hasNextPage: hasNextDefaultPage,
+    isFetching: isFetchingDefault,
+  } = useFetchInfiniteLectures();
+
+  const {
+    data: categoryData,
+    fetchNextPage: fetchNextCategoryPage,
+    hasNextPage: hasNextCategoryPage,
+    isFetching: isFetchingCategory,
+  } = useFetchInfiniteLecturesByCategory({ committed, didSearch });
+
+  const currentRawData = showLectureMode === 'default' ? defaultData : categoryData;
+
+  const currentLectures: TimetableLectureRow[] = useMemo(() => {
+    if (!currentRawData) {
+      return [];
+    }
+
+    return currentRawData.pages.flatMap((page) => page.items as TimetableLectureRow[]);
+  }, [currentRawData]);
+
+  const fetchNextPage = showLectureMode === 'default' ? fetchNextDefaultPage : fetchNextCategoryPage;
+  const hasNextPage = showLectureMode === 'default' ? hasNextDefaultPage : hasNextCategoryPage;
+  const isFetching = showLectureMode === 'default' ? isFetchingDefault : isFetchingCategory;
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetching) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetching, fetchNextPage]);
+
+  const handleSearchAndChangeMode = useCallback(() => {
+    handleSearch();
+
+    setShowLectureMode('category');
+  }, [handleSearch]);
+
+  const usingPopular = showLectureMode === 'default';
 
   return (
     <div className="flex h-50 flex-col gap-4 px-3 py-5">
@@ -44,26 +76,14 @@ export default function LectureContents() {
         onYearChange={handleYearChange}
         onCategoryChange={handleCategoryChange}
         onSortChange={handleSortChange}
-        onSearch={handleSearch}
+        onSearch={handleSearchAndChangeMode}
       />
 
-      <div ref={scrollRef} className="max-h-[70vh] overflow-auto">
-        {usingPopular ? (
-          <LectureTable isAll={isAll} popularData={popularRows} isLoading={loadingPopular} error={errorPopular} />
-        ) : (
-          <LectureTable isAll={isAll} findData={initRows} isLoading={loadingInit} error={errorInit} />
-        )}
-
-        <div ref={sentinelRef} className="h-10" />
-        {isFetchingNext && (
-          <div className="rounded-xl border-[1px] border-gray-300 w-full h-72 overflow-auto flex justify-center items-center">
-            <LoadingSpinner
-              className={'animate-spin shrink-0 h-12 w-12 mr-1.5 -ml-1 fill-gray-400'}
-              style={{ transition: `width 150ms` }}
-            />
-          </div>
-        )}
-      </div>
+      {usingPopular ? (
+        <LectureTable lastContentRef={ref} popularData={currentLectures} />
+      ) : (
+        <LectureTable lastContentRef={ref} findData={currentLectures} />
+      )}
     </div>
   );
 }
