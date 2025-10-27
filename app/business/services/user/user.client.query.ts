@@ -9,5 +9,7 @@ export const useFetchUser = () => {
   return useQuery<InitUserInfoResponse | UserInfoResponse>({
     queryKey: [QUERY_KEY.USER],
     queryFn: fetchUser,
+    staleTime: 5 * 60 * 1000, //5분
+    gcTime: 10 * 60 * 1000, //10분
   });
 };
