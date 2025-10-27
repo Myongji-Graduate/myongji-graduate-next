@@ -1,5 +1,6 @@
 'use server';
 
+import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { API_PATH } from '../../api-path';
 import { instance } from '@/app/utils/api/instance';
 
@@ -20,8 +21,11 @@ export const uploadTimetable = async ({ year, semester, lecturesIds }: UploadTim
   });
 };
 
-export const fetchTimetable = async ({ year, semester }: TimetableQuery) => {
-  const response = await instance.get(`${API_PATH.timetable}/my?year=${year}&semester=${semester}`, {});
+export const fetchTimetable = async ({ year, semester }: TimetableQuery): Promise<TimetableLectureRow[]> => {
+  const response = await instance.get<TimetableLectureRow[]>(
+    `${API_PATH.timetable}/my?year=${year}&semester=${semester}`,
+    {},
+  );
   return response.data;
 };
 
