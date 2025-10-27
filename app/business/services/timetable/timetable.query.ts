@@ -2,6 +2,8 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
+import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/utils/timetable/constants';
+import { uploadTimetable } from './timetable.command';
 
 /** 시간표 조회 */
 export const useFetchTimetable = () =>
@@ -14,14 +16,10 @@ export const useFetchTimetable = () =>
 export const usePostTimetable = (lecturesIds: number[]) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async () =>
-      (
-        await fetch('/api/timetable/my/replace', {
-          method: 'POST',
-          body: JSON.stringify({ lecturesIds }),
-        })
-      ).json(),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TIMETABLE] }),
+    mutationFn: async () => uploadTimetable({ year: CURRENT_YEAR, semester: CURRENT_SEMESTER, lecturesIds }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TIMETABLE] });
+    },
   });
 };
 
