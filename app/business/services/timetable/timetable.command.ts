@@ -3,13 +3,18 @@
 import { API_PATH } from '../../api-path';
 import { instance } from '@/app/utils/api/instance';
 
-export const uploadTimetable = async (year: number, semester: number, lecturesIds: number[]) => {
-  const response = await instance.post(`${API_PATH.timetable}/my/replace`, {
+export interface uploadTimetableQuery {
+  year: number;
+  semester: number;
+  lecturesIds: number[];
+}
+
+export const uploadTimetable = async ({ year, semester, lecturesIds }: uploadTimetableQuery) => {
+  await instance.post(`${API_PATH.timetable}/my/replace`, {
     year,
     semester,
     timetableIds: lecturesIds,
   });
-  return response.data;
 };
 
 export const fetchTimetable = async (year: number, semester: number) => {
@@ -18,6 +23,5 @@ export const fetchTimetable = async (year: number, semester: number) => {
 };
 
 export const deleteTimetable = async (year: number, semester: number) => {
-  const response = await instance.post(`${API_PATH.timetable}/my/delete`, { year, semester });
-  return response.data;
+  await instance.post(`${API_PATH.timetable}/my/delete`, { year, semester });
 };
