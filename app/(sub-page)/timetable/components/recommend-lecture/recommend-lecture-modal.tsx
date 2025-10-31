@@ -5,9 +5,38 @@ import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
+import { RecommendLectureData } from '@/app/business/services/timetable/recommend-lecture.type';
 
 async function RecommendLectureModal() {
-  const remainSemester: number = 2; // 추후 API에서 받아오기
+  const recommendLectureData: RecommendLectureData = {
+    semestersLeft: 3,
+    semesters: [
+      {
+        label: '3-2',
+        creditTarget: 18,
+        lectures: [
+          { id: 1, lectureCode: 'CSE1001', name: '컴퓨터 공학 개론', credit: 3 },
+          { id: 2, lectureCode: 'MAT2001', name: '이산수학', credit: 3 },
+        ],
+      },
+      {
+        label: '4-1',
+        creditTarget: 21,
+        lectures: [
+          { id: 12, lectureCode: 'CSE1001', name: '컴퓨터 공학 개론', credit: 3 },
+          { id: 24, lectureCode: 'MAT2001', name: '이산수학', credit: 3 },
+        ],
+      },
+      {
+        label: '4-1',
+        creditTarget: 21,
+        lectures: [
+          { id: 123, lectureCode: 'CSE1001', name: '컴퓨터 공학 개론', credit: 3 },
+          { id: 52, lectureCode: 'MAT2001', name: '이산수학', credit: 3 },
+        ],
+      },
+    ],
+  };
 
   const user = (await auth()) as InitUserInfoResponse | UserInfoResponse;
 
@@ -18,14 +47,14 @@ async function RecommendLectureModal() {
           <p>아직 듣지 않은 과목으로 남은 학기별 시간표를 자동으로 추천해드려요.</p>
         </TitleBox>
         <p className="text-lg md:text-xl text-center font-bold text-gray-500">
-          {user.studentName}님, 앞으로 {remainSemester}학기 남았습니다!
+          {user.studentName}님, 앞으로 {recommendLectureData.semestersLeft}학기 남았습니다!
         </p>
-        {remainSemester === 0 ? (
+        {recommendLectureData.semestersLeft === 0 ? (
           <div className="flex flex-col items-center justify-center">
             <Image src="/assets/graduate-maru.png" alt="학사모 마루 이미지" className="mb-4" width={250} height={250} />
           </div>
         ) : (
-          <RecommendLectureContainer />
+          <RecommendLectureContainer semesters={recommendLectureData.semesters} />
         )}
       </div>
     </Modal>
