@@ -1,27 +1,19 @@
 'use client';
 
 import { useAtom } from 'jotai';
-import { useQuery } from '@tanstack/react-query';
 import { timetableLectureFilterAtom } from '@/app/store/stores/timetable-lecture';
 import {
   PRIMARY_LECTURE_CATEGORY_KO,
   DUAL_LECTURE_CATEGORY_KO,
   SUB_LECTURE_CATEGORY_KO,
 } from '@/app/utils/key/common.key';
-import { UserInfoResponse } from '../services/user/user.type';
 import { useMemo } from 'react';
+import { useFetchUser } from '../services/user/user.client.query';
 
 export function useTimetableLectureFilter() {
   const [filters, setFilters] = useAtom(timetableLectureFilterAtom);
 
-  const { data: userInfo } = useQuery<UserInfoResponse>({
-    queryKey: ['userInfo'],
-    queryFn: async () => {
-      const res = await fetch('/api/user');
-      if (!res.ok) throw new Error('Failed to fetch user');
-      return res.json();
-    },
-  });
+  const { data: userInfo } = useFetchUser();
 
   const categoryMap = {
     PRIMARY: PRIMARY_LECTURE_CATEGORY_KO,
@@ -37,7 +29,9 @@ export function useTimetableLectureFilter() {
 
     if (typeof completeDivision[0] === 'string') return 'PRIMARY';
 
-    const types = completeDivision.map((d) => d.majorType);
+    const types = completeDivision
+      .filter((d): d is { majorType: 'PRIMARY' | 'DUAL' | 'SUB'; major: string } => typeof d !== 'string')
+      .map((d) => d.majorType);
     if (types.includes('SUB')) return 'SUB';
     if (types.includes('DUAL')) return 'DUAL';
     return 'PRIMARY';
