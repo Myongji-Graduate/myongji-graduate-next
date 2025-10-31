@@ -11,6 +11,7 @@ import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 import { useAtom } from 'jotai';
 import { timeTableHydratedAtom } from '@/app/store/stores/timetable-lecture';
 import { useFetchTimetable } from '@/app/business/services/timetable/timetable.query';
+import RecommendLectureTrigger from './recommend-lecture-trigger';
 
 function TimetableContent() {
   const { lectures, removeLecture, initializeLectures, unscheduledLectures } = useTimetableLecture();
@@ -32,6 +33,8 @@ function TimetableContent() {
   );
 }
 
+//시간표 페이지 들어왔을 때 init이면 (성적표 입력 안했으면) 성적표 업로드 페이지로 이동
+
 function CreateTimetable() {
   const { totalCredit } = useTimetableLecture();
 
@@ -40,7 +43,10 @@ function CreateTimetable() {
       <TitleBox title="시간표 생성">
         <p>미이수 과목들로 시간표를 만들고 관리해보세요!</p>
       </TitleBox>
-      <ControlButtonGroup />
+      <div className="flex flex-col gap-2">
+        <RecommendLectureTrigger />
+        <ControlButtonGroup />
+      </div>
       <p className="text-gray-400">총 학점: {totalCredit} 학점</p>
       <Suspense
         fallback={
