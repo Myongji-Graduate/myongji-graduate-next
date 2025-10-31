@@ -15,6 +15,7 @@ interface TableProps<T extends ListRow> {
   swipeable?: boolean;
   emptyDataRender?: () => ReactNode;
   nonRenderableKey?: string[]; // 테이블에 렌더링 하지 않을 키 값
+  lastContentRef?: React.Ref<HTMLDivElement>;
 }
 
 interface SwipeableTableProps<T extends ListRow> extends TableProps<T> {
@@ -50,38 +51,43 @@ export function Table<T extends ListRow>({
   onSwipeAction,
   emptyDataRender,
   nonRenderableKey = ['id'],
+  lastContentRef,
   ...rest
 }: SwipeableTableProps<T> | BasicTableProps<T> | ModalableTableProps<T>) {
   const cols = renderActionButton && !swipeable ? 'render-button' : headerInfo.length;
   const isModalMode = 'renderModal' in rest;
 
   const render = (item: T, index: number) => {
+    const isLast = index === data.length - 1;
     return (
-      <List.Row key={index}>
-        <Grid cols={isCol(cols) ? cols : 6}>
-          {Object.keys(item).map((key, index) => {
-            if (nonRenderableKey.includes(key)) return null;
-            return <Grid.Column key={index}>{item[key]}</Grid.Column>;
-          })}
-          {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
-        </Grid>
-      </List.Row>
+      <div key={item['id'] ?? index} ref={isLast ? lastContentRef : undefined}>
+        <List.Row>
+          <Grid cols={isCol(cols) ? cols : 6}>
+            {Object.keys(item).map((key, i) => {
+              if (nonRenderableKey.includes(key)) return null;
+              return <Grid.Column key={i}>{(item as any)[key]}</Grid.Column>;
+            })}
+            {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
+          </Grid>
+        </List.Row>
+      </div>
     );
   };
 
   const swipeableRender = (item: T, index: number) => {
+    const isLast = index === data.length - 1;
     return (
-      <div className="border-solid border-gray-300 border-b-[1px] last:border-b-0" key={index}>
-        <SwipeToDelete
-          onSwipeAction={() => {
-            onSwipeAction && onSwipeAction(item);
-          }}
-        >
+      <div
+        className="border-solid border-gray-300 border-b-[1px] last:border-b-0"
+        key={item['id'] ?? index}
+        ref={isLast ? lastContentRef : undefined}
+      >
+        <SwipeToDelete onSwipeAction={() => onSwipeAction && onSwipeAction(item)}>
           <List.Row>
             <Grid cols={isCol(cols) ? cols : 6}>
-              {Object.keys(item).map((key, index) => {
-                if (key === 'id') return null;
-                return <Grid.Column key={index}>{item[key]}</Grid.Column>;
+              {Object.keys(item).map((key, i) => {
+                if (nonRenderableKey.includes(key)) return null;
+                return <Grid.Column key={i}>{(item as any)[key]}</Grid.Column>;
               })}
             </Grid>
           </List.Row>
@@ -90,23 +96,27 @@ export function Table<T extends ListRow>({
     );
   };
 
-  const modalableRender = (item: T, index: number) => (
-    <div
-      key={index}
-      data-item={JSON.stringify(item)}
-      className="border-solid border-gray-300 border-b-[1px] last:border-b-0 first:rounded-b-0"
-    >
-      <List.Row>
-        <Grid cols={isCol(cols) ? cols : 6}>
-          {Object.keys(item).map((key, i) => {
-            if (nonRenderableKey.includes(key)) return null;
-            return <Grid.Column key={i}>{item[key]}</Grid.Column>;
-          })}
-          {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
-        </Grid>
-      </List.Row>
-    </div>
-  );
+  const modalableRender = (item: T, index: number) => {
+    const isLast = index === data.length - 1;
+    return (
+      <div
+        key={item['id'] ?? index}
+        data-item={JSON.stringify(item)}
+        className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0 first:rounded-b-0"
+        ref={isLast ? lastContentRef : undefined}
+      >
+        <List.Row>
+          <Grid cols={isCol(cols) ? cols : 6}>
+            {Object.keys(item).map((key, i) => {
+              if (nonRenderableKey.includes(key)) return null;
+              return <Grid.Column key={i}>{(item as any)[key]}</Grid.Column>;
+            })}
+            {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
+          </Grid>
+        </List.Row>
+      </div>
+    );
+  };
   const tableContent = (
     <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
       <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
