@@ -28,7 +28,7 @@ async function RecommendLectureModal() {
         ],
       },
       {
-        label: '4-1',
+        label: '4-2',
         creditTarget: 21,
         lectures: [
           { id: 123, lectureCode: 'CSE1001', name: '컴퓨터 공학 개론', credit: 3 },
