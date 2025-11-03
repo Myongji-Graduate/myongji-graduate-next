@@ -10,13 +10,13 @@ function RecommendLectureTrigger() {
   };
 
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-start">
       <Button
-        label="시간표 과목 추천받기"
+        label="시간표 추천받기"
         variant="outlined"
         onClick={handleModalToggle}
         size="xs"
-        className="h-[42px] w-[225px]"
+        className="h-[42px] w-[135px]"
       />
     </div>
   );
