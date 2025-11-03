@@ -11,7 +11,7 @@ import RecommendLectureModal from './components/recommend-lecture/recommend-lect
 
 export const metadata: Metadata = {
   title: '시간표',
-  description: '시간표를 생성하거나 추천받아 보세요.',
+  description: '시간표를 생성해 보세요.',
 };
 
 async function TimetablePage() {
