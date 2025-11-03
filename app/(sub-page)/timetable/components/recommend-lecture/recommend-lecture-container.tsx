@@ -4,8 +4,8 @@ import RecommendLectureList from './recommend-lecture-list';
 function RecommendLectureContainer({ semesters }: { semesters: Semester[] }) {
   return (
     <div className="py-2">
-      {semesters.map((semester) => (
-        <div key={semester.label} className="mb-6 flex flex-col gap-3">
+      {semesters.map((semester, index) => (
+        <div key={semester.label} className={`${index === semesters.length - 1 ? '' : 'mb-6'} flex flex-col gap-3`}>
           <p className="font-bold text-base md:text-lg">
             {semester.label} [총 {semester.creditTarget}학점]
           </p>
