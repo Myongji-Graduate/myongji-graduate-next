@@ -6,6 +6,7 @@ import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import { RecommendLectureData } from '@/app/business/services/timetable/recommend-lecture.type';
+import Responsive from '@/app/ui/responsive';
 
 async function RecommendLectureModal() {
   const recommendLectureData: RecommendLectureData = {
@@ -40,9 +41,9 @@ async function RecommendLectureModal() {
 
   const user = (await auth()) as InitUserInfoResponse | UserInfoResponse;
 
-  return (
-    <Modal modalKey={DIALOG_KEY.RECOMMEND_LECTURE}>
-      <div className="flex flex-col gap-5 md:gap-6  pb-4 md:pb-6">
+  const ModalContent = () => {
+    return (
+      <>
         <TitleBox title="학기별 시간표 과목 추천">
           <p>아직 듣지 않은 과목으로 남은 학기별 시간표를 자동으로 추천해드려요.</p>
         </TitleBox>
@@ -56,8 +57,27 @@ async function RecommendLectureModal() {
         ) : (
           <RecommendLectureContainer semesters={recommendLectureData.semesters} />
         )}
-      </div>
-    </Modal>
+      </>
+    );
+  };
+
+  return (
+    <>
+      <Responsive minWidth={570}>
+        <Modal modalKey={DIALOG_KEY.RECOMMEND_LECTURE}>
+          <div className="flex flex-col gap-5 md:gap-6 pb-4 md:pb-6 w-[800px] max-lg:w-[450px]">
+            <ModalContent />
+          </div>
+        </Modal>
+      </Responsive>
+      <Responsive maxWidth={569}>
+        <Modal modalKey={DIALOG_KEY.RECOMMEND_LECTURE}>
+          <div className="flex flex-col gap-5 md:gap-6 pb-4 md:pb-6 w-[70vw]">
+            <ModalContent />
+          </div>
+        </Modal>
+      </Responsive>
+    </>
   );
 }
 
