@@ -35,7 +35,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
           <div>
             <div className="text-base font-semibold mb-2">강의 정보</div>
             <div className="max-h-[50vh] overflow-y-auto scrollbar-hide">
-              <LectureInfo lecture={current} isMobile={true} />
+              <LectureInfo lecture={current} professor={focusProfessor} isMobile={true} />
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
           <div>
             <div className="text-lg font-semibold mb-2">강의 정보</div>
             <div className="max-h-60 h-full scrollbar-hide">
-              <LectureInfo lecture={current} isMobile={false} />
+              <LectureInfo lecture={current} professor={focusProfessor} isMobile={false} />
             </div>
           </div>
         </div>

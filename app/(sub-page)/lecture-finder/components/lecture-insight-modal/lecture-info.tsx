@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import StarRating from '../star-rating';
 import { DetailedLecture } from '@/app/business/services/lecture-finder/lecture-finder.types';
+import { useFetchInfiniteLectureInfo } from '@/app/business/services/lecture-finder/lecture-info-query';
+import { useInView } from 'react-intersection-observer';
 
 interface LectureInfoProps {
   lecture: DetailedLecture | undefined;
+  professor: string;
   isMobile?: boolean;
 }
 
-export default function LectureInfo({ lecture, isMobile = false }: LectureInfoProps) {
+export default function LectureInfo({ lecture, professor, isMobile = false }: LectureInfoProps) {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useFetchInfiniteLectureInfo(
+    lecture?.subject ?? '',
+    professor,
+    1,
+    5,
+  );
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
   if (!lecture) {
     return <div className="text-sm text-gray-500">교수를 선택하면 상세 정보가 표시됩니다.</div>;
   }
 
   const headerClassName = isMobile ? 'flex flex-col gap-2' : 'flex items-center justify-between gap-2';
-
   const professorNameClassName = isMobile ? 'font-semibold text-sm whitespace-nowrap' : 'font-semibold text-base';
-
   const titleClassName = isMobile ? 'font-semibold text-sm mb-2' : 'font-semibold text-base mb-2';
-
   const exampleTextClassName = isMobile ? 'text-[11px] text-gray-500' : 'text-xs text-gray-500';
+
+  const allReviews = data?.pages.flatMap((page) => page.items || []) ?? [];
 
   return (
     <div className="space-y-4">
@@ -52,19 +68,26 @@ export default function LectureInfo({ lecture, isMobile = false }: LectureInfoPr
       </div>
 
       <div>
-        <h4 className={titleClassName}>수강 후기</h4>
-        {lecture.lectureReviews.length === 0 ? (
+        {allReviews.length === 0 ? (
           <div className="text-sm text-gray-500 border rounded-xl p-3">아직 등록된 후기가 없습니다.</div>
         ) : (
           <ul className="space-y-3 pb-5">
-            {lecture.lectureReviews.map((review, i) => (
-              <li key={i} className={`rounded-xl px-3 py-2 border`}>
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm text-gray-600">{review.semester}</p>
-                  <StarRating value={review.rating} size={16} />
-                </div>
-                <p className="text-sm py-2 pt-3">{review.content}</p>
-              </li>
+            {allReviews.map((review, i) => (
+              <React.Fragment key={i}>
+                <li className={`rounded-xl px-3 py-2 border`}>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-sm text-gray-600">{review.semester}</p>
+                    <StarRating value={review.rating} size={16} />
+                  </div>
+                  <p className="text-sm py-2 pt-3">{review.content}</p>
+                </li>
+
+                {i === allReviews.length - 1 && hasNextPage && (
+                  <li className="mt-3">
+                    <div ref={ref}></div>
+                  </li>
+                )}
+              </React.Fragment>
             ))}
           </ul>
         )}

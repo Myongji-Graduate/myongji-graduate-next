@@ -42,3 +42,9 @@ export interface DetailedLecture {
 }
 
 export type LecturesInfoResponse = DetailedLecture[];
+
+export interface LectureInfoPagedResult {
+  items: LectureReview[];
+  hasNext: boolean;
+  nextPage?: number;
+}
