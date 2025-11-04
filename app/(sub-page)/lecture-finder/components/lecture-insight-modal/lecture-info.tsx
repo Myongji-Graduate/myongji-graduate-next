@@ -5,7 +5,7 @@ import { useFetchInfiniteLectureInfo } from '@/app/business/services/lecture-fin
 import { useInView } from 'react-intersection-observer';
 
 interface LectureInfoProps {
-  lecture: DetailedLecture | undefined;
+  lecture: DetailedLecture;
   professor: string;
   isMobile?: boolean;
 }
@@ -24,10 +24,6 @@ export default function LectureInfo({ lecture, professor, isMobile = false }: Le
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  if (!lecture) {
-    return <div className="text-sm text-gray-500">교수를 선택하면 상세 정보가 표시됩니다.</div>;
-  }
 
   const headerClassName = isMobile ? 'flex flex-col gap-2' : 'flex items-center justify-between gap-2';
   const professorNameClassName = isMobile ? 'font-semibold text-sm whitespace-nowrap' : 'font-semibold text-base';
