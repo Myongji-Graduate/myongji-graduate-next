@@ -20,3 +20,25 @@ export type NormalizedPage = {
     pageSize?: number;
   };
 };
+
+export interface LectureReview {
+  subject: string;
+  professor: string;
+  semester: string;
+  rating: number;
+  content: string;
+}
+
+export interface DetailedLecture {
+  subject: string;
+  professor: string;
+  assignment: '없음' | '보통' | '많음' | null;
+  exam: ['한번'] | ['두번'] | ['한번', '두번'] | [];
+  attendance: ['전자출결'] | ['직접호명'] | ['전자출결', '직접호명'] | [];
+  grading: '너그러움' | '보통' | null;
+  teamwork: '없음' | '보통' | '많음' | null;
+  rating: number;
+  lectureReviews: LectureReview[];
+}
+
+export type LecturesInfoResponse = DetailedLecture[];

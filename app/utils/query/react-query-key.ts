@@ -6,4 +6,5 @@ export const QUERY_KEY = {
   USER: 'user',
   CATEGORY: 'category',
   LECTURE_FINDER: 'lecture-finder',
+  LECTURES_INFO: 'lecture-info',
 } as const;
