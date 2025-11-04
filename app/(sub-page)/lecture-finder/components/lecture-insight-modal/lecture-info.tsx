@@ -1,9 +1,9 @@
 import React from 'react';
 import StarRating from '../star-rating';
-import { Lecture } from '../type';
+import { DetailedLecture } from '@/app/business/services/lecture-finder/lecture-finder.types';
 
 interface LectureInfoProps {
-  lecture: Lecture | undefined;
+  lecture: DetailedLecture | undefined;
   isMobile?: boolean;
 }
 
@@ -30,40 +30,40 @@ export default function LectureInfo({ lecture, isMobile = false }: LectureInfoPr
         <dl className="mt-3 grid grid-cols-2 gap-x-3 md:gap-x-4 gap-y-2 text-sm">
           <div>
             <dt className="text-gray-500">과제</dt>
-            <dd className="font-medium">{lecture.assignment}</dd>
+            <dd className="font-medium">{lecture.assignment ?? '-'}</dd>
           </div>
           <div>
             <dt className="text-gray-500">조모임</dt>
-            <dd className="font-medium">{lecture.grading}</dd>
+            <dd className="font-medium">{lecture.teamwork ?? '-'}</dd>
           </div>
           <div>
             <dt className="text-gray-500">출결</dt>
-            <dd className="font-medium">{lecture.attendance}</dd>
+            <dd className="font-medium">{lecture.attendance.length > 0 ? lecture.attendance.join(', ') : '-'}</dd>
           </div>
           <div>
             <dt className="text-gray-500">시험</dt>
-            <dd className="font-medium">{lecture.exam}</dd>
+            <dd className="font-medium">{lecture.exam.length > 0 ? lecture.exam.join(', ') : '-'}</dd>
           </div>
         </dl>
       </div>
 
       <div className={exampleTextClassName}>
-        ※ 과제(없음/보통/많음), 조모임(없음/보통/많음), 출결(너그러움/보통/깐깐함), 시험(없음/한 번/두 번)
+        ※ 과제(없음/보통/많음), 조모임(없음/보통/많음), 출결(전자출결/직접호명), 시험(한 번/두 번)
       </div>
 
       <div>
         <h4 className={titleClassName}>수강 후기</h4>
-        {lecture.reviews.length === 0 ? (
+        {lecture.lectureReviews.length === 0 ? (
           <div className="text-sm text-gray-500 border rounded-xl p-3">아직 등록된 후기가 없습니다.</div>
         ) : (
-          <ul className="space-y-2">
-            {lecture.reviews.map((review, i) => (
+          <ul className="space-y-3 pb-5">
+            {lecture.lectureReviews.map((review, i) => (
               <li key={i} className={`rounded-xl px-3 py-2 border`}>
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm text-gray-600">작성자: {review.author}</p>
+                  <p className="text-sm text-gray-600">{review.semester}</p>
                   <StarRating value={review.rating} size={16} />
                 </div>
-                <p className="text-sm mt-1">{review.content}</p>
+                <p className="text-sm py-2 pt-3">{review.content}</p>
               </li>
             ))}
           </ul>

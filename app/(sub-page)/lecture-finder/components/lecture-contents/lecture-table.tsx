@@ -47,7 +47,9 @@ export default function LectureTable({ popularData, findData, lastContentRef }: 
 
   const rows = useMemo(() => rawData.map(toRow), [rawData]);
 
-  const renderLectureModal = (_item: LectureTableRow, _close: () => void) => <LectureInsightModal />;
+  const renderLectureModal = (item: LectureTableRow, _close: () => void) => (
+    <LectureInsightModal subject={item.lectureName} />
+  );
 
   return (
     <div className="flex flex-col gap-4 py-3">

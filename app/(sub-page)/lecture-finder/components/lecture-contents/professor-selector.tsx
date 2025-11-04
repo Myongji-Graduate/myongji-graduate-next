@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@/app/ui/view/atom/button/button';
-import { Lecture } from '../type';
+import { DetailedLecture } from '@/app/business/services/lecture-finder/lecture-finder.types';
 
 interface ProfessorSelectorProps {
-  professors: Pick<Lecture, 'professor'>[];
+  professors: Pick<DetailedLecture, 'professor'>[];
   selectedProfessor: string;
   onSelectProfessor: (professor: string) => void;
   isMobile?: boolean;
