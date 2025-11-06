@@ -73,7 +73,7 @@ async function RecommendLectureModal() {
       </Responsive>
       <Responsive maxWidth={569}>
         <Modal modalKey={DIALOG_KEY.RECOMMEND_LECTURE}>
-          <div className="flex flex-col gap-5 md:gap-6 pb-4 md:pb-6 w-[70vw] h-[60vh]">
+          <div className="flex flex-col gap-5 md:gap-6 pb-4 md:pb-6 w-[75vw] h-[60vh]">
             <ModalContent />
           </div>
         </Modal>
