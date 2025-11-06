@@ -11,12 +11,13 @@ interface LectureInfoProps {
 }
 
 export default function LectureInfo({ lecture, professor, isMobile = false }: LectureInfoProps) {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useFetchInfiniteLectureInfo(
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFetchInfiniteLectureInfo(
     lecture?.subject ?? '',
     professor,
     1,
     5,
   );
+
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -27,7 +28,6 @@ export default function LectureInfo({ lecture, professor, isMobile = false }: Le
 
   const headerClassName = isMobile ? 'flex flex-col gap-2' : 'flex items-center justify-between gap-2';
   const professorNameClassName = isMobile ? 'font-semibold text-sm whitespace-nowrap' : 'font-semibold text-base';
-  const titleClassName = isMobile ? 'font-semibold text-sm mb-2' : 'font-semibold text-base mb-2';
   const exampleTextClassName = isMobile ? 'text-[11px] text-gray-500' : 'text-xs text-gray-500';
 
   const allReviews = data?.pages.flatMap((page) => page.items || []) ?? [];
@@ -39,6 +39,7 @@ export default function LectureInfo({ lecture, professor, isMobile = false }: Le
           <div className={professorNameClassName}>{lecture.professor} 교수님</div>
           <StarRating value={lecture.rating} size={18} showValue />
         </div>
+
         <dl className="mt-3 grid grid-cols-2 gap-x-3 md:gap-x-4 gap-y-2 text-sm">
           <div>
             <dt className="text-gray-500">과제</dt>
@@ -62,28 +63,23 @@ export default function LectureInfo({ lecture, professor, isMobile = false }: Le
       <div className={exampleTextClassName}>
         ※ 과제(없음/보통/많음), 조모임(없음/보통/많음), 출결(전자출결/직접호명), 시험(한 번/두 번)
       </div>
-
       <div>
-        {allReviews.length === 0 ? (
+        {isLoading ? (
+          <div className="text-sm text-gray-500 border rounded-xl p-3">후기를 불러오는 중입니다...</div>
+        ) : allReviews.length === 0 ? (
           <div className="text-sm text-gray-500 border rounded-xl p-3">아직 등록된 후기가 없습니다.</div>
         ) : (
           <ul className="space-y-3 pb-5">
             {allReviews.map((review, i) => (
-              <React.Fragment key={i}>
-                <li className={`rounded-xl px-3 py-2 border`}>
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm text-gray-600">{review.semester}</p>
-                    <StarRating value={review.rating} size={16} />
-                  </div>
-                  <p className="text-sm py-2 pt-3">{review.content}</p>
-                </li>
+              <li key={i} className="rounded-xl px-3 py-2 border">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-sm text-gray-600">{review.semester}</p>
+                  <StarRating value={review.rating} size={16} />
+                </div>
+                <p className="text-sm py-2 pt-3">{review.content}</p>
 
-                {i === allReviews.length - 1 && hasNextPage && (
-                  <li className="mt-3">
-                    <div ref={ref}></div>
-                  </li>
-                )}
-              </React.Fragment>
+                {i === allReviews.length - 1 && hasNextPage && <div ref={ref} className="h-6"></div>}
+              </li>
             ))}
           </ul>
         )}
