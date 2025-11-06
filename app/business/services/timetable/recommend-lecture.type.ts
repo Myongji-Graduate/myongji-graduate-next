@@ -1,10 +1,10 @@
 import { ListRow } from '@/app/ui/view/molecule/list/list-root';
 
 export interface Lecture extends ListRow {
-  id: number;
-  lectureCode: string;
+  id: string;
   name: string;
   credit: number;
+  category: string;
 }
 
 export interface Semester {
