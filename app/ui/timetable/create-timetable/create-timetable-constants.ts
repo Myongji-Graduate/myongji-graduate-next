@@ -1,7 +1,3 @@
-/** 스타일링 깨지는 기준 상수 */
-export const MAX_WIDTH = 395;
-export const MIN_WIDTH = 396;
-
 /** 필터링 컴포넌트 width 기준 상수 */
 export const FILTERS_MAX_WIDTH = 496;
 export const FILTERS_MIN_WIDTH = 495;
