@@ -7,7 +7,7 @@ import DeleteTimetableTrigger from './delete-timetable-trigger';
 import RecommendLectureTrigger from './recommend-lecture-trigger';
 import AddLectureTrigger from './add-lecture-trigger';
 
-function ButtonGroup() {
+function TimetableButtonGroup() {
   const LectureButtons = (
     <div className="flex gap-2">
       <AddLectureTrigger />
@@ -42,4 +42,4 @@ function ButtonGroup() {
   );
 }
 
-export default ButtonGroup;
+export default TimetableButtonGroup;

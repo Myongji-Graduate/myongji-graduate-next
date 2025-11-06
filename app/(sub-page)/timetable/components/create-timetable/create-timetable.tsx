@@ -10,7 +10,7 @@ import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 import { useAtom } from 'jotai';
 import { timeTableHydratedAtom } from '@/app/store/stores/timetable-lecture';
 import { useFetchTimetable } from '@/app/business/services/timetable/timetable.query';
-import ButtonGroup from './button-group';
+import TimetableButtonGroup from './timetable-button-group';
 
 function TimetableContent() {
   const { lectures, removeLecture, initializeLectures, unscheduledLectures } = useTimetableLecture();
@@ -43,7 +43,7 @@ function CreateTimetable() {
         <p>미이수 과목들로 시간표를 만들고 관리해보세요!</p>
       </TitleBox>
       <div className="flex flex-col gap-2">
-        <ButtonGroup />
+        <TimetableButtonGroup />
       </div>
       <p className="text-gray-400">총 학점: {totalCredit} 학점</p>
       <Suspense
