@@ -42,9 +42,7 @@ function CreateTimetable() {
       <TitleBox title="시간표 생성">
         <p>미이수 과목들로 시간표를 만들고 관리해보세요!</p>
       </TitleBox>
-      <div className="flex flex-col gap-2">
-        <TimetableButtonGroup />
-      </div>
+      <TimetableButtonGroup />
       <p className="text-gray-400">총 학점: {totalCredit} 학점</p>
       <Suspense
         fallback={
