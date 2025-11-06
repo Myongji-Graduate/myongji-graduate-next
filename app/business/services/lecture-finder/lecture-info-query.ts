@@ -20,6 +20,7 @@ export const useFetchInfiniteLectureInfo = (subject: string, professor: string, 
         professor,
         page: pageParam as number,
         size,
+        sort: 'id,ASC',
       });
     },
     getNextPageParam: (lastPage: LectureInfoPagedResult) => {

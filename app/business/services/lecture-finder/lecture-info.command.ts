@@ -11,12 +11,19 @@ export async function fetchLectureInfo(query: { subject: string }) {
   return json;
 }
 
-export async function fetchLectureInfoPaged(query: { subject: string; professor: string; page: number; size: number }) {
+export async function fetchLectureInfoPaged(query: {
+  subject: string;
+  professor: string;
+  page: number;
+  size: number;
+  sort?: string;
+}) {
   const params = new URLSearchParams({
     subject: query.subject,
     professor: query.professor,
     page: query.page.toString(),
     size: query.size.toString(),
+    sort: query.sort ?? 'id,ASC',
   });
 
   const res = await fetch(`${API_PATH.lectureReviews}?${params.toString()}`);
