@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
-import { useFetchFindeLectureInfo } from '@/app/business/services/lecture-finder/lecture-info-query';
+import { useFetchLectureInfo } from '@/app/business/services/lecture-finder/lecture-info-query';
 import ProfessorSelector from '../lecture-contents/professor-selector';
 import LectureInfo from './lecture-info';
 
@@ -11,7 +11,7 @@ interface LectureInsightModalProps {
 }
 
 export default function LectureInsightModal({ subject }: LectureInsightModalProps) {
-  const { data = [], isLoading } = useFetchFindeLectureInfo(subject);
+  const { data = [], isLoading } = useFetchLectureInfo(subject);
   const [focusProfessor, setProfessor] = React.useState<string>('');
 
   React.useEffect(() => {

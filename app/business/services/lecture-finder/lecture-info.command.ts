@@ -1,7 +1,7 @@
 import { API_PATH } from '../../api-path';
 import type { DetailedLecture, LectureInfoPagedResult } from './lecture-finder.types';
 
-export async function fetchFindeLectureInfo(query: { subject: string }) {
+export async function fetchLectureInfo(query: { subject: string }) {
   const params = new URLSearchParams({
     subject: query.subject,
   });
@@ -11,12 +11,7 @@ export async function fetchFindeLectureInfo(query: { subject: string }) {
   return json;
 }
 
-export async function fetchFindeLectureInfoPaged(query: {
-  subject: string;
-  professor: string;
-  page: number;
-  size: number;
-}) {
+export async function fetchLectureInfoPaged(query: { subject: string; professor: string; page: number; size: number }) {
   const params = new URLSearchParams({
     subject: query.subject,
     professor: query.professor,
@@ -24,7 +19,7 @@ export async function fetchFindeLectureInfoPaged(query: {
     size: query.size.toString(),
   });
 
-  const res = await fetch(`${API_PATH.lectureRevies}?${params.toString()}`);
+  const res = await fetch(`${API_PATH.lectureReviews}?${params.toString()}`);
   const json = (await res.json()) as LectureInfoPagedResult;
   return json;
 }
