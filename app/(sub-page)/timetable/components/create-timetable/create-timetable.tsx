@@ -32,8 +32,6 @@ function TimetableContent() {
   );
 }
 
-//시간표 페이지 들어왔을 때 init이면 (성적표 입력 안했으면) 성적표 업로드 페이지로 이동
-
 function CreateTimetable() {
   const { totalCredit } = useTimetableLecture();
 
