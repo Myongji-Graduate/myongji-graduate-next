@@ -17,10 +17,10 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
   const { isOpen } = useDialog(DIALOG_KEY.LECTURE_INSIGHT);
 
   React.useEffect(() => {
-    if (!isLoading && data.length > 0) {
+    if (isOpen && !isLoading && data.length > 0) {
       setProfessor(data[0].professor);
     }
-  }, [isLoading, data, isOpen]);
+  }, [isOpen, isLoading, data]);
 
   const current = data.find((lecture) => lecture.professor === focusProfessor);
 
@@ -34,35 +34,47 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
 
   return (
     <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-      <div className="w-full max-w-[720px] md:px-0">
+      <div className="w-full max-w-[900px] h-[80vh] md:h-[85vh] flex flex-col md:px-0">
         <Responsive maxWidth={767}>
-          <div className="mt-4 w-60 space-y-4">
-            <ProfessorSelector
-              professors={data}
-              selectedProfessor={focusProfessor}
-              onSelectProfessor={setProfessor}
-              isMobile={true}
-            />
-            <div>
+          <div className="flex flex-col h-full mt-4 space-y-4">
+            <div className="shrink-0 w-full">
+              <ProfessorSelector
+                professors={data}
+                selectedProfessor={focusProfessor}
+                onSelectProfessor={setProfessor}
+                isMobile
+              />
+            </div>
+
+            <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide pb-3">
               <div className="text-base font-semibold mb-2">강의 정보</div>
-              <div className="max-h-[50vh] overflow-y-auto scrollbar-hide">
-                {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile={true} />}
-              </div>
+              {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile />}
             </div>
           </div>
         </Responsive>
 
         <Responsive minWidth={768}>
-          <div className="mt-4 grid grid-cols-[210px_1fr] gap-6">
-            <ProfessorSelector
-              professors={data}
-              selectedProfessor={focusProfessor}
-              onSelectProfessor={setProfessor}
-              isMobile={false}
-            />
-            <div>
-              <div className="text-lg font-semibold mb-2">강의 정보</div>
-              <div className="max-h-60 h-full scrollbar-hide">
+          <div className="grid grid-cols-[220px_1fr] gap-6 mt-4 h-full">
+            <div className="shrink-0">
+              <ProfessorSelector
+                professors={data}
+                selectedProfessor={focusProfessor}
+                onSelectProfessor={setProfessor}
+                isMobile={false}
+              />
+            </div>
+
+            <div className="flex flex-col h-full overflow-hidden">
+              <div className="shrink-0 text-lg font-semibold mb-2 whitespace-nowrap">
+                <Responsive maxWidth={1024}>
+                  <div className="truncate">{focusProfessor} 교수님 강의 정보</div>
+                </Responsive>
+                <Responsive minWidth={1025}>
+                  <div>{focusProfessor} 교수님 강의 정보</div>
+                </Responsive>
+              </div>
+
+              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide pr-1">
                 {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile={false} />}
               </div>
             </div>

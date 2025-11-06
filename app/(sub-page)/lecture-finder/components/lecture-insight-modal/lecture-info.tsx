@@ -27,7 +27,9 @@ export default function LectureInfo({ lecture, professor, isMobile = false }: Le
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const headerClassName = isMobile ? 'flex flex-col gap-2' : 'flex items-center justify-between gap-2';
-  const professorNameClassName = isMobile ? 'font-semibold text-sm whitespace-nowrap' : 'font-semibold text-base';
+  const professorNameClassName = isMobile
+    ? 'font-semibold text-sm whitespace-nowrap'
+    : 'font-semibold text-base whitespace-nowrap';
   const exampleTextClassName = isMobile ? 'text-[11px] text-gray-500' : 'text-xs text-gray-500';
 
   const allReviews = data?.pages.flatMap((page) => page.items || []) ?? [];
