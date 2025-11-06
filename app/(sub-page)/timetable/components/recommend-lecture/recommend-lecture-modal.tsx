@@ -7,6 +7,9 @@ import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import { RecommendLectureData } from '@/app/business/services/timetable/recommend-lecture.type';
 import Responsive from '@/app/ui/responsive';
+import UserCreditResult from '@/app/ui/user/user-credit-result/user-credit-result';
+import UserCreditResultSkeleton from '@/app/ui/user/user-credit-result/user-credit-result-skeleton';
+import { Suspense } from 'react';
 
 async function RecommendLectureModal() {
   const recommendLectureData: RecommendLectureData = {
@@ -44,13 +47,13 @@ async function RecommendLectureModal() {
   const ModalContent = () => {
     return (
       <div className="flex flex-col h-full overflow-hidden">
-        <div className="flex-shrink-0 p-4">
+        <div className="flex-shrink-0 p-4 flex flex-col gap-4">
           <TitleBox title="학기별 시간표 과목 추천">
             <p>아직 듣지 않은 과목으로 남은 학기별 시간표를 자동으로 추천해드려요.</p>
           </TitleBox>
-          <p className="text-lg md:text-xl text-center font-bold text-gray-500">
-            {user.studentName}님, 앞으로 {recommendLectureData.semestersLeft}학기 남았습니다!
-          </p>
+          <Suspense fallback={<UserCreditResultSkeleton />}>
+            <UserCreditResult semestersLeft={recommendLectureData.semestersLeft} />
+          </Suspense>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">
