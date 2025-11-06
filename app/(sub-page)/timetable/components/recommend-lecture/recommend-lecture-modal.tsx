@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import RecommendLectureContainer from './recommend-lecture-container';
-import { auth } from '@/app/business/services/user/user.query';
-import { InitUserInfoResponse, UserInfoResponse } from '@/app/business/services/user/user.type';
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
@@ -41,8 +39,6 @@ async function RecommendLectureModal() {
       },
     ],
   };
-
-  const user = (await auth()) as InitUserInfoResponse | UserInfoResponse;
 
   const ModalContent = () => {
     return (
