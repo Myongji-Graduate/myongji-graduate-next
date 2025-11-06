@@ -5,6 +5,7 @@ import Responsive from '@/app/ui/responsive';
 import { useFetchLectureInfo } from '@/app/business/services/lecture-finder/lecture-info-query';
 import ProfessorSelector from '../lecture-contents/professor-selector';
 import LectureInfo from './lecture-info';
+import useDialog from '@/app/hooks/useDialog';
 
 interface LectureInsightModalProps {
   subject: string;
@@ -13,19 +14,20 @@ interface LectureInsightModalProps {
 export default function LectureInsightModal({ subject }: LectureInsightModalProps) {
   const { data = [], isLoading } = useFetchLectureInfo(subject);
   const [focusProfessor, setProfessor] = React.useState<string>('');
+  const { isOpen } = useDialog(DIALOG_KEY.LECTURE_INSIGHT);
 
   React.useEffect(() => {
     if (!isLoading && data.length > 0) {
       setProfessor(data[0].professor);
     }
-  }, [isLoading, data]);
+  }, [isLoading, data, isOpen]);
 
   const current = data.find((lecture) => lecture.professor === focusProfessor);
 
   if (!isLoading && data.length === 0) {
     return (
       <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-        <div className="p-4 text-center text-sm text-gray-500">리뷰 정보가 없습니다.</div>
+        <div className="p-4 text-center text-sm text-gray-500">강의 상세 정보가 없습니다.</div>
       </Modal>
     );
   }
