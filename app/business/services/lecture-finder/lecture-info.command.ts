@@ -11,7 +11,7 @@ export async function fetchLectureInfo(query: { subject: string }) {
   return json;
 }
 
-export async function fetchLectureInfoPaged(query: {
+export async function fetchLectureReviewPaged(query: {
   subject: string;
   professor: string;
   page: number;
