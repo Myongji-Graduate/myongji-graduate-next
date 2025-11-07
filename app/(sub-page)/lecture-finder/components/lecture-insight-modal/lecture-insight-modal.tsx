@@ -6,6 +6,7 @@ import { useFetchLectureInfo } from '@/app/business/services/lecture-finder/lect
 import ProfessorSelector from '../lecture-contents/professor-selector';
 import LectureInfo from './lecture-info';
 import useDialog from '@/app/hooks/useDialog';
+import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 
 interface LectureInsightModalProps {
   subject: string;
@@ -16,6 +17,16 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
   const [focusProfessor, setProfessor] = React.useState<string>('');
   const { isOpen } = useDialog(DIALOG_KEY.LECTURE_INSIGHT);
 
+  const [showSkeleton, setShowSkeleton] = React.useState(true);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      setShowSkeleton(true);
+      const timer = setTimeout(() => setShowSkeleton(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   React.useEffect(() => {
     if (isOpen && !isLoading && data.length > 0) {
       setProfessor(data[0].professor);
@@ -24,6 +35,19 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
 
   const current = data.find((lecture) => lecture.professor === focusProfessor);
 
+  if ((isLoading || showSkeleton) && data.length === 0) {
+    return (
+      <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
+        <div className="w-full flex justify-center items-center">
+          <LoadingSpinner
+            className={'animate-spin shrink-0 h-12 w-12 mr-1.5 -ml-1 fill-gray-400'}
+            style={{ transition: `width 150ms` }}
+          />
+        </div>
+      </Modal>
+    );
+  }
+
   if (!isLoading && data.length === 0) {
     return (
       <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
@@ -31,7 +55,6 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
       </Modal>
     );
   }
-
   return (
     <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
       <div className="w-full max-w-[900px] h-[80vh] md:h-[85vh] flex flex-col md:px-0">
