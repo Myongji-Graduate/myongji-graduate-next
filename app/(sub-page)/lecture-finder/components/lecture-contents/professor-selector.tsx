@@ -15,7 +15,7 @@ export default function ProfessorSelector({
   onSelectProfessor,
   isMobile = false,
 }: ProfessorSelectorProps) {
-  const containerClassName = isMobile ? 'flex overflow-x-auto scrollbar-hide gap-2 pr-1' : 'space-y-2';
+  const containerClassName = isMobile ? 'flex overflow-x-auto scrollbar-hide gap-2 pr-1' : 'space-y-2 pb-4';
 
   const buttonClassName = isMobile ? 'shrink-0 justify-center' : 'w-full justify-center';
 
