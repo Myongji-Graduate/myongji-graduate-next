@@ -15,4 +15,6 @@ export const API_PATH = {
   timetableLectures: `${BASE_URL}/timetable`,
   timetable: `${BASE_URL}/timetables`,
   lectureFinder: `${BASE_URL}/lectures/popular`,
+  lecturesInfo: `${BASE_URL}/lectures-info`,
+  lectureReviews: `${BASE_URL}/lecture-reviews`,
 };

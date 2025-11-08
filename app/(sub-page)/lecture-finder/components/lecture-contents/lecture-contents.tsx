@@ -61,7 +61,7 @@ export default function LectureContents() {
   const usingPopular = showLectureMode === 'default';
 
   return (
-    <div className="flex h-50 flex-col gap-4 px-3 py-5">
+    <div className="flex h-50 flex-col px-3 gap-5 py-5">
       <LectureFilters
         filters={pending}
         onMajorChange={handleMajorChange}

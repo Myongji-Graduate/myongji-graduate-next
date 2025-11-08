@@ -2,77 +2,108 @@ import React from 'react';
 import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
-import LectureHeader from './lecture-header';
-import LectureInsightModalMobile from './lecture-insight-modal-mobile';
-import LectureInsightModalDesktop from './lecture-insight-modal-desktop';
-import { LectureData } from '../type';
+import { useFetchLectureInfo } from '@/app/business/services/lecture-finder/lecture-info-query';
+import ProfessorSelector from '../lecture-contents/professor-selector';
+import LectureInfo from './lecture-info';
+import useDialog from '@/app/hooks/useDialog';
+import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 
-export default function LectureInsightModal() {
-  const [focusProfessor, setProfessor] = React.useState('김상균');
+interface LectureInsightModalProps {
+  subject: string;
+}
 
-  const data: LectureData = {
-    courseName: '기초프로그래밍',
-    averageRating: 4.6,
-    courseId: 21232,
-    lectures: [
-      {
-        professor: '김상균',
-        assignment: '없음',
-        grading: '너그러움',
-        attendance: '전자출결',
-        exam: '없음',
-        rating: 5,
-        reviews: [
-          { author: '익명 1', content: '너무 좋은 강의다', rating: 5 },
-          { author: '익명 2', content: '망헀다', rating: 1 },
-        ],
-      },
-      {
-        professor: '최성운',
-        assignment: '없음',
-        grading: '너그러움',
-        attendance: '전자출결',
-        exam: '없음',
-        rating: null,
-        reviews: [],
-      },
-      {
-        professor: '오민식',
-        assignment: '없음',
-        grading: '너그러움',
-        attendance: '전자출결',
-        exam: '없음',
-        rating: null,
-        reviews: [],
-      },
-    ],
-  };
+export default function LectureInsightModal({ subject }: LectureInsightModalProps) {
+  const { data = [], isLoading } = useFetchLectureInfo(subject);
+  const [focusProfessor, setProfessor] = React.useState<string>('');
+  const { isOpen } = useDialog(DIALOG_KEY.LECTURE_INSIGHT);
 
-  const current = data.lectures.find((l) => l.professor === focusProfessor);
+  const [showSkeleton, setShowSkeleton] = React.useState(true);
 
-  const render = () => (
-    <div className="w-full max-w-[720px] px-4 md:px-0">
-      <LectureHeader course={data} />
+  React.useEffect(() => {
+    if (isOpen) {
+      setShowSkeleton(true);
+      const timer = setTimeout(() => setShowSkeleton(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
-      <Responsive maxWidth={767}>
-        <LectureInsightModalMobile
-          data={data}
-          focusProfessor={focusProfessor}
-          onSelectProfessor={setProfessor}
-          current={current}
-        />
-      </Responsive>
+  React.useEffect(() => {
+    if (isOpen && !isLoading && data.length > 0) {
+      setProfessor(data[0].professor);
+    }
+  }, [isOpen, isLoading, data]);
 
-      <Responsive minWidth={768}>
-        <LectureInsightModalDesktop
-          data={data}
-          focusProfessor={focusProfessor}
-          onSelectProfessor={setProfessor}
-          current={current}
-        />
-      </Responsive>
-    </div>
+  const current = data.find((lecture) => lecture.professor === focusProfessor);
+
+  if ((isLoading || showSkeleton) && data.length === 0) {
+    return (
+      <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
+        <div className="w-full flex justify-center items-center">
+          <LoadingSpinner
+            className={'animate-spin shrink-0 h-12 w-12 mr-1.5 -ml-1 fill-gray-400'}
+            style={{ transition: `width 150ms` }}
+          />
+        </div>
+      </Modal>
+    );
+  }
+
+  if (!isLoading && data.length === 0) {
+    return (
+      <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
+        <div className="p-4 text-center text-sm text-gray-500">강의 상세 정보가 없습니다.</div>
+      </Modal>
+    );
+  }
+  return (
+    <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
+      <div className="w-full max-w-[900px] h-[80vh] md:h-[85vh] flex flex-col md:px-0">
+        <Responsive maxWidth={767}>
+          <div className="flex flex-col h-full mt-4 space-y-4">
+            <div className="shrink-0 w-full">
+              <ProfessorSelector
+                professors={data}
+                selectedProfessor={focusProfessor}
+                onSelectProfessor={setProfessor}
+                isMobile
+              />
+            </div>
+
+            <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide pb-3">
+              <div className="text-base font-semibold mb-2">강의 정보</div>
+              {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile />}
+            </div>
+          </div>
+        </Responsive>
+
+        <Responsive minWidth={768}>
+          <div className="grid grid-cols-[220px_1fr] gap-6 mt-4 h-full">
+            <div className="shrink-0">
+              <ProfessorSelector
+                professors={data}
+                selectedProfessor={focusProfessor}
+                onSelectProfessor={setProfessor}
+                isMobile={false}
+              />
+            </div>
+
+            <div className="flex flex-col h-full overflow-hidden">
+              <div className="shrink-0 text-lg font-semibold mb-2 whitespace-nowrap">
+                <Responsive maxWidth={1024}>
+                  <div className="truncate">{focusProfessor} 교수님 강의 정보</div>
+                </Responsive>
+                <Responsive minWidth={1025}>
+                  <div>{focusProfessor} 교수님 강의 정보</div>
+                </Responsive>
+              </div>
+
+              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide pr-1">
+                {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile={false} />}
+              </div>
+            </div>
+          </div>
+        </Responsive>
+      </div>
+    </Modal>
   );
-
-  return <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>{render()}</Modal>;
 }

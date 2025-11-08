@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@/app/ui/view/atom/button/button';
-import { Lecture } from '../type';
+import { DetailedLecture } from '@/app/business/services/lecture-finder/lecture-finder.types';
 
 interface ProfessorSelectorProps {
-  professors: Pick<Lecture, 'professor'>[];
+  professors: Pick<DetailedLecture, 'professor'>[];
   selectedProfessor: string;
   onSelectProfessor: (professor: string) => void;
   isMobile?: boolean;
@@ -15,7 +15,7 @@ export default function ProfessorSelector({
   onSelectProfessor,
   isMobile = false,
 }: ProfessorSelectorProps) {
-  const containerClassName = isMobile ? 'flex overflow-x-auto scrollbar-hide gap-2 pr-1' : 'space-y-2';
+  const containerClassName = isMobile ? 'flex overflow-x-auto scrollbar-hide gap-2 pr-1' : 'space-y-2 pb-4';
 
   const buttonClassName = isMobile ? 'shrink-0 justify-center' : 'w-full justify-center';
 
