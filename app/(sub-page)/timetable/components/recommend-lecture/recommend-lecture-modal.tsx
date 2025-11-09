@@ -10,9 +10,9 @@ import { Suspense } from 'react';
 import { fetchRecommendLecture } from '@/app/business/services/timetable/recommend-lecture.command';
 
 async function RecommendLectureModal() {
-  let recommendLectureData = await fetchRecommendLecture();
+  const recommendLectureData = await fetchRecommendLecture();
 
-  recommendLectureData = {
+  const normalizedRecommendLectureData = {
     ...recommendLectureData,
     semesters: recommendLectureData.semesters.map((semester) => ({
       ...semester,
@@ -40,11 +40,11 @@ async function RecommendLectureModal() {
             </Responsive>
           </TitleBox>
           <Suspense fallback={<UserCreditResultSkeleton />}>
-            <UserCreditResult semestersLeft={recommendLectureData.semestersLeft} />
+            <UserCreditResult semestersLeft={normalizedRecommendLectureData.semestersLeft} />
           </Suspense>
         </div>
         <div className="flex-1 overflow-y-auto p-4">
-          {recommendLectureData.semestersLeft === 0 ? (
+          {normalizedRecommendLectureData.semestersLeft === 0 ? (
             <div className="flex flex-col items-center justify-center">
               <Image
                 src="/assets/graduate-maru.png"
@@ -55,7 +55,7 @@ async function RecommendLectureModal() {
               />
             </div>
           ) : (
-            <RecommendLectureContainer semesters={recommendLectureData.semesters} />
+            <RecommendLectureContainer semesters={normalizedRecommendLectureData.semesters} />
           )}
         </div>
       </div>
