@@ -9,17 +9,15 @@ import { TimetableLectureRow } from '@/app/type/timetable/types';
 
 function TimetableContent() {
   const { lectures, removeLecture, initializeLectures, unscheduledLectures } = useTimetableLecture();
-  const { data } = useFetchTimetable();
-  const prevDataRef = useRef<TimetableLectureRow[] | undefined>(undefined);
+  const { data, isSuccess } = useFetchTimetable();
+  const isInitializedRef = useRef(false);
 
   useEffect(() => {
-    if (!data) return;
+    if (!isSuccess || !data || isInitializedRef.current) return;
 
-    if (prevDataRef.current !== data) {
-      prevDataRef.current = data;
-      initializeLectures(data);
-    }
-  }, [data, initializeLectures]);
+    initializeLectures(data);
+    isInitializedRef.current = true;
+  }, [isSuccess, data, initializeLectures]);
 
   return (
     <>
