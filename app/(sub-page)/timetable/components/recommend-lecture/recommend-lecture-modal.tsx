@@ -3,41 +3,24 @@ import RecommendLectureContainer from './recommend-lecture-container';
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
-import { RecommendLectureData } from '@/app/business/services/timetable/recommend-lecture.type';
 import Responsive from '@/app/ui/responsive';
 import UserCreditResult from '@/app/ui/user/user-credit-result/user-credit-result';
 import UserCreditResultSkeleton from '@/app/ui/user/user-credit-result/user-credit-result-skeleton';
 import { Suspense } from 'react';
+import { fetchRecommendLecture } from '@/app/business/services/timetable/recommend-lecture.command';
 
 async function RecommendLectureModal() {
-  const recommendLectureData: RecommendLectureData = {
-    semestersLeft: 3,
-    semesters: [
-      {
-        label: '3-2',
-        creditTarget: 18,
-        lectures: [
-          { id: 1, lectureCode: 'CSE1001', name: '컴퓨터 공학 개론', credit: 3 },
-          { id: 2, lectureCode: 'MAT2001', name: '이산수학', credit: 3 },
-        ],
-      },
-      {
-        label: '4-1',
-        creditTarget: 21,
-        lectures: [
-          { id: 12, lectureCode: 'CSE1001', name: '컴퓨터 공학 개론', credit: 3 },
-          { id: 24, lectureCode: 'MAT2001', name: '이산수학', credit: 3 },
-        ],
-      },
-      {
-        label: '4-2',
-        creditTarget: 21,
-        lectures: [
-          { id: 123, lectureCode: 'CSE1001', name: '컴퓨터 공학 개론', credit: 3 },
-          { id: 52, lectureCode: 'MAT2001', name: '이산수학', credit: 3 },
-        ],
-      },
-    ],
+  const recommendLectureData = await fetchRecommendLecture();
+
+  const normalizedRecommendLectureData = {
+    ...recommendLectureData,
+    semesters: recommendLectureData.semesters.map((semester) => ({
+      ...semester,
+      lectures: semester.lectures.map((lecture) => ({
+        code: lecture.id,
+        ...lecture,
+      })),
+    })),
   };
 
   const ModalContent = () => {
@@ -57,12 +40,11 @@ async function RecommendLectureModal() {
             </Responsive>
           </TitleBox>
           <Suspense fallback={<UserCreditResultSkeleton />}>
-            <UserCreditResult semestersLeft={recommendLectureData.semestersLeft} />
+            <UserCreditResult semestersLeft={normalizedRecommendLectureData.semestersLeft} />
           </Suspense>
         </div>
-
         <div className="flex-1 overflow-y-auto p-4">
-          {recommendLectureData.semestersLeft === 0 ? (
+          {normalizedRecommendLectureData.semestersLeft === 0 ? (
             <div className="flex flex-col items-center justify-center">
               <Image
                 src="/assets/graduate-maru.png"
@@ -73,7 +55,7 @@ async function RecommendLectureModal() {
               />
             </div>
           ) : (
-            <RecommendLectureContainer semesters={recommendLectureData.semesters} />
+            <RecommendLectureContainer semesters={normalizedRecommendLectureData.semesters} />
           )}
         </div>
       </div>
@@ -91,7 +73,7 @@ async function RecommendLectureModal() {
       </Responsive>
       <Responsive maxWidth={569}>
         <Modal modalKey={DIALOG_KEY.RECOMMEND_LECTURE}>
-          <div className="flex flex-col gap-5 md:gap-6 pb-4 md:pb-6 w-[70vw] h-[60vh]">
+          <div className="flex flex-col gap-5 md:gap-6 pb-4 md:pb-6 w-[75vw] h-[60vh]">
             <ModalContent />
           </div>
         </Modal>

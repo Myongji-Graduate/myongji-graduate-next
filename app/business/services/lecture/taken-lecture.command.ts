@@ -11,6 +11,8 @@ export const registerUserGrade = async (prevState: FormState, formData: FormData
   try {
     const parsingText = await parsePDFtoText(formData);
     await instance.post(API_PATH.registerUserGrade, { parsingText });
+    revalidateTag(TAG.GET_USER_INFO);
+    revalidateTag(TAG.GET_TAKEN_LECTURES);
     return {
       isSuccess: true,
       isFailure: false,

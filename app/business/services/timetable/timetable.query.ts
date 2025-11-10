@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/utils/timetable/constants';
@@ -7,7 +7,7 @@ import { deleteTimetable, uploadTimetable, fetchTimetable } from './timetable.co
 
 /** 시간표 조회 */
 export const useFetchTimetable = () =>
-  useSuspenseQuery<TimetableLectureRow[]>({
+  useQuery<TimetableLectureRow[]>({
     queryKey: [QUERY_KEY.TIMETABLE],
     queryFn: async () => fetchTimetable({ year: CURRENT_YEAR, semester: CURRENT_SEMESTER }),
   });
