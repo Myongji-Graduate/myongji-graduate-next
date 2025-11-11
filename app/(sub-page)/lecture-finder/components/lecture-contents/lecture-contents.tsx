@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
-import LectureFilters from './lecture-filters';
+import LectureFilterGroup from './lecture-filter-group';
 import LectureTable from './lecture-table';
 import { useLectureFinderForm } from '@/app/business/hooks/use-lecture-finder-form.hook';
 import {
@@ -9,11 +9,12 @@ import {
   useFetchInfiniteLecturesByCategory,
 } from '@/app/business/services/lecture-finder/lecture-finder-query';
 import { useInView } from 'react-intersection-observer';
+import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 import type { TimetableLectureRow } from '@/app/type/timetable/types';
 
 export default function LectureContents() {
   const { pending, committed, didSearch, handleMajorChange, handleYearChange, handleCategoryChange, handleSearch } =
-    useLectureFinderForm({});
+    useLectureFinderForm();
 
   const { ref, inView } = useInView();
   const [showLectureMode, setShowLectureMode] = useState<'default' | 'category'>('default');
@@ -30,15 +31,20 @@ export default function LectureContents() {
     fetchNextPage: fetchNextCategoryPage,
     hasNextPage: hasNextCategoryPage,
     isFetching: isFetchingCategory,
+    isError: isCategoryError,
   } = useFetchInfiniteLecturesByCategory({ committed, didSearch });
+
+  useEffect(() => {
+    if (isCategoryError) {
+      toast({ title: '강의 검색 중 오류가 발생했습니다.', variant: 'destructive' });
+      setShowLectureMode('default');
+    }
+  }, [isCategoryError]);
 
   const currentRawData = showLectureMode === 'default' ? defaultData : categoryData;
 
   const currentLectures: TimetableLectureRow[] = useMemo(() => {
-    if (!currentRawData) {
-      return [];
-    }
-
+    if (!currentRawData) return [];
     return currentRawData.pages.flatMap((page) => page.items as TimetableLectureRow[]);
   }, [currentRawData]);
 
@@ -53,16 +59,17 @@ export default function LectureContents() {
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
 
   const handleSearchAndChangeMode = useCallback(() => {
-    handleSearch();
-
-    setShowLectureMode('category');
+    const success = handleSearch();
+    if (success) {
+      setShowLectureMode('category');
+    }
   }, [handleSearch]);
 
   const usingPopular = showLectureMode === 'default';
 
   return (
     <div className="flex h-50 flex-col px-3 gap-5 py-5">
-      <LectureFilters
+      <LectureFilterGroup
         filters={pending}
         onMajorChange={handleMajorChange}
         onYearChange={handleYearChange}

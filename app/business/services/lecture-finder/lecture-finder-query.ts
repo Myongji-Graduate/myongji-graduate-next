@@ -42,8 +42,6 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
     entryYear: (committed as any).year ?? new Date().getFullYear().toString(),
   };
 
-  const enabled = didSearch;
-
   return useInfiniteQuery({
     queryKey: [QUERY_KEY.LECTURE_FINDER, 'popularByCategory', finalPopularQuery],
     initialPageParam: { cursor: undefined, limit: finalPopularQuery.limit ?? limit } as PageParam,
@@ -57,6 +55,6 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
       last.pageInfo.hasMore
         ? { cursor: last.pageInfo.nextCursor, limit: last.pageInfo.pageSize ?? finalPopularQuery.limit ?? limit }
         : undefined,
-    enabled: enabled,
+    enabled: didSearch,
   });
 };

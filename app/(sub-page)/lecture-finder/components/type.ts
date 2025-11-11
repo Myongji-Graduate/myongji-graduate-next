@@ -11,7 +11,7 @@ export const LECTURE_FINDER_CATEGORY_KO = {
   ELECTIVE_MAJOR: '전공선택',
 } as const;
 
-export type CategoryKey = keyof typeof LECTURE_FINDER_CATEGORY_KO | 'all';
+export type CategoryKey = (typeof LECTURE_FINDER_CATEGORY_KO)[keyof typeof LECTURE_FINDER_CATEGORY_KO] | 'ALL';
 
 export const YEARS = ['16', '17', '18', '19', '20', '21', '22', '23', '24'] as const;
 export type Year = (typeof YEARS)[number];
