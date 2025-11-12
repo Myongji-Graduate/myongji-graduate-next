@@ -1,6 +1,5 @@
 'use client';
 
-import UserCreditResultSkeleton from '@/app/ui/user/user-credit-result/user-credit-result-skeleton';
 import { useFetchRecommendLecture } from '@/app/business/services/timetable/recommend-lecture.query';
 import useDialog from '@/app/hooks/useDialog';
 import Skeleton from '@/app/utils/skeleton';
@@ -36,10 +35,11 @@ function RecommendLectureModalContent() {
       <div className="flex flex-col h-full overflow-hidden">
         <div className="flex-shrink-0 p-4 flex flex-col gap-4">
           <ModalHeader />
-          <UserCreditResultSkeleton />
         </div>
-        <div className="flex-1 overflow-y-auto p-4">
-          <Skeleton className="h-full" />
+        <div className="flex flex-col gap-10">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <Skeleton key={i} className="h-[300px]" />
+          ))}
         </div>
       </div>
     );
