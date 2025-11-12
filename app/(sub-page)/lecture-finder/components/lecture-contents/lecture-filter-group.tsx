@@ -67,7 +67,7 @@ function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryCh
         defaultValue={category}
         onValueChange={onCategoryChange}
       >
-        <SelectItem value="all" placeholder={PLACEHOLDER.categoryAll} />
+        <SelectItem value="ALL" placeholder={PLACEHOLDER.categoryAll} />
         {categoryEntries.map(([key, label]) => (
           <SelectItem key={key} value={key} placeholder={label} />
         ))}

@@ -57,3 +57,22 @@ export async function fetchPopularByCategoryPaged(query: PopularByCategoryQuery 
   const json = (await res.json()) as PopularApiResponse;
   return normalizePopular(json);
 }
+
+export async function fetchPopularAllPaged(query: PopularByCategoryQuery & { cursor?: string; limit?: number }) {
+  const params = toSearchParams({
+    major: query.major,
+    entryYear: query.entryYear,
+    category: query.category,
+    limit: query.limit,
+    cursor: query.cursor,
+  });
+
+  const res = await fetch(`${API_PATH.lectureFinder}/by-category?${params.toString()}`);
+  const data = await res.json();
+
+  return {
+    items: data.primeSection.lectures,
+    pageInfo: data.primeSection.pageInfo,
+    sections: data.sections,
+  };
+}
