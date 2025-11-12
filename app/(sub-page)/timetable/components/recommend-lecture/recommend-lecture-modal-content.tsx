@@ -4,7 +4,6 @@ import UserCreditResultSkeleton from '@/app/ui/user/user-credit-result/user-cred
 import { useFetchRecommendLecture } from '@/app/business/services/timetable/recommend-lecture.query';
 import useDialog from '@/app/hooks/useDialog';
 import Skeleton from '@/app/utils/skeleton';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import RecommendLectureContainer from './recommend-lecture-container';
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
@@ -14,8 +13,6 @@ import Responsive from '@/app/ui/responsive';
 function RecommendLectureModalContent() {
   const { isOpen } = useDialog(DIALOG_KEY.RECOMMEND_LECTURE);
   const { data: recommendLectureData, isLoading } = useFetchRecommendLecture(isOpen);
-
-  const UserCreditResult = dynamic(() => import('@/app/ui/user/user-credit-result/user-credit-result'), { ssr: false });
 
   const ModalHeader = () => {
     return (
@@ -63,7 +60,6 @@ function RecommendLectureModalContent() {
     <div className="flex flex-col h-full overflow-hidden">
       <div className="flex-shrink-0 p-4 flex flex-col gap-4">
         <ModalHeader />
-        <UserCreditResult semestersLeft={normalizedRecommendLectureData.semestersLeft} />
       </div>
       <div className="flex-1 overflow-y-auto p-4">
         {normalizedRecommendLectureData.semestersLeft === 0 ? (
