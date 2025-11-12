@@ -1,3 +1,5 @@
+'use client';
+
 import { API_PATH } from '../../api-path';
 import { RecommendLectureData } from './recommend-lecture.type';
 import { getToken } from '@/app/business/services/auth';
