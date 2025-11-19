@@ -61,5 +61,9 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
     getNextPageParam: (last: NormalizedPage) =>
       last.pageInfo.hasMore ? { cursor: last.pageInfo.nextCursor, limit: last.pageInfo.pageSize ?? limit } : undefined,
     enabled: didSearch,
+
+    retry: false,
+    refetchOnWindowFocus: false,
+    throwOnError: false,
   });
 };

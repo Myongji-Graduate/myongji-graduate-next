@@ -19,6 +19,8 @@ export default function LectureContents() {
   const { ref, inView } = useInView();
   const [showLectureMode, setShowLectureMode] = useState<'default' | 'category'>('default');
 
+  const [categoryLectures, setCategoryLectures] = useState<TimetableLectureRow[]>([]);
+
   const {
     data: defaultData,
     fetchNextPage: fetchNextDefaultPage,
@@ -35,21 +37,25 @@ export default function LectureContents() {
   } = useFetchInfiniteLecturesByCategory({ committed, didSearch });
 
   useEffect(() => {
-    if (isCategoryError) {
-      toast({ title: '강의 검색 중 오류가 발생했습니다.', variant: 'destructive' });
-      setShowLectureMode('default');
+    if (categoryData && !isFetchingCategory && !isCategoryError) {
+      const merged = categoryData.pages.flatMap((p) => p.items as TimetableLectureRow[]);
+      setCategoryLectures(merged);
     }
-  }, [isCategoryError]);
-
-  const currentRawData = showLectureMode === 'default' ? defaultData : categoryData;
+  }, [categoryData, isFetchingCategory, isCategoryError]);
 
   const currentLectures: TimetableLectureRow[] = useMemo(() => {
-    if (!currentRawData) return [];
-    return currentRawData.pages.flatMap((page) => page.items as TimetableLectureRow[]);
-  }, [currentRawData]);
+    if (showLectureMode === 'default') {
+      if (!defaultData) return [];
+      return defaultData.pages.flatMap((page) => page.items as TimetableLectureRow[]);
+    }
+
+    return categoryLectures;
+  }, [showLectureMode, defaultData, categoryLectures]);
 
   const fetchNextPage = showLectureMode === 'default' ? fetchNextDefaultPage : fetchNextCategoryPage;
+
   const hasNextPage = showLectureMode === 'default' ? hasNextDefaultPage : hasNextCategoryPage;
+
   const isFetching = showLectureMode === 'default' ? isFetchingDefault : isFetchingCategory;
 
   useEffect(() => {
