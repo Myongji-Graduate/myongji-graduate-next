@@ -13,7 +13,7 @@ export default function LecturePage() {
   return (
     <ContentContainer className="py-7 px-5">
       <TitleBox title="필수 과목 조회">
-        <p>학과별 필수 과목을 조회하고 인기순으로 확인해보세요!</p>
+        <p>학과별 필수 과목을 조회해 보세요!</p>
       </TitleBox>
 
       <LectureContents />
