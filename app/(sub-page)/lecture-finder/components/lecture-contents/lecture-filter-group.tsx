@@ -83,12 +83,14 @@ function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryCh
           {YearSelect}
           {CategorySelect}
         </div>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center whitespace-nowrap gap-1 px-2 text-sm text-gray-500">
+        <div className="flex items-center justify-between md:flex-row flex-col gap-3">
+          <div className="flex items-center justify-start w-full whitespace-nowrap gap-1 px-2 text-sm text-gray-500">
             <Info className="w-4 h-4 text-gray-500" />
             <p>과목 테이블을 눌러 교수님 별 강의 정보를 확인해보세요!</p>
           </div>
-          <Button label="검색" size="sm" variant="primary" onClick={onSearch} />
+          <div className="w-full justify-end flex">
+            <Button label="검색" size="sm" variant="primary" onClick={onSearch} />
+          </div>
         </div>
       </div>
     </div>

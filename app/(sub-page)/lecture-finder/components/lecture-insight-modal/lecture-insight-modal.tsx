@@ -57,7 +57,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
   }
   return (
     <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-      <div className="w-full max-w-[900px] h-[80vh] md:h-[85vh] flex flex-col md:px-0">
+      <div className="w-full max-w-[900px] min-w-[280px] h-[80vh] md:h-[85vh] flex flex-col md:px-0">
         <Responsive maxWidth={767}>
           <div className="flex flex-col h-full mt-4 space-y-4">
             <div className="shrink-0 w-full">
@@ -69,7 +69,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
               />
             </div>
 
-            <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide pb-3">
+            <div className="flex-1 min-h-0 w-[280px] md:w-full overflow-y-auto scrollbar-hide pb-3">
               <div className="text-base font-semibold mb-2">강의 정보</div>
               {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile />}
             </div>
