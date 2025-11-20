@@ -1,27 +1,25 @@
 'use client';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { TimetableLectureRow } from '@/app/type/timetable/types';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
+import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/utils/timetable/constants';
+import { deleteTimetable, uploadTimetable, fetchTimetable } from './timetable.command';
 
 /** 시간표 조회 */
 export const useFetchTimetable = () =>
-  useSuspenseQuery<TimetableLectureRow[]>({
+  useQuery<TimetableLectureRow[]>({
     queryKey: [QUERY_KEY.TIMETABLE],
-    queryFn: async () => (await fetch('/api/timetable/my')).json(),
+    queryFn: async () => fetchTimetable({ year: CURRENT_YEAR, semester: CURRENT_SEMESTER }),
   });
 
 /** 시간표 업로드 */
 export const usePostTimetable = (lecturesIds: number[]) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async () =>
-      (
-        await fetch('/api/timetable/my/replace', {
-          method: 'POST',
-          body: JSON.stringify({ lecturesIds }),
-        })
-      ).json(),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TIMETABLE] }),
+    mutationFn: async () => uploadTimetable({ year: CURRENT_YEAR, semester: CURRENT_SEMESTER, lecturesIds }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TIMETABLE] });
+    },
   });
 };
 
@@ -29,7 +27,7 @@ export const usePostTimetable = (lecturesIds: number[]) => {
 export const useDeleteTimetable = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async () => (await fetch('/api/timetable/my', { method: 'DELETE' })).json(),
+    mutationFn: async () => deleteTimetable({ year: CURRENT_YEAR, semester: CURRENT_SEMESTER }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TIMETABLE] }),
   });
 };

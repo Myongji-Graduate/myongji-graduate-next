@@ -5,4 +5,7 @@ export const QUERY_KEY = {
   CREDIT: 'credit',
   USER: 'user',
   CATEGORY: 'category',
+  LECTURE_FINDER: 'lecture-finder',
+  LECTURE_INFO: 'lecture-info',
+  RECOMMEND_LECTURE: 'recommend-lecture',
 } as const;

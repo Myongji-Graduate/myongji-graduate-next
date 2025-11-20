@@ -19,7 +19,7 @@ export const PRIMARY_LECTURE_CATEGORY_KO = {
   PRIMARY_MANDATORY_MAJOR: '전공필수',
   PRIMARY_ELECTIVE_MAJOR: '전공선택',
   PRIMARY_BASIC_ACADEMICAL_CULTURE: '학문기초교양',
-};
+} as const;
 
 //DUAL
 export const DUAL_LECTURE_CATEGORY_KO = {
@@ -27,10 +27,10 @@ export const DUAL_LECTURE_CATEGORY_KO = {
   DUAL_MANDATORY_MAJOR: '복수전공필수',
   DUAL_ELECTIVE_MAJOR: '복수전공선택',
   DUAL_BASIC_ACADEMICAL_CULTURE: '복수학문기초교양',
-};
+} as const;
 
 //SUB
 export const SUB_LECTURE_CATEGORY_KO = {
   ...PRIMARY_LECTURE_CATEGORY_KO,
   SUB_MAJOR: '부전공',
-};
+} as const;
