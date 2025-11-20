@@ -1,6 +1,8 @@
 import featureImage1 from '@/public/assets/tutorial/tutorial-feature1.gif';
 import featureImage2 from '@/public/assets/tutorial/tutorial-feature2.gif';
 import featureImage3 from '@/public/assets/tutorial/tutorial-feature3.gif';
+import featureImage4 from '@/public/assets/tutorial/tutorial-feature4.gif';
+import featureImage5 from '@/public/assets/tutorial/tutorial-feature5.gif';
 import uploadImage0 from '@/public/assets/tutorial/tutorial0.png';
 import uploadImage1 from '@/public/assets/tutorial/tutorial1.png';
 import uploadImage2 from '@/public/assets/tutorial/tutorial2.png';
@@ -29,11 +31,11 @@ export const TUTORIAL_FEATRUE: TutorialItem[] = [
     content: '카테고리별 기이수/미이수 과목 정보 및 학점 조회',
   },
   {
-    imageUrl: featureImage3,
+    imageUrl: featureImage4,
     content: '학기 전·후 상태에 맞춘 시간표 생성/과목 추천',
   },
   {
-    imageUrl: featureImage3,
+    imageUrl: featureImage5,
     content: '학과 필수 과목과 인기 강의 탐색',
   },
 ];
