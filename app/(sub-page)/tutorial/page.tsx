@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 function TutorialPage() {
   return (
-    <ContentContainer className={cn('flex flex-col gap-2 p-1 py-10', 'max-md:max-w-[600px]')} size="lg">
+    <ContentContainer className={cn('flex flex-col gap-2 px-1 py-10', 'max-md:max-w-[600px]')} size="lg">
       <TitleBox title="튜토리얼"></TitleBox>
       <section className="mx-[5%] py-6 overflow-hidden flex flex-col gap-4">
         <div className="text-md font-semibold text-gray-600 md:text-xl flex flex-col gap-1">
