@@ -11,7 +11,7 @@ function SubPageLayout({ children }: LayoutProps) {
     <>
       <NavigationBar />
       <div className="relative bg-white h-[18rem] overflow-hidden">
-        <Image src={background} alt="background" fill className="object-cover object-bottom" />
+        <Image src={background} alt="background" fill className="object-cover object-bottom" priority />
       </div>
       <div className="flex justify-center">{children}</div>
     </>

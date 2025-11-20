@@ -32,7 +32,7 @@ function TutorialContent({ data }: TestContentProps) {
               )}
               onClick={() => setItem(tutorial)}
             >
-              {icon && <Image src={icon} alt="icon" width={24} height={24} className="w-6 h-6" />}
+              {icon && <Image src={icon} alt="icon" width={24} height={24} className="w-6 h-6" priority />}
               <span className="flex-1 text-base md:text-lg font-medium">{content}</span>
             </li>
           );
