@@ -9,7 +9,6 @@ import {
   useFetchInfiniteLecturesByCategory,
 } from '@/app/business/services/lecture-finder/lecture-finder-query';
 import { useInView } from 'react-intersection-observer';
-import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 import type { TimetableLectureRow } from '@/app/type/timetable/types';
 
 export default function LectureContents() {
@@ -41,7 +40,7 @@ export default function LectureContents() {
       const merged = categoryData.pages.flatMap((p) => p.items as TimetableLectureRow[]);
       setCategoryLectures(merged);
     }
-  }, [categoryData, isFetchingCategory, isCategoryError]);
+  }, [categoryData, isFetchingCategory, isCategoryError, showLectureMode]);
 
   const currentLectures: TimetableLectureRow[] = useMemo(() => {
     if (showLectureMode === 'default') {
