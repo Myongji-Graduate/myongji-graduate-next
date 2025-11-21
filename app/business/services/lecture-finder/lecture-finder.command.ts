@@ -95,6 +95,29 @@ export async function fetchPopularAllPaged(query: PopularByCategoryQuery & { cur
   const res = await fetch(`${API_PATH.lectureFinder}/by-category?${params.toString()}`);
   const data = await res.json();
 
+  if (res.status === 500) {
+    toast({
+      title: '해당 학과에 해당하는 학번에 데이터가 존재하지 않습니다.',
+      variant: 'destructive',
+    });
+    throw new Error(`Request failed: ${res.status}`);
+  }
+  if (res.status === 404) {
+    toast({
+      title: '해당 카테고리에 해당하는 데이터가 존재하지 않습니다.',
+      variant: 'destructive',
+    });
+    throw new Error(`Request failed: ${res.status}`);
+  }
+
+  if (!res.ok) {
+    toast({
+      title: '강의 검색 중 오류가 발생했습니다.',
+      variant: 'destructive',
+    });
+    throw new Error(`Request failed: ${res.status}`);
+  }
+
   return {
     items: data.primeSection.lectures,
     pageInfo: data.primeSection.pageInfo,
