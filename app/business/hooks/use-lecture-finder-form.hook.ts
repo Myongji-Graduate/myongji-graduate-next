@@ -48,7 +48,6 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
         toast({ title: message, variant: 'destructive' });
         if (onInvalid) onInvalid(message);
       } else {
-        console.error(error);
         toast({ title: '검색 중 오류가 발생했습니다.', variant: 'destructive' });
       }
       return false;
