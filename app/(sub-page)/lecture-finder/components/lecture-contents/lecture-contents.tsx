@@ -17,8 +17,8 @@ export default function LectureContents() {
 
   const { ref, inView } = useInView();
   const [showLectureMode, setShowLectureMode] = useState<'default' | 'category'>('default');
-
   const [categoryLectures, setCategoryLectures] = useState<TimetableLectureRow[]>([]);
+  const [initialLoaded, setInitialLoaded] = useState(false);
 
   const {
     data: defaultData,
@@ -42,19 +42,28 @@ export default function LectureContents() {
     }
   }, [categoryData, isFetchingCategory, isCategoryError, showLectureMode]);
 
+  useEffect(() => {
+    if (showLectureMode === 'default' && defaultData && !initialLoaded) {
+      setInitialLoaded(true);
+    }
+  }, [showLectureMode, defaultData, initialLoaded]);
+
+  useEffect(() => {
+    if (showLectureMode === 'category' && categoryData && !initialLoaded) {
+      setInitialLoaded(true);
+    }
+  }, [showLectureMode, categoryData, initialLoaded]);
+
   const currentLectures: TimetableLectureRow[] = useMemo(() => {
     if (showLectureMode === 'default') {
       if (!defaultData) return [];
       return defaultData.pages.flatMap((page) => page.items as TimetableLectureRow[]);
     }
-
     return categoryLectures;
   }, [showLectureMode, defaultData, categoryLectures]);
 
   const fetchNextPage = showLectureMode === 'default' ? fetchNextDefaultPage : fetchNextCategoryPage;
-
   const hasNextPage = showLectureMode === 'default' ? hasNextDefaultPage : hasNextCategoryPage;
-
   const isFetching = showLectureMode === 'default' ? isFetchingDefault : isFetchingCategory;
 
   useEffect(() => {
@@ -67,13 +76,15 @@ export default function LectureContents() {
     const success = handleSearch();
     if (success) {
       setShowLectureMode('category');
+      setInitialLoaded(false);
     }
   }, [handleSearch]);
 
   const usingPopular = showLectureMode === 'default';
+  const showSkeleton = !initialLoaded && isFetching;
 
   return (
-    <div className="flex h-50 flex-col px-3  py-5">
+    <div className="flex h-50 flex-col px-3 py-5">
       <LectureFilterGroup
         filters={pending}
         onMajorChange={handleMajorChange}
@@ -83,9 +94,9 @@ export default function LectureContents() {
       />
 
       {usingPopular ? (
-        <LectureTable lastContentRef={ref} popularData={currentLectures} />
+        <LectureTable isLoading={showSkeleton} lastContentRef={ref} popularData={currentLectures} />
       ) : (
-        <LectureTable lastContentRef={ref} findData={currentLectures} />
+        <LectureTable isLoading={showSkeleton} lastContentRef={ref} findData={currentLectures} />
       )}
     </div>
   );
