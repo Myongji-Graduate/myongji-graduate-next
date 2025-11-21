@@ -9,13 +9,9 @@ function toEnumArray<T extends string>(arr: readonly T[]): [T, ...T[]] {
   return [arr[0], ...arr.slice(1)];
 }
 
-const MajorsZod = z.string().refine((val) => MAJORS.includes(val as any) && val !== '', {
-  message: '전공을 선택해주세요',
-});
+const MajorsZod = z.enum(MAJORS as [string, ...string[]], { errorMap: () => ({ message: '전공을 선택해주세요' }) });
 
-const YearsZod = z.string().refine((val) => YEARS.includes(val as any) && val !== '', {
-  message: '학번을 선택해주세요',
-});
+const YearsZod = z.enum(YEARS, { errorMap: () => ({ message: '학번을 선택해주세요' }) });
 
 const CATEGORY_VALUES = toEnumArray([...Object.keys(LECTURE_FINDER_CATEGORY_KO), 'ALL'] as const);
 const CategoryKeyZod = z.enum(CATEGORY_VALUES).optional().default('ALL');
