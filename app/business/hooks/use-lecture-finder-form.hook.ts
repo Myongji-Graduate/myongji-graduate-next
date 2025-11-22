@@ -39,9 +39,8 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
   const handleSearch = useCallback(() => {
     try {
       const validData = validateLectureFilters(pending) as PendingFilters;
-      setCommitted(validData);
-      setDidSearch(true);
-      return true;
+
+      return validData;
     } catch (error) {
       if (error instanceof z.ZodError) {
         const message = error.errors?.[0]?.message || '잘못된 입력입니다';
@@ -50,7 +49,7 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
       } else {
         toast({ title: '검색 중 오류가 발생했습니다.', variant: 'destructive' });
       }
-      return false;
+      return null;
     }
   }, [pending, onInvalid]);
 
@@ -62,5 +61,7 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
     handleYearChange,
     handleCategoryChange,
     handleSearch,
+    setDidSearch,
+    setCommitted,
   };
 }

@@ -12,8 +12,17 @@ import { useInView } from 'react-intersection-observer';
 import type { TimetableLectureRow } from '@/app/type/timetable/types';
 
 export default function LectureContents() {
-  const { pending, committed, didSearch, handleMajorChange, handleYearChange, handleCategoryChange, handleSearch } =
-    useLectureFinderForm();
+  const {
+    pending,
+    committed,
+    didSearch,
+    handleMajorChange,
+    handleYearChange,
+    handleCategoryChange,
+    handleSearch,
+    setCommitted,
+    setDidSearch,
+  } = useLectureFinderForm();
 
   const { ref, inView } = useInView();
   const [showLectureMode, setShowLectureMode] = useState<'default' | 'category'>('default');
@@ -73,12 +82,14 @@ export default function LectureContents() {
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
 
   const handleSearchAndChangeMode = useCallback(() => {
-    const success = handleSearch();
-    if (success) {
+    const validate = handleSearch();
+    if (validate) {
+      setCommitted(validate);
+      setDidSearch(true);
       setShowLectureMode('category');
       setInitialLoaded(false);
     }
-  }, [handleSearch]);
+  }, [handleSearch, setCommitted, setDidSearch]);
 
   const usingPopular = showLectureMode === 'default';
   const showSkeleton = !initialLoaded && isFetching;
