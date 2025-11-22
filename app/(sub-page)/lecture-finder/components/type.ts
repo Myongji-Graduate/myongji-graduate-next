@@ -32,7 +32,7 @@ export interface PopularInitQuery {
 export interface PopularByCategoryQuery {
   major: Major;
   entryYear: number | string;
-  category: Exclude<CategoryKey, 'all'>;
+  category: CategoryKey;
   limit?: number;
   cursor?: string;
 }
