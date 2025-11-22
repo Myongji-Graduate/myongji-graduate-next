@@ -48,6 +48,10 @@ export default function LectureContents() {
     if (categoryData && !isFetchingCategory && !isCategoryError) {
       const merged = categoryData.pages.flatMap((p) => p.items as TimetableLectureRow[]);
       setCategoryLectures(merged);
+
+      if (showLectureMode === 'default') {
+        setShowLectureMode('category');
+      }
     }
   }, [categoryData, isFetchingCategory, isCategoryError, showLectureMode]);
 
@@ -86,7 +90,6 @@ export default function LectureContents() {
     if (validate) {
       setCommitted(validate);
       setDidSearch(true);
-      setShowLectureMode('category');
       setInitialLoaded(false);
     }
   }, [handleSearch, setCommitted, setDidSearch]);
