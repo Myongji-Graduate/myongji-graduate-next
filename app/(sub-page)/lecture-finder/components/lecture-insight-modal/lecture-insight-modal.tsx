@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Modal from '@/app/ui/view/molecule/modal/modal';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
@@ -6,23 +8,24 @@ import { useFetchLectureInfo } from '@/app/business/services/lecture-finder/lect
 import ProfessorSelector from '../lecture-contents/professor-selector';
 import LectureInfo from './lecture-info';
 import useDialog from '@/app/hooks/useDialog';
-import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
+import LectureInsightSkeleton from './lecture-insight-skeleton';
+import Image from 'next/image';
+import NoResult from '@/public/assets/no-result-maru.png';
 
 interface LectureInsightModalProps {
   subject: string;
 }
 
 export default function LectureInsightModal({ subject }: LectureInsightModalProps) {
-  const { data = [], isLoading } = useFetchLectureInfo(subject);
-  const [focusProfessor, setProfessor] = React.useState<string>('');
   const { isOpen } = useDialog(DIALOG_KEY.LECTURE_INSIGHT);
-
+  const { data = [], isLoading } = useFetchLectureInfo(subject);
+  const [focusProfessor, setProfessor] = React.useState('');
   const [showSkeleton, setShowSkeleton] = React.useState(true);
 
   React.useEffect(() => {
     if (isOpen) {
       setShowSkeleton(true);
-      const timer = setTimeout(() => setShowSkeleton(false), 1000);
+      const timer = setTimeout(() => setShowSkeleton(false), 700);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
@@ -33,17 +36,12 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
     }
   }, [isOpen, isLoading, data]);
 
-  const current = data.find((lecture) => lecture.professor === focusProfessor);
+  const current = data.find((l) => l.professor === focusProfessor);
 
   if ((isLoading || showSkeleton) && data.length === 0) {
     return (
       <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-        <div className="w-full flex justify-center items-center">
-          <LoadingSpinner
-            className={'animate-spin shrink-0 h-12 w-12 mr-1.5 -ml-1 fill-gray-400'}
-            style={{ transition: `width 150ms` }}
-          />
-        </div>
+        <LectureInsightSkeleton />
       </Modal>
     );
   }
@@ -51,54 +49,49 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
   if (!isLoading && data.length === 0) {
     return (
       <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-        <div className="p-4 text-center text-sm text-gray-500">강의 상세 정보가 없습니다.</div>
+        <div className="flex flex-col items-center justify-center py-10 md:w-full w-72 text-center">
+          <Image src={NoResult} width={150} alt="no-result" className="opacity-95" />
+          <p className=" text-lg font-semibold text-gray-700">강의 상세 정보를 찾을 수 없어요</p>
+          <p className=" text-sm text-gray-500 leading-relaxed">
+            해당 강의의 상세 리뷰가 등록되지 않았습니다.
+            <br />
+            다른 교수님 강의를 확인해보세요!
+          </p>
+        </div>
       </Modal>
     );
   }
+
   return (
     <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-      <div className="w-full max-w-[900px] min-w-[280px] h-[80vh] md:h-[85vh] flex flex-col md:px-0">
+      <div className="w-full max-w-[400px] min-w-[280px] h-[66vh] md:h-[55vh] flex flex-col ">
         <Responsive maxWidth={767}>
-          <div className="flex flex-col h-full mt-4 space-y-4">
-            <div className="shrink-0 w-full">
-              <ProfessorSelector
-                professors={data}
-                selectedProfessor={focusProfessor}
-                onSelectProfessor={setProfessor}
-                isMobile
-              />
-            </div>
+          <div className="flex flex-col gap-4 h-[500px]">
+            <ProfessorSelector
+              professors={data}
+              selectedProfessor={focusProfessor}
+              onSelectProfessor={setProfessor}
+              isMobile
+            />
 
-            <div className="flex-1 min-h-0 w-[280px] md:w-full overflow-y-auto scrollbar-hide pb-3">
-              <div className="text-base font-semibold mb-2">강의 정보</div>
+            <div className="flex-1 overflow-y-auto scrollbar-hide">
               {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile />}
             </div>
           </div>
         </Responsive>
 
         <Responsive minWidth={768}>
-          <div className="grid grid-cols-[220px_1fr] gap-6 mt-4 h-full">
-            <div className="shrink-0">
-              <ProfessorSelector
-                professors={data}
-                selectedProfessor={focusProfessor}
-                onSelectProfessor={setProfessor}
-                isMobile={false}
-              />
-            </div>
+          <div className="h-full flex gap-3">
+            <ProfessorSelector
+              professors={data}
+              selectedProfessor={focusProfessor}
+              onSelectProfessor={setProfessor}
+              isMobile={false}
+            />
 
             <div className="flex flex-col h-full overflow-hidden">
-              <div className="shrink-0 text-lg font-semibold mb-2 whitespace-nowrap">
-                <Responsive maxWidth={1024}>
-                  <div className="truncate">{focusProfessor} 교수님 강의 정보</div>
-                </Responsive>
-                <Responsive minWidth={1025}>
-                  <div>{focusProfessor} 교수님 강의 정보</div>
-                </Responsive>
-              </div>
-
-              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide pr-1">
-                {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile={false} />}
+              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide">
+                {current && <LectureInfo lecture={current} professor={focusProfessor} />}
               </div>
             </div>
           </div>

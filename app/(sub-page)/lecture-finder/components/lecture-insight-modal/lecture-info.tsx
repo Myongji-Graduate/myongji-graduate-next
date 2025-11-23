@@ -3,6 +3,7 @@ import StarRating from '../star-rating';
 import { DetailedLecture } from '@/app/business/services/lecture-finder/lecture-finder.types';
 import { useFetchInfiniteLectureInfo } from '@/app/business/services/lecture-finder/lecture-info-query';
 import { useInView } from 'react-intersection-observer';
+import Skeleton from '@/app/utils/skeleton';
 
 interface LectureInfoProps {
   lecture: DetailedLecture;
@@ -67,7 +68,7 @@ export default function LectureInfo({ lecture, professor, isMobile = false }: Le
       </div>
       <div>
         {isLoading ? (
-          <div className="text-sm text-gray-500 border rounded-xl p-3">후기를 불러오는 중입니다...</div>
+          <Skeleton className="w-full h-12" />
         ) : allReviews.length === 0 ? (
           <div className="text-sm text-gray-500 border rounded-xl p-3">아직 등록된 후기가 없습니다.</div>
         ) : (

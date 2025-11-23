@@ -30,7 +30,7 @@ export default function StarRating({ value, size = 18, showValue = false, ariaLa
       ))}
       {hasHalf && <StarHalf size={size} className="text-amber-400 fill-amber-400" />}
       {Array.from({ length: empty }).map((_, i) => (
-        <StarOff key={`e-${i}`} size={size} className="text-gray-300" />
+        <Star key={`f-${i}`} size={size} className="text-gray-200" />
       ))}
       {showValue && <span className="ml-1 text-sm text-gray-600">{rounded.toFixed(1)}</span>}
     </div>
