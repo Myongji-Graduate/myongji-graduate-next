@@ -72,7 +72,7 @@ export default function LectureInfo({ lecture, professor, isMobile = false }: Le
         ) : allReviews.length === 0 ? (
           <div className="text-sm text-gray-500 border rounded-xl p-3">아직 등록된 후기가 없습니다.</div>
         ) : (
-          <ul className="space-y-3 pb-5">
+          <ul className="space-y-3">
             {allReviews.map((review, i) => (
               <li key={i} className="rounded-xl px-3 py-2 border">
                 <div className="flex items-center justify-between gap-2">
