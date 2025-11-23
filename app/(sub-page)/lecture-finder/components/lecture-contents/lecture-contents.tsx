@@ -10,6 +10,8 @@ import {
 } from '@/app/business/services/lecture-finder/lecture-finder-query';
 import { useInView } from 'react-intersection-observer';
 import type { TimetableLectureRow } from '@/app/type/timetable/types';
+import Image from 'next/image';
+import NoResult from '@/public/assets/no-result-maru.png';
 
 export default function LectureContents() {
   const {
@@ -42,10 +44,16 @@ export default function LectureContents() {
     hasNextPage: hasNextCategoryPage,
     isFetching: isFetchingCategory,
     isError: isCategoryError,
+    error: categoryError,
   } = useFetchInfiniteLecturesByCategory({ committed, didSearch });
 
   useEffect(() => {
-    if (categoryData && !isFetchingCategory && !isCategoryError) {
+    if (isCategoryError) {
+      setShowLectureMode('category');
+      return;
+    }
+
+    if (categoryData && !isFetchingCategory) {
       const merged = categoryData.pages.flatMap((p) => p.items as TimetableLectureRow[]);
       setCategoryLectures(merged);
 
@@ -97,6 +105,30 @@ export default function LectureContents() {
   const usingPopular = showLectureMode === 'default';
   const showSkeleton = !initialLoaded && isFetching;
 
+  let content;
+
+  if (showLectureMode === 'category' && isCategoryError && categoryError) {
+    const errorMessage =
+      categoryError instanceof Error ? categoryError.message : '알 수 없는 검색 오류가 발생했습니다.';
+
+    content = (
+      <div className="flex h-full flex-col items-center justify-center pt-5 text-center">
+        <Image src={NoResult} alt="no-result-maru" width={160} className="opacity-90" />
+
+        <p className="text-xl font-semibold text-gray-700">{errorMessage}</p>
+
+        <div className="mt-2 text-gray-500 pb-5">
+          <p className="text-base font-medium py-1">내가 원하는 과목 정보가 없나요?</p>
+          <p className="text-sm">우측 하단 채널톡으로 문의해주세요.</p>
+        </div>
+      </div>
+    );
+  } else if (usingPopular) {
+    content = <LectureTable isLoading={showSkeleton} lastContentRef={ref} popularData={currentLectures} />;
+  } else {
+    content = <LectureTable isLoading={showSkeleton} lastContentRef={ref} findData={currentLectures} />;
+  }
+
   return (
     <div className="flex h-50 flex-col px-3 py-5">
       <LectureFilterGroup
@@ -107,11 +139,7 @@ export default function LectureContents() {
         onSearch={handleSearchAndChangeMode}
       />
 
-      {usingPopular ? (
-        <LectureTable isLoading={showSkeleton} lastContentRef={ref} popularData={currentLectures} />
-      ) : (
-        <LectureTable isLoading={showSkeleton} lastContentRef={ref} findData={currentLectures} />
-      )}
+      {content}
     </div>
   );
 }
