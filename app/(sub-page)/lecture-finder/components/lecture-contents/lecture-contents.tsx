@@ -9,7 +9,7 @@ import {
   useFetchInfiniteLecturesByCategory,
 } from '@/app/business/services/lecture-finder/lecture-finder-query';
 import { useInView } from 'react-intersection-observer';
-import type { TimetableLectureRow } from '@/app/type/timetable/types';
+import type { TimetableLectureRow } from '@/app/business/services/timetable/types';
 
 export default function LectureContents() {
   const { pending, committed, didSearch, handleMajorChange, handleYearChange, handleCategoryChange, handleSearch } =

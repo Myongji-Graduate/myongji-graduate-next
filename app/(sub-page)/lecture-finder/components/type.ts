@@ -37,4 +37,4 @@ export interface PopularByCategoryQuery {
   cursor?: string;
 }
 
-import type { TimetableLectureRow } from '@/app/type/timetable/types';
+import type { TimetableLectureRow } from '@/app/business/services/timetable/types';

@@ -1,4 +1,4 @@
-import type { TimetableLectureRow } from '@/app/type/timetable/types';
+import type { TimetableLectureRow } from '@/app/business/services/timetable/types';
 import { major as MAJORS } from '@/app/utils/majors/major';
 import { LECTURE_FINDER_CATEGORY_KO } from '@/app/(sub-page)/lecture-finder/components/type';
 import { PopularInitQuery, PopularByCategoryQuery } from '@/app/(sub-page)/lecture-finder/components/type';

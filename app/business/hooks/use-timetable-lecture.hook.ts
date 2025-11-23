@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai';
 import { timeTableLectureAtom } from '@/app/store/stores/timetable-lecture';
 import { useToast } from '@/app/ui/view/molecule/toast/use-toast';
-import { TimetableLectureRow } from '@/app/type/timetable/types';
+import { TimetableLectureRow } from '@/app/business/services/timetable/types';
 import { useMemo, useCallback } from 'react';
 
 export function useTimetableLecture() {

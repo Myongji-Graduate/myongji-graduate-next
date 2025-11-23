@@ -5,7 +5,7 @@ import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.
 import UnscheduledLectureList from './lecture/unscheduled-lecture-list';
 import { TimeTable } from '@/app/ui/view/molecule/time-table';
 import { useFetchTimetable } from '@/app/business/services/timetable/timetable.query';
-import { TimetableLectureRow } from '@/app/type/timetable/types';
+import { TimetableLectureRow } from '@/app/business/services/timetable/types';
 
 function TimetableContent() {
   const { lectures, removeLecture, initializeLectures, unscheduledLectures } = useTimetableLecture();
