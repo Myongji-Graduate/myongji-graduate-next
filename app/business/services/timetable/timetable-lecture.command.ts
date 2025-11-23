@@ -1,6 +1,6 @@
 'use server';
 
-import { TimetableLectureRow } from '@/app/business/services/timetable/types';
+import { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
 import { API_PATH } from '../../api-path';
 import { instance } from '@/app/utils/api/instance';
 

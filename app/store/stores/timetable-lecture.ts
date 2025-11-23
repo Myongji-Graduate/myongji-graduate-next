@@ -1,4 +1,4 @@
-import { TimetableLectureRow } from '@/app/business/services/timetable/types';
+import { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
 import { atom } from 'jotai';
 
 /** 시간표 과목 store */
