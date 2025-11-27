@@ -14,7 +14,8 @@ const MajorsZod = z.enum(MAJORS as [string, ...string[]], { errorMap: () => ({ m
 const YearsZod = z.enum(YEARS, { errorMap: () => ({ message: '학번을 선택해주세요' }) });
 
 const CATEGORY_VALUES = toEnumArray([...Object.keys(LECTURE_FINDER_CATEGORY_KO), 'ALL'] as const);
-const CategoryKeyZod = z.enum(CATEGORY_VALUES).optional().default('ALL');
+
+const CategoryKeyZod = z.enum(CATEGORY_VALUES, { errorMap: () => ({ message: '이수구분을 선택해주세요' }) });
 
 export const LectureFiltersObject = z.object({
   major: MajorsZod,

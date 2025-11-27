@@ -6,7 +6,6 @@ import type { NormalizedPage } from '@/app/business/services/lecture-finder/lect
 import {
   fetchPopularByCategoryPaged,
   fetchPopularInitPaged,
-  fetchPopularAllPaged,
 } from '@/app/business/services/lecture-finder/lecture-finder.command';
 import type { PendingFilters } from '@/app/(sub-page)/lecture-finder/components/type';
 
@@ -39,23 +38,15 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
     category: committed.category,
   };
 
-  const isAll = committed.category === 'ALL';
-
   const queryFn = ({ pageParam }: any) =>
-    isAll
-      ? fetchPopularAllPaged({
-          ...finalPopularQuery,
-          cursor: pageParam?.cursor,
-          limit: pageParam?.limit ?? limit,
-        })
-      : fetchPopularByCategoryPaged({
-          ...finalPopularQuery,
-          cursor: pageParam?.cursor,
-          limit: pageParam?.limit ?? limit,
-        });
+    fetchPopularByCategoryPaged({
+      ...finalPopularQuery,
+      cursor: pageParam?.cursor,
+      limit: pageParam?.limit ?? limit,
+    });
 
   const queryResoult = useInfiniteQuery({
-    queryKey: [QUERY_KEY.LECTURE_FINDER, isAll ? 'popularAll' : 'popularByCategory', finalPopularQuery],
+    queryKey: [QUERY_KEY.LECTURE_FINDER, 'popularByCategory'],
     initialPageParam: { cursor: undefined, limit },
     queryFn,
     getNextPageParam: (last: NormalizedPage) =>
