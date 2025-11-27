@@ -67,7 +67,7 @@ export async function fetchPopularByCategoryPaged(query: PopularByCategoryQuery 
   const res = await fetch(`${API_PATH.lectureFinder}/by-category?${params.toString()}`);
 
   if (res.status === 500) {
-    throw new SearchError('해당 학과에 해당하는 학번에 데이터가 존재하지 않습니다.', res.status);
+    throw new SearchError('해당 학과/학번 조건에 맞는 데이터가 없습니다.', res.status);
   }
   if (res.status === 404) {
     throw new SearchError('해당 카테고리에 해당하는 데이터가 존재하지 않습니다.', res.status);
@@ -94,7 +94,7 @@ export async function fetchPopularAllPaged(query: PopularByCategoryQuery & { cur
   const data = await res.json();
 
   if (res.status === 500) {
-    throw new SearchError('해당 학과에 해당하는 학번에 데이터가 존재하지 않습니다.', res.status);
+    throw new SearchError('해당 학과/학번 조건에 맞는 데이터가 없습니다.', res.status);
   }
   if (res.status === 404) {
     throw new SearchError('해당 카테고리에 해당하는 데이터가 존재하지 않습니다.', res.status);
