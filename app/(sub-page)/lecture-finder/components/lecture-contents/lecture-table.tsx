@@ -5,7 +5,7 @@ import { Table } from '@/app/ui/view/molecule/table';
 import { REQUIRED_LECTURE_TABLE_HEADER_INFO } from '@/app/ui/lecture/required-lecture/required-lecture-constant';
 import LectureInsightModal from '../lecture-insight-modal/lecture-insight-modal';
 import { LECTURE_FINDER_CATEGORY_KO } from '../type';
-import type { TimetableLectureRow } from '@/app/type/timetable/types';
+import type { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
 import type { PopularApiResponse, NormalizedPage } from '@/app/business/services/lecture-finder/lecture-finder.types';
 
 type Cell = string | number | boolean | null;

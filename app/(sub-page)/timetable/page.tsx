@@ -9,7 +9,7 @@ import { fetchUser } from '@/app/business/services/user/user.query';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import RecommendLectureModal from './components/recommend-lecture/recommend-lecture-modal';
 import { fetchTimetable } from '@/app/business/services/timetable/timetable.command';
-import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/utils/timetable/constants';
+import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/business/services/timetable/constants';
 
 export const metadata: Metadata = {
   title: '시간표',

@@ -1,9 +1,9 @@
 'use client';
 
 import { timetableLectureFilterAtom } from '@/app/store/stores/timetable-lecture';
-import { TimetableLectureRow } from '@/app/type/timetable/types';
+import { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
-import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/utils/timetable/constants';
+import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/business/services/timetable/constants';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { fetchSearchTimetableLectures } from './timetable-lecture.command';
