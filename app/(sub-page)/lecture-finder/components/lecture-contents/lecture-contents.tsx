@@ -39,11 +39,13 @@ export default function LectureContents() {
 
   const activeQuery = categoryQuery;
 
-  if (inView && activeQuery.hasNextPage && !activeQuery.isFetching) {
+  if (inView && activeQuery.hasNextPage && !activeQuery.isFetching && !activeQuery.isError) {
     activeQuery.fetchNextPage();
   }
 
-  const isError = didSearch && categoryQuery.isError;
+  const isAll = committed.category === 'ALL';
+  const hasData = activeQuery.data && activeQuery.data.pages.length > 0;
+  const isError = didSearch && categoryQuery.isError && (!isAll || !hasData);
   const isLoading = activeQuery.isFetching && !activeQuery.data;
   const isEmpty = activeQuery.data && activeQuery.data.pages.flatMap((p) => p.items).length === 0;
 

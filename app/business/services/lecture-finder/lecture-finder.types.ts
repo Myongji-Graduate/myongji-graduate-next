@@ -19,6 +19,7 @@ export type NormalizedPage = {
     hasMore: boolean;
     pageSize?: number;
   };
+  categoryName?: string;
 };
 
 export interface LectureReview {

@@ -12,6 +12,21 @@ import type { PendingFilters } from '@/app/(sub-page)/lecture-finder/components/
 const DEFAULT_LIMIT = 10;
 const limit = DEFAULT_LIMIT;
 
+const CATEGORY_ORDER = [
+  'BASIC_ACADEMICAL_CULTURE',
+  'CORE_CULTURE',
+  'COMMON_CULTURE',
+  'MANDATORY_MAJOR',
+  'ELECTIVE_MAJOR',
+] as const;
+
+function getNextCategory(currentCategory: string | undefined): string | undefined {
+  if (!currentCategory) return CATEGORY_ORDER[0];
+  const currentIndex = CATEGORY_ORDER.indexOf(currentCategory as (typeof CATEGORY_ORDER)[number]);
+  if (currentIndex === -1 || currentIndex === CATEGORY_ORDER.length - 1) return undefined;
+  return CATEGORY_ORDER[currentIndex + 1];
+}
+
 type UseFetchByCategoryParams = {
   committed: PendingFilters;
   didSearch: boolean;
@@ -25,25 +40,55 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
   };
 
   const isAll = committed.category === 'ALL';
-  const queryFn = ({ pageParam }: any) =>
-    isAll
-      ? fetchPopularAllPaged({
-          ...finalPopularQuery,
-          cursor: pageParam?.cursor,
-          limit: pageParam?.limit ?? limit,
-        })
-      : fetchPopularByCategoryPaged({
-          ...finalPopularQuery,
-          cursor: pageParam?.cursor,
-          limit: pageParam?.limit ?? limit,
-        });
+
+  const queryFn = ({ pageParam }: any) => {
+    if (isAll) {
+      const categoryName = pageParam?.categoryName;
+      return fetchPopularAllPaged({
+        ...finalPopularQuery,
+        cursor: pageParam?.cursor,
+        limit: pageParam?.limit ?? limit,
+        categoryName,
+      });
+    }
+    return fetchPopularByCategoryPaged({
+      ...finalPopularQuery,
+      cursor: pageParam?.cursor,
+      limit: pageParam?.limit ?? limit,
+    });
+  };
 
   const queryResoult = useInfiniteQuery({
     queryKey: [QUERY_KEY.LECTURE_FINDER, isAll ? 'popularAll' : 'popularByCategory', finalPopularQuery],
-    initialPageParam: { cursor: undefined, limit },
+    initialPageParam: { cursor: undefined, limit, categoryName: undefined },
     queryFn,
-    getNextPageParam: (last: NormalizedPage) =>
-      last.pageInfo.hasMore ? { cursor: last.pageInfo.nextCursor, limit: last.pageInfo.pageSize ?? limit } : undefined,
+    getNextPageParam: (last: NormalizedPage, allPages: NormalizedPage[]) => {
+      if (!last) return undefined;
+
+      if (isAll) {
+        if (last.pageInfo.hasMore) {
+          return {
+            cursor: last.pageInfo.nextCursor,
+            limit: last.pageInfo.pageSize ?? limit,
+            categoryName: last.categoryName || allPages[0]?.categoryName,
+          };
+        } else {
+          const currentCategory = last.categoryName || allPages[0]?.categoryName;
+          const nextCategory = getNextCategory(currentCategory);
+          if (nextCategory) {
+            return {
+              cursor: undefined,
+              limit,
+              categoryName: nextCategory,
+            };
+          }
+          return undefined;
+        }
+      }
+      return last.pageInfo.hasMore
+        ? { cursor: last.pageInfo.nextCursor, limit: last.pageInfo.pageSize ?? limit, categoryName: undefined }
+        : undefined;
+    },
     enabled: didSearch,
 
     retry: false,

@@ -81,12 +81,12 @@ export async function fetchPopularByCategoryPaged(query: PopularByCategoryQuery 
 }
 
 export async function fetchPopularAllPaged(
-  query: PopularByCategoryQuery & { cursor?: string; limit?: number },
+  query: PopularByCategoryQuery & { cursor?: string; limit?: number; categoryName?: string },
 ): Promise<NormalizedPage> {
   const params = toSearchParams({
     major: query.major,
     entryYear: query.entryYear,
-    category: query.category,
+    category: query.categoryName || query.category,
     limit: query.limit,
     cursor: query.cursor,
   });
@@ -105,6 +105,15 @@ export async function fetchPopularAllPaged(
     throw new SearchError('강의 검색 중 오류가 발생했습니다.', res.status);
   }
 
-  const json = (await res.json()) as PopularApiResponse;
-  return normalizePopular(json);
+  const data = await res.json();
+  const normalized = normalizePopular(data as PopularApiResponse);
+
+  if (data && typeof data === 'object' && 'categoryName' in data) {
+    return {
+      ...normalized,
+      categoryName: data.categoryName as string,
+    };
+  }
+
+  return normalized;
 }
