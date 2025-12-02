@@ -64,7 +64,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
 
   return (
     <Modal modalKey={DIALOG_KEY.LECTURE_INSIGHT}>
-      <div className="w-full max-w-[400px] min-w-[280px] h-[66vh] md:h-[55vh] flex flex-col ">
+      <div className="w-full max-w-[400px] min-w-[280px] h-[54vh] md:h-[55vh] flex flex-col ">
         <Responsive maxWidth={767}>
           <div className="flex flex-col gap-4 h-[500px]">
             <ProfessorSelector
