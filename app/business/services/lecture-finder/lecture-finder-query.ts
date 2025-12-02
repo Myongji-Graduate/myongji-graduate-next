@@ -3,7 +3,10 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import type { NormalizedPage } from '@/app/business/services/lecture-finder/lecture-finder.types';
-import { fetchPopularByCategoryPaged } from '@/app/business/services/lecture-finder/lecture-finder.command';
+import {
+  fetchPopularByCategoryPaged,
+  fetchPopularAllPaged,
+} from '@/app/business/services/lecture-finder/lecture-finder.command';
 import type { PendingFilters } from '@/app/(sub-page)/lecture-finder/components/type';
 
 const DEFAULT_LIMIT = 10;
@@ -21,15 +24,22 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
     category: committed.category,
   };
 
+  const isAll = committed.category === 'ALL';
   const queryFn = ({ pageParam }: any) =>
-    fetchPopularByCategoryPaged({
-      ...finalPopularQuery,
-      cursor: pageParam?.cursor,
-      limit: pageParam?.limit ?? limit,
-    });
+    isAll
+      ? fetchPopularAllPaged({
+          ...finalPopularQuery,
+          cursor: pageParam?.cursor,
+          limit: pageParam?.limit ?? limit,
+        })
+      : fetchPopularByCategoryPaged({
+          ...finalPopularQuery,
+          cursor: pageParam?.cursor,
+          limit: pageParam?.limit ?? limit,
+        });
 
   const queryResoult = useInfiniteQuery({
-    queryKey: [QUERY_KEY.LECTURE_FINDER, 'popularByCategory'],
+    queryKey: [QUERY_KEY.LECTURE_FINDER, isAll ? 'popularAll' : 'popularByCategory', finalPopularQuery],
     initialPageParam: { cursor: undefined, limit },
     queryFn,
     getNextPageParam: (last: NormalizedPage) =>

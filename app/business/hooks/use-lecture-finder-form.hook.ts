@@ -9,7 +9,7 @@ import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 const DEFAULT_PENDING: PendingFilters = {
   major: '' as '' | Major,
   year: '' as '' | Year,
-  category: '' as CategoryKey,
+  category: 'ALL' as CategoryKey,
 };
 
 type UseLectureFinderFormParams = {
@@ -32,7 +32,7 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
   }, []);
 
   const handleCategoryChange = useCallback((v: unknown) => {
-    const next = v == null ? '' : String(v);
+    const next = v == null ? 'ALL' : String(v);
     setPending((p) => ({ ...p, category: next as CategoryKey }));
   }, []);
 

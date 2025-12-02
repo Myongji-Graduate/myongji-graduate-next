@@ -22,7 +22,7 @@ type Props = {
 const PLACEHOLDER = {
   major: '전공명',
   year: '학번',
-  categoryAll: '이수구분',
+  categoryAll: '전체',
 } as const;
 
 function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryChange, onSearch }: Props) {
@@ -63,11 +63,12 @@ function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryCh
   const CategorySelect = (
     <div className="w-1/3">
       <SelectRoot
-        key={`category-${category || 'none'}`}
+        key={`category-${category}`}
         placeholder={PLACEHOLDER.categoryAll}
         defaultValue={category}
         onValueChange={onCategoryChange}
       >
+        <SelectItem value="ALL" placeholder={PLACEHOLDER.categoryAll} />
         {categoryEntries.map(([key, label]) => (
           <SelectItem key={key} value={key} placeholder={label} />
         ))}
@@ -77,13 +78,6 @@ function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryCh
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <div className="flex items-start gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-gray-200">
-        <Info className="w-4 h-4 text-gray-500" />
-        <p className="text-sm text-gray-700">
-          검색하려면 <span className="font-medium">전공과 학번 이수구분을 필수로 선택</span>해주세요.
-        </p>
-      </div>
-
       <div className="flex flex-row gap-3 w-full">
         {MajorSelect}
         {YearSelect}
