@@ -7,4 +7,5 @@ export const QUERY_KEY = {
   CATEGORY: 'category',
   LECTURE_FINDER: 'lecture-finder',
   LECTURE_INFO: 'lecture-info',
+  RECOMMEND_LECTURE: 'recommend-lecture',
 } as const;

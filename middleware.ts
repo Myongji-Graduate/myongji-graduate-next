@@ -36,15 +36,7 @@ const allowedGuestPath = [
   ...allowedOnlyGuestPath,
 ];
 
-const allowInitUserPath = [
-  '/',
-  '/tutorial',
-  '/grade-upload',
-  '/anonymous',
-  '/anonymous/result',
-  '/lecture-finder',
-  '/timetable',
-];
+const allowInitUserPath = ['/', '/tutorial', '/grade-upload', '/anonymous', '/anonymous/result', '/lecture-finder'];
 
 function isAllowedGuestPath(path: string, strict: boolean = false) {
   const allowedPath = strict ? allowedOnlyGuestPath : allowedGuestPath;

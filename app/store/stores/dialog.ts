@@ -11,6 +11,7 @@ const initialState = {
   [DIALOG_KEY.TIMETABLE_LECTURE_SEARCH]: false,
   [DIALOG_KEY.LECTURE_NAME_OR_PROF_SEARCH]: false,
   [DIALOG_KEY.LECTURE_INSIGHT]: false,
+  [DIALOG_KEY.RECOMMEND_LECTURE]: false,
 };
 
 const dialogAtom = atom(initialState);

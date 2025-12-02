@@ -1,4 +1,4 @@
-import { TimetableLectureRow } from '@/app/type/timetable/types';
+import { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
 import UnscheduledLecture from './unscheduled-lecture';
 import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
 
