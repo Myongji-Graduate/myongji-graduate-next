@@ -58,7 +58,7 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
     });
   };
 
-  const queryResoult = useInfiniteQuery({
+  const queryResult = useInfiniteQuery({
     queryKey: [QUERY_KEY.LECTURE_FINDER, isAll ? 'popularAll' : 'popularByCategory', finalPopularQuery],
     initialPageParam: { cursor: undefined, limit, categoryName: undefined },
     queryFn,
@@ -96,5 +96,5 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
     throwOnError: false,
   });
 
-  return queryResoult;
+  return queryResult;
 };
