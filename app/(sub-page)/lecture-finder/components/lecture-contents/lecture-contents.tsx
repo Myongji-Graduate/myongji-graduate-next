@@ -123,11 +123,11 @@ function Wrapper({ children }: { children: React.ReactNode }) {
 function InitialView() {
   return (
     <div className="flex flex-col items-center justify-center text-center py-10">
-      <Image src={Maru} width={160} alt="initial-state" className="opacity-90" />
+      <Image src={Maru} width={130} alt="initial-state" className="opacity-90" />
 
-      <p className="text-xl font-semibold text-gray-700 mt-4">학과와 학번을 필수로 선택해주세요</p>
+      <p className="text-lg font-semibold text-gray-700">학과와 학번을 필수로 선택해주세요</p>
 
-      <div className="mt-3 text-gray-500">
+      <div className="mt-1 text-gray-500">
         <p className="text-base font-medium py-1">원하는 카테고리를 선택하고 검색해보세요!</p>
         <p className="text-sm">필수 과목을 조회할 수 있습니다.</p>
       </div>
