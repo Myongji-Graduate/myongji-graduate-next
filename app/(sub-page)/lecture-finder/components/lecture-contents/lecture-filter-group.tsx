@@ -90,7 +90,7 @@ function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryCh
       <div className="flex items-start gap-2 px-3 ">
         <Info className="w-4 h-4 text-gray-500 mt-0.5" />
         <p className="text-sm text-gray-700">
-          과목 테이블을 눌러 <span className="font-medium">교수님 별 강의 정보</span>를 확인해보세요!
+          과목 테이블을 눌러 <span className="font-medium">교수님 별 강의 정보</span>를 확인해보세요
         </p>
       </div>
     </div>
