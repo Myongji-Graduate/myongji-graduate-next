@@ -9,7 +9,6 @@ import { major as MAJORS } from '@/app/utils/majors/major';
 import type { CategoryKey } from '../type';
 import { Info } from 'lucide-react';
 import { PendingFilters } from '../type';
-import { Plus } from 'lucide-react';
 
 type Props = {
   filters: PendingFilters;
@@ -89,7 +88,7 @@ function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryCh
       </div>
 
       <div className="flex items-start gap-2 px-3 ">
-        <Plus className="w-4 h-4 text-gray-500 mt-0.5" />
+        <Info className="w-4 h-4 text-gray-500 mt-0.5" />
         <p className="text-sm text-gray-700">
           과목 테이블을 눌러 <span className="font-medium">교수님 별 강의 정보</span>를 확인해보세요!
         </p>
