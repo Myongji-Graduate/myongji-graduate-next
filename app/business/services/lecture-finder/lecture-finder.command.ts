@@ -7,15 +7,50 @@ import type {
   PopularByCategoryQuery,
 } from './lecture-finder.types';
 
+function createCompositeCursor(lastItem: { totalCount?: unknown; id?: unknown } | null): string | undefined {
+  if (!lastItem) return undefined;
+  const totalCount = lastItem.totalCount;
+  const id = lastItem.id;
+  if (totalCount != null && id != null) {
+    return `${totalCount}:${id}`;
+  }
+  return undefined;
+}
+
 export function normalizePopular(res: PopularApiResponse): NormalizedPage {
   if (Array.isArray(res)) {
-    return { items: res, pageInfo: { hasMore: false } };
+    const items = res;
+    return {
+      items,
+      pageInfo: {
+        nextCursor: undefined,
+        hasMore: false,
+      },
+    };
   }
+
+  const items = res.lectures ?? [];
+  const serverHasMore = res.pageInfo?.hasMore === true;
+
+  if (res.pageInfo?.hasMore === false) {
+    return {
+      items,
+      pageInfo: {
+        nextCursor: undefined,
+        hasMore: false,
+        pageSize: res.pageInfo?.pageSize,
+      },
+    };
+  }
+
+  const lastItem = items.length > 0 ? items[items.length - 1] : null;
+  const nextCursor = createCompositeCursor(lastItem) ?? res.pageInfo?.nextCursor;
+
   return {
-    items: res.lectures ?? [],
+    items,
     pageInfo: {
-      nextCursor: res.pageInfo?.nextCursor,
-      hasMore: !!res.pageInfo?.hasMore || !!res.pageInfo?.nextCursor,
+      nextCursor,
+      hasMore: serverHasMore || !!nextCursor,
       pageSize: res.pageInfo?.pageSize,
     },
   };
