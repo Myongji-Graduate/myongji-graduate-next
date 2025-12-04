@@ -31,11 +31,8 @@ export default function LectureContents() {
   });
 
   const handleSearchAndChangeMode = useCallback(() => {
-    const validated = handleSearch();
-    if (!validated) return;
-    setCommitted(validated);
-    setDidSearch(true);
-  }, [handleSearch, setCommitted, setDidSearch]);
+    handleSearch();
+  }, [handleSearch]);
 
   const activeQuery = categoryQuery;
 
