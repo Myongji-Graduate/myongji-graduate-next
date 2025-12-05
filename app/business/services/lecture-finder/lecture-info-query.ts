@@ -11,7 +11,13 @@ export const useFetchLectureInfo = (subject: string) => {
   });
 };
 
-export const useFetchInfiniteLectureInfo = (subject: string, professor: string, page: number, size: number) => {
+export const useFetchInfiniteLectureInfo = (
+  subject: string,
+  professor: string,
+  page: number,
+  size: number,
+  options?: { enabled?: boolean },
+) => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEY.LECTURE_INFO, subject, professor],
     queryFn: ({ pageParam }) => {
@@ -27,5 +33,6 @@ export const useFetchInfiniteLectureInfo = (subject: string, professor: string, 
       return lastPage.nextPage;
     },
     initialPageParam: page,
+    enabled: options?.enabled !== false,
   });
 };

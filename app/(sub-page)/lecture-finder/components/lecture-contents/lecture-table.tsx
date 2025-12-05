@@ -5,8 +5,8 @@ import { Table } from '@/app/ui/view/molecule/table';
 import { REQUIRED_LECTURE_TABLE_HEADER_INFO } from '@/app/ui/lecture/required-lecture/required-lecture-constant';
 import LectureInsightModal from '../lecture-insight-modal/lecture-insight-modal';
 import { LECTURE_FINDER_CATEGORY_KO } from '../type';
+import TableListSkeleton from '@/app/ui/view/molecule/table/table-skeleton';
 import type { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
-import type { PopularApiResponse, NormalizedPage } from '@/app/business/services/lecture-finder/lecture-finder.types';
 
 type Cell = string | number | boolean | null;
 
@@ -40,41 +40,30 @@ interface LectureTableProps {
   popularData?: TimetableLectureRow[];
   findData?: TimetableLectureRow[];
   lastContentRef?: React.Ref<HTMLDivElement>;
+  isLoading?: boolean;
 }
 
-export default function LectureTable({ popularData, findData, lastContentRef }: LectureTableProps) {
+export default function LectureTable({ popularData, findData, lastContentRef, isLoading = false }: LectureTableProps) {
   const rawData = popularData ?? findData ?? [];
 
   const rows = useMemo(() => rawData.map(toRow), [rawData]);
 
-  const renderLectureModal = (item: LectureTableRow, _close: () => void) => (
-    <LectureInsightModal subject={item.lectureName} />
-  );
+  const renderLectureModal = (item: LectureTableRow) => <LectureInsightModal subject={item.lectureName} />;
 
   return (
     <div className="flex flex-col gap-4 py-3">
-      <Table
-        headerInfo={REQUIRED_LECTURE_TABLE_HEADER_INFO}
-        data={rows}
-        nonRenderableKey={['id']}
-        renderModal={renderLectureModal}
-        modalKey="LECTURE_INSIGHT"
-        lastContentRef={lastContentRef}
-      />
+      {isLoading ? (
+        <TableListSkeleton rows={8} cols={REQUIRED_LECTURE_TABLE_HEADER_INFO.length} />
+      ) : (
+        <Table
+          headerInfo={REQUIRED_LECTURE_TABLE_HEADER_INFO}
+          data={rows}
+          nonRenderableKey={['id']}
+          renderModal={renderLectureModal}
+          modalKey="LECTURE_INSIGHT"
+          lastContentRef={lastContentRef}
+        />
+      )}
     </div>
   );
-}
-
-export function normalizePopular(res: PopularApiResponse): NormalizedPage {
-  if (Array.isArray(res)) {
-    return { items: res, pageInfo: { hasMore: false } };
-  }
-  return {
-    items: res.lectures ?? [],
-    pageInfo: {
-      nextCursor: res.pageInfo?.nextCursor,
-      hasMore: !!res.pageInfo?.hasMore || !!res.pageInfo?.nextCursor,
-      pageSize: res.pageInfo?.pageSize,
-    },
-  };
 }

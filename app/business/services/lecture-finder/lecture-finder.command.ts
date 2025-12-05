@@ -7,15 +7,50 @@ import type {
   PopularByCategoryQuery,
 } from './lecture-finder.types';
 
+function createCompositeCursor(lastItem: { totalCount?: unknown; id?: unknown } | null): string | undefined {
+  if (!lastItem) return undefined;
+  const totalCount = lastItem.totalCount;
+  const id = lastItem.id;
+  if (totalCount != null && id != null) {
+    return `${totalCount}:${id}`;
+  }
+  return undefined;
+}
+
 export function normalizePopular(res: PopularApiResponse): NormalizedPage {
   if (Array.isArray(res)) {
-    return { items: res, pageInfo: { hasMore: false } };
+    const items = res;
+    return {
+      items,
+      pageInfo: {
+        nextCursor: undefined,
+        hasMore: false,
+      },
+    };
   }
+
+  const items = res.lectures ?? [];
+  const serverHasMore = res.pageInfo?.hasMore === true;
+
+  if (res.pageInfo?.hasMore === false) {
+    return {
+      items,
+      pageInfo: {
+        nextCursor: undefined,
+        hasMore: false,
+        pageSize: res.pageInfo?.pageSize,
+      },
+    };
+  }
+
+  const lastItem = items.length > 0 ? items[items.length - 1] : null;
+  const nextCursor = createCompositeCursor(lastItem) ?? res.pageInfo?.nextCursor;
+
   return {
-    items: res.lectures ?? [],
+    items,
     pageInfo: {
-      nextCursor: res.pageInfo?.nextCursor,
-      hasMore: !!res.pageInfo?.hasMore || !!res.pageInfo?.nextCursor,
+      nextCursor,
+      hasMore: serverHasMore || !!nextCursor,
       pageSize: res.pageInfo?.pageSize,
     },
   };
@@ -44,6 +79,16 @@ export async function fetchPopularInitPaged(query: PopularInitQuery & PageParam)
   return normalizePopular(json);
 }
 
+export class SearchError extends Error {
+  constructor(
+    message: string,
+    public status: number,
+  ) {
+    super(message);
+    this.name = 'SearchError';
+  }
+}
+
 export async function fetchPopularByCategoryPaged(query: PopularByCategoryQuery & PageParam): Promise<NormalizedPage> {
   const params = toSearchParams({
     major: query.major,
@@ -54,6 +99,57 @@ export async function fetchPopularByCategoryPaged(query: PopularByCategoryQuery 
   });
 
   const res = await fetch(`${API_PATH.lectureFinder}/by-category?${params.toString()}`);
+
+  if (res.status === 404) {
+    throw new SearchError('해당 카테고리에 해당하는 데이터가 존재하지 않습니다.', res.status);
+  }
+
+  if (res.status === 400) {
+    throw new SearchError('해당 학과 학번에 해당하는 데이터가 존재하지 않습니다.', res.status);
+  }
+
+  if (!res.ok) {
+    throw new SearchError('강의 검색 중 오류가 발생했습니다.', res.status);
+  }
+
   const json = (await res.json()) as PopularApiResponse;
   return normalizePopular(json);
+}
+
+export async function fetchPopularAllPaged(
+  query: PopularByCategoryQuery & { cursor?: string; limit?: number; categoryName?: string },
+): Promise<NormalizedPage> {
+  const params = toSearchParams({
+    major: query.major,
+    entryYear: query.entryYear,
+    category: query.categoryName || query.category,
+    limit: query.limit,
+    cursor: query.cursor,
+  });
+
+  const res = await fetch(`${API_PATH.lectureFinder}/by-category?${params.toString()}`);
+
+  if (res.status === 404) {
+    throw new SearchError('해당 카테고리에 해당하는 데이터가 존재하지 않습니다.', res.status);
+  }
+
+  if (res.status === 400) {
+    throw new SearchError('해당 학과 학번에 해당하는 데이터가 존재하지 않습니다.', res.status);
+  }
+
+  if (!res.ok) {
+    throw new SearchError('강의 검색 중 오류가 발생했습니다.', res.status);
+  }
+
+  const data = await res.json();
+  const normalized = normalizePopular(data as PopularApiResponse);
+
+  if (data && typeof data === 'object' && 'categoryName' in data) {
+    return {
+      ...normalized,
+      categoryName: data.categoryName as string,
+    };
+  }
+
+  return normalized;
 }

@@ -1,68 +1,106 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
-import LectureFilters from './lecture-filters';
+import { useCallback } from 'react';
+import LectureFilterGroup from './lecture-filter-group';
 import LectureTable from './lecture-table';
 import { useLectureFinderForm } from '@/app/business/hooks/use-lecture-finder-form.hook';
-import {
-  useFetchInfiniteLectures,
-  useFetchInfiniteLecturesByCategory,
-} from '@/app/business/services/lecture-finder/lecture-finder-query';
+import { useFetchInfiniteLecturesByCategory } from '@/app/business/services/lecture-finder/lecture-finder-query';
 import { useInView } from 'react-intersection-observer';
-import type { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
+import Image from 'next/image';
+import Maru from '@/public/assets/graduate-maru.png';
+import NoResult from '@/public/assets/no-result-maru.png';
 
 export default function LectureContents() {
-  const { pending, committed, didSearch, handleMajorChange, handleYearChange, handleCategoryChange, handleSearch } =
-    useLectureFinderForm({});
+  const {
+    pending,
+    committed,
+    didSearch,
+    handleMajorChange,
+    handleYearChange,
+    handleCategoryChange,
+    handleSearch,
+    setCommitted,
+    setDidSearch,
+  } = useLectureFinderForm();
 
   const { ref, inView } = useInView();
-  const [showLectureMode, setShowLectureMode] = useState<'default' | 'category'>('default');
 
-  const {
-    data: defaultData,
-    fetchNextPage: fetchNextDefaultPage,
-    hasNextPage: hasNextDefaultPage,
-    isFetching: isFetchingDefault,
-  } = useFetchInfiniteLectures();
-
-  const {
-    data: categoryData,
-    fetchNextPage: fetchNextCategoryPage,
-    hasNextPage: hasNextCategoryPage,
-    isFetching: isFetchingCategory,
-  } = useFetchInfiniteLecturesByCategory({ committed, didSearch });
-
-  const currentRawData = showLectureMode === 'default' ? defaultData : categoryData;
-
-  const currentLectures: TimetableLectureRow[] = useMemo(() => {
-    if (!currentRawData) {
-      return [];
-    }
-
-    return currentRawData.pages.flatMap((page) => page.items as TimetableLectureRow[]);
-  }, [currentRawData]);
-
-  const fetchNextPage = showLectureMode === 'default' ? fetchNextDefaultPage : fetchNextCategoryPage;
-  const hasNextPage = showLectureMode === 'default' ? hasNextDefaultPage : hasNextCategoryPage;
-  const isFetching = showLectureMode === 'default' ? isFetchingDefault : isFetchingCategory;
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetching) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, isFetching, fetchNextPage]);
+  const categoryQuery = useFetchInfiniteLecturesByCategory({
+    committed,
+    didSearch,
+  });
 
   const handleSearchAndChangeMode = useCallback(() => {
     handleSearch();
-
-    setShowLectureMode('category');
   }, [handleSearch]);
 
-  const usingPopular = showLectureMode === 'default';
+  const activeQuery = categoryQuery;
+
+  if (inView && activeQuery.hasNextPage && !activeQuery.isFetching && !activeQuery.isError) {
+    activeQuery.fetchNextPage();
+  }
+
+  const isAll = committed.category === 'ALL';
+  const hasData = activeQuery.data && activeQuery.data.pages.length > 0;
+  const isError = didSearch && categoryQuery.isError && (!isAll || !hasData);
+  const isLoading = activeQuery.isFetching && !activeQuery.data;
+  const isEmpty = activeQuery.data && activeQuery.data.pages.flatMap((p) => p.items).length === 0;
+
+  const lectures = activeQuery.data?.pages.flatMap((p) => p.items) ?? [];
+
+  if (!didSearch) {
+    return (
+      <Wrapper>
+        <LectureFilterGroup
+          filters={pending}
+          onMajorChange={handleMajorChange}
+          onYearChange={handleYearChange}
+          onCategoryChange={handleCategoryChange}
+          onSearch={handleSearchAndChangeMode}
+        />
+
+        <InitialView />
+      </Wrapper>
+    );
+  }
+
+  if (isError) {
+    const msg = categoryQuery.error instanceof Error ? categoryQuery.error.message : '알 수 없는 오류가 발생했습니다.';
+
+    return (
+      <Wrapper>
+        <LectureFilterGroup
+          filters={pending}
+          onMajorChange={handleMajorChange}
+          onYearChange={handleYearChange}
+          onCategoryChange={handleCategoryChange}
+          onSearch={handleSearchAndChangeMode}
+        />
+
+        <ErrorView message={msg} />
+      </Wrapper>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <Wrapper>
+        <LectureFilterGroup
+          filters={pending}
+          onMajorChange={handleMajorChange}
+          onYearChange={handleYearChange}
+          onCategoryChange={handleCategoryChange}
+          onSearch={handleSearchAndChangeMode}
+        />
+
+        <ErrorView message="해당 조건의 강의가 없습니다." />
+      </Wrapper>
+    );
+  }
 
   return (
-    <div className="flex h-50 flex-col px-3 gap-5 py-5">
-      <LectureFilters
+    <Wrapper>
+      <LectureFilterGroup
         filters={pending}
         onMajorChange={handleMajorChange}
         onYearChange={handleYearChange}
@@ -70,11 +108,41 @@ export default function LectureContents() {
         onSearch={handleSearchAndChangeMode}
       />
 
-      {usingPopular ? (
-        <LectureTable lastContentRef={ref} popularData={currentLectures} />
-      ) : (
-        <LectureTable lastContentRef={ref} findData={currentLectures} />
-      )}
+      <LectureTable isLoading={isLoading} lastContentRef={ref} findData={lectures.length > 0 ? lectures : undefined} />
+    </Wrapper>
+  );
+}
+
+function Wrapper({ children }: { children: React.ReactNode }) {
+  return <div className="flex flex-col h-50 px-3 py-5">{children}</div>;
+}
+
+function InitialView() {
+  return (
+    <div className="flex flex-col items-center justify-center text-center py-10">
+      <Image src={Maru} width={130} alt="initial-state" className="opacity-90" />
+
+      <p className="text-lg font-semibold text-gray-700">학과와 학번을 필수로 선택해주세요</p>
+
+      <div className="mt-1 text-gray-500">
+        <p className="text-base font-medium py-1">원하는 카테고리를 선택하고 검색해보세요!</p>
+        <p className="text-sm">필수 과목을 조회할 수 있습니다.</p>
+      </div>
+    </div>
+  );
+}
+
+function ErrorView({ message }: { message: string }) {
+  return (
+    <div className="flex flex-col items-center justify-center text-center py-10">
+      <Image src={NoResult} width={160} alt="no-result" className="opacity-90" />
+
+      <p className="text-xl font-semibold text-gray-700 mt-4">{message}</p>
+
+      <div className="mt-3 text-gray-500">
+        <p className="text-base font-medium py-1">내가 원하는 과목 정보가 없나요?</p>
+        <p className="text-sm">우측 하단 채널톡으로 문의해주세요.</p>
+      </div>
     </div>
   );
 }

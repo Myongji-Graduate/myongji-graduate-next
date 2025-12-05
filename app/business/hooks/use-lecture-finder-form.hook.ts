@@ -3,11 +3,13 @@
 import { useCallback, useState } from 'react';
 import type { PendingFilters, CategoryKey, Year, Major } from '@/app/(sub-page)/lecture-finder/components/type';
 import { validateLectureFilters } from '@/app/(sub-page)/lecture-finder/components/lecture-finder.validation';
+import { z } from 'zod';
+import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 
 const DEFAULT_PENDING: PendingFilters = {
   major: '' as '' | Major,
   year: '' as '' | Year,
-  category: 'all',
+  category: 'ALL' as CategoryKey,
 };
 
 type UseLectureFinderFormParams = {
@@ -30,28 +32,35 @@ export function useLectureFinderForm({ onInvalid }: UseLectureFinderFormParams =
   }, []);
 
   const handleCategoryChange = useCallback((v: unknown) => {
-    const next = v == null ? 'all' : String(v);
+    const next = v == null ? 'ALL' : String(v);
     setPending((p) => ({ ...p, category: next as CategoryKey }));
   }, []);
 
   const handleSearch = useCallback(() => {
-    const { isValid, errors } = validateLectureFilters(pending);
-    if (!isValid) {
-      errors.forEach((e) => onInvalid?.(e));
-      return;
+    try {
+      const validData = validateLectureFilters(pending) as PendingFilters;
+      setCommitted(validData);
+      setDidSearch(true);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const message = error.errors?.[0]?.message || '잘못된 입력입니다';
+        toast({ title: message, variant: 'destructive' });
+        if (onInvalid) onInvalid(message);
+      } else {
+        toast({ title: '검색 중 오류가 발생했습니다.', variant: 'destructive' });
+      }
     }
-    setCommitted(pending);
-    setDidSearch(true);
-  }, [pending, onInvalid]);
+  }, [pending, onInvalid, setCommitted, setDidSearch]);
 
   return {
     pending,
     committed,
     didSearch,
-
     handleMajorChange,
     handleYearChange,
     handleCategoryChange,
     handleSearch,
+    setDidSearch,
+    setCommitted,
   };
 }

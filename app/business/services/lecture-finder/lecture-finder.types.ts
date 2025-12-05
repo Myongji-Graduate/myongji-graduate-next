@@ -4,7 +4,7 @@ import { LECTURE_FINDER_CATEGORY_KO } from '@/app/(sub-page)/lecture-finder/comp
 import { PopularInitQuery, PopularByCategoryQuery } from '@/app/(sub-page)/lecture-finder/components/type';
 
 export type Major = (typeof MAJORS)[number];
-export type CategoryKey = keyof typeof LECTURE_FINDER_CATEGORY_KO | 'all';
+export type CategoryKey = (typeof LECTURE_FINDER_CATEGORY_KO)[keyof typeof LECTURE_FINDER_CATEGORY_KO] | 'ALL';
 export type LectureRowsResponse = TimetableLectureRow[];
 export type { PopularInitQuery, PopularByCategoryQuery };
 
@@ -19,6 +19,7 @@ export type NormalizedPage = {
     hasMore: boolean;
     pageSize?: number;
   };
+  categoryName?: string;
 };
 
 export interface LectureReview {

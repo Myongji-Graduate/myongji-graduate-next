@@ -5,7 +5,7 @@ import { DetailedLecture } from '@/app/business/services/lecture-finder/lecture-
 interface ProfessorSelectorProps {
   professors: Pick<DetailedLecture, 'professor'>[];
   selectedProfessor: string;
-  onSelectProfessor: (professor: string) => void;
+  onSelectProfessor: (p: string) => void;
   isMobile?: boolean;
 }
 
@@ -15,29 +15,41 @@ export default function ProfessorSelector({
   onSelectProfessor,
   isMobile = false,
 }: ProfessorSelectorProps) {
-  const containerClassName = isMobile ? 'flex overflow-x-auto scrollbar-hide gap-2 pr-1' : 'space-y-2 pb-4';
-
-  const buttonClassName = isMobile ? 'shrink-0 justify-center' : 'w-full justify-center';
-
   return (
     <div>
-      <div className={`text-base ${isMobile ? '' : 'md:text-lg'} font-semibold mb-2`}>교수명</div>
-      <div className={containerClassName}>
-        {professors.map((lecture) => {
-          const selected = lecture.professor === selectedProfessor;
-          return (
-            <Button
-              key={lecture.professor}
-              onClick={() => onSelectProfessor(lecture.professor)}
-              label={lecture.professor}
-              size="xs"
-              variant={selected ? 'primary' : 'secondary'}
-              className={`${buttonClassName} ${selected ? '' : 'bg-white hover:bg-gray-50 text-gray-800 border'}`}
-              aria-pressed={selected}
-            />
-          );
-        })}
-      </div>
+      {isMobile ? (
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide ">
+          {professors.map(({ professor }) => {
+            const selected = professor === selectedProfessor;
+            return (
+              <Button
+                key={professor}
+                size="xs"
+                label={professor}
+                onClick={() => onSelectProfessor(professor)}
+                variant={selected ? 'primary' : 'secondary'}
+                className={`shrink-0 ${!selected && 'bg-white border text-gray-800 hover:bg-gray-50'}`}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="space-y-2 pb-2 pr-1">
+          {professors.map(({ professor }) => {
+            const selected = professor === selectedProfessor;
+            return (
+              <Button
+                key={professor}
+                size="xs"
+                label={professor}
+                onClick={() => onSelectProfessor(professor)}
+                variant={selected ? 'primary' : 'secondary'}
+                className={`w-full md:w-25 whitespace-nowrap ${!selected && 'bg-white border text-gray-800 hover:bg-gray-50'}`}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
