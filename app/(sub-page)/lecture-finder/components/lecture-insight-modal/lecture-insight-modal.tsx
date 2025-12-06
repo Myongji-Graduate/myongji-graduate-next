@@ -21,6 +21,8 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
   const { data = [], isLoading } = useFetchLectureInfo(subject);
   const [focusProfessor, setProfessor] = React.useState('');
   const [showSkeleton, setShowSkeleton] = React.useState(true);
+  const mobileScrollRef = React.useRef<HTMLDivElement>(null);
+  const desktopScrollRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (isOpen) {
@@ -35,6 +37,13 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
       setProfessor(data[0].professor);
     }
   }, [isOpen, isLoading, data]);
+
+  React.useEffect(() => {
+    if (focusProfessor) {
+      mobileScrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+      desktopScrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [focusProfessor]);
 
   const current = data.find((l) => l.professor === focusProfessor);
 
@@ -74,7 +83,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
               isMobile
             />
 
-            <div className="flex-1 overflow-y-auto scrollbar-hide">
+            <div ref={mobileScrollRef} className="flex-1 overflow-y-auto scrollbar-hide">
               {current && <LectureInfo lecture={current} professor={focusProfessor} isMobile />}
             </div>
           </div>
@@ -90,7 +99,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
             />
 
             <div className="flex flex-col h-full overflow-hidden">
-              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide">
+              <div ref={desktopScrollRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-hide">
                 {current && <LectureInfo lecture={current} professor={focusProfessor} />}
               </div>
             </div>
