@@ -53,7 +53,7 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
     return fetchPopularByCategoryPaged({
       ...finalPopularQuery,
       cursor: pageParam?.cursor,
-      limit: pageParam?.limit ?? limit,
+      limit: pageParam?.limit ?? DEFAULT_LIMIT,
     });
   };
 

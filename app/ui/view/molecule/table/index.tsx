@@ -98,10 +98,21 @@ export function Table<T extends ListRow>({
 
   const modalableRender = (item: T, index: number) => {
     const isLast = index === data.length - 1;
+    const serializeItem = (item: T): string => {
+      const serialized: Record<string, unknown> = {};
+      Object.keys(item).forEach((key) => {
+        const value = (item as any)[key];
+        if (value !== null && typeof value === 'object' && '$$typeof' in value) {
+          return;
+        }
+        serialized[key] = value;
+      });
+      return JSON.stringify(serialized);
+    };
     return (
       <div
         key={item['id'] ?? index}
-        data-item={JSON.stringify(item)}
+        data-item={serializeItem(item)}
         className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0 first:rounded-b-0"
         ref={isLast ? lastContentRef : undefined}
       >
