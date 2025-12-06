@@ -37,14 +37,13 @@ function toRow(r: TimetableLectureRow): LectureTableRow {
 }
 
 interface LectureTableProps {
-  popularData?: TimetableLectureRow[];
   findData?: TimetableLectureRow[];
   lastContentRef?: React.Ref<HTMLDivElement>;
   isLoading?: boolean;
 }
 
-export default function LectureTable({ popularData, findData, lastContentRef, isLoading = false }: LectureTableProps) {
-  const rawData = popularData ?? findData ?? [];
+export default function LectureTable({ findData, lastContentRef, isLoading = false }: LectureTableProps) {
+  const rawData = findData ?? [];
 
   const rows = useMemo(() => rawData.map(toRow), [rawData]);
 

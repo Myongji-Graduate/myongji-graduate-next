@@ -21,8 +21,6 @@ export interface PendingFilters {
   category: CategoryKey;
 }
 
-export type LectureRowsResponse = TimetableLectureRow[];
-
 export interface PopularInitQuery {
   limit?: number;
   cursor?: string;
