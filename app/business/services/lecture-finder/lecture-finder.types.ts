@@ -1,12 +1,9 @@
 import type { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
-import { major as MAJORS } from '@/app/utils/majors/major';
-import { LECTURE_FINDER_CATEGORY_KO } from '@/app/(sub-page)/lecture-finder/components/type';
-import { PopularInitQuery, PopularByCategoryQuery } from '@/app/(sub-page)/lecture-finder/components/type';
+import type { Major, CategoryKey } from '@/app/(sub-page)/lecture-finder/components/type';
+import { PopularByCategoryQuery } from '@/app/(sub-page)/lecture-finder/components/type';
 
-export type Major = (typeof MAJORS)[number];
-export type CategoryKey = (typeof LECTURE_FINDER_CATEGORY_KO)[keyof typeof LECTURE_FINDER_CATEGORY_KO] | 'ALL';
 export type LectureRowsResponse = TimetableLectureRow[];
-export type { PopularInitQuery, PopularByCategoryQuery };
+export type { PopularByCategoryQuery };
 
 export type PopularApiResponse =
   | { lectures: TimetableLectureRow[]; pageInfo?: { nextCursor?: string; hasMore?: boolean; pageSize?: number } }
@@ -41,8 +38,6 @@ export interface DetailedLecture {
   rating: number;
   lectureReviews: LectureReview[];
 }
-
-export type LecturesInfoResponse = DetailedLecture[];
 
 export interface LectureInfoPagedResult {
   items: LectureReview[];

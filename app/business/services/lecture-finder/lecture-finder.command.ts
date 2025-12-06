@@ -1,11 +1,6 @@
 'use client';
 import { API_PATH } from '../../api-path';
-import type {
-  PopularApiResponse,
-  NormalizedPage,
-  PopularInitQuery,
-  PopularByCategoryQuery,
-} from './lecture-finder.types';
+import type { PopularApiResponse, NormalizedPage, PopularByCategoryQuery } from './lecture-finder.types';
 
 function createCompositeCursor(lastItem: { totalCount?: unknown; id?: unknown } | null): string | undefined {
   if (!lastItem) return undefined;
@@ -66,17 +61,6 @@ function toSearchParams(obj: Record<string, unknown>) {
     else p.append(k, String(v));
   }
   return p;
-}
-
-export async function fetchPopularInitPaged(query: PopularInitQuery & PageParam): Promise<NormalizedPage> {
-  const params = toSearchParams({
-    limit: query.limit,
-    cursor: query.cursor,
-  });
-
-  const res = await fetch(`${API_PATH.lectureFinder}?${params.toString()}`);
-  const json = (await res.json()) as PopularApiResponse;
-  return normalizePopular(json);
 }
 
 export class SearchError extends Error {
