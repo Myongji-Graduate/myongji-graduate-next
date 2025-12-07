@@ -51,6 +51,12 @@ function renderTableColumns<T extends ListRow>(item: T, nonRenderableKey: string
   });
 }
 
+function getRowClassName(isFirst: boolean, isLast: boolean): string {
+  if (isFirst) return 'hover:rounded-t-xl';
+  if (isLast) return 'hover:rounded-b-xl';
+  return '';
+}
+
 export function Table<T extends ListRow>({
   data,
   headerInfo,
@@ -70,7 +76,7 @@ export function Table<T extends ListRow>({
     const isFirst = index === 0;
     return (
       <div key={item['id'] ?? index} ref={isLast ? lastContentRef : undefined}>
-        <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
+        <List.Row className={getRowClassName(isFirst, isLast)}>
           <Grid cols={isCol(cols) ? cols : 6}>
             {renderTableColumns(item, nonRenderableKey)}
             {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
@@ -90,7 +96,7 @@ export function Table<T extends ListRow>({
         ref={isLast ? lastContentRef : undefined}
       >
         <SwipeToDelete onSwipeAction={() => onSwipeAction && onSwipeAction(item)}>
-          <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
+          <List.Row className={getRowClassName(isFirst, isLast)}>
             <Grid cols={isCol(cols) ? cols : 6}>{renderTableColumns(item, nonRenderableKey)}</Grid>
           </List.Row>
         </SwipeToDelete>
@@ -119,7 +125,7 @@ export function Table<T extends ListRow>({
         className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0"
         ref={isLast ? lastContentRef : undefined}
       >
-        <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
+        <List.Row className={getRowClassName(isFirst, isLast)}>
           <Grid cols={isCol(cols) ? cols : 6}>
             {renderTableColumns(item, nonRenderableKey)}
             {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
