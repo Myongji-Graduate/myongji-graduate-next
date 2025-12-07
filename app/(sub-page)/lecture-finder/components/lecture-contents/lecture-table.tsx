@@ -7,14 +7,16 @@ import LectureInsightModal from '../lecture-insight-modal/lecture-insight-modal'
 import { LECTURE_FINDER_CATEGORY_KO } from '../type';
 import TableListSkeleton from '@/app/ui/view/molecule/table/table-skeleton';
 import type { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
+import StarRating from '../star-rating';
+import { useMediaQuery } from 'usehooks-ts';
 
-type Cell = string | number | boolean | null;
+type Cell = string | number | boolean | null | React.ReactNode;
 
 type LectureTableRow = {
   id: string;
   lectureName: string;
   credit: number;
-  rating: string;
+  rating: string | React.ReactNode;
   enrollmentCount: number;
   category: string | null;
 } & Record<string, Cell>;
@@ -24,7 +26,7 @@ const toNum = (v: unknown, fallback = 0): number => {
   return Number.isFinite(n) ? n : fallback;
 };
 
-function toRow(r: TimetableLectureRow): LectureTableRow {
+function toRow(r: TimetableLectureRow, ratingComponent: (value: number) => React.ReactNode): LectureTableRow {
   const key = r.categoryName as keyof typeof LECTURE_FINDER_CATEGORY_KO;
   return {
     id: String(r.id),
@@ -32,21 +34,31 @@ function toRow(r: TimetableLectureRow): LectureTableRow {
     credit: toNum(r.credit, 0),
     enrollmentCount: toNum(r.totalCount, 0),
     category: LECTURE_FINDER_CATEGORY_KO[key] ?? null,
-    rating: r.averageRating != null ? String(r.averageRating) : '-',
+    rating: r.averageRating != null ? ratingComponent(Number(r.averageRating)) : '평가없음',
   };
 }
 
 interface LectureTableProps {
-  popularData?: TimetableLectureRow[];
   findData?: TimetableLectureRow[];
   lastContentRef?: React.Ref<HTMLDivElement>;
   isLoading?: boolean;
 }
 
-export default function LectureTable({ popularData, findData, lastContentRef, isLoading = false }: LectureTableProps) {
-  const rawData = popularData ?? findData ?? [];
+export default function LectureTable({ findData, lastContentRef, isLoading = false }: LectureTableProps) {
+  const rawData = findData ?? [];
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
-  const rows = useMemo(() => rawData.map(toRow), [rawData]);
+  const rows = useMemo(() => {
+    return rawData.map((r) =>
+      toRow(r, (value) =>
+        value === 0 ? (
+          <span className="text-xs text-gray-500 font-mono">리뷰 미등록</span>
+        ) : (
+          <StarRating value={value} size={isDesktop ? 17 : 10} />
+        ),
+      ),
+    );
+  }, [rawData, isDesktop]);
 
   const renderLectureModal = (item: LectureTableRow) => <LectureInsightModal subject={item.lectureName} />;
 

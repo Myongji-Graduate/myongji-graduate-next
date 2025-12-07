@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useMemo } from 'react';
 import { SelectItem } from '@/app/ui/view/molecule/select/select-item';
 import { SelectRoot } from '@/app/ui/view/molecule/select/select-root';
 import Button from '@/app/ui/view/atom/button/button';
@@ -27,7 +26,7 @@ const PLACEHOLDER = {
 function LectureFilterGroup({ filters, onMajorChange, onYearChange, onCategoryChange, onSearch }: Props) {
   const { major, year, category } = filters;
 
-  const categoryEntries = useMemo(() => Object.entries(LECTURE_FINDER_CATEGORY_KO) as [CategoryKey, string][], []);
+  const categoryEntries = Object.entries(LECTURE_FINDER_CATEGORY_KO) as [CategoryKey, string][];
 
   const MajorSelect = (
     <div className="w-1/2">

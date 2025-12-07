@@ -10,7 +10,6 @@ import {
 import type { PendingFilters } from '@/app/(sub-page)/lecture-finder/components/type';
 
 const DEFAULT_LIMIT = 10;
-const limit = DEFAULT_LIMIT;
 
 const CATEGORY_ORDER = [
   'BASIC_ACADEMICAL_CULTURE',
@@ -47,20 +46,20 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
       return fetchPopularAllPaged({
         ...finalPopularQuery,
         cursor: pageParam?.cursor,
-        limit: pageParam?.limit ?? limit,
+        limit: pageParam?.limit ?? DEFAULT_LIMIT,
         categoryName,
       });
     }
     return fetchPopularByCategoryPaged({
       ...finalPopularQuery,
       cursor: pageParam?.cursor,
-      limit: pageParam?.limit ?? limit,
+      limit: pageParam?.limit ?? DEFAULT_LIMIT,
     });
   };
 
-  const queryResult = useInfiniteQuery({
+  return useInfiniteQuery({
     queryKey: [QUERY_KEY.LECTURE_FINDER, isAll ? 'popularAll' : 'popularByCategory', finalPopularQuery],
-    initialPageParam: { cursor: undefined, limit, categoryName: undefined },
+    initialPageParam: { cursor: undefined, limit: DEFAULT_LIMIT, categoryName: undefined },
     queryFn,
     getNextPageParam: (last: NormalizedPage, allPages: NormalizedPage[]) => {
       if (!last) return undefined;
@@ -69,7 +68,7 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
         if (last.pageInfo.hasMore) {
           return {
             cursor: last.pageInfo.nextCursor,
-            limit: last.pageInfo.pageSize ?? limit,
+            limit: last.pageInfo.pageSize ?? DEFAULT_LIMIT,
             categoryName: last.categoryName || allPages[0]?.categoryName,
           };
         } else {
@@ -78,7 +77,7 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
           if (nextCategory) {
             return {
               cursor: undefined,
-              limit,
+              limit: DEFAULT_LIMIT,
               categoryName: nextCategory,
             };
           }
@@ -86,15 +85,12 @@ export const useFetchInfiniteLecturesByCategory = ({ committed, didSearch }: Use
         }
       }
       return last.pageInfo.hasMore
-        ? { cursor: last.pageInfo.nextCursor, limit: last.pageInfo.pageSize ?? limit, categoryName: undefined }
+        ? { cursor: last.pageInfo.nextCursor, limit: last.pageInfo.pageSize ?? DEFAULT_LIMIT, categoryName: undefined }
         : undefined;
     },
     enabled: didSearch,
-
     retry: false,
     refetchOnWindowFocus: false,
     throwOnError: false,
   });
-
-  return queryResult;
 };

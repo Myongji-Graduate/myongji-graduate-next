@@ -1,6 +1,5 @@
 'use client';
 
-import { useCallback } from 'react';
 import LectureFilterGroup from './lecture-filter-group';
 import LectureTable from './lecture-table';
 import { useLectureFinderForm } from '@/app/business/hooks/use-lecture-finder-form.hook';
@@ -11,17 +10,8 @@ import Maru from '@/public/assets/graduate-maru.png';
 import NoResult from '@/public/assets/no-result-maru.png';
 
 export default function LectureContents() {
-  const {
-    pending,
-    committed,
-    didSearch,
-    handleMajorChange,
-    handleYearChange,
-    handleCategoryChange,
-    handleSearch,
-    setCommitted,
-    setDidSearch,
-  } = useLectureFinderForm();
+  const { pending, committed, didSearch, handleMajorChange, handleYearChange, handleCategoryChange, handleSearch } =
+    useLectureFinderForm();
 
   const { ref, inView } = useInView();
 
@@ -30,23 +20,17 @@ export default function LectureContents() {
     didSearch,
   });
 
-  const handleSearchAndChangeMode = useCallback(() => {
-    handleSearch();
-  }, [handleSearch]);
-
-  const activeQuery = categoryQuery;
-
-  if (inView && activeQuery.hasNextPage && !activeQuery.isFetching && !activeQuery.isError) {
-    activeQuery.fetchNextPage();
+  if (inView && categoryQuery.hasNextPage && !categoryQuery.isFetching && !categoryQuery.isError) {
+    categoryQuery.fetchNextPage();
   }
 
   const isAll = committed.category === 'ALL';
-  const hasData = activeQuery.data && activeQuery.data.pages.length > 0;
+  const hasData = categoryQuery.data && categoryQuery.data.pages.length > 0;
   const isError = didSearch && categoryQuery.isError && (!isAll || !hasData);
-  const isLoading = activeQuery.isFetching && !activeQuery.data;
-  const isEmpty = activeQuery.data && activeQuery.data.pages.flatMap((p) => p.items).length === 0;
+  const isLoading = categoryQuery.isFetching && !categoryQuery.data;
+  const isEmpty = categoryQuery.data && categoryQuery.data.pages.flatMap((p) => p.items).length === 0;
 
-  const lectures = activeQuery.data?.pages.flatMap((p) => p.items) ?? [];
+  const lectures = categoryQuery.data?.pages.flatMap((p) => p.items) ?? [];
 
   if (!didSearch) {
     return (
@@ -56,7 +40,7 @@ export default function LectureContents() {
           onMajorChange={handleMajorChange}
           onYearChange={handleYearChange}
           onCategoryChange={handleCategoryChange}
-          onSearch={handleSearchAndChangeMode}
+          onSearch={handleSearch}
         />
 
         <InitialView />
@@ -74,7 +58,7 @@ export default function LectureContents() {
           onMajorChange={handleMajorChange}
           onYearChange={handleYearChange}
           onCategoryChange={handleCategoryChange}
-          onSearch={handleSearchAndChangeMode}
+          onSearch={handleSearch}
         />
 
         <ErrorView message={msg} />
@@ -90,7 +74,7 @@ export default function LectureContents() {
           onMajorChange={handleMajorChange}
           onYearChange={handleYearChange}
           onCategoryChange={handleCategoryChange}
-          onSearch={handleSearchAndChangeMode}
+          onSearch={handleSearch}
         />
 
         <ErrorView message="해당 조건의 강의가 없습니다." />
@@ -105,7 +89,7 @@ export default function LectureContents() {
         onMajorChange={handleMajorChange}
         onYearChange={handleYearChange}
         onCategoryChange={handleCategoryChange}
-        onSearch={handleSearchAndChangeMode}
+        onSearch={handleSearch}
       />
 
       <LectureTable isLoading={isLoading} lastContentRef={ref} findData={lectures.length > 0 ? lectures : undefined} />

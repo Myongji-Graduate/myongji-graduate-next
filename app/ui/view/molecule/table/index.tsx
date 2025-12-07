@@ -59,9 +59,10 @@ export function Table<T extends ListRow>({
 
   const render = (item: T, index: number) => {
     const isLast = index === data.length - 1;
+    const isFirst = index === 0;
     return (
       <div key={item['id'] ?? index} ref={isLast ? lastContentRef : undefined}>
-        <List.Row>
+        <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
           <Grid cols={isCol(cols) ? cols : 6}>
             {Object.keys(item).map((key, i) => {
               if (nonRenderableKey.includes(key)) return null;
@@ -76,6 +77,7 @@ export function Table<T extends ListRow>({
 
   const swipeableRender = (item: T, index: number) => {
     const isLast = index === data.length - 1;
+    const isFirst = index === 0;
     return (
       <div
         className="border-solid border-gray-300 border-b-[1px] last:border-b-0"
@@ -83,7 +85,7 @@ export function Table<T extends ListRow>({
         ref={isLast ? lastContentRef : undefined}
       >
         <SwipeToDelete onSwipeAction={() => onSwipeAction && onSwipeAction(item)}>
-          <List.Row>
+          <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
             <Grid cols={isCol(cols) ? cols : 6}>
               {Object.keys(item).map((key, i) => {
                 if (nonRenderableKey.includes(key)) return null;
@@ -98,14 +100,26 @@ export function Table<T extends ListRow>({
 
   const modalableRender = (item: T, index: number) => {
     const isLast = index === data.length - 1;
+    const isFirst = index === 0;
+    const serializeItem = (item: T): string => {
+      const serialized: Record<string, unknown> = {};
+      Object.keys(item).forEach((key) => {
+        const value = (item as any)[key];
+        if (value !== null && typeof value === 'object' && '$$typeof' in value) {
+          return;
+        }
+        serialized[key] = value;
+      });
+      return JSON.stringify(serialized);
+    };
     return (
       <div
         key={item['id'] ?? index}
-        data-item={JSON.stringify(item)}
-        className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0 first:rounded-b-0"
+        data-item={serializeItem(item)}
+        className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0"
         ref={isLast ? lastContentRef : undefined}
       >
-        <List.Row>
+        <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
           <Grid cols={isCol(cols) ? cols : 6}>
             {Object.keys(item).map((key, i) => {
               if (nonRenderableKey.includes(key)) return null;

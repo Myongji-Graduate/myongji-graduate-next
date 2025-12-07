@@ -1,7 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 import { fetchLectureInfo, fetchLectureReviewPaged } from './lecture-info.command';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import type { LectureInfoPagedResult } from './lecture-finder.types';
 
 export const useFetchLectureInfo = (subject: string) => {
