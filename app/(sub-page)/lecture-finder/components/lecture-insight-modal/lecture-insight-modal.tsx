@@ -64,7 +64,7 @@ export default function LectureInsightModal({ subject }: LectureInsightModalProp
           <p className=" text-sm text-gray-500 leading-relaxed">
             해당 강의의 상세 리뷰가 등록되지 않았습니다.
             <br />
-            다른 교수님 강의를 확인해보세요!
+            다른 강의를 확인해보세요!
           </p>
         </div>
       </Modal>

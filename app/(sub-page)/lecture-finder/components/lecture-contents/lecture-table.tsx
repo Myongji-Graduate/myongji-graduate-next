@@ -7,8 +7,6 @@ import LectureInsightModal from '../lecture-insight-modal/lecture-insight-modal'
 import { LECTURE_FINDER_CATEGORY_KO } from '../type';
 import TableListSkeleton from '@/app/ui/view/molecule/table/table-skeleton';
 import type { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
-import StarRating from '../star-rating';
-import { useMediaQuery } from 'usehooks-ts';
 
 type Cell = string | number | boolean | null | React.ReactNode;
 
@@ -26,15 +24,17 @@ const toNum = (v: unknown, fallback = 0): number => {
   return Number.isFinite(n) ? n : fallback;
 };
 
-function toRow(r: TimetableLectureRow, ratingComponent: (value: number) => React.ReactNode): LectureTableRow {
+function toRow(r: TimetableLectureRow): LectureTableRow {
   const key = r.categoryName as keyof typeof LECTURE_FINDER_CATEGORY_KO;
+  const rating =
+    r.averageRating != null && Number(r.averageRating) > 0 ? Number(r.averageRating).toFixed(1) : '리뷰 없음';
   return {
     id: String(r.id),
     lectureName: r.name ?? '강의명',
     credit: toNum(r.credit, 0),
     enrollmentCount: toNum(r.totalCount, 0),
     category: LECTURE_FINDER_CATEGORY_KO[key] ?? null,
-    rating: r.averageRating != null ? ratingComponent(Number(r.averageRating)) : '평가없음',
+    rating,
   };
 }
 
@@ -46,19 +46,10 @@ interface LectureTableProps {
 
 export default function LectureTable({ findData, lastContentRef, isLoading = false }: LectureTableProps) {
   const rawData = findData ?? [];
-  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const rows = useMemo(() => {
-    return rawData.map((r) =>
-      toRow(r, (value) =>
-        value === 0 ? (
-          <span className="text-xs text-gray-500 font-mono">리뷰 미등록</span>
-        ) : (
-          <StarRating value={value} size={isDesktop ? 17 : 10} />
-        ),
-      ),
-    );
-  }, [rawData, isDesktop]);
+    return rawData.map((r) => toRow(r));
+  }, [rawData]);
 
   const renderLectureModal = (item: LectureTableRow) => <LectureInsightModal subject={item.lectureName} />;
 

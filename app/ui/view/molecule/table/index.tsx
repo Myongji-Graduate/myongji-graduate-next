@@ -43,6 +43,20 @@ function isCol(cols: number | string): cols is ColType {
   return false;
 }
 
+function renderTableColumns<T extends ListRow>(item: T, nonRenderableKey: string[]): (JSX.Element | null)[] {
+  return Object.keys(item).map((key, i) => {
+    if (nonRenderableKey.includes(key)) return null;
+    const value: string | number | boolean | null = item[key] as string | number | boolean | null;
+    return <Grid.Column key={i}>{value}</Grid.Column>;
+  });
+}
+
+function getRowClassName(isFirst: boolean, isLast: boolean): string {
+  if (isFirst) return 'hover:rounded-t-xl';
+  if (isLast) return 'hover:rounded-b-xl';
+  return '';
+}
+
 export function Table<T extends ListRow>({
   data,
   headerInfo,
@@ -62,12 +76,9 @@ export function Table<T extends ListRow>({
     const isFirst = index === 0;
     return (
       <div key={item['id'] ?? index} ref={isLast ? lastContentRef : undefined}>
-        <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
+        <List.Row className={getRowClassName(isFirst, isLast)}>
           <Grid cols={isCol(cols) ? cols : 6}>
-            {Object.keys(item).map((key, i) => {
-              if (nonRenderableKey.includes(key)) return null;
-              return <Grid.Column key={i}>{(item as any)[key]}</Grid.Column>;
-            })}
+            {renderTableColumns(item, nonRenderableKey)}
             {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
           </Grid>
         </List.Row>
@@ -85,13 +96,8 @@ export function Table<T extends ListRow>({
         ref={isLast ? lastContentRef : undefined}
       >
         <SwipeToDelete onSwipeAction={() => onSwipeAction && onSwipeAction(item)}>
-          <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
-            <Grid cols={isCol(cols) ? cols : 6}>
-              {Object.keys(item).map((key, i) => {
-                if (nonRenderableKey.includes(key)) return null;
-                return <Grid.Column key={i}>{(item as any)[key]}</Grid.Column>;
-              })}
-            </Grid>
+          <List.Row className={getRowClassName(isFirst, isLast)}>
+            <Grid cols={isCol(cols) ? cols : 6}>{renderTableColumns(item, nonRenderableKey)}</Grid>
           </List.Row>
         </SwipeToDelete>
       </div>
@@ -104,11 +110,11 @@ export function Table<T extends ListRow>({
     const serializeItem = (item: T): string => {
       const serialized: Record<string, unknown> = {};
       Object.keys(item).forEach((key) => {
-        const value = (item as any)[key];
+        const value = item[key];
         if (value !== null && typeof value === 'object' && '$$typeof' in value) {
           return;
         }
-        serialized[key] = value;
+        serialized[key] = value as string | number | boolean | null;
       });
       return JSON.stringify(serialized);
     };
@@ -119,12 +125,9 @@ export function Table<T extends ListRow>({
         className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0"
         ref={isLast ? lastContentRef : undefined}
       >
-        <List.Row className={isFirst ? 'hover:rounded-t-xl' : isLast ? 'hover:rounded-b-xl' : ''}>
+        <List.Row className={getRowClassName(isFirst, isLast)}>
           <Grid cols={isCol(cols) ? cols : 6}>
-            {Object.keys(item).map((key, i) => {
-              if (nonRenderableKey.includes(key)) return null;
-              return <Grid.Column key={i}>{(item as any)[key]}</Grid.Column>;
-            })}
+            {renderTableColumns(item, nonRenderableKey)}
             {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
           </Grid>
         </List.Row>
