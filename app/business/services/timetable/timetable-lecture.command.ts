@@ -1,8 +1,7 @@
-'use server';
-
 import { API_PATH } from '../../api-path';
-import { instance } from '@/app/utils/api/instance';
 import { TimetableLecturePagedResult } from './recommend-lecture.type';
+import { getToken } from '../auth';
+import fetchAX from 'fetch-ax';
 
 export interface TimetableLectureQuery {
   year: number;
@@ -27,6 +26,8 @@ export const fetchSearchTimetableLectures = async ({
   page = 1,
   limit = 10,
 }: TimetableLectureQuery): Promise<TimetableLecturePagedResult> => {
+  const token = await getToken();
+
   const searchParams = new URLSearchParams({
     year: String(year),
     semester: String(semester),
@@ -42,6 +43,10 @@ export const fetchSearchTimetableLectures = async ({
     searchParams.set('recommendedCategory', recommendedCategory);
   }
 
-  const response = await instance.get(`${API_PATH.timetableLectures}?${searchParams.toString()}`);
+  const response = await fetchAX.get(`${API_PATH.timetableLectures}?${searchParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
