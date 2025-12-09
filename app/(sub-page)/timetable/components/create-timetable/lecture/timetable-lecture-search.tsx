@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import List from '@/app/ui/view/molecule/list';
 import { ListRow } from '@/app/ui/view/molecule/list/list-root';
@@ -24,13 +24,20 @@ function LectureList() {
 
   const { ref, inView } = useInView();
 
+  const didRequestRef = useRef(false);
+
   const lectures = data?.pages.flatMap((p) => p.data) ?? [];
 
   const shouldEnableInfiniteScroll = lectures.length >= 10;
 
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage && shouldEnableInfiniteScroll) {
-      fetchNextPage();
+    if (inView) {
+      if (!didRequestRef.current && hasNextPage && !isFetchingNextPage && shouldEnableInfiniteScroll) {
+        didRequestRef.current = true;
+        fetchNextPage();
+      }
+    } else {
+      didRequestRef.current = false;
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage, shouldEnableInfiniteScroll]);
 
