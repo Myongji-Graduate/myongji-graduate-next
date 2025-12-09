@@ -28,18 +28,16 @@ function LectureList() {
 
   const lectures = data?.pages.flatMap((p) => p.data) ?? [];
 
-  const shouldEnableInfiniteScroll = lectures.length >= 10;
-
   useEffect(() => {
     if (inView) {
-      if (!didRequestRef.current && hasNextPage && !isFetchingNextPage && shouldEnableInfiniteScroll) {
+      if (!didRequestRef.current && hasNextPage && !isFetchingNextPage) {
         didRequestRef.current = true;
         fetchNextPage();
       }
     } else {
       didRequestRef.current = false;
     }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage, shouldEnableInfiniteScroll]);
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   useEffect(() => {
     if (isError) {
@@ -75,9 +73,7 @@ function LectureList() {
           <Responsive maxWidth={999}>
             <LectureRowMobile item={item} />
           </Responsive>
-          {index === lectures.length - 1 && hasNextPage && shouldEnableInfiniteScroll && (
-            <div ref={ref} className="h-10"></div>
-          )}
+          {index === lectures.length - 1 && hasNextPage && <div ref={ref} className="h-10"></div>}
         </List.Row>
       )}
       emptyDataRender={EmptyData}
