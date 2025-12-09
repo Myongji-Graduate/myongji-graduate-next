@@ -1,8 +1,8 @@
 'use server';
 
-import { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
 import { API_PATH } from '../../api-path';
 import { instance } from '@/app/utils/api/instance';
+import { TimetableLecturePagedResult } from './recommend-lecture.type';
 
 export interface TimetableLectureQuery {
   year: number;
@@ -12,6 +12,8 @@ export interface TimetableLectureQuery {
   keyword?: string;
   professor?: string;
   recommendedCategory?: string;
+  page?: number;
+  limit?: number;
 }
 
 export const fetchSearchTimetableLectures = async ({
@@ -22,7 +24,9 @@ export const fetchSearchTimetableLectures = async ({
   keyword = '',
   professor = '',
   recommendedCategory,
-}: TimetableLectureQuery): Promise<TimetableLectureRow[]> => {
+  page = 1,
+  limit = 10,
+}: TimetableLectureQuery): Promise<TimetableLecturePagedResult> => {
   const searchParams = new URLSearchParams({
     year: String(year),
     semester: String(semester),
@@ -30,14 +34,14 @@ export const fetchSearchTimetableLectures = async ({
     filter,
     keyword,
     professor,
+    page: String(page),
+    limit: String(limit),
   });
 
   if (recommendedCategory) {
     searchParams.set('recommendedCategory', recommendedCategory);
   }
 
-  const response = await instance.get<TimetableLectureRow[]>(
-    `${API_PATH.timetableLectures}/filter?${searchParams.toString()}`,
-  );
+  const response = await instance.get(`${API_PATH.timetableLectures}?${searchParams.toString()}`);
   return response.data;
 };

@@ -12,7 +12,7 @@ export const API_PATH = {
   graduations: `${BASE_URL}/graduations`,
   auth: `${BASE_URL}/auth`,
   lectures: `${BASE_URL}/lectures`,
-  timetableLectures: `${BASE_URL}/timetable`,
+  timetableLectures: `${BASE_URL}/timetable/search`,
   timetable: `${BASE_URL}/timetables`,
   recommendLecture: `${BASE_URL}/timetable/recommend-after`,
   lectureFinder: `${BASE_URL}/lectures/popular`,
