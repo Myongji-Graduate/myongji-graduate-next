@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import List from '@/app/ui/view/molecule/list';
 import { ListRow } from '@/app/ui/view/molecule/list/list-root';
@@ -85,15 +85,7 @@ export default function TimetableLectureSearch() {
         <TimetableLectureFilters />
         <p className="text-gray-400 text-sm">※ 해당 학기에 개설되는 강의만 보여집니다.</p>
       </div>
-      <Suspense
-        fallback={
-          <div className="rounded-xl border-[1px] border-gray-300 w-full h-72 overflow-auto flex justify-center items-center">
-            <LoadingSpinner className="animate-spin h-12 w-12 fill-gray-400" />
-          </div>
-        }
-      >
-        <LectureList />
-      </Suspense>
+      <LectureList />
     </div>
   );
 }
