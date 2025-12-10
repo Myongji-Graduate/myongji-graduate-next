@@ -6,11 +6,12 @@ import { CURRENT_YEAR, CURRENT_SEMESTER, TIMETABLE_LECTURE_LIMIT } from '@/app/b
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { fetchSearchTimetableLectures } from './timetable-lecture.command';
+import { toast } from '@/app/ui/view/molecule/toast/use-toast';
 
 export const useFetchSearchTimetableLecture = () => {
   const filters = useAtomValue(timetableLectureFilterAtom);
 
-  return useInfiniteQuery({
+  const query = useInfiniteQuery({
     queryKey: [
       QUERY_KEY.SEARCH_TIMETABLE_LECTURE,
       filters.campus,
@@ -37,4 +38,13 @@ export const useFetchSearchTimetableLecture = () => {
       return lastPage.nextPage ?? null;
     },
   });
+
+  if (query.isError) {
+    toast({
+      title: '검색 중 오류가 발생했습니다.',
+      variant: 'destructive',
+    });
+  }
+
+  return query;
 };

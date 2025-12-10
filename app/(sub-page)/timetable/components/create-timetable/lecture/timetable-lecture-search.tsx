@@ -14,13 +14,11 @@ import { TimetableLectureRow } from '@/app/business/services/timetable/timetable
 import { useFetchSearchTimetableLecture } from '@/app/business/services/timetable/timetable-lecture.query';
 
 import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
-import { useToast } from '@/app/ui/view/molecule/toast/use-toast';
 
 function LectureList() {
   const { addLecture } = useTimetableLecture();
-  const { toast } = useToast();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, isLoading } = useFetchSearchTimetableLecture();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFetchSearchTimetableLecture();
 
   const { ref, inView } = useInView();
 
@@ -38,12 +36,6 @@ function LectureList() {
       didRequestRef.current = false;
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  useEffect(() => {
-    if (isError) {
-      toast({ title: '검색 중 오류가 발생했습니다.', variant: 'destructive' });
-    }
-  }, [isError, toast]);
 
   const EmptyData = () => (
     <div className="py-20 flex justify-center">
