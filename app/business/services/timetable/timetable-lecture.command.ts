@@ -2,6 +2,7 @@ import { API_PATH } from '../../api-path';
 import { TimetableLecturePagedResult } from './recommend-lecture.type';
 import { getToken } from '../auth';
 import fetchAX from 'fetch-ax';
+import { TIMETABLE_LECTURE_LIMIT, TIMETABLE_LECTURE_PAGE } from './constants';
 
 export interface TimetableLectureQuery {
   year: number;
@@ -23,8 +24,8 @@ export const fetchSearchTimetableLectures = async ({
   keyword = '',
   professor = '',
   recommendedCategory,
-  page = 1,
-  limit = 10,
+  page = TIMETABLE_LECTURE_PAGE,
+  limit = TIMETABLE_LECTURE_LIMIT,
 }: TimetableLectureQuery): Promise<TimetableLecturePagedResult> => {
   const token = await getToken();
 

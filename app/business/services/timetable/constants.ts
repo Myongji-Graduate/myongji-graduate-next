@@ -12,3 +12,6 @@ function getCurrentSemester() {
 
 export const CURRENT_YEAR = getCurrentYear();
 export const CURRENT_SEMESTER = getCurrentSemester();
+
+export const TIMETABLE_LECTURE_PAGE = 1;
+export const TIMETABLE_LECTURE_LIMIT = 10;

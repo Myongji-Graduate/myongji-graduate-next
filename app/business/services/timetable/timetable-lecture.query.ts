@@ -2,7 +2,7 @@
 
 import { timetableLectureFilterAtom } from '@/app/store/stores/timetable-lecture';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
-import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/business/services/timetable/constants';
+import { CURRENT_YEAR, CURRENT_SEMESTER, TIMETABLE_LECTURE_LIMIT } from '@/app/business/services/timetable/constants';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { fetchSearchTimetableLectures } from './timetable-lecture.command';
@@ -29,7 +29,7 @@ export const useFetchSearchTimetableLecture = () => {
         professor: filters.professor,
         recommendedCategory: filters.recommendedCategory,
         page: pageParam as number,
-        limit: 10,
+        limit: TIMETABLE_LECTURE_LIMIT,
       });
     },
     initialPageParam: 1,
