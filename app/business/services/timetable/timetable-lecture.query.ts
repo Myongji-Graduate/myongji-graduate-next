@@ -7,6 +7,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { fetchSearchTimetableLectures } from './timetable-lecture.command';
 import { toast } from '@/app/ui/view/molecule/toast/use-toast';
+import { useEffect } from 'react';
 
 export const useFetchSearchTimetableLecture = () => {
   const filters = useAtomValue(timetableLectureFilterAtom);
@@ -35,16 +36,18 @@ export const useFetchSearchTimetableLecture = () => {
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      return lastPage.nextPage ?? null;
+      return lastPage.nextPage ?? undefined;
     },
   });
 
-  if (query.isError) {
-    toast({
-      title: '검색 중 오류가 발생했습니다.',
-      variant: 'destructive',
-    });
-  }
+  useEffect(() => {
+    if (query.isError) {
+      toast({
+        title: '검색 중 오류가 발생했습니다.',
+        variant: 'destructive',
+      });
+    }
+  }, [query.isError]);
 
   return query;
 };
