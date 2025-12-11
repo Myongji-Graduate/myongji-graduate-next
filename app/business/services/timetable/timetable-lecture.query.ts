@@ -1,17 +1,18 @@
 'use client';
 
 import { timetableLectureFilterAtom } from '@/app/store/stores/timetable-lecture';
-import { TimetableLectureRow } from '@/app/business/services/timetable/timetable.type';
 import { QUERY_KEY } from '@/app/utils/query/react-query-key';
-import { CURRENT_YEAR, CURRENT_SEMESTER } from '@/app/business/services/timetable/constants';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { CURRENT_YEAR, CURRENT_SEMESTER, TIMETABLE_LECTURE_LIMIT } from '@/app/business/services/timetable/constants';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai';
 import { fetchSearchTimetableLectures } from './timetable-lecture.command';
+import { toast } from '@/app/ui/view/molecule/toast/use-toast';
+import { useEffect } from 'react';
 
 export const useFetchSearchTimetableLecture = () => {
   const filters = useAtomValue(timetableLectureFilterAtom);
 
-  return useSuspenseQuery<TimetableLectureRow[]>({
+  const query = useInfiniteQuery({
     queryKey: [
       QUERY_KEY.SEARCH_TIMETABLE_LECTURE,
       filters.campus,
@@ -20,7 +21,7 @@ export const useFetchSearchTimetableLecture = () => {
       filters.professor,
       filters.recommendedCategory,
     ],
-    queryFn: async () => {
+    queryFn: ({ pageParam }) => {
       return fetchSearchTimetableLectures({
         year: CURRENT_YEAR,
         semester: CURRENT_SEMESTER,
@@ -29,7 +30,24 @@ export const useFetchSearchTimetableLecture = () => {
         keyword: filters.keyword,
         professor: filters.professor,
         recommendedCategory: filters.recommendedCategory,
+        page: pageParam as number,
+        limit: TIMETABLE_LECTURE_LIMIT,
       });
     },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage.nextPage ?? undefined;
+    },
   });
+
+  useEffect(() => {
+    if (query.isError) {
+      toast({
+        title: '검색 중 오류가 발생했습니다.',
+        variant: 'destructive',
+      });
+    }
+  }, [query.isError]);
+
+  return query;
 };
