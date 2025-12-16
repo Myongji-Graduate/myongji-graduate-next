@@ -42,7 +42,7 @@ function RecommendLectureModalContent() {
 
     if (isError) {
       return (
-        <div className="flex items-center justify-center py-2">
+        <div className="flex items-center justify-center py-6">
           <div className="flex flex-col items-center text-center">
             <Image src="/assets/embarrassing-maru.png" alt="당황스러워하는 마루" width={200} height={350} />
             <p className="text-gray-500">과목 추천 과정에서 문제가 생겼어요</p>
