@@ -14,6 +14,7 @@ export default async function NavigationItems() {
           <NavigationItem href={'/sign-in'} label="로그아웃" />
           <NavigationItem href={'/my'} label="마이페이지" />
           <NavigationItem href={'/result'} label="결과확인" />
+          <NavigationItem href={'/timetable'} label="시간표" />
         </>
       ) : (
         <>
@@ -21,6 +22,7 @@ export default async function NavigationItems() {
           <NavigationItem href={'/anonymous'} label="비회원 검사" />
         </>
       )}
+      <NavigationItem href={'/lecture-finder'} label="과목 조회" />
       <NavigationItem href={'/tutorial'} label="튜토리얼" />
       <NavigationItem
         target="_black"

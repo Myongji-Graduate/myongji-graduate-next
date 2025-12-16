@@ -1,0 +1,61 @@
+'use client';
+
+import { useTimetableLecture } from '@/app/business/hooks/use-timetable-lecture.hook';
+import { useDeleteTimetable } from '@/app/business/services/timetable/timetable.query';
+import Button from '@/app/ui/view/atom/button/button';
+import {
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogCancel,
+} from '@/app/ui/view/molecule/alert-dialog/alert-dialog';
+import { toast } from '@/app/ui/view/molecule/toast/use-toast';
+import { useState } from 'react';
+
+function DeleteTimetableTrigger() {
+  const { mutate: deleteTimetable, isPending } = useDeleteTimetable();
+  const [open, setOpen] = useState(false);
+  const { clearLectures } = useTimetableLecture();
+
+  const handleConfirmButton = () => {
+    if (isPending) return;
+
+    deleteTimetable(undefined, {
+      onSuccess: (data) => {
+        clearLectures();
+        toast({ title: '시간표를 삭제했습니다.' });
+        setOpen(false);
+      },
+      onError: (error) => {
+        toast({ title: '시간표 삭제에 실패했습니다.', variant: 'destructive' });
+      },
+    });
+  };
+
+  return (
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild>
+        <Button label="삭제" variant="outlined" size="xs" />
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>현재 저장된 시간표를 삭제할까요?</AlertDialogTitle>
+        </AlertDialogHeader>
+        <AlertDialogFooter className="flex gap-6">
+          <AlertDialogCancel>취소</AlertDialogCancel>
+          <Button
+            label="확인"
+            className="text-primary font-bold bg-white hover:bg-white"
+            onClick={handleConfirmButton}
+            disabled={isPending}
+          />
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+export default DeleteTimetableTrigger;

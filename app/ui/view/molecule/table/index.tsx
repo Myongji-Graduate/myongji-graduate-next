@@ -5,6 +5,8 @@ import Grid from '../grid';
 import { ListRow } from '../list/list-root';
 import SwipeToDelete from '../swipe/swipe-to-delete';
 import { ReactNode } from 'react';
+import TableWithModal from './table-with-modal';
+import { DialogKey } from '@/app/utils/key/dialog-key.util';
 
 interface TableProps<T extends ListRow> {
   headerInfo: string[];
@@ -13,6 +15,7 @@ interface TableProps<T extends ListRow> {
   swipeable?: boolean;
   emptyDataRender?: () => ReactNode;
   nonRenderableKey?: string[]; // 테이블에 렌더링 하지 않을 키 값
+  lastContentRef?: React.Ref<HTMLDivElement>;
 }
 
 interface SwipeableTableProps<T extends ListRow> extends TableProps<T> {
@@ -25,11 +28,33 @@ interface BasicTableProps<T extends ListRow> extends TableProps<T> {
   onSwipeAction?: never;
 }
 
+interface ModalableTableProps<T extends ListRow> extends TableProps<T> {
+  onClick?: (item: T) => void;
+  swipeable?: false;
+  renderModal: (item: T, close: () => void) => ReactNode;
+  onSwipeAction?: never;
+  modalKey?: DialogKey;
+}
+
 function isCol(cols: number | string): cols is ColType {
-  if (cols === 3 || cols === 4 || cols === 5 || cols === 6 || cols === 'render-button') {
+  if (cols === 3 || cols === 4 || cols === 5 || cols === 6 || cols === 9 || cols === 'render-button') {
     return true;
   }
   return false;
+}
+
+function renderTableColumns<T extends ListRow>(item: T, nonRenderableKey: string[]): (JSX.Element | null)[] {
+  return Object.keys(item).map((key, i) => {
+    if (nonRenderableKey.includes(key)) return null;
+    const value: string | number | boolean | null = item[key] as string | number | boolean | null;
+    return <Grid.Column key={i}>{value}</Grid.Column>;
+  });
+}
+
+function getRowClassName(isFirst: boolean, isLast: boolean): string {
+  if (isFirst) return 'hover:rounded-t-xl';
+  if (isLast) return 'hover:rounded-b-xl';
+  return '';
 }
 
 export function Table<T extends ListRow>({
@@ -40,47 +65,97 @@ export function Table<T extends ListRow>({
   onSwipeAction,
   emptyDataRender,
   nonRenderableKey = ['id'],
-}: SwipeableTableProps<T> | BasicTableProps<T>) {
+  lastContentRef,
+  ...rest
+}: SwipeableTableProps<T> | BasicTableProps<T> | ModalableTableProps<T>) {
   const cols = renderActionButton && !swipeable ? 'render-button' : headerInfo.length;
+  const isModalMode = 'renderModal' in rest;
 
   const render = (item: T, index: number) => {
+    const isLast = index === data.length - 1;
+    const isFirst = index === 0;
     return (
-      <List.Row key={index}>
-        <Grid cols={isCol(cols) ? cols : 6}>
-          {Object.keys(item).map((key, index) => {
-            if (nonRenderableKey.includes(key)) return null;
-            return <Grid.Column key={index}>{item[key]}</Grid.Column>;
-          })}
-          {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
-        </Grid>
-      </List.Row>
+      <div key={item['id'] ?? index} ref={isLast ? lastContentRef : undefined}>
+        <List.Row className={getRowClassName(isFirst, isLast)}>
+          <Grid cols={isCol(cols) ? cols : 6}>
+            {renderTableColumns(item, nonRenderableKey)}
+            {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
+          </Grid>
+        </List.Row>
+      </div>
     );
   };
 
   const swipeableRender = (item: T, index: number) => {
+    const isLast = index === data.length - 1;
+    const isFirst = index === 0;
     return (
-      <div className="border-solid border-gray-300 border-b-[1px] last:border-b-0" key={index}>
-        <SwipeToDelete
-          onSwipeAction={() => {
-            onSwipeAction && onSwipeAction(item);
-          }}
-        >
-          <List.Row>
-            <Grid cols={isCol(cols) ? cols : 6}>
-              {Object.keys(item).map((key, index) => {
-                if (key === 'id') return null;
-                return <Grid.Column key={index}>{item[key]}</Grid.Column>;
-              })}
-            </Grid>
+      <div
+        className="border-solid border-gray-300 border-b-[1px] last:border-b-0"
+        key={item['id'] ?? index}
+        ref={isLast ? lastContentRef : undefined}
+      >
+        <SwipeToDelete onSwipeAction={() => onSwipeAction && onSwipeAction(item)}>
+          <List.Row className={getRowClassName(isFirst, isLast)}>
+            <Grid cols={isCol(cols) ? cols : 6}>{renderTableColumns(item, nonRenderableKey)}</Grid>
           </List.Row>
         </SwipeToDelete>
       </div>
     );
   };
-  return (
+
+  const modalableRender = (item: T, index: number) => {
+    const isLast = index === data.length - 1;
+    const isFirst = index === 0;
+    const serializeItem = (item: T): string => {
+      const serialized: Record<string, unknown> = {};
+      Object.keys(item).forEach((key) => {
+        const value = item[key];
+        if (value !== null && typeof value === 'object' && '$$typeof' in value) {
+          return;
+        }
+        serialized[key] = value as string | number | boolean | null;
+      });
+      return JSON.stringify(serialized);
+    };
+    return (
+      <div
+        key={item['id'] ?? index}
+        data-item={serializeItem(item)}
+        className="border-solid border-gray-300 border-b-[1px] cursor-pointer last:border-b-0"
+        ref={isLast ? lastContentRef : undefined}
+      >
+        <List.Row className={getRowClassName(isFirst, isLast)}>
+          <Grid cols={isCol(cols) ? cols : 6}>
+            {renderTableColumns(item, nonRenderableKey)}
+            {renderActionButton ? <Grid.Column>{renderActionButton(item)}</Grid.Column> : null}
+          </Grid>
+        </List.Row>
+      </div>
+    );
+  };
+  const tableContent = (
     <div className="flex flex-col gap-2.5 w-full" data-testid="table-data">
       <TableHeader headerInfo={headerInfo} cols={isCol(cols) ? cols : 6} />
-      <List data={data} render={swipeable ? swipeableRender : render} emptyDataRender={emptyDataRender} />
+      <List
+        data={data}
+        render={isModalMode ? modalableRender : swipeable ? swipeableRender : render}
+        emptyDataRender={emptyDataRender}
+      />
     </div>
   );
+
+  if (isModalMode) {
+    return (
+      <TableWithModal
+        modalKey={(rest as ModalableTableProps<T>).modalKey}
+        onClick={(rest as ModalableTableProps<T>).onClick}
+        renderModal={(rest as ModalableTableProps<T>).renderModal}
+      >
+        {tableContent}
+      </TableWithModal>
+    );
+  }
+
+  return tableContent;
 }

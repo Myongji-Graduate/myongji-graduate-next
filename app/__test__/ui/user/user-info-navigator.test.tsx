@@ -12,7 +12,7 @@ jest.mock('next/headers', () => ({
 
 describe('UserInfoNavigator', () => {
   it('UserInfoNavigator를 렌더링한다.', async () => {
-    render(await UserInfoNavigator());
+    render(await UserInfoNavigator({ variant: 'small' }));
 
     expect(await screen.findByText(/장진욱/i)).toBeInTheDocument();
     expect(await screen.findByText(/디지털콘텐츠디자인학과/i)).toBeInTheDocument();
