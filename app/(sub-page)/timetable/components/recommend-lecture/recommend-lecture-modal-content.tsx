@@ -2,13 +2,13 @@
 
 import { useFetchRecommendLecture } from '@/app/business/services/timetable/recommend-lecture.query';
 import useDialog from '@/app/hooks/useDialog';
-import Skeleton from '@/app/utils/skeleton';
 import Image from 'next/image';
 import RecommendLectureContainer from './recommend-lecture-container';
 import TitleBox from '@/app/ui/view/molecule/title-box/title-box';
 import { DIALOG_KEY } from '@/app/utils/key/dialog-key.util';
 import Responsive from '@/app/ui/responsive';
 import { Semester } from '@/app/business/services/timetable/recommend-lecture.type';
+import LoadingSpinner from '@/app/ui/view/atom/loading-spinner/loading-spinner';
 
 function RecommendLectureModalContent() {
   const { isOpen } = useDialog(DIALOG_KEY.RECOMMEND_LECTURE);
@@ -32,10 +32,9 @@ function RecommendLectureModalContent() {
   const Content = () => {
     if (isLoading) {
       return (
-        <div className="flex flex-col gap-10">
-          {Array.from({ length: 2 }).map((_, i) => (
-            <Skeleton key={i} className="h-[300px]" />
-          ))}
+        <div className=" w-full h-72 overflow-auto flex flex-col gap-3 justify-center items-center">
+          <LoadingSpinner className="animate-spin h-12 w-12 fill-gray-400" />
+          <p className="text-gray-600">로딩중...</p>
         </div>
       );
     }
