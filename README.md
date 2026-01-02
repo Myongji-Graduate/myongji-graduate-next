@@ -49,6 +49,19 @@
 - MyiWeb MSI의 성적표를 통해서 성적표를 한 번에 입력할 수 있습니다.
 - 성적표 기반의 맞춤형 졸업 요건 검사 결과를 제공합니다.
 
+#### 학기 전·후 상태에 맞춘 시간표 생성/과목 추천
+
+![시간표 생성/과목 추천](https://github.com/user-attachments/assets/c6152fef-1c29-4c37-9ee6-3c6ca9f8e54e)
+
+- 학기에 맞추어 시간표를 생성할 수 있습니다.
+- 남은 학기에 따른 시간표 과목 추천을 받아볼 수 있습니다.
+
+#### 학과 필수 과목과 인기 강의 탐색
+
+![필수 과목 탐색](https://github.com/user-attachments/assets/7fda2bf1-650d-4b39-b24b-5a2bed23b041)
+
+- 학과 별 필수 과목과 전체 필수 과목의 순위를 조회할 수 있습니다.
+- 과목별 리뷰를 확인할 수 있습니다.
 
 ### 🎃 사용자 후기
 
@@ -79,13 +92,28 @@
 <img src="https://avatars.githubusercontent.com/u/81469686?v=4" width="100px" />
 </a>
 </td>
+<td>
+<a href="https://github.com/xxxjinn">
+<img src="https://avatars.githubusercontent.com/u/102955516?v=4" width="100px" />
+</a>
+</td>
+<td>
+<a href="https://github.com/ujinsim">
+<img src="https://avatars.githubusercontent.com/u/98771235?v=4" width="100px" />
+</a>
+</td>
 </tr>
 <tr>
 <td><b>양성훈</b></td>
 <td><b>모유경</b></td>
 <td><b>박가현</b></td>
+<td><b>신현진</b></td>
+<td><b>심유진</b></td>
+
 </tr>
 <tr>
+<td><b>FE Developer</b></td>
+<td><b>FE Developer</b></td>
 <td><b>FE Developer</b></td>
 <td><b>FE Developer</b></td>
 <td><b>FE Developer</b></td>
@@ -95,33 +123,59 @@
 ### Back-End
 
 <table>
-<tr>
-<td>
-<a href="https://github.com/dojinyou">
-<img src="https://avatars.githubusercontent.com/u/61923768?v=4" width="100px" />
-</a>
-</td>
-<td>
-<a href="https://github.com/stophwan">
-<img src="https://avatars.githubusercontent.com/u/64758861?v=4" width="100px" />
-</a>
-</td>
-<td>
-<a href="https://github.com/5uhwann">
-<img src="https://avatars.githubusercontent.com/u/106325839?v=4" width="100px" />
-</a>
-</td>
-<td>
-<a href="https://github.com/5uhwann">
-<img src="https://avatars.githubusercontent.com/u/96857599?v=4" width="100px" />
-</a>
-</td>
-</tr>
-<tr>
-<td><b>유도진</b></td>
-<td><b>정지환</b></td>
-<td><b>박수환</b></td>
-<td><b>나경호</b></td>
-</tr>
-<tr>
-<td><b>BE Developer</b></td>
+  <tr>
+    <td>
+        <a href="https://github.com/dojinyou">
+            <img src="https://avatars.githubusercontent.com/u/61923768?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/stophwan">
+            <img src="https://avatars.githubusercontent.com/u/64758861?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/5uhwann">
+            <img src="https://avatars.githubusercontent.com/u/106325839?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/Hoya324">
+            <img src="https://avatars.githubusercontent.com/u/96857599?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/tiemo0708">
+            <img src="https://avatars.githubusercontent.com/u/42500530?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/win9-tech">
+            <img src="https://avatars.githubusercontent.com/u/71001678?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/baaamk">
+            <img src="https://avatars.githubusercontent.com/u/136908616?v=4" width="100px" />
+        </a>
+    </td>
+  </tr>
+  <tr>
+    <td><b>유도진</b></td>
+    <td><b>정지환</b></td>
+    <td><b>박수환</b></td>
+    <td><b>나경호</b></td>
+    <td><b>박진현</b></td>
+    <td><b>한승규</b></td>
+    <td><b>방현우</b></td>
+  </tr>
+  <tr>
+    <td><b>BE Developer</b></td>
+    <td><b>BE Developer</b></td>
+    <td><b>BE Developer</b></td>
+    <td><b>BE Developer</b></td>
+    <td><b>BE Developer</b></td>
+    <td><b>BE Developer</b></td>
+    <td><b>BE Developer</b></td>
+  </tr>
+</table>
