@@ -38,8 +38,6 @@ const allowedGuestPath = [
 
 const allowInitUserPath = ['/', '/tutorial', '/grade-upload', '/anonymous', '/anonymous/result', '/lecture-finder'];
 
-const MAINTENANCE_MODE = true;
-
 function isAllowedGuestPath(path: string, strict: boolean = false) {
   const allowedPath = strict ? allowedOnlyGuestPath : allowedGuestPath;
 
@@ -47,16 +45,6 @@ function isAllowedGuestPath(path: string, strict: boolean = false) {
 }
 
 export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-
-  if (MAINTENANCE_MODE && pathname !== '/maintenance') {
-    return Response.redirect(new URL('/maintenance', request.url));
-  }
-
-  if (MAINTENANCE_MODE) {
-    return;
-  }
-
   const auth = await getAuth(request);
 
   if (auth.role === 'expired') {
