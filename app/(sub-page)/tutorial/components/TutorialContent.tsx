@@ -13,9 +13,9 @@ function TutorialContent({ data }: TestContentProps) {
 
   return (
     <div className="flex flex-col lg:flex-row lg:items-center gap-6 p-6 rounded-2xl bg-gray-50">
-      <div className="w-full lg:w-[70%] max-w-[650px] mx-auto lg:mx-0">
+      <div className="w-full lg:w-[60%] max-w-[520px] mx-auto lg:mx-0">
         <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-lg">
-          <Image alt="tutorial-image" src={item.imageUrl} fill className="object-cover" />
+          <Image key={item.imageUrl.src} alt={item.alt} src={item.imageUrl} fill className="object-cover" unoptimized />
         </div>
       </div>
       <ul className="flex flex-col flex-1 gap-4 h-full justify-between">
