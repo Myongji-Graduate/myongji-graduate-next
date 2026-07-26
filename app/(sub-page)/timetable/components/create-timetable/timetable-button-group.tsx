@@ -4,14 +4,12 @@ import Responsive from '@/app/ui/responsive';
 import SaveTimetableButton from './save-timetable-button';
 import ClearTimetableTrigger from './clear-timetable-trigger';
 import DeleteTimetableTrigger from './delete-timetable-trigger';
-import RecommendLectureTrigger from './recommend-lecture-trigger';
 import AddLectureTrigger from './add-lecture-trigger';
 
 function TimetableButtonGroup() {
   const LectureButtons = (
     <div className="flex gap-2">
       <AddLectureTrigger />
-      <RecommendLectureTrigger />
     </div>
   );
 
