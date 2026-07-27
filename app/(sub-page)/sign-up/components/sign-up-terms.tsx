@@ -25,6 +25,7 @@ export default function SignUpTerm({ onNext }: SignUpTermProps) {
                   <span className="ml-1 text-red-400">미래융합대학(불가)</span>
                 </li>
                 <li>학번: 16학번 ~</li>
+                <li>아너칼리지(전공자유학부): 25학번부터 지원</li>
               </ul>
             </li>
             <li>
@@ -33,14 +34,14 @@ export default function SignUpTerm({ onNext }: SignUpTermProps) {
             </li>
             <li>검사를 위해서는 성적표를 직접 업로드해야하므로 PC환경에서 진행하는 것을 권장합니다.</li>
             <li>
-              검사 기준은 최신버전 학사안내문(2025.03.01)을 반영하여 설정되었으며, 학사안내문은 매년 개편되므로 자신이
-              알고 있는 구버전과 다를 수 있습니다.
+              검사 기준은 학사안내문을 반영하여 설정되었으며, 학사안내문은 매년 개편되므로 자신이 알고 있는 구버전과
+              다를 수 있습니다.
               <ul className="list-disc ml-6 mt-2">
                 <li>
                   <a
                     target={'_blank'}
                     className="text-blue-500 underline	 "
-                    href="https://www.mju.ac.kr/mjukr/257/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGbWp1a3IlMkYxNDMlMkYyMjI2NTAlMkZhcnRjbFZpZXcuZG8lM0ZwYWdlJTNEMSUyNnNyY2hDb2x1bW4lM0RzaiUyNnNyY2hXcmQlM0QlRUQlOTUlOTklRUMlODIlQUMrJUVDJTk1JTg4JUVCJTgyJUI0JUVCJUFDJUI4JTI2YmJzQ2xTZXElM0QlMjZiYnNPcGVuV3JkU2VxJTNEJTI2cmdzQmduZGVTdHIlM0QlMjZyZ3NFbmRkZVN0ciUzRCUyNmlzVmlld01pbmUlM0RmYWxzZSUyNmlzVmlldyUzRHRydWUlMjZwYXNzd29yZCUzRCUyNg%3D%3D"
+                    href="https://www.mju.ac.kr/mjukr/12029/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGbWp1a3IlMkYxNzI1JTJGMjMwNjA4JTJGYXJ0Y2xWaWV3LmRvJTNGcGFnZSUzRDElMjZzcmNoQ29sdW1uJTNEJTI2c3JjaFdyZCUzRCUyNmJic0NsU2VxJTNEJTI2YmJzT3BlbldyZFNlcSUzRCUyNnJnc0JnbmRlU3RyJTNEJTI2cmdzRW5kZGVTdHIlM0QlMjZpc1ZpZXdNaW5lJTNEZmFsc2UlMjZpc1ZpZXclM0R0cnVlJTI2cGFzc3dvcmQlM0QlMjY%3D"
                   >
                     명지대학교 학사안내문 참고 링크
                   </a>
