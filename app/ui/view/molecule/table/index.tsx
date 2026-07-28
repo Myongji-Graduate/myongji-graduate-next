@@ -44,9 +44,33 @@ function isCol(cols: number | string): cols is ColType {
 }
 
 function renderTableColumns<T extends ListRow>(item: T, nonRenderableKey: string[]): (JSX.Element | null)[] {
+  const mandatoryMark = item['mandatoryMark'];
+  const hasMandatoryMark = typeof mandatoryMark === 'string' && mandatoryMark.length > 0;
   return Object.keys(item).map((key, i) => {
-    if (nonRenderableKey.includes(key)) return null;
+    if (nonRenderableKey.includes(key) || key === 'mandatoryMark') return null;
     const value: string | number | boolean | null = item[key] as string | number | boolean | null;
+    if (key === 'id' && hasMandatoryMark) {
+      return (
+        <Grid.Column key={i}>
+          <div className="flex items-center justify-center gap-2">
+            <span className="inline-flex w-10 shrink-0 justify-center rounded bg-blue-600 px-2 py-1 text-xs font-bold text-white">
+              {mandatoryMark}
+            </span>
+            <span>{value}</span>
+          </div>
+        </Grid.Column>
+      );
+    }
+    if (key === 'id') {
+      return (
+        <Grid.Column key={i}>
+          <div className="flex items-center justify-center gap-2">
+            <span aria-hidden="true" className="inline-flex w-10 shrink-0" />
+            <span>{value}</span>
+          </div>
+        </Grid.Column>
+      );
+    }
     return <Grid.Column key={i}>{value}</Grid.Column>;
   });
 }

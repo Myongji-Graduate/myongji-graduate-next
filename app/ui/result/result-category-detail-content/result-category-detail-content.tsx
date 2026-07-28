@@ -18,7 +18,6 @@ function ResultCategoryDetailContent({
   category,
 }: ResultCategoryDetailContentProps) {
   const [isTakenLecture, setIsTakenLectrue] = useState(false);
-
   return (
     <div className="md:w-[80vw] max-w-[1200px] p-2 overflow-scroll">
       <div className={cn('flex justify-between mb-6', 'md:mb-10')}>

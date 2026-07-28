@@ -26,7 +26,32 @@ const emptyDataRender = () => {
 };
 
 function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultCagegoryDetailLectureProps) {
-  const { categoryName, totalCredit, takenCredit, takenLectures, haveToLectures, completed } = detailCategory;
+  const {
+    categoryName,
+    totalCredit,
+    takenCredit,
+    takenLectures,
+    haveToLectures,
+    mandatoryLectures = [],
+    mandatoryOptions = [],
+    completed,
+  } = detailCategory;
+  const optionLectureIds = new Set(
+    mandatoryOptions.flatMap((option) => option.candidates.map((lecture) => lecture.id)),
+  );
+  const requiredLectures = haveToLectures.filter((lecture) => !optionLectureIds.has(lecture.id));
+  const mandatoryLectureIds = new Set(mandatoryLectures.map((lecture) => lecture.id));
+  const decorateLecture = (lecture: (typeof takenLectures)[number], index: number) => ({
+    lecture: mandatoryLectureIds.has(lecture.id) ? { ...lecture, mandatoryMark: '필수' } : lecture,
+    index,
+    isMandatory: mandatoryLectureIds.has(lecture.id),
+  });
+  const sortMandatoryFirst = <T extends { isMandatory: boolean; index: number }>(lectures: T[]) =>
+    lectures.sort((left, right) => Number(right.isMandatory) - Number(left.isMandatory) || left.index - right.index);
+  const displayTakenLectures = sortMandatoryFirst(takenLectures.map(decorateLecture)).map(({ lecture }) => lecture);
+  const displayRequiredLectures = sortMandatoryFirst(requiredLectures.map(decorateLecture)).map(
+    ({ lecture }) => lecture,
+  );
 
   const showCompleted = !isTakenLecture && completed;
   return (
@@ -42,12 +67,45 @@ function ResultCagegoryDetailLecture({ detailCategory, isTakenLecture }: ResultC
       {showCompleted ? (
         <AnnounceMessageBox message="해당 파트의 졸업요건을 충족하셨습니다!" background_image={CompletedImage} />
       ) : (
-        <Table
-          headerInfo={headerInfo}
-          data={isTakenLecture ? takenLectures : haveToLectures}
-          emptyDataRender={emptyDataRender}
-          nonRenderableKey={[]}
-        />
+        <>
+          {!isTakenLecture &&
+            mandatoryOptions.map((option) => (
+              <section className="overflow-hidden rounded-lg border border-blue-200 bg-blue-50" key={option.name}>
+                <div className="flex items-start justify-between gap-3 px-4 py-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="rounded bg-blue-600 px-2 py-1 text-xs font-bold text-white">
+                        택{option.requiredCount}
+                      </span>
+                      <p className="font-semibold text-gray-900">{option.name}</p>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-600">
+                      아래 {option.candidates.length}개 과목 중 {option.requiredCount}개를 선택해 이수하세요.
+                    </p>
+                  </div>
+                  <span className="whitespace-nowrap rounded-full bg-white px-3 py-1 text-sm font-semibold text-point-blue">
+                    현재 {option.takenCount} / {option.requiredCount}개
+                  </span>
+                </div>
+                <div className="bg-white">
+                  <Table
+                    headerInfo={headerInfo}
+                    data={option.candidates}
+                    emptyDataRender={emptyDataRender}
+                    nonRenderableKey={[]}
+                  />
+                </div>
+              </section>
+            ))}
+          {isTakenLecture || requiredLectures.length > 0 || mandatoryOptions.length === 0 ? (
+            <Table
+              headerInfo={headerInfo}
+              data={isTakenLecture ? displayTakenLectures : displayRequiredLectures}
+              emptyDataRender={emptyDataRender}
+              nonRenderableKey={['mandatoryMark']}
+            />
+          ) : null}
+        </>
       )}
     </div>
   );
