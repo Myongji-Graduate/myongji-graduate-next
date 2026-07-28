@@ -125,6 +125,10 @@ describe('anonymous parser', () => {
         name: '경제학전공 지정필수',
         requiredCount: 1,
         takenCount: 1,
+        candidates: expect.arrayContaining([
+          expect.objectContaining({ id: 'ECO101', name: '미시경제학원론', credit: 3 }),
+          expect.objectContaining({ id: 'ECO102', name: '거시경제학원론', credit: 3 }),
+        ]),
       }),
     ]);
   });

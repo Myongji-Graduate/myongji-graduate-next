@@ -65,9 +65,7 @@ function renderTableColumns<T extends ListRow>(item: T, nonRenderableKey: string
       return (
         <Grid.Column key={i}>
           <div className="flex items-center justify-center gap-2">
-            <span className="inline-flex w-10 shrink-0 justify-center rounded bg-transparent px-2 py-1 text-xs font-bold text-transparent">
-              필수
-            </span>
+            <span aria-hidden="true" className="inline-flex w-10 shrink-0" />
             <span>{value}</span>
           </div>
         </Grid.Column>

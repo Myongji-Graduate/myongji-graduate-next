@@ -40,6 +40,7 @@ export default function SignUpTerm({ onNext }: SignUpTermProps) {
                 <li>
                   <a
                     target={'_blank'}
+                    rel="noopener noreferrer"
                     className="text-blue-500 underline	 "
                     href="https://www.mju.ac.kr/mjukr/12029/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGbWp1a3IlMkYxNzI1JTJGMjMwNjA4JTJGYXJ0Y2xWaWV3LmRvJTNGcGFnZSUzRDElMjZzcmNoQ29sdW1uJTNEJTI2c3JjaFdyZCUzRCUyNmJic0NsU2VxJTNEJTI2YmJzT3BlbldyZFNlcSUzRCUyNnJnc0JnbmRlU3RyJTNEJTI2cmdzRW5kZGVTdHIlM0QlMjZpc1ZpZXdNaW5lJTNEZmFsc2UlMjZpc1ZpZXclM0R0cnVlJTI2cGFzc3dvcmQlM0QlMjY%3D"
                   >
