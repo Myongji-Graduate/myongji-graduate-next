@@ -10,7 +10,9 @@ import { TAG } from '@/app/utils/http/tag';
 export const registerUserGrade = async (prevState: FormState, formData: FormData) => {
   try {
     const parsingText = await parsePDFtoText(formData);
-    await instance.post(API_PATH.registerUserGrade, { parsingText });
+    const honorsCollege = formData.get('honorsCollege') === 'on';
+    const honorsTargetMajor = String(formData.get('honorsTargetMajor') ?? '').trim();
+    await instance.post(API_PATH.registerUserGrade, { parsingText, honorsCollege, honorsTargetMajor });
     revalidateTag(TAG.GET_USER_INFO);
     revalidateTag(TAG.GET_TAKEN_LECTURES);
     return {
@@ -53,9 +55,11 @@ export const registerAnonymousGrade = async (prevState: FormState, formData: For
   gradePDF.append('file', file);
 
   const parsingText = await parsePDFtoText(gradePDF);
+  const honorsCollege = formData.get('honorsCollege') === 'on';
+  const honorsTargetMajor = String(formData.get('honorsTargetMajor') ?? '').trim();
   const res = await fetch(`${API_PATH.graduations}/check`, {
     method: 'POST',
-    body: JSON.stringify({ engLv, korLv: 'FREE', parsingText }),
+    body: JSON.stringify({ engLv, korLv: 'FREE', parsingText, honorsCollege, honorsTargetMajor }),
     headers: {
       'Content-Type': 'application/json',
     },

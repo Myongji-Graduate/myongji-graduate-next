@@ -18,7 +18,16 @@ export interface ResultCategoryDetailLecturesResponse {
   takenCredit: number;
   takenLectures: LectureInfoResponse[];
   haveToLectures: LectureInfoResponse[];
+  mandatoryLectures?: LectureInfoResponse[];
+  mandatoryOptions?: MandatoryOptionResponse[];
   completed: boolean;
+}
+
+export interface MandatoryOptionResponse {
+  name: string;
+  requiredCount: number;
+  takenCount: number;
+  candidates: LectureInfoResponse[];
 }
 
 export interface ResultCategoryDetailResponse {

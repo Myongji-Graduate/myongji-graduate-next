@@ -21,11 +21,20 @@ interface DetailCategoryType {
   takenCredits: number;
   takenLectures: LectureType[];
   haveToLectures: LectureType[];
+  mandatoryLectures?: LectureType[];
+  mandatoryOptions?: MandatoryOptionType[];
   detailCategoryName: string;
   normalLeftCredit: number;
   freeElectiveLeftCredit: number;
   completed: boolean;
   satisfiedMandatory: boolean;
+}
+
+interface MandatoryOptionType {
+  name: string;
+  requiredCount: number;
+  takenCount: number;
+  candidates: LectureType[];
 }
 
 interface CategoryType {
@@ -128,6 +137,27 @@ export const parseCreditDetailInfo = (result: AnonymousResultType, category: str
             id: lecture.id,
             name: lecture.name,
             credit: lecture.credit,
+          };
+        }),
+        mandatoryLectures: detailItem.mandatoryLectures?.map((lecture) => {
+          return {
+            id: lecture.id,
+            name: lecture.name,
+            credit: lecture.credit,
+          };
+        }),
+        mandatoryOptions: detailItem.mandatoryOptions?.map((option) => {
+          return {
+            name: option.name,
+            requiredCount: option.requiredCount,
+            takenCount: option.takenCount,
+            candidates: option.candidates.map((lecture) => {
+              return {
+                id: lecture.id,
+                name: lecture.name,
+                credit: lecture.credit,
+              };
+            }),
           };
         }),
       };
