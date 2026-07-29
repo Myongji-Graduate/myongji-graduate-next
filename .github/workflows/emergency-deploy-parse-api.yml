@@ -1,0 +1,50 @@
+name: Emergency Deploy Parse API Configuration
+
+on:
+  push:
+    branches:
+      - emergency-parse-api-url
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Update Vercel Production parse API URL
+        env:
+          PARSE_API_URL: ${{ secrets.PARSE_API_URL_EXACT }}
+        run: |
+          printf %s "$PARSE_API_URL" | vercel env update NEXT_PUBLIC_PARSE_API_PATH production --yes --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Pull and verify Vercel Production Environment
+        env:
+          EXPECTED_PARSE_API_URL: ${{ secrets.PARSE_API_URL_EXACT }}
+        run: |
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          node <<'NODE'
+          const fs = require('fs');
+          const entry = fs
+            .readFileSync('.vercel/.env.production.local', 'utf8')
+            .split(/\r?\n/)
+            .find((line) => line.startsWith('NEXT_PUBLIC_PARSE_API_PATH='));
+          if (entry == null) throw new Error('NEXT_PUBLIC_PARSE_API_PATH is missing');
+          const raw = entry.slice('NEXT_PUBLIC_PARSE_API_PATH='.length);
+          const actual = raw.startsWith('"') && raw.endsWith('"') ? JSON.parse(raw) : raw;
+          if (actual !== process.env.EXPECTED_PARSE_API_URL) {
+            throw new Error('Vercel Production parse API URL did not update');
+          }
+          console.log('parse_api_url_verified=true');
+          NODE
+      - name: Build Production Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Production Artifacts
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
