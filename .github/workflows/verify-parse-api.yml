@@ -1,0 +1,37 @@
+name: Verify Parse API Configuration
+
+on:
+  push:
+    branches:
+      - ci
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Production Environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Compare parsing API URL without exposing values
+        env:
+          EXPECTED_PARSE_API_URL: ${{ secrets.PARSE_API_URL_EXACT }}
+          EXPECTED_PARSE_API_URL_TRAILING_SPACE: ${{ secrets.PARSE_API_URL_TRAILING_SPACE }}
+        run: |
+          set -euo pipefail
+          actual="$(sed -n 's/^NEXT_PUBLIC_PARSE_API_PATH=//p' .vercel/.env.production.local)"
+          exact_match=false
+          trailing_space_match=false
+          [[ "$actual" == "$EXPECTED_PARSE_API_URL" ]] && exact_match=true
+          [[ "$actual" == "$EXPECTED_PARSE_API_URL_TRAILING_SPACE" ]] && trailing_space_match=true
+          echo "parse_api_url_exact_match=$exact_match"
+          echo "parse_api_url_trailing_space_match=$trailing_space_match"
