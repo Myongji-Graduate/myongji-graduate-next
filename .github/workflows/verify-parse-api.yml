@@ -26,6 +26,7 @@ jobs:
         env:
           EXPECTED_PARSE_API_URL: ${{ secrets.PARSE_API_URL_EXACT }}
           EXPECTED_PARSE_API_URL_TRAILING_SPACE: ${{ secrets.PARSE_API_URL_TRAILING_SPACE }}
+          EXPECTED_PARSE_API_URL_API_GATEWAY: ${{ secrets.PARSE_API_URL_API_GATEWAY }}
         run: |
           node <<'NODE'
           const fs = require('fs');
@@ -43,5 +44,8 @@ jobs:
           console.log(`parse_api_url_exact_match=${actual === process.env.EXPECTED_PARSE_API_URL}`);
           console.log(
             `parse_api_url_trailing_space_match=${actual === process.env.EXPECTED_PARSE_API_URL_TRAILING_SPACE}`
+          );
+          console.log(
+            `parse_api_url_api_gateway_match=${actual === process.env.EXPECTED_PARSE_API_URL_API_GATEWAY}`
           );
           NODE
