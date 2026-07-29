@@ -27,11 +27,21 @@ jobs:
           EXPECTED_PARSE_API_URL: ${{ secrets.PARSE_API_URL_EXACT }}
           EXPECTED_PARSE_API_URL_TRAILING_SPACE: ${{ secrets.PARSE_API_URL_TRAILING_SPACE }}
         run: |
-          set -euo pipefail
-          actual="$(sed -n 's/^NEXT_PUBLIC_PARSE_API_PATH=//p' .vercel/.env.production.local)"
-          exact_match=false
-          trailing_space_match=false
-          [[ "$actual" == "$EXPECTED_PARSE_API_URL" ]] && exact_match=true
-          [[ "$actual" == "$EXPECTED_PARSE_API_URL_TRAILING_SPACE" ]] && trailing_space_match=true
-          echo "parse_api_url_exact_match=$exact_match"
-          echo "parse_api_url_trailing_space_match=$trailing_space_match"
+          node <<'NODE'
+          const fs = require('fs');
+          const entry = fs
+            .readFileSync('.vercel/.env.production.local', 'utf8')
+            .split(/\r?\n/)
+            .find((line) => line.startsWith('NEXT_PUBLIC_PARSE_API_PATH='));
+
+          if (entry == null) {
+            throw new Error('NEXT_PUBLIC_PARSE_API_PATH is not configured in Vercel Production');
+          }
+
+          const raw = entry.slice('NEXT_PUBLIC_PARSE_API_PATH='.length);
+          const actual = raw.startsWith('"') && raw.endsWith('"') ? JSON.parse(raw) : raw;
+          console.log(`parse_api_url_exact_match=${actual === process.env.EXPECTED_PARSE_API_URL}`);
+          console.log(
+            `parse_api_url_trailing_space_match=${actual === process.env.EXPECTED_PARSE_API_URL_TRAILING_SPACE}`
+          );
+          NODE
