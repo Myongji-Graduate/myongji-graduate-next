@@ -8,6 +8,8 @@ import {
   ValidateTokenResponse,
   UserDeleteRequestBody,
   ResetPasswordRequestBody,
+  UserInfoResponse,
+  InitUserInfoResponse,
 } from './user.type';
 import { fetchAxErrorHandler, httpErrorHandler } from '@/app/utils/http/http-error-handler';
 import { BadRequestError, UnauthorizedError } from '@/app/utils/http/http-error';
@@ -128,7 +130,23 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     }
   }
 
-  const user = await fetchUser();
+  let user: UserInfoResponse | InitUserInfoResponse;
+  try {
+    user = await fetchUser();
+  } catch (error) {
+    if (error instanceof UnauthorizedError) {
+      // 로그인 직후 토큰 검증이 순간적으로 실패하는 경우 - 다시 로그인하도록 안내
+      return {
+        isSuccess: false,
+        isFailure: true,
+        validationError: {},
+        message: '로그인에 실패했습니다. 다시 시도해주세요.',
+      };
+    } else {
+      throw error;
+    }
+  }
+
   if (isExpiredGradeUser(user)) {
     return {
       isSuccess: true,

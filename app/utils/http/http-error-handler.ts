@@ -22,8 +22,8 @@ export const httpErrorHandler = (response: Response, result: ErrorResponseData) 
 
     switch (status) {
       case HttpStatusCode.Unauthorized:
+        // error.tsx가 error.message === 'Unauthorized'로 판별하므로 번역된 메시지로 덮어쓰지 않는다.
         throw new UnauthorizedError({
-          message,
           response,
         });
 
@@ -69,8 +69,8 @@ export const fetchAxErrorHandler = (error: FetchAxError<ErrorData>) => {
 
   switch (status) {
     case HttpStatusCode.Unauthorized:
+      // error.tsx가 error.message === 'Unauthorized'로 판별하므로 번역된 메시지로 덮어쓰지 않는다.
       throw new UnauthorizedError({
-        message,
         response,
       });
 
