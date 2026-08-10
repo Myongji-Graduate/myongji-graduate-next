@@ -135,7 +135,8 @@ export async function authenticate(prevState: FormState, formData: FormData): Pr
     user = await fetchUser();
   } catch (error) {
     if (error instanceof UnauthorizedError) {
-      // 로그인 직후 토큰 검증이 순간적으로 실패하는 경우 - 다시 로그인하도록 안내
+      // 로그인 직후 토큰 검증이 순간적으로 실패하는 경우 - 오염된 토큰을 지우고 다시 로그인하도록 안내
+      deleteCookies();
       return {
         isSuccess: false,
         isFailure: true,
