@@ -14,7 +14,7 @@ export default async function NavigationBar() {
 
   return (
     <div className="absolute flex justify-between items-center p-2.5 border-b-[1px] w-full z-2">
-      <Link href={'/'}>
+      <Link prefetch={false} href={userInfo ? '/my' : '/'}>
         <Image className="md:h-10 h-7 w-[110px] md:w-[150px]" width={150} height={100} src={logo} alt="main-logo" />
       </Link>
       <Responsive maxWidth={1023}>

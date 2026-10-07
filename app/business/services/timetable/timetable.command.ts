@@ -24,7 +24,7 @@ export const uploadTimetable = async ({ year, semester, lecturesIds }: UploadTim
 export const fetchTimetable = async ({ year, semester }: TimetableQuery): Promise<TimetableLectureRow[]> => {
   const response = await instance.get<TimetableLectureRow[]>(
     `${API_PATH.timetable}/my?year=${year}&semester=${semester}`,
-    {},
+    { cache: 'no-store' },
   );
   return response.data;
 };

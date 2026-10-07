@@ -5,6 +5,8 @@ import { ReactQueryProvider } from './utils/global/react-query-provider';
 import ChannelTalk from './utils/global/channel-talk';
 import MSWComponent from './mocks/msw-component.mock';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { cookies } from 'next/headers';
+import { createHash } from 'node:crypto';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -34,6 +36,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const accessToken = cookies().get('accessToken')?.value;
+  // Send only an opaque cache identity to the browser, never the auth token.
+  const sessionKey = accessToken ? createHash('sha256').update(accessToken).digest('hex') : 'guest';
+
   return (
     <html lang="ko">
       <head>
@@ -46,7 +52,7 @@ export default function RootLayout({
       <body>
         <ChannelTalk />
         <div className="bg-white">
-          <ReactQueryProvider>
+          <ReactQueryProvider key={sessionKey} sessionKey={sessionKey}>
             <CypressProvider>
               <MSWComponent>{children}</MSWComponent>
             </CypressProvider>

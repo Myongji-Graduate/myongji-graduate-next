@@ -23,7 +23,7 @@ export default function TakenLectureLabel() {
   );
 
   const UploadButton = (
-    <Link tabIndex={isOpen ? -1 : 0} href="/grade-upload">
+    <Link prefetch={false} tabIndex={isOpen ? -1 : 0} href="/grade-upload">
       <Button tabIndex={isOpen ? -1 : 0} label="성적표 재업로드" variant="secondary" size="xs" />
     </Link>
   );
@@ -43,7 +43,7 @@ export default function TakenLectureLabel() {
           <Responsive maxWidth={399}>
             <div className="flex flex-col items-end gap-2">
               <Button {...AddButton.props} className="text-xs w-[90px]" />
-              <Link tabIndex={isOpen ? -1 : 0} href="/grade-upload" className="w-[120px]">
+              <Link prefetch={false} tabIndex={isOpen ? -1 : 0} href="/grade-upload" className="w-[120px]">
                 <Button
                   tabIndex={isOpen ? -1 : 0}
                   label="성적표 재업로드"

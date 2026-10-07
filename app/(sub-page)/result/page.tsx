@@ -7,6 +7,9 @@ import { ResultCategoryKey } from '@/app/utils/key/result-category.key';
 import type { Metadata } from 'next';
 import ResultCategoryDetailContainer from '@/app/(sub-page)/result/components/result-category-detail-container';
 import dynamic from 'next/dynamic';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { fetchCredits, fetchResultCategoryDetailInfo } from '@/app/business/services/user/user.query';
+import { QUERY_KEY } from '@/app/utils/query/react-query-key';
 
 const ResultCategory = dynamic(() => import('@/app/ui/result/result-category/result-category'), {
   ssr: false,
@@ -34,19 +37,34 @@ interface ResultPageProp {
   searchParams: { category: ResultCategoryKey };
 }
 
-function ResultPage({ searchParams }: ResultPageProp) {
+async function ResultPage({ searchParams }: ResultPageProp) {
   const { category } = searchParams;
+  const queryClient = new QueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery({ queryKey: [QUERY_KEY.CREDIT], queryFn: fetchCredits }),
+    ...(category
+      ? [
+          queryClient.prefetchQuery({
+            queryKey: [`${QUERY_KEY.CATEGORY}/${category}`],
+            queryFn: () => fetchResultCategoryDetailInfo(category),
+          }),
+        ]
+      : []),
+  ]);
 
   return (
-    <div className="flex justify-center items-end">
-      <ContentContainer className="max-md:max-w-[500px] md:w-[700px] p-4 py-6 md:p-8">
-        <Suspense fallback={<UserInfoCardSkeleton />}>
-          <UserInfoCard />
-        </Suspense>
-      </ContentContainer>
-      <ResultCategory />
-      <ResultCategoryDetailContainer category={category} />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="flex justify-center items-end">
+        <ContentContainer className="max-md:max-w-[500px] md:w-[700px] p-4 py-6 md:p-8">
+          <Suspense fallback={<UserInfoCardSkeleton />}>
+            <UserInfoCard />
+          </Suspense>
+        </ContentContainer>
+        <ResultCategory />
+        <ResultCategoryDetailContainer category={category} />
+      </div>
+    </HydrationBoundary>
   );
 }
 
