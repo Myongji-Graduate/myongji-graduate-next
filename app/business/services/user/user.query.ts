@@ -14,8 +14,14 @@ import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { instance } from '@/app/utils/api/instance';
 import { CreditResponse } from '@/app/store/querys/result';
 import { TAG } from '@/app/utils/http/tag';
+import { cookies } from 'next/headers';
+import { cache } from 'react';
 
 export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | undefined> {
+  if (!cookies().get('accessToken')?.value) {
+    return;
+  }
+
   try {
     const result = await fetchUser();
     return result;
@@ -28,8 +34,14 @@ export async function auth(): Promise<InitUserInfoResponse | UserInfoResponse | 
 }
 
 export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoResponse> {
+  return fetchUserForRender(cookies().get('accessToken')?.value);
+}
+
+// The token is the render cache key; the API interceptor reads the current cookie.
+async function fetchUserUncached(_accessToken: string | undefined): Promise<InitUserInfoResponse | UserInfoResponse> {
   try {
     const { data } = await instance.get(`${API_PATH.user}/me`, {
+      cache: 'no-store',
       next: {
         tags: [TAG.GET_USER_INFO],
       },
@@ -44,6 +56,9 @@ export async function fetchUser(): Promise<InitUserInfoResponse | UserInfoRespon
     throw error;
   }
 }
+
+// Middleware also imports this module, but only the RSC runtime exposes React cache.
+const fetchUserForRender = typeof cache === 'function' ? cache(fetchUserUncached) : fetchUserUncached;
 
 export async function fetchCredits(): Promise<CreditResponse[]> {
   try {
