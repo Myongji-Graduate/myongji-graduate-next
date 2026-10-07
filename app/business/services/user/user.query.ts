@@ -12,7 +12,7 @@ import {
 } from './user.validation';
 import { FormState } from '@/app/ui/view/molecule/form/form-root';
 import { instance } from '@/app/utils/api/instance';
-import { CreditResponse } from '@/app/store/querys/result';
+import type { CreditResponse, ResultCategoryDetailResponse } from '../graduation/graduation.type';
 import { TAG } from '@/app/utils/http/tag';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
@@ -61,13 +61,22 @@ async function fetchUserUncached(_accessToken: string | undefined): Promise<Init
 const fetchUserForRender = typeof cache === 'function' ? cache(fetchUserUncached) : fetchUserUncached;
 
 export async function fetchCredits(): Promise<CreditResponse[]> {
-  try {
-    const { data } = await instance.get<CreditResponse[]>(`${API_PATH.graduations}/credits`);
+  return fetchCreditsForRender(cookies().get('accessToken')?.value);
+}
 
-    return data;
-  } catch (error) {
-    throw error;
-  }
+async function fetchCreditsUncached(_accessToken: string | undefined): Promise<CreditResponse[]> {
+  const { data } = await instance.get<CreditResponse[]>(`${API_PATH.graduations}/credits`, { cache: 'no-store' });
+  return data;
+}
+
+const fetchCreditsForRender = typeof cache === 'function' ? cache(fetchCreditsUncached) : fetchCreditsUncached;
+
+export async function fetchResultCategoryDetailInfo(category: string): Promise<ResultCategoryDetailResponse> {
+  const params = new URLSearchParams({ graduationCategory: category });
+  const { data } = await instance.get<ResultCategoryDetailResponse>(`${API_PATH.graduations}/detail?${params}`, {
+    cache: 'no-store',
+  });
+  return data;
 }
 
 export async function findUserToStudentNumber(prevState: FormState, formData: FormData): Promise<FormState> {

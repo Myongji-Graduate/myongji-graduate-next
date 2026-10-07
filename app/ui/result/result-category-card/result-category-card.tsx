@@ -110,6 +110,7 @@ function ResultCategoryCard({ category, totalCredit, takenCredit }: ResultCatego
           </div>
         </div>
         <Link
+          prefetch={false}
           className={`${filterCategoryExistStandard(category) && 'hidden'}`}
           data-cy={`${category}-button`}
           href={{

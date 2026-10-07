@@ -9,6 +9,7 @@ import { deleteTimetable, uploadTimetable, fetchTimetable } from './timetable.co
 export const useFetchTimetable = () =>
   useQuery<TimetableLectureRow[]>({
     queryKey: [QUERY_KEY.TIMETABLE],
+    staleTime: 60_000,
     queryFn: async () => fetchTimetable({ year: CURRENT_YEAR, semester: CURRENT_SEMESTER }),
   });
 
