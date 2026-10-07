@@ -53,7 +53,7 @@ export function NavigationItem({ href, label, target }: NavigationItemProps) {
   return isLogout ? (
     <form action={signOut}>{button}</form>
   ) : (
-    <Link href={href} target={target} className="flex items-center justify-between">
+    <Link prefetch={false} href={href} target={target} className="flex items-center justify-between">
       {button}
       <ChevronRightIcon className="h-4 w-4 lg:hidden text-black" />
     </Link>
