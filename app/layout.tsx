@@ -7,6 +7,7 @@ import MSWComponent from './mocks/msw-component.mock';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { cookies } from 'next/headers';
 import { createHash } from 'node:crypto';
+import { Suspense } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -43,11 +44,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
-          as="style"
-          rel="stylesheet"
-        />
+        <Suspense>
+          <link
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+            as="style"
+            rel="stylesheet"
+          />
+        </Suspense>
       </head>
       <body>
         <ChannelTalk />
