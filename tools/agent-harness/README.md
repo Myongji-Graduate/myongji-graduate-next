@@ -100,3 +100,5 @@ UI 입력 source의 실행 전후 SHA-256도 별도로 대조했다.
 
 `.github/workflows/agent-harness.yml`은 dev/main 대상 관련 PR에서 unit·종료 회귀·type·lint·빌드·
 합성 UI 검증을 수행하고 증거를 보존한다. 원격 실행의 현재 결과는 해당 PR checks에서 확인한다.
+새 checkout의 `next-env.d.ts`는 Git에서 제외돼 있으므로 CI는 Next production build로
+타입 선언을 생성한 뒤 별도 type 검사를 실행한다. 이 생성 전에는 이미지 import가 TS2307로 실패할 수 있다.
