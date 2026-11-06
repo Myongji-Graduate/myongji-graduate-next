@@ -1,0 +1,58 @@
+name: Agent Harness UI
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'app/**'
+      - 'tools/agent-harness/**'
+      - 'cypress/**'
+      - 'cypress.harness.config.cjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'next.config.mjs'
+      - '.github/workflows/agent-harness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      API_MOCKING: disable
+      NEXT_PUBLIC_API_MOCKING: disable
+      NEXT_PUBLIC_API_PATH: http://127.0.0.1:9
+      NEXT_PUBLIC_PARSE_API_PATH: http://127.0.0.1:9/unused
+      NEXT_PUBLIC_GA_ID: ''
+      NEXT_PUBLIC_CHANNELTALK_PLUGIN: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx cypress install
+      - name: Test owned process cleanup
+        run: node --test tools/agent-harness/supervisor.test.mjs
+      - name: Test application units and browser mocking selection
+        run: npm test -- --runInBand --coverage=false
+      - run: npm run type
+      - name: Lint selected changes
+        run: npm run lint -- --file app/layout.tsx --file app/mocks/msw-component.mock.tsx --file app/mocks/msw-component.mock.test.tsx --file cypress/e2e/takenlecture-harness.cy.ts --file tools/agent-harness/run.mjs --file tools/agent-harness/owned-process.mjs --file tools/agent-harness/supervisor.test.mjs
+      - name: Build production application with synthetic settings
+        run: npm run build
+      - name: Verify taken-lecture UI against the synthetic API
+        run: node tools/agent-harness/run.mjs
+      - name: Preserve verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-harness-ui-evidence
+          path: build/agent-harness/
+          if-no-files-found: warn
+          retention-days: 7

@@ -5,7 +5,9 @@
 import { useEffect, type PropsWithChildren, useState } from 'react';
 
 export default function MSWComponent({ children }: PropsWithChildren) {
-  const [init, setInit] = useState(process.env.NODE_ENV !== 'development');
+  const [init, setInit] = useState(
+    process.env.NODE_ENV !== 'development' || process.env.NEXT_PUBLIC_API_MOCKING !== 'enable',
+  );
 
   useEffect(() => {
     async function enableMocking() {
